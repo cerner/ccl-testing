@@ -1,0 +1,13 @@
+/**
+ * This is a basic documentation of a subroutine.
+ * It contains parameters and a return statement.
+ *
+ * @param arg1
+ *      The first parameter.
+ * @param arg2 The second parameter.
+ * @param noDoc
+ * @returns It returns something.
+ */
+subroutine testSubroutine(arg1, arg2, noDoc)
+  return(0)
+end

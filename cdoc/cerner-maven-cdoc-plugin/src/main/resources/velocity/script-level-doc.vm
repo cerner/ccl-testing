@@ -1,0 +1,22 @@
+## This formats the script-level documentation
+<p>
+<span id="scriptDescription">$object.scriptDocumentation.description</span>
+#if( $object.scriptDocumentation.boundTransaction )
+<p id="boundTransaction">
+Transaction: $object.scriptDocumentation.boundTransaction
+</p>
+#end
+#if( !$object.scriptDocumentation.scriptArguments.isEmpty() )
+<p>
+Command-Line Arguments:
+<br />
+<ol>
+#set( $argCount = 1 )
+#foreach( $scriptArgument in $object.scriptDocumentation.scriptArguments)
+<li id="scriptArgument-$argCount">$scriptArgument.description</li>
+#set( $argCount = $argCount + 1 )
+#end
+</ol>
+</p>
+#end
+</p>

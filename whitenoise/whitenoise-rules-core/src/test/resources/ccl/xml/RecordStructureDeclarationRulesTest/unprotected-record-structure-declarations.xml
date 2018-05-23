@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<!--
+set compile=debug go
+drop program sample_program go
+create program sample_program
+ 
+record rec1
+(
+  1 value = i4
+)
+ 
+record rec2
+(
+  1 value = i4
+) with noconstant
+ 
+record rec3
+(
+  1 value = i4
+) with private
+ 
+record rec4
+(
+  1 value = i4
+) with protect
+ 
+record rec5
+(
+  1 value = i4
+) with public
+ 
+record rec6
+(
+  1 value = i4
+) with persist
+ 
+record rec7
+(
+  1 value = i4
+) with persistscript
+
+subroutine (ns::doIt(null) = null with protect)
+  call echo("doIt")
+end
+ 
+end go
+translate sample_program with xml go
+-->
+ <ZC_PROGRAM. class="223" lev="0" kid="10" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <RECORD. class="174" lev="1" kid="2" loc="3.7">
+   <COMMA. class="127" lev="2" kid="1" loc="3.7">
+    <NAME class="5" text="REC1" lev="3" loc="3.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="5.2">
+    <FIELD. class="133" lev="3" kid="3" loc="5.2">
+     <INT class="4" text="1" lev="4" loc="5.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="5.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="5.12">
+      <NAME class="5" text="I4" lev="5" loc="5.12"/>
+      <COMMA. class="127" lev="5" loc="6.0"/>
+      <COMMA. class="127" lev="5" loc="6.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="8.7">
+   <COMMA. class="127" lev="2" kid="1" loc="8.7">
+    <NAME class="5" text="REC2" lev="3" loc="8.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="10.2">
+    <FIELD. class="133" lev="3" kid="3" loc="10.2">
+     <INT class="4" text="1" lev="4" loc="10.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="10.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="10.12">
+      <NAME class="5" text="I4" lev="5" loc="10.12"/>
+      <COMMA. class="127" lev="5" loc="11.0"/>
+      <COMMA. class="127" lev="5" loc="11.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="11.7">
+    <OPTION. class="162" lev="3" kid="1" loc="11.7">
+     <NAME class="5" text="NOCONSTANT" lev="4" loc="11.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="13.7">
+   <COMMA. class="127" lev="2" kid="1" loc="13.7">
+    <NAME class="5" text="REC3" lev="3" loc="13.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="15.2">
+    <FIELD. class="133" lev="3" kid="3" loc="15.2">
+     <INT class="4" text="1" lev="4" loc="15.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="15.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="15.12">
+      <NAME class="5" text="I4" lev="5" loc="15.12"/>
+      <COMMA. class="127" lev="5" loc="16.0"/>
+      <COMMA. class="127" lev="5" loc="16.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="16.7">
+    <OPTION. class="162" lev="3" kid="1" loc="16.7">
+     <NAME class="5" text="PRIVATE" lev="4" loc="16.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="18.7">
+   <COMMA. class="127" lev="2" kid="1" loc="18.7">
+    <NAME class="5" text="REC4" lev="3" loc="18.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="20.2">
+    <FIELD. class="133" lev="3" kid="3" loc="20.2">
+     <INT class="4" text="1" lev="4" loc="20.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="20.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="20.12">
+      <NAME class="5" text="I4" lev="5" loc="20.12"/>
+      <COMMA. class="127" lev="5" loc="21.0"/>
+      <COMMA. class="127" lev="5" loc="21.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="21.7">
+    <OPTION. class="162" lev="3" kid="1" loc="21.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="21.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="23.7">
+   <COMMA. class="127" lev="2" kid="1" loc="23.7">
+    <NAME class="5" text="REC5" lev="3" loc="23.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="25.2">
+    <FIELD. class="133" lev="3" kid="3" loc="25.2">
+     <INT class="4" text="1" lev="4" loc="25.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="25.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="25.12">
+      <NAME class="5" text="I4" lev="5" loc="25.12"/>
+      <COMMA. class="127" lev="5" loc="26.0"/>
+      <COMMA. class="127" lev="5" loc="26.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="26.7">
+    <OPTION. class="162" lev="3" kid="1" loc="26.7">
+     <NAME class="5" text="PUBLIC" lev="4" loc="26.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="28.7">
+   <COMMA. class="127" lev="2" kid="1" loc="28.7">
+    <NAME class="5" text="REC6" lev="3" loc="28.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="30.2">
+    <FIELD. class="133" lev="3" kid="3" loc="30.2">
+     <INT class="4" text="1" lev="4" loc="30.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="30.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="30.12">
+      <NAME class="5" text="I4" lev="5" loc="30.12"/>
+      <COMMA. class="127" lev="5" loc="31.0"/>
+      <COMMA. class="127" lev="5" loc="31.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="31.7">
+    <OPTION. class="162" lev="3" kid="1" loc="31.7">
+     <NAME class="5" text="PERSIST" lev="4" loc="31.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="33.7">
+   <COMMA. class="127" lev="2" kid="1" loc="33.7">
+    <NAME class="5" text="REC7" lev="3" loc="33.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="35.2">
+    <FIELD. class="133" lev="3" kid="3" loc="35.2">
+     <INT class="4" text="1" lev="4" loc="35.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="35.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="35.12">
+      <NAME class="5" text="I4" lev="5" loc="35.12"/>
+      <COMMA. class="127" lev="5" loc="36.0"/>
+      <COMMA. class="127" lev="5" loc="36.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="36.7">
+    <OPTION. class="162" lev="3" kid="1" loc="36.7">
+     <NAME class="5" text="PERSISTSCRIPT" lev="4" loc="36.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="38.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="38.12">
+    <NAME class="5" text="NS" lev="3" loc="38.12"/>
+    <NAME class="5" text="DOIT" lev="3" loc="38.16"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="1" loc="38.21">
+    <NAME class="5" text="NULL" lev="3" loc="38.21"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="39.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="39.7">
+     <CALL. class="125" lev="4" kid="2" loc="39.7">
+      <NAME class="5" text="ECHO" lev="5" loc="39.7"/>
+      <STRING class="7" text="doIt" lev="5" loc="39.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="38.29"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="38.39">
+    <OPTION. class="162" lev="3" kid="1" loc="38.39">
+     <NAME class="5" text="PROTECT" lev="4" loc="38.39"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <LABEL. class="182" lev="1" kid="1" loc="42.0">
+   <NAME class="5" text="END" lev="2" loc="42.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

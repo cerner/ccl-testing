@@ -1,0 +1,27 @@
+<div id="scriptExecutionDetails">
+<div class="executedScriptDetailsHeader">Scripts Executed</div>
+<div class="executedScriptDetailsBody">
+
+#if( !$executionDetails.executedScripts.isEmpty() )
+<div id="executedScripts">
+<ul>
+#foreach( $scriptName in $executionDetails.executedScripts )
+<li><span style="font-family: Courier New">$scriptName</span></li>
+#end
+</ul>
+</div>
+#end
+
+#if( !$executionDetails.warnings.isEmpty() )
+<div id="scriptExecutionWarnings">
+The following dynamic statements may result in other scripts being executed from this program:
+<ul>
+#foreach( $warning in $executionDetails.warnings )
+<li> {$warning.lineNumber} <span style="font-family: Courier New">$warning.sourceCode</span></li>
+#end
+</ul>
+</div>
+#end
+
+</div>
+</div>

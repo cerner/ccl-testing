@@ -1,0 +1,26 @@
+## A little indentation...
+#set( $maxPadLeft = $member.level * 2 )
+<div style="padding-left: $maxPadLeft%" class="recordStructureMember">
+$member.level 
+#if( $member.description != "" )
+<a href="javascript:toggleVisibility('$detailsDivName');">$member.name</a>
+#else
+$member.name
+#end
+## Fixed-length list has a list size
+#if( $member.listSize )
+[$member.listSize]
+#else
+#if( $member.class.simpleName != "RecordRecord" )
+[*]
+#end
+#end
+#if( $member.description != "")
+<div id="$detailsDivName" style="display: none">
+<br />
+<div class="recordStructureMemberDetail">
+$member.description
+</div>
+</div>
+#end
+</div>

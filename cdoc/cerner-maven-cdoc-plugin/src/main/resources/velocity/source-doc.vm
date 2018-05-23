@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>CDoc - $objectName</title>
+<link rel="stylesheet" href="$cssDirectory/script-doc.css" type="text/css" />
+<link rel="stylesheet" href="$cssDirectory/cdoc.css" type="text/css" />
+<script type="text/javascript">
+function toggleVisibility(id) {
+    var element = document.getElementById(id);
+        if(element.style.display == 'inline') {
+            element.style.display = 'none';
+        } else {
+            element.style.display = 'inline';
+        }
+    }
+</script>
+</head>
+<body>
+<div class="breadcrumbTrail">
+&lt;&lt; <a id="backNavigationAnchor" href="$backNavigation.destination">$backNavigation.anchorText</a>
+</div>
+<div id="content">
+<p>
+<div id="contentTitle">
+<h1>CCL Documentation</h1>
+<h2 id="objectFilename">$objectFilename</h2>
+</div>
+
+#if( $object.scriptDocumentation )
+#parse("/velocity/script-level-doc.vm")
+#else
+#parse("/velocity/include-level-doc.vm")
+#end
+
+#if( !$executionDetails.executedScripts.isEmpty() || !$executionDetails.warnings.isEmpty() )
+#parse("/velocity/script-execution-details.vm")
+#end
+
+#parse("/velocity/record-structure-doc.vm")
+
+<p />
+
+#parse("/velocity/subroutine-doc.vm")
+</p>
+</div>
+</body>
+</html>

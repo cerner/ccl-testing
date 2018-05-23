@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+
+if (not validate(with_declare))
+  declare with_declare(void) = null
+  subroutine with_declare(void)
+    call echo("with declaration!")
+  end
+endif
+
+call with_declare(0)
+
+end
+go
+ -->
+ <ZC_PROGRAM. class="222" lev="0" kid="4" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <IF. class="146" lev="1" kid="2" loc="3.8">
+   <NOT. class="160" lev="2" kid="1" loc="3.8">
+    <CALL. class="125" lev="3" kid="2" loc="3.8">
+     <NAME class="5" text="VALIDATE" lev="4" loc="3.8"/>
+     <NAME class="5" text="WITH_DECLARE" lev="4" loc="3.17"/>
+    </CALL.>
+   </NOT.>
+   <COMMA. class="127" lev="2" kid="2" loc="4.10">
+    <Z_DECLARE. class="215" lev="3" kid="2" loc="4.10">
+     <CALL. class="125" lev="4" kid="2" loc="4.10">
+      <NAME class="5" text="WITH_DECLARE" lev="5" loc="4.10"/>
+      <NAME class="5" text="VOID" lev="5" loc="4.23"/>
+     </CALL.>
+     <NAME class="5" text="NULL" lev="4" loc="4.31"/>
+    </Z_DECLARE.>
+    <SUBROUTINE. class="189" lev="3" kid="3" loc="5.13">
+     <NAME class="5" text="WITH_DECLARE" lev="4" loc="5.13"/>
+     <COMMA. class="127" lev="4" kid="1" loc="5.26">
+      <NAME class="5" text="VOID" lev="5" loc="5.26"/>
+     </COMMA.>
+     <COMMA. class="127" lev="4" kid="1" loc="6.9">
+      <Z_CALL. class="196" lev="5" kid="1" loc="6.9">
+       <CALL. class="125" lev="6" kid="2" loc="6.9">
+        <NAME class="5" text="ECHO" lev="7" loc="6.9"/>
+        <STRING class="7" text="with declaration!" lev="7" loc="6.14"/>
+       </CALL.>
+      </Z_CALL.>
+     </COMMA.>
+    </SUBROUTINE.>
+   </COMMA.>
+  </IF.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="10.5">
+   <CALL. class="125" lev="2" kid="2" loc="10.5">
+    <NAME class="5" text="WITH_DECLARE" lev="3" loc="10.5"/>
+    <INT class="4" text="0" lev="3" loc="10.18"/>
+   </CALL.>
+  </Z_CALL.>
+  <LABEL. class="182" lev="1" kid="1" loc="12.0">
+   <NAME class="5" text="END" lev="2" loc="12.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

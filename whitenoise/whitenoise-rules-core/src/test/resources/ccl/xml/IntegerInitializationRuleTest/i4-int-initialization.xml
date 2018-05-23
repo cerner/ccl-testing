@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+set compile=debug go
+drop program sample_program go
+create program sample_program
+
+declare some_var = i2 with protect, noconstant(0)
+declare ns::some_other_var = i4 with protect, noconstant(0)
+
+end go
+translate sample_program with xml go
+ -->
+ <ZC_PROGRAM. class="223" lev="0" kid="4" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="3.8">
+   <NAME class="5" text="SOME_VAR" lev="2" loc="3.8"/>
+   <NAME class="5" text="I2" lev="2" loc="3.19"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="3.27">
+    <OPTION. class="162" lev="3" kid="1" loc="3.27">
+     <NAME class="5" text="PROTECT" lev="4" loc="3.27"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="3.36">
+     <CALL. class="125" lev="4" kid="2" loc="3.36">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="3.36"/>
+      <INT class="4" text="0" lev="5" loc="3.47"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="4.8">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="4.8">
+    <NAME class="5" text="NS" lev="3" loc="4.8"/>
+    <NAME class="5" text="SOME_OTHER_VAR" lev="3" loc="4.12"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="4.29"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="4.37">
+    <OPTION. class="162" lev="3" kid="1" loc="4.37">
+     <NAME class="5" text="PROTECT" lev="4" loc="4.37"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="4.46">
+     <CALL. class="125" lev="4" kid="2" loc="4.46">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="4.46"/>
+      <INT class="4" text="0" lev="5" loc="4.57"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <LABEL. class="182" lev="1" kid="1" loc="6.0">
+   <NAME class="5" text="END" lev="2" loc="6.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

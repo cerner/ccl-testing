@@ -1,0 +1,181 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>cerner-maven-ccl-plugin Changes Report</title>
+    </properties>
+    <body>
+        <release version="3.0" date="TBD">
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Upgrade j4ccl-ssh to version 4.0 providing Linux support, skipping CCL login when compiling scripts and optionally skipping envset.
+            </action>
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Remove pom data duplicated in the parent pom.
+            </action>
+            <action dev="fred eckertson" issue="CCLTEST-186" type="add" system="JIRA">
+                Improve testCase matching to use true regular expressions and to support matching the test case file name in addition to the test name.
+            </action>
+        </release>
+        <release version="2.0" date="2011-11-14">
+            <action dev="joshua hyde" issue="CCLTEST-116" type="add" system="JIRA">
+                make the mojo parameter expressions follow the ccl-* pattern.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-148" type="fix" system="JIRA">
+                Remove support for skipping compilation in TestMojo.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-172" type="add" system="JIRA">
+                Allow for the enabling and disabling of "set modify predeclare" in the CCL Testing Framework.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-175" type="add" system="JIRA">
+                Uplift maven-ccl-plugin to use new j4ccl and j4ccl-ssh.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-184" type="add" system="JIRA">
+                Enhance test name specification to specify the test subroutine to be executed.
+            </action>
+        </release>
+        <release version="1.3" date="2011-08-10">
+            <action dev="joshua hyde" issue="CCLTEST-70" type="add" system="JIRA">
+                Add Ability To Specify RBO or CBO Optimization.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-113" type="add" system="JIRA">
+                Ability to run a single unit test from maven.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-159" type="add" system="JIRA">
+                Enforce Maven 2 usage.
+            </action>
+        </release>
+        <release version="1.2" date="2011-07-12">
+            <action dev="joshua hyde" issue="CCLTEST-138" type="fix" system="JIRA">
+                The type OutputFormat is not accessible due to restriction on required library...
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-141" type="add" system="JIRA">
+                Document when parameters were added to goals.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-149" type="fix" system="JIRA">
+                ValidateMojo does not honor skipProcessing parameter.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-150" type="add" system="JIRA">
+                Deprecate support for skipping compilation in TestMojo.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-154" type="add" system="JIRA">
+                Modify maven-ccl-plugin integration tests to write build logs to /target instead of a temporary file.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-155" type="fix" system="JIRA">
+                maven-ccl-plugin uses incorrect character encoding.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-160" type="fix" system="JIRA">
+                maven-ccl-plugin attempts to compile include files that are not standalone, syntactically-whole source files.
+            </action>
+        </release>
+        <release version="1.1" date="2011-03-09">
+            <action dev="joshua hyde" issue="CCLTEST-14" type="add" system="JIRA">
+                Hows about requiring an explicit version of the CCLUnit Frwk in the pom.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-26" type="add" system="JIRA">
+                maven-ccl-plugin needs integration tests.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-39" type="add" system="JIRA">
+                Modify maven-ccl-plugin to use &lt;server /&gt; tags to provide username and password.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-40" type="update" system="JIRA">
+                Refactor Java projects to deploy using automated tools.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-50" type="add" system="JIRA">
+                Modify maven-ccl-plugin to report what XML files it parses.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-100" type="fix" system="JIRA">
+                mvn-ccl-plugin not honoring skipCompile when setting cclut framework request.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-124" type="fix" system="JIRA">
+                Incorrect documentation of enabling file log output.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-125" type="add" system="JIRA">
+                Deploy site JAR alongside primary JAR.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-129" type="add" system="JIRA">
+                Add Java and Maven version enforcements to CCL Testing projects.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-130" type="fix" system="JIRA">
+                Resolve issues in FindBugs report for maven-ccl-plugin.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-133" type="add" system="JIRA">
+                Deploy "source" and "javadoc" jars alongside primary jar.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-134" type="add" system="JIRA">
+                Enable full debug output for maven-ccl-plugin.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-137" type="add" system="JIRA">
+                maven-ccl-plugin to report a more meaningful error when the CCLUT framework replys with a 'F' failure status.
+            </action>
+        </release>
+        <release version="1.0.3" date="2010-10-22">
+            <action dev="joshua hyde" issue="CCLTEST-105" type="update" system="JIRA">
+                Retrofit projects to use the maven-changes-plugin to track changes.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-106" type="fix" system="JIRA">
+                Compile Timeout Flag does not work.
+            </action>
+        </release>
+        <release version="1.0.2" date="2010-08-26">
+            <action dev="joshua hyde" issue="CCLTEST-82" type="fix" system="JIRA">
+                Problems generating the Test Results XML file.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-83" type="add" system="JIRA">
+                Remove warnings about JETM and SLF4J from plugin execution.
+            </action>
+        </release>
+        <release version="1.0.1" date="2010-08-17">
+            <action dev="joshua hyde" issue="CCLTEST-61" type="add" system="JIRA">
+                Performance issue with Maven CCL Plugin.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-69" type="add" system="JIRA">
+                Request to improve the logging for test execution.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-72" type="add" system="JIRA">
+                mvn compile hangs.
+            </action>
+        </release>
+        <release version="1.0" date="2010-07-16" description="Initial GA release">
+            <action dev="joshua hyde" issue="CCLTEST-23" type="add" system="JIRA">
+                Ability to move resource files like XSLT and XML to cer_install.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-36" type="update" system="JIRA">
+                Refactor maven-ccl-plugin POM so that it references the uDevelop SCM repo.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-48" type="update" system="JIRA">
+                Release v1.0 of maven-ccl-plugin.
+            </action>
+        </release>
+        <release version="1.0-alpha-3" date="2010-06-04">
+            <action dev="joshua hyde" issue="CCLTEST-16" type="add" system="JIRA">
+                Display CCL logging when executing Test mojo.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-17" type="add" system="JIRA">
+                Add option skip compilation of CCL scripts.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-18" type="add" system="JIRA">
+                Test mojo needs to reference new record structure names.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-19" type="add" system="JIRA">
+                maven-ccl-plugin needs to upgrade j4ccl-ssh.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-25" type="update" system="JIRA">
+                maven-ccl-plugin needs to upgrade to j4ccl-ssh-1.0-alpha-3.
+            </action>
+        </release>
+        <release version="1.0-alpha-2" date="2010-05-20">
+            <action dev="joshua hyde" issue="CCLTEST-7" type="fix" system="JIRA">
+                CCL Programs with uppercase .PRG are not included for compilation.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-9" type="add" system="JIRA">
+                maven-ccl-plugin needs JUnit tests for its Mojo classes.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-10" type="fix" system="JIRA">
+                maven-ccl-plugin does not include *.sub files.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-15" type="fix" system="JIRA">
+                Update the record structures referenced when calling cclut_execute_test_case.
+            </action>
+        </release>
+        <release version="1.0-alpha-1" date="2010-04-30" description="Initial alpha release">
+        </release>
+    </body>
+</document>

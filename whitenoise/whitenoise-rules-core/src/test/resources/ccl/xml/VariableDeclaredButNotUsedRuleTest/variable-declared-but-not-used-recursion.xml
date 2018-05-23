@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<!--
+set compile = debug go
+drop program sample_program go
+create program sample_program
+
+declare level_one(null) = null
+declare level_two(null) = null
+declare level_three(null) = null
+
+subroutine level_one(null)
+  declare unused_one = i4 with protect
+  declare used_one = i4 with protect
+  call level_two(null)
+end
+
+subroutine level_two(null)
+  call level_three(null)
+end
+
+subroutine level_three(null)
+  set used_one = 1
+  if (used_one != 1)
+    call level_one(null)
+  endif
+end
+
+subroutine (level_one_a(null) = null with protect)
+  declare unused_one = i4 with protect
+  declare used_one = i4 with protect
+  call level_two_a(null)
+end
+
+subroutine (level_two_a(null) = null with protect)
+  call level_three_a(null)
+end
+
+subroutine (level_three_a(null) = null with protect)
+  set used_one = 1
+  if (used_one != 1)
+    call level_one_a(null)
+  endif
+end
+
+end go
+translate sample_program with xml go
+-->
+ <ZC_PROGRAM. class="223" lev="0" kid="11" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_DECLARE. class="216" lev="1" kid="2" loc="3.8">
+   <CALL. class="125" lev="2" kid="2" loc="3.8">
+    <NAME class="5" text="LEVEL_ONE" lev="3" loc="3.8"/>
+    <NAME class="5" text="NULL" lev="3" loc="3.18"/>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="3.26"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="2" loc="4.8">
+   <CALL. class="125" lev="2" kid="2" loc="4.8">
+    <NAME class="5" text="LEVEL_TWO" lev="3" loc="4.8"/>
+    <NAME class="5" text="NULL" lev="3" loc="4.18"/>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="4.26"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="2" loc="5.8">
+   <CALL. class="125" lev="2" kid="2" loc="5.8">
+    <NAME class="5" text="LEVEL_THREE" lev="3" loc="5.8"/>
+    <NAME class="5" text="NULL" lev="3" loc="5.20"/>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="5.28"/>
+  </Z_DECLARE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="7.11">
+   <NAME class="5" text="LEVEL_ONE" lev="2" loc="7.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="7.21">
+    <NAME class="5" text="NULL" lev="3" loc="7.21"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="3" loc="8.10">
+    <Z_DECLARE. class="216" lev="3" kid="3" loc="8.10">
+     <NAME class="5" text="UNUSED_ONE" lev="4" loc="8.10"/>
+     <NAME class="5" text="I4" lev="4" loc="8.23"/>
+     <OPTIONS. class="163" lev="4" kid="1" loc="8.31">
+      <OPTION. class="162" lev="5" kid="1" loc="8.31">
+       <NAME class="5" text="PROTECT" lev="6" loc="8.31"/>
+      </OPTION.>
+     </OPTIONS.>
+    </Z_DECLARE.>
+    <Z_DECLARE. class="216" lev="3" kid="3" loc="9.10">
+     <NAME class="5" text="USED_ONE" lev="4" loc="9.10"/>
+     <NAME class="5" text="I4" lev="4" loc="9.21"/>
+     <OPTIONS. class="163" lev="4" kid="1" loc="9.29">
+      <OPTION. class="162" lev="5" kid="1" loc="9.29">
+       <NAME class="5" text="PROTECT" lev="6" loc="9.29"/>
+      </OPTION.>
+     </OPTIONS.>
+    </Z_DECLARE.>
+    <Z_CALL. class="197" lev="3" kid="1" loc="10.7">
+     <CALL. class="125" lev="4" kid="2" loc="10.7">
+      <NAME class="5" text="LEVEL_TWO" lev="5" loc="10.7"/>
+      <NAME class="5" text="NULL" lev="5" loc="10.17"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="13.11">
+   <NAME class="5" text="LEVEL_TWO" lev="2" loc="13.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="13.21">
+    <NAME class="5" text="NULL" lev="3" loc="13.21"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="14.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="14.7">
+     <CALL. class="125" lev="4" kid="2" loc="14.7">
+      <NAME class="5" text="LEVEL_THREE" lev="5" loc="14.7"/>
+      <NAME class="5" text="NULL" lev="5" loc="14.19"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="17.11">
+   <NAME class="5" text="LEVEL_THREE" lev="2" loc="17.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="17.23">
+    <NAME class="5" text="NULL" lev="3" loc="17.23"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="2" loc="18.6">
+    <Z_SET. class="211" lev="3" kid="2" loc="18.6">
+     <NAME class="5" text="USED_ONE" lev="4" loc="18.6"/>
+     <INT class="4" text="1" lev="4" loc="18.17"/>
+    </Z_SET.>
+    <IF. class="146" lev="3" kid="2" loc="19.6">
+     <NEQ. class="159" lev="4" kid="2" loc="19.6">
+      <NAME class="5" text="USED_ONE" lev="5" loc="19.6"/>
+      <INT class="4" text="1" lev="5" loc="19.18"/>
+     </NEQ.>
+     <COMMA. class="127" lev="4" kid="1" loc="20.9">
+      <Z_CALL. class="197" lev="5" kid="1" loc="20.9">
+       <CALL. class="125" lev="6" kid="2" loc="20.9">
+        <NAME class="5" text="LEVEL_ONE" lev="7" loc="20.9"/>
+        <NAME class="5" text="NULL" lev="7" loc="20.19"/>
+       </CALL.>
+      </Z_CALL.>
+     </COMMA.>
+    </IF.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="24.12">
+   <NAME class="5" text="LEVEL_ONE_A" lev="2" loc="24.12"/>
+   <COMMA. class="127" lev="2" kid="1" loc="24.24">
+    <NAME class="5" text="NULL" lev="3" loc="24.24"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="3" loc="25.10">
+    <Z_DECLARE. class="216" lev="3" kid="3" loc="25.10">
+     <NAME class="5" text="UNUSED_ONE" lev="4" loc="25.10"/>
+     <NAME class="5" text="I4" lev="4" loc="25.23"/>
+     <OPTIONS. class="163" lev="4" kid="1" loc="25.31">
+      <OPTION. class="162" lev="5" kid="1" loc="25.31">
+       <NAME class="5" text="PROTECT" lev="6" loc="25.31"/>
+      </OPTION.>
+     </OPTIONS.>
+    </Z_DECLARE.>
+    <Z_DECLARE. class="216" lev="3" kid="3" loc="26.10">
+     <NAME class="5" text="USED_ONE" lev="4" loc="26.10"/>
+     <NAME class="5" text="I4" lev="4" loc="26.21"/>
+     <OPTIONS. class="163" lev="4" kid="1" loc="26.29">
+      <OPTION. class="162" lev="5" kid="1" loc="26.29">
+       <NAME class="5" text="PROTECT" lev="6" loc="26.29"/>
+      </OPTION.>
+     </OPTIONS.>
+    </Z_DECLARE.>
+    <Z_CALL. class="197" lev="3" kid="1" loc="27.7">
+     <CALL. class="125" lev="4" kid="2" loc="27.7">
+      <NAME class="5" text="LEVEL_TWO_A" lev="5" loc="27.7"/>
+      <NAME class="5" text="NULL" lev="5" loc="27.19"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="24.32"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="24.42">
+    <OPTION. class="162" lev="3" kid="1" loc="24.42">
+     <NAME class="5" text="PROTECT" lev="4" loc="24.42"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="30.12">
+   <NAME class="5" text="LEVEL_TWO_A" lev="2" loc="30.12"/>
+   <COMMA. class="127" lev="2" kid="1" loc="30.24">
+    <NAME class="5" text="NULL" lev="3" loc="30.24"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="31.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="31.7">
+     <CALL. class="125" lev="4" kid="2" loc="31.7">
+      <NAME class="5" text="LEVEL_THREE_A" lev="5" loc="31.7"/>
+      <NAME class="5" text="NULL" lev="5" loc="31.21"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="30.32"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="30.42">
+    <OPTION. class="162" lev="3" kid="1" loc="30.42">
+     <NAME class="5" text="PROTECT" lev="4" loc="30.42"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="34.12">
+   <NAME class="5" text="LEVEL_THREE_A" lev="2" loc="34.12"/>
+   <COMMA. class="127" lev="2" kid="1" loc="34.26">
+    <NAME class="5" text="NULL" lev="3" loc="34.26"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="2" loc="35.6">
+    <Z_SET. class="211" lev="3" kid="2" loc="35.6">
+     <NAME class="5" text="USED_ONE" lev="4" loc="35.6"/>
+     <INT class="4" text="1" lev="4" loc="35.17"/>
+    </Z_SET.>
+    <IF. class="146" lev="3" kid="2" loc="36.6">
+     <NEQ. class="159" lev="4" kid="2" loc="36.6">
+      <NAME class="5" text="USED_ONE" lev="5" loc="36.6"/>
+      <INT class="4" text="1" lev="5" loc="36.18"/>
+     </NEQ.>
+     <COMMA. class="127" lev="4" kid="1" loc="37.9">
+      <Z_CALL. class="197" lev="5" kid="1" loc="37.9">
+       <CALL. class="125" lev="6" kid="2" loc="37.9">
+        <NAME class="5" text="LEVEL_ONE_A" lev="7" loc="37.9"/>
+        <NAME class="5" text="NULL" lev="7" loc="37.21"/>
+       </CALL.>
+      </Z_CALL.>
+     </COMMA.>
+    </IF.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="34.34"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="34.44">
+    <OPTION. class="162" lev="3" kid="1" loc="34.44">
+     <NAME class="5" text="PROTECT" lev="4" loc="34.44"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <LABEL. class="182" lev="1" kid="1" loc="41.0">
+   <NAME class="5" text="END" lev="2" loc="41.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>
+ 

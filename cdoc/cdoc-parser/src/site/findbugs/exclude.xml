@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <Match>
+        <!-- This is a false positive -->
+        <Class name="com.cerner.ccl.parser.text.documentation.parser.ScriptDocumentationParser" />
+        <Method name="parse" />
+        <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE" />
+    </Match>
+    <Match>
+        <!-- As above, this is a false positive -->
+        <Class name="com.cerner.ccl.parser.text.documentation.parser.ScriptDocumentationParser" />
+        <Method name="parse" />
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE" />
+    </Match>
+    <Match>
+        <!--  It *is* checked for safe casting, but the FindBugs plugin can't follow the logic -->
+        <Class name="com.cerner.ccl.parser.text.subroutine.SubroutineAggregator" />
+        <Method name="newArgument" />
+        <Bug pattern="BC_UNCONFIRMED_CAST" />
+    </Match>
+</FindBugsFilter>

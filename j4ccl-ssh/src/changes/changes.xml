@@ -1,0 +1,157 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>SSH 4 J4CCL Changes Report</title>
+    </properties>
+    <body>
+        <release version="4.0" date="TBD">
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Support Linux devices.
+            </action>
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Stop requiring an authenticated CCL session for compiling scripts.
+            </action>
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Support not performing an envset.
+            </action>
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Remove pom data duplicated in the parent pom.
+            </action>
+        </release>
+        <release version="3.0" date="2011-11-14">
+            <action dev="joshua hyde" issue="CCLTEST-37" type="add" system="JIRA">
+                Refactor j4ccl to use JAAS objects.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-176" type="add" system="JIRA">
+                Refactor CclResourceUploaderImpl to not require Subject until upload() is called.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-177" type="add" system="JIRA">
+                Remove custom JETM code.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-182" type="add" system="JIRA">
+                Add ability to compile in debug mode.
+            </action>
+        </release>
+        <release version="2.2.1" date="2011-08-10">
+            <action dev="joshua hyde" issue="CCLTEST-159" type="add" system="JIRA">
+                Enforce Maven 2 usage.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-167" type="add" system="JIRA">
+                Don't initialize record structure members to default values.
+            </action>
+        </release>
+        <release version="2.2" date="2011-07-11">
+            <action dev="joshua hyde" issue="CCLTEST-144" type="add" system="JIRA">
+                Support script parameters in j4ccl.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-145" type="add" system="JIRA">
+                j4ccl-ssh should use cclseclogin2 to validate user credentials.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-147" type="add" system="JIRA">
+                Report possible cause of failure to find a logical.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-153" type="add" system="JIRA">
+                Add snapshot repo deployment information to CCLTEST projects.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-163" type="fix" system="JIRA">
+                j4ccl-ssh uses platform encoding when reading files.
+            </action>
+        </release>
+        <release version="2.1" date="2011-03-04">
+            <action dev="joshua hyde" issue="CCLTEST-40" type="update" system="JIRA">
+                Refactor Java projects to deploy using automated tools.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-62" type="fix" system="JIRA">
+                j4ccl-ssh puts compilation listings in ccluserdir.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-78" type="add" system="JIRA">
+                Enhance j4ccl-ssh to use "env" to dump domain logicals.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-101" type="fix" system="JIRA">
+                j4ccl's RecordSetter breaks on large values.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-111" type="add" system="JIRA">
+                Separate integration tests into /src/it.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-125" type="add" system="JIRA">
+                Deploy site JAR alongside primary JAR.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-129" type="add" system="JIRA">
+                Add Java and Maven version enforcements to CCL Testing projects.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-134" type="add" system="JIRA">
+                Enable full debug output for maven-ccl-plugin.
+            </action>
+        </release>
+        <release version="2.0" date="2010-10-21">
+            <action dev="joshua hyde" issue="CCLTEST-65" type="fix" system="JIRA">
+                Invalid credentials don't fail to log in on surround.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-99" type="update" system="JIRA">
+                Refactor j4ccl-ssh to minimize the usage of factories.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-105" type="update" system="JIRA">
+                Retrofit projects to use the maven-changes-plugin to track changes.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-106" type="fix" system="JIRA">
+                Compile Timeout Flag does not work.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-107" type="update" system="JIRA">
+                Fail to construct Configuration if domain login credentials are invalid.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-107" type="fix" system="JIRA">
+                CCL Maven Commands Hanging in Linux.
+            </action>
+        </release>
+        <release version="1.0.2" date="2010-08-26">
+            <action dev="joshua hyde" issue="CCLTEST-82" type="fix" system="JIRA">
+                Problems generating the Test Results XML file.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-83" type="update" system="JIRA">
+                Remove warnings about JETM and SLF4J from plugin execution.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-93" type="fix" system="JIRA">
+                j4ccl-ssh needs a changelog in its generated site.
+            </action>
+        </release>
+        <release version="1.0.1" date="2010-08-17">
+            <action dev="joshua hyde" issue="CCLTEST-61" type="fix" system="JIRA">
+                Performance issue with Maven CCL Plugin.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-69" type="add" system="JIRA">
+                Request to improve the logging for test execution.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-72" type="fix" system="JIRA">
+                mvn compile hangs.
+            </action>
+        </release>
+        <release version="1.0" date="2010-06-04" description="Initial GA release">
+            <action dev="joshua hyde" issue="CCLTEST-27" type="add" system="JIRA">
+                j4ccl-ssh needs integration tests.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-28" type="fix" system="JIRA">
+                j4ccl-ssh does not necessarily validate domain credentials.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-35" type="update" system="JIRA">
+                Refactor j4ccl and j4ccl-ssh to reference the uDevelop SCM repo.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-47" type="update" system="JIRA">
+                Release v1.0 of j4ccl and j4ccl-ssh.
+            </action>
+        </release>
+        <release version="1.0-alpha-3" date="2010-06-04">
+            <action dev="joshua hyde" issue="CCLTEST-22" type="fix" system="JIRA">
+                com.cerner.ftp.exception.TransferException when running tests from maven-ccl-plugin.
+            </action>
+        </release>
+        <release version="1.0-alpha-2" date="2010-05-20">
+            <action dev="joshua hyde" issue="CCLTEST-13" type="fix" system="JIRA">
+                j4ccl still logging some files to CCLUSERDIR.
+            </action>
+        </release>
+        <release version="1.0-alpha-1" date="2010-04-30" description="Initial alpha release">
+            <action dev="joshua hyde" issue="CCLTEST-3" type="fix" system="JIRA">
+                Change j4ccl prg compile location to cer_temp.
+            </action>
+        </release>
+    </body>
+</document>

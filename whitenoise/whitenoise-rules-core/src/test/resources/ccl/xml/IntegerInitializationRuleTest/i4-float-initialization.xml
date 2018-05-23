@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<!--
+set compile=debug go
+drop program sample_program go
+create program sample_program
+
+declare some_nonconstant_var = i4 with protect, noconstant(0.0)
+declare some_constant_var = i4 with protect, constant(1.0)
+declare ns::some_other_nonconstant_var = i4 with protect, noconstant(0.0)
+declare ns::some_other_constant_var = i4 with protect, constant(1.0)
+declare ok_var = i4 with protect, noconstant(0)
+declare ns::other_ok_var = i4 with protect, noconstant(0)
+declare sub1(val = f8) = f8 with protect
+subroutine sub1(val)
+  call echo("sub1")
+  return(2.5)
+end
+declare ns::sub2(val = f8) = f8 with protect
+subroutine sub2(val)
+  call echo("sub2")
+  return(5.2)
+end
+
+end go 
+translate sample_program with xml go
+ -->
+ <ZC_PROGRAM. class="223" lev="0" kid="12" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="3.8">
+   <NAME class="5" text="SOME_NONCONSTANT_VAR" lev="2" loc="3.8"/>
+   <NAME class="5" text="I4" lev="2" loc="3.31"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="3.39">
+    <OPTION. class="162" lev="3" kid="1" loc="3.39">
+     <NAME class="5" text="PROTECT" lev="4" loc="3.39"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="3.48">
+     <CALL. class="125" lev="4" kid="2" loc="3.48">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="3.48"/>
+      <REAL class="6" text="0.0" lev="5" loc="3.59"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="4.8">
+   <NAME class="5" text="SOME_CONSTANT_VAR" lev="2" loc="4.8"/>
+   <NAME class="5" text="I4" lev="2" loc="4.28"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="4.36">
+    <OPTION. class="162" lev="3" kid="1" loc="4.36">
+     <NAME class="5" text="PROTECT" lev="4" loc="4.36"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="4.45">
+     <CALL. class="125" lev="4" kid="2" loc="4.45">
+      <NAME class="5" text="CONSTANT" lev="5" loc="4.45"/>
+      <REAL class="6" text="1.0" lev="5" loc="4.54"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="5.8">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="5.8">
+    <NAME class="5" text="NS" lev="3" loc="5.8"/>
+    <NAME class="5" text="SOME_OTHER_NONCONSTANT_VAR" lev="3" loc="5.12"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="5.41"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="5.49">
+    <OPTION. class="162" lev="3" kid="1" loc="5.49">
+     <NAME class="5" text="PROTECT" lev="4" loc="5.49"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="5.58">
+     <CALL. class="125" lev="4" kid="2" loc="5.58">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="5.58"/>
+      <REAL class="6" text="0.0" lev="5" loc="5.69"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="6.8">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="6.8">
+    <NAME class="5" text="NS" lev="3" loc="6.8"/>
+    <NAME class="5" text="SOME_OTHER_CONSTANT_VAR" lev="3" loc="6.12"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="6.38"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="6.46">
+    <OPTION. class="162" lev="3" kid="1" loc="6.46">
+     <NAME class="5" text="PROTECT" lev="4" loc="6.46"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="6.55">
+     <CALL. class="125" lev="4" kid="2" loc="6.55">
+      <NAME class="5" text="CONSTANT" lev="5" loc="6.55"/>
+      <REAL class="6" text="1.0" lev="5" loc="6.64"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="7.8">
+   <NAME class="5" text="OK_VAR" lev="2" loc="7.8"/>
+   <NAME class="5" text="I4" lev="2" loc="7.17"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="7.25">
+    <OPTION. class="162" lev="3" kid="1" loc="7.25">
+     <NAME class="5" text="PROTECT" lev="4" loc="7.25"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="7.34">
+     <CALL. class="125" lev="4" kid="2" loc="7.34">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="7.34"/>
+      <INT class="4" text="0" lev="5" loc="7.45"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="8.8">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="8.8">
+    <NAME class="5" text="NS" lev="3" loc="8.8"/>
+    <NAME class="5" text="OTHER_OK_VAR" lev="3" loc="8.12"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="8.27"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="8.35">
+    <OPTION. class="162" lev="3" kid="1" loc="8.35">
+     <NAME class="5" text="PROTECT" lev="4" loc="8.35"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="8.44">
+     <CALL. class="125" lev="4" kid="2" loc="8.44">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="8.44"/>
+      <INT class="4" text="0" lev="5" loc="8.55"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="9.8">
+   <CALL. class="125" lev="2" kid="2" loc="9.8">
+    <NAME class="5" text="SUB1" lev="3" loc="9.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="9.13">
+     <NAME class="5" text="VAL" lev="4" loc="9.13"/>
+     <NAME class="5" text="F8" lev="4" loc="9.19"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="F8" lev="2" loc="9.25"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="9.33">
+    <OPTION. class="162" lev="3" kid="1" loc="9.33">
+     <NAME class="5" text="PROTECT" lev="4" loc="9.33"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="10.11">
+   <NAME class="5" text="SUB1" lev="2" loc="10.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="10.16">
+    <NAME class="5" text="VAL" lev="3" loc="10.16"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="2" loc="11.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="11.7">
+     <CALL. class="125" lev="4" kid="2" loc="11.7">
+      <NAME class="5" text="ECHO" lev="5" loc="11.7"/>
+      <STRING class="7" text="sub1" lev="5" loc="11.12"/>
+     </CALL.>
+    </Z_CALL.>
+    <RETURN. class="190" lev="3" kid="1" loc="12.9">
+     <REAL class="6" text="2.5" lev="4" loc="12.9"/>
+    </RETURN.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="14.8">
+   <CALL. class="125" lev="2" kid="2" loc="14.8">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="14.8">
+     <NAME class="5" text="NS" lev="4" loc="14.8"/>
+     <NAME class="5" text="SUB2" lev="4" loc="14.12"/>
+    </NAMESPACE.>
+    <EQL. class="132" lev="3" kid="2" loc="14.17">
+     <NAME class="5" text="VAL" lev="4" loc="14.17"/>
+     <NAME class="5" text="F8" lev="4" loc="14.23"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="F8" lev="2" loc="14.29"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="14.37">
+    <OPTION. class="162" lev="3" kid="1" loc="14.37">
+     <NAME class="5" text="PROTECT" lev="4" loc="14.37"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="15.11">
+   <NAME class="5" text="SUB2" lev="2" loc="15.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="15.16">
+    <NAME class="5" text="VAL" lev="3" loc="15.16"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="2" loc="16.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="16.7">
+     <CALL. class="125" lev="4" kid="2" loc="16.7">
+      <NAME class="5" text="ECHO" lev="5" loc="16.7"/>
+      <STRING class="7" text="sub2" lev="5" loc="16.12"/>
+     </CALL.>
+    </Z_CALL.>
+    <RETURN. class="190" lev="3" kid="1" loc="17.9">
+     <REAL class="6" text="5.2" lev="4" loc="17.9"/>
+    </RETURN.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <LABEL. class="182" lev="1" kid="1" loc="20.0">
+   <NAME class="5" text="END" lev="2" loc="20.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

@@ -1,0 +1,7 @@
+# @title Maven
+# @description Settings for m2eclipse.
+# @task_type LASTMOD
+file_export_version=3.0
+/instance/org.eclipse.m2e.core/eclipse.m2.downloadJavadoc=true
+/instance/org.eclipse.m2e.core/eclipse.m2.downloadSources=true
+/instance/org.eclipse.m2e.core/eclipse.m2.defaultPomEditorPage=true

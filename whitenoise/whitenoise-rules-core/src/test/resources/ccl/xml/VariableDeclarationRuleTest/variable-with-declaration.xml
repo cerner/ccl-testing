@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+
+declare declared_var = i4
+set declared_var = 43
+
+end
+go 
+ -->
+<ZC_PROGRAM. class="222" lev="0" kid="4" loc="1.15">
+    <USER. class="179" lev="1" kid="1" loc="1.15">
+        <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15" />
+    </USER.>
+    <Z_DECLARE. class="215" lev="1" kid="2" loc="3.8">
+        <NAME class="5" text="DECLARED_VAR" lev="2" loc="3.8" />
+        <NAME class="5" text="I4" lev="2" loc="3.23" />
+    </Z_DECLARE.>
+    <Z_SET. class="210" lev="1" kid="2" loc="4.4">
+        <NAME class="5" text="DECLARED_VAR" lev="2" loc="4.4" />
+        <INT class="4" text="43" lev="2" loc="4.19" />
+    </Z_SET.>
+    <LABEL. class="182" lev="1" kid="1" loc="6.0">
+        <NAME class="5" text="END" lev="2" loc="6.0" />
+    </LABEL.>
+</ZC_PROGRAM.>

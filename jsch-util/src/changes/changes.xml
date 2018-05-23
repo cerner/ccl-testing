@@ -1,0 +1,51 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>jsch-util Changes Report</title>
+    </properties>
+    <body>
+        <release version="2.0.0" date="TBD">
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Change ConnectionPool from abstract class to interface removing getInstance. Consumers should use ConnectionPoolFactory.getInstance instead.
+            </action>
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Remove pom data duplicated in the parent pom.
+            </action>
+        </release>
+        <release version="1.0.2" date="TBD">
+            <action dev="joshua hyde" issue="CCLTEST-159" type="add" system="JIRA">
+                Enforce Maven 2 usage.
+            </action>
+        </release>
+        <release version="1.0.1" date="2010-12-30">
+            <action dev="joshua hyde" issue="CCLTEST-40" type="update" system="JIRA">
+                Refactor Java projects to deploy using automated tools.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-81" type="fix" system="JIRA">
+                Connection pooling library gives a misleading error message when authentication fails.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-95" type="add" system="JIRA">
+                jsch-util needs a changelog.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-105" type="update" system="JIRA">
+                Retrofit projects to use the maven-changes-plugin to track changes.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-125" type="update" system="JIRA">
+                Deploy site JAR alongside primary JAR.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-129" type="add" system="JIRA">
+                Add Java and Maven version enforcements to CCL Testing projects.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-131" type="fix" system="JIRA">
+                Resolve issues in FindBugs report for jsch-util.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-153" type="add" system="JIRA">
+                Add snapshot repo deployment information to CCLTEST projects.
+            </action>
+        </release>
+        <release version="1.0" date="2010-08-17" description="Initial GA release">
+            <action dev="joshua hyde" issue="CCLTEST-61" type="update" system="JIRA">
+                Performance issue with Maven CCL Plugin.
+            </action>
+        </release>
+    </body>
+</document>

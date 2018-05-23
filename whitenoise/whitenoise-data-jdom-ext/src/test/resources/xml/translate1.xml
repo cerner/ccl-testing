@@ -1,0 +1,511 @@
+<?xml version="1.0"?>
+<!--
+set compile = debug go
+drop program sample_program go
+create program sample_program
+
+  declare sub0(null) = i4 with protect
+  subroutine sub0(null)
+    return (0)
+  end
+  
+  declare sub1(var1 = i4) = i4 with protect
+  subroutine sub1(var1)
+    return (-3)
+  end
+
+  subroutine (sub2(var1 = i4) = i4 with protect)
+    return (sub1(var1))
+  end
+
+
+  declare public::sub3(var1 = i4, var2 = i4) = i4 with protect
+  subroutine public::sub3(var1, var2)
+    if (3 < sub1(3))
+      return(sub1(var1))
+    elseif (3 > sub1(var1) * sub2(var2))
+      return (sub2(var2))
+    endif
+    return (7)
+  end
+  
+  subroutine (public::sub4(var1 = i4, var2 = i4) = i4 with protect)
+    declare myvar1 = i4 with protect, noconstant(sub1(12))
+    declare myvar2 = i4 with protect, noconstant(0)
+    set myvar2 = sub2(myvar1)
+
+    set output = sub1(sub2(6), sub2(6))
+  
+    call sub2(sub1(7), sub1(7))
+    call sub1(sub2(8), sub2(8))
+    
+    return (11)
+  end
+  
+  subroutine (sub5(var1 = i4) = i4 with protect)
+    set output = sub2(3, sub2(4))
+    set output = sub2(input1, input2)
+  end
+
+  subroutine (public::sub6(null) = null with protect)
+    call sub5(2)
+  end
+
+  declare input1 = i4 with protect, noconstant(0)
+  declare input2 = i4 with protect, noconstant(0)
+  declare outputput = i4 with protect, noconstant(0)
+  
+  set output = sub3(2, 3)
+  set output = sub4(input1, input2)
+
+  set output = sub3(3, sub2(4))
+  set output = sub3(input1, input2)
+  
+  call sub4(2, 3)
+  call sub4(input1, input2)
+
+  call sub3(2, 3)
+  call sub3(input1, input2)
+
+  set output = NS0000::sub2(NS0000::sub1(5), public::sub1(5))
+
+end go
+translate sample_program with xml go
+-->
+ <ZC_PROGRAM. class="223" lev="0" kid="23" loc="0.0">
+  <USER. class="179" lev="1" kid="1" loc="0.0">
+   <NAME class="5" text="NS0000" lev="2" loc="0.0"/>
+  </USER.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="0.0">
+   <CALL. class="125" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="SUB0" lev="3" loc="0.0"/>
+    <NAME class="5" text="NULL" lev="3" loc="0.0"/>
+   </CALL.>
+   <NAME class="5" text="I4" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="0.0">
+   <NAME class="5" text="SUB0" lev="2" loc="0.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <NAME class="5" text="NULL" lev="3" loc="0.0"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <RETURN. class="190" lev="3" kid="1" loc="0.0">
+     <INT class="4" text="0" lev="4" loc="0.0"/>
+    </RETURN.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <Z_GEN. class="202" lev="1" loc="0.0"/>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="0.0">
+   <NAME class="5" text="SUB1" lev="2" loc="0.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="VAR1" lev="4" loc="0.0"/>
+     <NAME class="5" text="I4" lev="4" loc="0.0"/>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <RETURN. class="190" lev="3" kid="1" loc="0.0">
+     <UNEG. class="178" lev="4" kid="1" loc="0.0">
+      <INT class="4" text="3" lev="5" loc="0.0"/>
+     </UNEG.>
+    </RETURN.>
+   </COMMA.>
+   <NAME class="5" text="I4" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="0.0">
+   <NAME class="5" text="SUB2" lev="2" loc="0.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="VAR1" lev="4" loc="0.0"/>
+     <NAME class="5" text="I4" lev="4" loc="0.0"/>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <RETURN. class="190" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="SUB1" lev="5" loc="0.0"/>
+      <NAME class="5" text="VAR1" lev="5" loc="0.0"/>
+     </CALL.>
+    </RETURN.>
+   </COMMA.>
+   <NAME class="5" text="I4" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <Z_GEN. class="202" lev="1" loc="0.0"/>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="SUB3" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="2" loc="0.0">
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="VAR1" lev="4" loc="0.0"/>
+     <NAME class="5" text="I4" lev="4" loc="0.0"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="VAR2" lev="4" loc="0.0"/>
+     <NAME class="5" text="I4" lev="4" loc="0.0"/>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="2" loc="0.0">
+    <IF. class="146" lev="3" kid="4" loc="0.0">
+     <LSS. class="153" lev="4" kid="2" loc="0.0">
+      <INT class="4" text="3" lev="5" loc="0.0"/>
+      <CALL. class="125" lev="5" kid="2" loc="0.0">
+       <NAME class="5" text="SUB1" lev="6" loc="0.0"/>
+       <INT class="4" text="3" lev="6" loc="0.0"/>
+      </CALL.>
+     </LSS.>
+     <COMMA. class="127" lev="4" kid="1" loc="0.0">
+      <RETURN. class="190" lev="5" kid="1" loc="0.0">
+       <CALL. class="125" lev="6" kid="2" loc="0.0">
+        <NAME class="5" text="SUB1" lev="7" loc="0.0"/>
+        <NAME class="5" text="VAR1" lev="7" loc="0.0"/>
+       </CALL.>
+      </RETURN.>
+     </COMMA.>
+     <GTR. class="142" lev="4" kid="2" loc="0.0">
+      <INT class="4" text="3" lev="5" loc="0.0"/>
+      <MUL. class="158" lev="5" kid="2" loc="0.0">
+       <CALL. class="125" lev="6" kid="2" loc="0.0">
+        <NAME class="5" text="SUB1" lev="7" loc="0.0"/>
+        <NAME class="5" text="VAR1" lev="7" loc="0.0"/>
+       </CALL.>
+       <CALL. class="125" lev="6" kid="2" loc="0.0">
+        <NAME class="5" text="SUB2" lev="7" loc="0.0"/>
+        <NAME class="5" text="VAR2" lev="7" loc="0.0"/>
+       </CALL.>
+      </MUL.>
+     </GTR.>
+     <COMMA. class="127" lev="4" kid="1" loc="0.0">
+      <RETURN. class="190" lev="5" kid="1" loc="0.0">
+       <CALL. class="125" lev="6" kid="2" loc="0.0">
+        <NAME class="5" text="SUB2" lev="7" loc="0.0"/>
+        <NAME class="5" text="VAR2" lev="7" loc="0.0"/>
+       </CALL.>
+      </RETURN.>
+     </COMMA.>
+    </IF.>
+    <RETURN. class="190" lev="3" kid="1" loc="0.0">
+     <INT class="4" text="7" lev="4" loc="0.0"/>
+    </RETURN.>
+   </COMMA.>
+   <NAME class="5" text="I4" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="SUB4" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="2" loc="0.0">
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="VAR1" lev="4" loc="0.0"/>
+     <NAME class="5" text="I4" lev="4" loc="0.0"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="VAR2" lev="4" loc="0.0"/>
+     <NAME class="5" text="I4" lev="4" loc="0.0"/>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="7" loc="0.0">
+    <Z_DECLARE. class="216" lev="3" kid="3" loc="0.0">
+     <NAME class="5" text="MYVAR1" lev="4" loc="0.0"/>
+     <NAME class="5" text="I4" lev="4" loc="0.0"/>
+     <OPTIONS. class="163" lev="4" kid="2" loc="0.0">
+      <OPTION. class="162" lev="5" kid="1" loc="0.0">
+       <NAME class="5" text="PROTECT" lev="6" loc="0.0"/>
+      </OPTION.>
+      <OPTION. class="162" lev="5" kid="1" loc="0.0">
+       <CALL. class="125" lev="6" kid="2" loc="0.0">
+        <NAME class="5" text="NOCONSTANT" lev="7" loc="0.0"/>
+        <CALL. class="125" lev="7" kid="2" loc="0.0">
+         <NAME class="5" text="SUB1" lev="8" loc="0.0"/>
+         <INT class="4" text="12" lev="8" loc="0.0"/>
+        </CALL.>
+       </CALL.>
+      </OPTION.>
+     </OPTIONS.>
+    </Z_DECLARE.>
+    <Z_DECLARE. class="216" lev="3" kid="3" loc="0.0">
+     <NAME class="5" text="MYVAR2" lev="4" loc="0.0"/>
+     <NAME class="5" text="I4" lev="4" loc="0.0"/>
+     <OPTIONS. class="163" lev="4" kid="2" loc="0.0">
+      <OPTION. class="162" lev="5" kid="1" loc="0.0">
+       <NAME class="5" text="PROTECT" lev="6" loc="0.0"/>
+      </OPTION.>
+      <OPTION. class="162" lev="5" kid="1" loc="0.0">
+       <CALL. class="125" lev="6" kid="2" loc="0.0">
+        <NAME class="5" text="NOCONSTANT" lev="7" loc="0.0"/>
+        <INT class="4" text="0" lev="7" loc="0.0"/>
+       </CALL.>
+      </OPTION.>
+     </OPTIONS.>
+    </Z_DECLARE.>
+    <Z_SET. class="211" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="MYVAR2" lev="4" loc="0.0"/>
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="SUB2" lev="5" loc="0.0"/>
+      <NAME class="5" text="MYVAR1" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_SET.>
+    <Z_SET. class="211" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="OUTPUT" lev="4" loc="0.0"/>
+     <CALL. class="125" lev="4" kid="3" loc="0.0">
+      <NAME class="5" text="SUB1" lev="5" loc="0.0"/>
+      <CALL. class="125" lev="5" kid="2" loc="0.0">
+       <NAME class="5" text="SUB2" lev="6" loc="0.0"/>
+       <INT class="4" text="6" lev="6" loc="0.0"/>
+      </CALL.>
+      <CALL. class="125" lev="5" kid="2" loc="0.0">
+       <NAME class="5" text="SUB2" lev="6" loc="0.0"/>
+       <INT class="4" text="6" lev="6" loc="0.0"/>
+      </CALL.>
+     </CALL.>
+    </Z_SET.>
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="3" loc="0.0">
+      <NAME class="5" text="SUB2" lev="5" loc="0.0"/>
+      <CALL. class="125" lev="5" kid="2" loc="0.0">
+       <NAME class="5" text="SUB1" lev="6" loc="0.0"/>
+       <INT class="4" text="7" lev="6" loc="0.0"/>
+      </CALL.>
+      <CALL. class="125" lev="5" kid="2" loc="0.0">
+       <NAME class="5" text="SUB1" lev="6" loc="0.0"/>
+       <INT class="4" text="7" lev="6" loc="0.0"/>
+      </CALL.>
+     </CALL.>
+    </Z_CALL.>
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="3" loc="0.0">
+      <NAME class="5" text="SUB1" lev="5" loc="0.0"/>
+      <CALL. class="125" lev="5" kid="2" loc="0.0">
+       <NAME class="5" text="SUB2" lev="6" loc="0.0"/>
+       <INT class="4" text="8" lev="6" loc="0.0"/>
+      </CALL.>
+      <CALL. class="125" lev="5" kid="2" loc="0.0">
+       <NAME class="5" text="SUB2" lev="6" loc="0.0"/>
+       <INT class="4" text="8" lev="6" loc="0.0"/>
+      </CALL.>
+     </CALL.>
+    </Z_CALL.>
+    <RETURN. class="190" lev="3" kid="1" loc="0.0">
+     <INT class="4" text="11" lev="4" loc="0.0"/>
+    </RETURN.>
+   </COMMA.>
+   <NAME class="5" text="I4" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="0.0">
+   <NAME class="5" text="SUB5" lev="2" loc="0.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="VAR1" lev="4" loc="0.0"/>
+     <NAME class="5" text="I4" lev="4" loc="0.0"/>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="2" loc="0.0">
+    <Z_SET. class="211" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="OUTPUT" lev="4" loc="0.0"/>
+     <CALL. class="125" lev="4" kid="3" loc="0.0">
+      <NAME class="5" text="SUB2" lev="5" loc="0.0"/>
+      <INT class="4" text="3" lev="5" loc="0.0"/>
+      <CALL. class="125" lev="5" kid="2" loc="0.0">
+       <NAME class="5" text="SUB2" lev="6" loc="0.0"/>
+       <INT class="4" text="4" lev="6" loc="0.0"/>
+      </CALL.>
+     </CALL.>
+    </Z_SET.>
+    <Z_SET. class="211" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="OUTPUT" lev="4" loc="0.0"/>
+     <CALL. class="125" lev="4" kid="3" loc="0.0">
+      <NAME class="5" text="SUB2" lev="5" loc="0.0"/>
+      <NAME class="5" text="INPUT1" lev="5" loc="0.0"/>
+      <NAME class="5" text="INPUT2" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_SET.>
+   </COMMA.>
+   <NAME class="5" text="I4" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="SUB6" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <NAME class="5" text="NULL" lev="3" loc="0.0"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="SUB5" lev="5" loc="0.0"/>
+      <INT class="4" text="2" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="0.0">
+   <NAME class="5" text="INPUT1" lev="2" loc="0.0"/>
+   <NAME class="5" text="I4" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="0.0"/>
+      <INT class="4" text="0" lev="5" loc="0.0"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="0.0">
+   <NAME class="5" text="INPUT2" lev="2" loc="0.0"/>
+   <NAME class="5" text="I4" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="0.0"/>
+      <INT class="4" text="0" lev="5" loc="0.0"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="0.0">
+   <NAME class="5" text="OUTPUTPUT" lev="2" loc="0.0"/>
+   <NAME class="5" text="I4" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="0.0"/>
+      <INT class="4" text="0" lev="5" loc="0.0"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_SET. class="211" lev="1" kid="2" loc="0.0">
+   <NAME class="5" text="OUTPUT" lev="2" loc="0.0"/>
+   <CALL. class="125" lev="2" kid="3" loc="0.0">
+    <NAME class="5" text="SUB3" lev="3" loc="0.0"/>
+    <INT class="4" text="2" lev="3" loc="0.0"/>
+    <INT class="4" text="3" lev="3" loc="0.0"/>
+   </CALL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="0.0">
+   <NAME class="5" text="OUTPUT" lev="2" loc="0.0"/>
+   <CALL. class="125" lev="2" kid="3" loc="0.0">
+    <NAME class="5" text="SUB4" lev="3" loc="0.0"/>
+    <NAME class="5" text="INPUT1" lev="3" loc="0.0"/>
+    <NAME class="5" text="INPUT2" lev="3" loc="0.0"/>
+   </CALL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="0.0">
+   <NAME class="5" text="OUTPUT" lev="2" loc="0.0"/>
+   <CALL. class="125" lev="2" kid="3" loc="0.0">
+    <NAME class="5" text="SUB3" lev="3" loc="0.0"/>
+    <INT class="4" text="3" lev="3" loc="0.0"/>
+    <CALL. class="125" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="SUB2" lev="4" loc="0.0"/>
+     <INT class="4" text="4" lev="4" loc="0.0"/>
+    </CALL.>
+   </CALL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="0.0">
+   <NAME class="5" text="OUTPUT" lev="2" loc="0.0"/>
+   <CALL. class="125" lev="2" kid="3" loc="0.0">
+    <NAME class="5" text="SUB3" lev="3" loc="0.0"/>
+    <NAME class="5" text="INPUT1" lev="3" loc="0.0"/>
+    <NAME class="5" text="INPUT2" lev="3" loc="0.0"/>
+   </CALL.>
+  </Z_SET.>
+  <Z_CALL. class="197" lev="1" kid="1" loc="0.0">
+   <CALL. class="125" lev="2" kid="3" loc="0.0">
+    <NAME class="5" text="SUB4" lev="3" loc="0.0"/>
+    <INT class="4" text="2" lev="3" loc="0.0"/>
+    <INT class="4" text="3" lev="3" loc="0.0"/>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="197" lev="1" kid="1" loc="0.0">
+   <CALL. class="125" lev="2" kid="3" loc="0.0">
+    <NAME class="5" text="SUB4" lev="3" loc="0.0"/>
+    <NAME class="5" text="INPUT1" lev="3" loc="0.0"/>
+    <NAME class="5" text="INPUT2" lev="3" loc="0.0"/>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="197" lev="1" kid="1" loc="0.0">
+   <CALL. class="125" lev="2" kid="3" loc="0.0">
+    <NAME class="5" text="SUB3" lev="3" loc="0.0"/>
+    <INT class="4" text="2" lev="3" loc="0.0"/>
+    <INT class="4" text="3" lev="3" loc="0.0"/>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="197" lev="1" kid="1" loc="0.0">
+   <CALL. class="125" lev="2" kid="3" loc="0.0">
+    <NAME class="5" text="SUB3" lev="3" loc="0.0"/>
+    <NAME class="5" text="INPUT1" lev="3" loc="0.0"/>
+    <NAME class="5" text="INPUT2" lev="3" loc="0.0"/>
+   </CALL.>
+  </Z_CALL.>
+  <Z_SET. class="211" lev="1" kid="2" loc="0.0">
+   <NAME class="5" text="OUTPUT" lev="2" loc="0.0"/>
+   <CALL. class="125" lev="2" kid="3" loc="0.0">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="NS0000" lev="4" loc="0.0"/>
+     <NAME class="5" text="SUB2" lev="4" loc="0.0"/>
+    </NAMESPACE.>
+    <CALL. class="125" lev="3" kid="2" loc="0.0">
+     <NAMESPACE. class="194" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="NS0000" lev="5" loc="0.0"/>
+      <NAME class="5" text="SUB1" lev="5" loc="0.0"/>
+     </NAMESPACE.>
+     <INT class="4" text="5" lev="4" loc="0.0"/>
+    </CALL.>
+    <CALL. class="125" lev="3" kid="2" loc="0.0">
+     <NAMESPACE. class="194" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="PUBLIC" lev="5" loc="0.0"/>
+      <NAME class="5" text="SUB1" lev="5" loc="0.0"/>
+     </NAMESPACE.>
+     <INT class="4" text="5" lev="4" loc="0.0"/>
+    </CALL.>
+   </CALL.>
+  </Z_SET.>
+ </ZC_PROGRAM.>

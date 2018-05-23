@@ -1,0 +1,14 @@
+/**
+ * This is the top-level documentation for the record structure. 
+ * @request
+ * @field person_id
+ *      The ID of the person.
+ * @field event_dt_tm The date and time of the event.
+ *      @optional
+ * @field sex_cd
+ *      @codeSet 291 The originating code set
+ * @field type_flag
+ *      @value "FEMALE" female
+ *      @value "MALE" male
+ *      @value """UNKNOWN""" "unknown"
+ */

@@ -1,0 +1,60 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>ftp-util Changes Report</title>
+    </properties>
+    <body>
+        <release version="2.0" date="TDB">
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Remove pom data duplicated in the parent pom.
+            </action>
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Upgrade to jsch-util .
+            </action>
+        </release>
+        <release version="1.2-SNAPSHOT" date="TDB">
+            <action dev="joshua hyde" issue="CCLTEST-153" type="add" system="JIRA">
+                Add snapshot repo deployment information to CCLTEST projects.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-159" type="add" system="JIRA">
+                Enforce Maven 2 usage.
+            </action>
+        </release>
+        <release version="1.1" date="2010-12-30">
+            <action dev="joshua hyde" issue="CCLTEST-40" type="update" system="JIRA">
+                Refactor Java projects to deploy using automated tools.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-105" type="update" system="JIRA">
+                Retrofit projects to use the maven-changes-plugin to track changes.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-125" type="add" system="JIRA">
+                Deploy site JAR alongside primary JAR.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-128" type="add" system="JIRA">
+                Refactor construction of authentication data into their own factories.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-129" type="add" system="JIRA">
+                Add Java and Maven version enforcements to CCL Testing projects.
+            </action>
+        </release>
+        <release version="1.0.2" date="2010-08-19">
+            <action dev="joshua hyde" issue="CCLTEST-83" type="update" system="JIRA">
+                Remove warnings about JETM and SLF4J from plugin execution.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-94" type="update" system="JIRA">
+                ftp-util needs a changelog.
+            </action>
+        </release>
+        <release version="1.0.1" date="2010-08-17">
+            <action dev="joshua hyde" issue="CCLTEST-61" type="add" system="JIRA">
+                Performance issue with Maven CCL Plugin.
+            </action>
+        </release>
+        <release version="1.0" date="2010-07-16" description="Initial GA release">
+            <action dev="joshua hyde" issue="CCLTEST-46" type="update" system="JIRA">
+                Release ftp-util, v1.0.
+            </action>
+        </release>
+        <release version="1.0-alpha-1" date="2010-04-30" description="Initial alpha release">
+        </release>
+    </body>
+</document>

@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+ 
+free record myListRec
+record myListRec
+(
+  1 list[*]
+    2 value = i4
+    2 sublist[*]
+      3 subvalue = i2
+)
+ 
+;Should fail, no param
+if (size(myListRec->list) > 0)
+  call echo("myListRec->list is empty")
+endif
+ 
+;Should fail, no param
+if (size(myListRec->list[1].sublist) > 0)
+  call echo("myListRec->list[1].sublist is empty")
+endif
+ 
+;Should fail, wrong param
+if (size(myListRec->list, 2) > 0)
+  call echo("myListRec->list is empty")
+endif
+ 
+;Should fail, wrong param
+if (size(myListRec->list[1].sublist, 3) > 0)
+  call echo("myListRec->list[1].sublist is empty")
+endif
+ 
+;Shouldn't Fail
+set myCnt = size(myListRec->list, 5)
+ 
+;Shouldn't Fail
+set myCnt = size(myListRec->list[1].sublist, 5)
+ 
+end go
+-->
+ <ZC_PROGRAM. class="222" lev="0" kid="10" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_FREE. class="200" lev="1" kid="2" loc="3.5">
+   <RECORD class="88" lev="2" loc="3.5"/>
+   <NAME class="5" text="MYLISTREC" lev="2" loc="3.12"/>
+  </Z_FREE.>
+  <RECORD. class="174" lev="1" kid="2" loc="4.7">
+   <COMMA. class="127" lev="2" kid="1" loc="4.7">
+    <NAME class="5" text="MYLISTREC" lev="3" loc="4.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="6.2">
+    <FIELD. class="133" lev="3" kid="5" loc="6.2">
+     <INT class="4" text="1" lev="4" loc="6.2"/>
+     <NAME class="5" text="LIST" lev="4" loc="6.4"/>
+     <OCCUR. class="161" lev="4" kid="1" loc="6.9">
+      <C_AST class="9" lev="5" loc="6.9"/>
+     </OCCUR.>
+     <FIELD. class="133" lev="4" kid="3" loc="7.4">
+      <INT class="4" text="2" lev="5" loc="7.4"/>
+      <NAME class="5" text="VALUE" lev="5" loc="7.6"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="7.14">
+       <NAME class="5" text="I4" lev="6" loc="7.14"/>
+       <COMMA. class="127" lev="6" loc="8.4"/>
+       <COMMA. class="127" lev="6" loc="8.4"/>
+      </FORMAT.>
+     </FIELD.>
+     <FIELD. class="133" lev="4" kid="4" loc="8.4">
+      <INT class="4" text="2" lev="5" loc="8.4"/>
+      <NAME class="5" text="SUBLIST" lev="5" loc="8.6"/>
+      <OCCUR. class="161" lev="5" kid="1" loc="8.14">
+       <C_AST class="9" lev="6" loc="8.14"/>
+      </OCCUR.>
+      <FIELD. class="133" lev="5" kid="3" loc="9.6">
+       <INT class="4" text="3" lev="6" loc="9.6"/>
+       <NAME class="5" text="SUBVALUE" lev="6" loc="9.8"/>
+       <FORMAT. class="138" lev="6" kid="3" loc="9.19">
+        <NAME class="5" text="I2" lev="7" loc="9.19"/>
+        <COMMA. class="127" lev="7" loc="10.0"/>
+        <COMMA. class="127" lev="7" loc="10.0"/>
+       </FORMAT.>
+      </FIELD.>
+     </FIELD.>
+    </FIELD.>
+   </INDENT.>
+  </RECORD.>
+  <IF. class="146" lev="1" kid="2" loc="13.4">
+   <GTR. class="142" lev="2" kid="2" loc="13.4">
+    <CALL. class="125" lev="3" kid="2" loc="13.4">
+     <NAME class="5" text="SIZE" lev="4" loc="13.4"/>
+     <MEMBER. class="187" lev="4" kid="2" loc="13.9">
+      <NAME class="5" text="MYLISTREC" lev="5" loc="13.9"/>
+      <NAME class="5" text="LIST" lev="5" loc="13.20"/>
+     </MEMBER.>
+    </CALL.>
+    <INT class="4" text="0" lev="3" loc="13.28"/>
+   </GTR.>
+   <COMMA. class="127" lev="2" kid="1" loc="14.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="14.7">
+     <CALL. class="125" lev="4" kid="2" loc="14.7">
+      <NAME class="5" text="ECHO" lev="5" loc="14.7"/>
+      <STRING class="7" text="myListRec-&gt;list is empty" lev="5" loc="14.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </IF.>
+  <IF. class="146" lev="1" kid="2" loc="18.4">
+   <GTR. class="142" lev="2" kid="2" loc="18.4">
+    <CALL. class="125" lev="3" kid="2" loc="18.4">
+     <NAME class="5" text="SIZE" lev="4" loc="18.4"/>
+     <MEMBER. class="187" lev="4" kid="3" loc="18.9">
+      <NAME class="5" text="MYLISTREC" lev="5" loc="18.9"/>
+      <ARRAY. class="122" lev="5" kid="2" loc="18.20">
+       <NAME class="5" text="LIST" lev="6" loc="18.20"/>
+       <INT class="4" text="1" lev="6" loc="18.25"/>
+      </ARRAY.>
+      <NAME class="5" text="SUBLIST" lev="5" loc="18.28"/>
+     </MEMBER.>
+    </CALL.>
+    <INT class="4" text="0" lev="3" loc="18.39"/>
+   </GTR.>
+   <COMMA. class="127" lev="2" kid="1" loc="19.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="19.7">
+     <CALL. class="125" lev="4" kid="2" loc="19.7">
+      <NAME class="5" text="ECHO" lev="5" loc="19.7"/>
+      <STRING class="7" text="myListRec-&gt;list&#91;1&#93;.sublist is empty" lev="5" loc="19.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </IF.>
+  <IF. class="146" lev="1" kid="2" loc="23.4">
+   <GTR. class="142" lev="2" kid="2" loc="23.4">
+    <CALL. class="125" lev="3" kid="3" loc="23.4">
+     <NAME class="5" text="SIZE" lev="4" loc="23.4"/>
+     <MEMBER. class="187" lev="4" kid="2" loc="23.9">
+      <NAME class="5" text="MYLISTREC" lev="5" loc="23.9"/>
+      <NAME class="5" text="LIST" lev="5" loc="23.20"/>
+     </MEMBER.>
+     <INT class="4" text="2" lev="4" loc="23.26"/>
+    </CALL.>
+    <INT class="4" text="0" lev="3" loc="23.31"/>
+   </GTR.>
+   <COMMA. class="127" lev="2" kid="1" loc="24.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="24.7">
+     <CALL. class="125" lev="4" kid="2" loc="24.7">
+      <NAME class="5" text="ECHO" lev="5" loc="24.7"/>
+      <STRING class="7" text="myListRec-&gt;list is empty" lev="5" loc="24.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </IF.>
+  <IF. class="146" lev="1" kid="2" loc="28.4">
+   <GTR. class="142" lev="2" kid="2" loc="28.4">
+    <CALL. class="125" lev="3" kid="3" loc="28.4">
+     <NAME class="5" text="SIZE" lev="4" loc="28.4"/>
+     <MEMBER. class="187" lev="4" kid="3" loc="28.9">
+      <NAME class="5" text="MYLISTREC" lev="5" loc="28.9"/>
+      <ARRAY. class="122" lev="5" kid="2" loc="28.20">
+       <NAME class="5" text="LIST" lev="6" loc="28.20"/>
+       <INT class="4" text="1" lev="6" loc="28.25"/>
+      </ARRAY.>
+      <NAME class="5" text="SUBLIST" lev="5" loc="28.28"/>
+     </MEMBER.>
+     <INT class="4" text="3" lev="4" loc="28.37"/>
+    </CALL.>
+    <INT class="4" text="0" lev="3" loc="28.42"/>
+   </GTR.>
+   <COMMA. class="127" lev="2" kid="1" loc="29.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="29.7">
+     <CALL. class="125" lev="4" kid="2" loc="29.7">
+      <NAME class="5" text="ECHO" lev="5" loc="29.7"/>
+      <STRING class="7" text="myListRec-&gt;list&#91;1&#93;.sublist is empty" lev="5" loc="29.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </IF.>
+  <Z_SET. class="210" lev="1" kid="2" loc="33.4">
+   <NAME class="5" text="MYCNT" lev="2" loc="33.4"/>
+   <CALL. class="125" lev="2" kid="3" loc="33.12">
+    <NAME class="5" text="SIZE" lev="3" loc="33.12"/>
+    <MEMBER. class="187" lev="3" kid="2" loc="33.17">
+     <NAME class="5" text="MYLISTREC" lev="4" loc="33.17"/>
+     <NAME class="5" text="LIST" lev="4" loc="33.28"/>
+    </MEMBER.>
+    <INT class="4" text="5" lev="3" loc="33.34"/>
+   </CALL.>
+  </Z_SET.>
+  <Z_SET. class="210" lev="1" kid="2" loc="36.4">
+   <NAME class="5" text="MYCNT" lev="2" loc="36.4"/>
+   <CALL. class="125" lev="2" kid="3" loc="36.12">
+    <NAME class="5" text="SIZE" lev="3" loc="36.12"/>
+    <MEMBER. class="187" lev="3" kid="3" loc="36.17">
+     <NAME class="5" text="MYLISTREC" lev="4" loc="36.17"/>
+     <ARRAY. class="122" lev="4" kid="2" loc="36.28">
+      <NAME class="5" text="LIST" lev="5" loc="36.28"/>
+      <INT class="4" text="1" lev="5" loc="36.33"/>
+     </ARRAY.>
+     <NAME class="5" text="SUBLIST" lev="4" loc="36.36"/>
+    </MEMBER.>
+    <INT class="4" text="5" lev="3" loc="36.45"/>
+   </CALL.>
+  </Z_SET.>
+  <LABEL. class="182" lev="1" kid="1" loc="38.0">
+   <NAME class="5" text="END" lev="2" loc="38.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

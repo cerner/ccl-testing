@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ehcache xlmns="http://ehcache.org/ehcache"
+    xsi:schemaLocation="http://ehcache.org/ehcache http://ehcache.org/ehcache.xsd">
+    <cache name="jsch-connection-cache" overflowToDisk="false"
+        maxElementsInMemory="50" eternal="false">
+        <cacheEventListenerFactory
+            class="com.cerner.ftp.jsch.impl.ehcache.ConnectionDisposeListenerFactory" />
+    </cache>
+    <defaultCache overflowToDisk="false"
+        maxElementsInMemory="10" eternal="false" />
+</ehcache>

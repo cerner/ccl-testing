@@ -1,0 +1,20 @@
+        -----------
+        FAQ
+        -----------
+        Joshua Hyde
+        -----------
+        2010-04-28
+        -----------
+
+FAQ
+
+  This is a list of "frequently-asked questions" (FAQ) concerning this implementation of J4CCL.
+
+* What Is This?
+
+  This is an implementation of the J4CCL API that performs all of its interactions with CCL via SSH and SFTP over SSH.
+  
+* How Does It Work?
+
+  This library opens an emulated SSH session to the prescribed backend node, begins a CCL session, and submits the given actions 
+  as literal commands to the opened CCL session.

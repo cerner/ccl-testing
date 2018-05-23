@@ -1,0 +1,17 @@
+com.cerner.ccl.analysis.core.rules.ForLoopIteratorRules
+com.cerner.ccl.analysis.core.rules.I18nRules
+com.cerner.ccl.analysis.core.rules.IntegerInitializationRules
+com.cerner.ccl.analysis.core.rules.LargeSequenceRules
+com.cerner.ccl.analysis.core.rules.MissingGoToLabelRules
+com.cerner.ccl.analysis.core.rules.ModuloFunctionRules
+com.cerner.ccl.analysis.core.rules.RecordStructureDeclarationRules
+com.cerner.ccl.analysis.core.rules.SelectStatementRules
+com.cerner.ccl.analysis.core.rules.SizeFunctionRules
+com.cerner.ccl.analysis.core.rules.SubroutineDeclarationRules
+com.cerner.ccl.analysis.core.rules.SubroutineImplementationRules
+com.cerner.ccl.analysis.core.rules.VariableDeclarationRules
+com.cerner.ccl.analysis.core.rules.VariableDeclaredButNotUsedRules
+com.cerner.ccl.analysis.core.rules.WhileLoopRules
+com.cerner.ccl.analysis.core.rules.UnknownDeclareOptionRules
+com.cerner.ccl.analysis.core.rules.MissingCnvtStringlengthParamRules
+com.cerner.ccl.analysis.core.rules.NulltermRules

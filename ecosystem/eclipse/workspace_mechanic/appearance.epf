@@ -1,0 +1,10 @@
+# @title Java Appearance
+# @description Settings that affect Java coding appearance.
+# @task_type RECONCILE
+#
+# Created by the Workspace Mechanic Preference Recorder
+#Fri Jul 25 09:05:35 CDT 2014
+file_export_version=3.0
+/instance/org.eclipse.jdt.ui/org.eclipse.jdt.ui.pkgNameAbbreviationPatternForPackagesView=com.cerner.system\={sysinfra}\ncom.cerner.data\={data}\ncom.cerner.common\={common}
+/instance/org.eclipse.jdt.ui/org.eclipse.jdt.ui.abbreviatepackagenames=true
+/instance/org.eclipse.jdt.ui/org.eclipse.jdt.ui.typefilter.enabled=com.ibm.toad.*;edu.emory.mathcs.backport.*;java.awt.*;java.lang.Object;junit.framework.*;

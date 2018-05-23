@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="jsch-util">
+    <bannerLeft>
+        <name>jsch-util</name>
+        <href>https://github.com/cerner/ccl-testing/wiki</href>
+    </bannerLeft>
+    <body>
+        <menu name="jsch-util">
+            <item name="About" href="index.html" />
+            <item name="Changes Report" href="changes-report.html" />
+        </menu>
+        <menu ref="reports" />
+    </body>
+</project>

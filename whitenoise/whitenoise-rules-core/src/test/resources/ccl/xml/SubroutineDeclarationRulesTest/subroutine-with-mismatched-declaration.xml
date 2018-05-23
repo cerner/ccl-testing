@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+ 
+declare mismatchedParamCnt1(param1) = i2
+declare mismatchedParamCnt2(param1=i2) = i2
+declare mismatchedParamCnt3(param1=vc(REF)) = i2
+declare outOfOrderParamCnt1(param1,param2=vc(REF),param3) = i2
+declare outOfOrderParamCnt2(param1=i2,param2=vc,param3=f8) = i2
+declare outOfOrderParamCnt3(param1=f8,param2,param3=vc(REF)) = i2
+declare wrongParams1(param1, param2) = null
+declare wrongParams2(param1=f8, param2=vc(REF)) = null
+ 
+subroutine mismatchedParamCnt1(param1, param2)
+  call echo("1")
+end
+ 
+subroutine mismatchedParamCnt2(param1, param2)
+  call echo("2")
+end
+ 
+subroutine mismatchedParamCnt3(param1, param2)
+  call echo("3")
+end
+ 
+subroutine outOfOrderParamCnt1(param2,param1,param3)
+  call echo("4")
+end
+ 
+subroutine outOfOrderParamCnt2(param3,param2,param1)
+  call echo("5")
+end
+ 
+subroutine outOfOrderParamCnt3(param2,param3,param1)
+  call echo("6")
+end
+ 
+subroutine wrongParams1(totallyWrong, param2)
+  call echo("7")
+end
+ 
+subroutine wrongParams2(totallyWrongOne, totallyWrongTwo)
+  call echo("8")
+end
+ 
+end
+go
+-->
+ <ZC_PROGRAM. class="222" lev="0" kid="18" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="3.8">
+   <CALL. class="125" lev="2" kid="2" loc="3.8">
+    <NAME class="5" text="MISMATCHEDPARAMCNT1" lev="3" loc="3.8"/>
+    <NAME class="5" text="PARAM1" lev="3" loc="3.28"/>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="3.38"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="4.8">
+   <CALL. class="125" lev="2" kid="2" loc="4.8">
+    <NAME class="5" text="MISMATCHEDPARAMCNT2" lev="3" loc="4.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="4.28">
+     <NAME class="5" text="PARAM1" lev="4" loc="4.28"/>
+     <NAME class="5" text="I2" lev="4" loc="4.35"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="4.41"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="5.8">
+   <CALL. class="125" lev="2" kid="2" loc="5.8">
+    <NAME class="5" text="MISMATCHEDPARAMCNT3" lev="3" loc="5.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="5.28">
+     <NAME class="5" text="PARAM1" lev="4" loc="5.28"/>
+     <CALL. class="125" lev="4" kid="2" loc="5.35">
+      <NAME class="5" text="VC" lev="5" loc="5.35"/>
+      <NAME class="5" text="REF" lev="5" loc="5.38"/>
+     </CALL.>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="5.46"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="6.8">
+   <CALL. class="125" lev="2" kid="4" loc="6.8">
+    <NAME class="5" text="OUTOFORDERPARAMCNT1" lev="3" loc="6.8"/>
+    <NAME class="5" text="PARAM1" lev="3" loc="6.28"/>
+    <EQL. class="132" lev="3" kid="2" loc="6.35">
+     <NAME class="5" text="PARAM2" lev="4" loc="6.35"/>
+     <CALL. class="125" lev="4" kid="2" loc="6.42">
+      <NAME class="5" text="VC" lev="5" loc="6.42"/>
+      <NAME class="5" text="REF" lev="5" loc="6.45"/>
+     </CALL.>
+    </EQL.>
+    <NAME class="5" text="PARAM3" lev="3" loc="6.50"/>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="6.60"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="7.8">
+   <CALL. class="125" lev="2" kid="4" loc="7.8">
+    <NAME class="5" text="OUTOFORDERPARAMCNT2" lev="3" loc="7.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="7.28">
+     <NAME class="5" text="PARAM1" lev="4" loc="7.28"/>
+     <NAME class="5" text="I2" lev="4" loc="7.35"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="7.38">
+     <NAME class="5" text="PARAM2" lev="4" loc="7.38"/>
+     <NAME class="5" text="VC" lev="4" loc="7.45"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="7.48">
+     <NAME class="5" text="PARAM3" lev="4" loc="7.48"/>
+     <NAME class="5" text="F8" lev="4" loc="7.55"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="7.61"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="8.8">
+   <CALL. class="125" lev="2" kid="4" loc="8.8">
+    <NAME class="5" text="OUTOFORDERPARAMCNT3" lev="3" loc="8.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="8.28">
+     <NAME class="5" text="PARAM1" lev="4" loc="8.28"/>
+     <NAME class="5" text="F8" lev="4" loc="8.35"/>
+    </EQL.>
+    <NAME class="5" text="PARAM2" lev="3" loc="8.38"/>
+    <EQL. class="132" lev="3" kid="2" loc="8.45">
+     <NAME class="5" text="PARAM3" lev="4" loc="8.45"/>
+     <CALL. class="125" lev="4" kid="2" loc="8.52">
+      <NAME class="5" text="VC" lev="5" loc="8.52"/>
+      <NAME class="5" text="REF" lev="5" loc="8.55"/>
+     </CALL.>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="8.63"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="9.8">
+   <CALL. class="125" lev="2" kid="3" loc="9.8">
+    <NAME class="5" text="WRONGPARAMS1" lev="3" loc="9.8"/>
+    <NAME class="5" text="PARAM1" lev="3" loc="9.21"/>
+    <NAME class="5" text="PARAM2" lev="3" loc="9.29"/>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="9.39"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="10.8">
+   <CALL. class="125" lev="2" kid="3" loc="10.8">
+    <NAME class="5" text="WRONGPARAMS2" lev="3" loc="10.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="10.21">
+     <NAME class="5" text="PARAM1" lev="4" loc="10.21"/>
+     <NAME class="5" text="F8" lev="4" loc="10.28"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="10.32">
+     <NAME class="5" text="PARAM2" lev="4" loc="10.32"/>
+     <CALL. class="125" lev="4" kid="2" loc="10.39">
+      <NAME class="5" text="VC" lev="5" loc="10.39"/>
+      <NAME class="5" text="REF" lev="5" loc="10.42"/>
+     </CALL.>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="10.50"/>
+  </Z_DECLARE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="12.11">
+   <NAME class="5" text="MISMATCHEDPARAMCNT1" lev="2" loc="12.11"/>
+   <COMMA. class="127" lev="2" kid="2" loc="12.31">
+    <NAME class="5" text="PARAM1" lev="3" loc="12.31"/>
+    <NAME class="5" text="PARAM2" lev="3" loc="12.39"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="13.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="13.7">
+     <CALL. class="125" lev="4" kid="2" loc="13.7">
+      <NAME class="5" text="ECHO" lev="5" loc="13.7"/>
+      <STRING class="7" text="1" lev="5" loc="13.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="16.11">
+   <NAME class="5" text="MISMATCHEDPARAMCNT2" lev="2" loc="16.11"/>
+   <COMMA. class="127" lev="2" kid="2" loc="16.31">
+    <NAME class="5" text="PARAM1" lev="3" loc="16.31"/>
+    <NAME class="5" text="PARAM2" lev="3" loc="16.39"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="17.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="17.7">
+     <CALL. class="125" lev="4" kid="2" loc="17.7">
+      <NAME class="5" text="ECHO" lev="5" loc="17.7"/>
+      <STRING class="7" text="2" lev="5" loc="17.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="20.11">
+   <NAME class="5" text="MISMATCHEDPARAMCNT3" lev="2" loc="20.11"/>
+   <COMMA. class="127" lev="2" kid="2" loc="20.31">
+    <NAME class="5" text="PARAM1" lev="3" loc="20.31"/>
+    <NAME class="5" text="PARAM2" lev="3" loc="20.39"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="21.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="21.7">
+     <CALL. class="125" lev="4" kid="2" loc="21.7">
+      <NAME class="5" text="ECHO" lev="5" loc="21.7"/>
+      <STRING class="7" text="3" lev="5" loc="21.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="24.11">
+   <NAME class="5" text="OUTOFORDERPARAMCNT1" lev="2" loc="24.11"/>
+   <COMMA. class="127" lev="2" kid="3" loc="24.31">
+    <NAME class="5" text="PARAM2" lev="3" loc="24.31"/>
+    <NAME class="5" text="PARAM1" lev="3" loc="24.38"/>
+    <NAME class="5" text="PARAM3" lev="3" loc="24.45"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="25.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="25.7">
+     <CALL. class="125" lev="4" kid="2" loc="25.7">
+      <NAME class="5" text="ECHO" lev="5" loc="25.7"/>
+      <STRING class="7" text="4" lev="5" loc="25.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="28.11">
+   <NAME class="5" text="OUTOFORDERPARAMCNT2" lev="2" loc="28.11"/>
+   <COMMA. class="127" lev="2" kid="3" loc="28.31">
+    <NAME class="5" text="PARAM3" lev="3" loc="28.31"/>
+    <NAME class="5" text="PARAM2" lev="3" loc="28.38"/>
+    <NAME class="5" text="PARAM1" lev="3" loc="28.45"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="29.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="29.7">
+     <CALL. class="125" lev="4" kid="2" loc="29.7">
+      <NAME class="5" text="ECHO" lev="5" loc="29.7"/>
+      <STRING class="7" text="5" lev="5" loc="29.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="32.11">
+   <NAME class="5" text="OUTOFORDERPARAMCNT3" lev="2" loc="32.11"/>
+   <COMMA. class="127" lev="2" kid="3" loc="32.31">
+    <NAME class="5" text="PARAM2" lev="3" loc="32.31"/>
+    <NAME class="5" text="PARAM3" lev="3" loc="32.38"/>
+    <NAME class="5" text="PARAM1" lev="3" loc="32.45"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="33.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="33.7">
+     <CALL. class="125" lev="4" kid="2" loc="33.7">
+      <NAME class="5" text="ECHO" lev="5" loc="33.7"/>
+      <STRING class="7" text="6" lev="5" loc="33.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="36.11">
+   <NAME class="5" text="WRONGPARAMS1" lev="2" loc="36.11"/>
+   <COMMA. class="127" lev="2" kid="2" loc="36.24">
+    <NAME class="5" text="TOTALLYWRONG" lev="3" loc="36.24"/>
+    <NAME class="5" text="PARAM2" lev="3" loc="36.38"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="37.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="37.7">
+     <CALL. class="125" lev="4" kid="2" loc="37.7">
+      <NAME class="5" text="ECHO" lev="5" loc="37.7"/>
+      <STRING class="7" text="7" lev="5" loc="37.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="40.11">
+   <NAME class="5" text="WRONGPARAMS2" lev="2" loc="40.11"/>
+   <COMMA. class="127" lev="2" kid="2" loc="40.24">
+    <NAME class="5" text="TOTALLYWRONGONE" lev="3" loc="40.24"/>
+    <NAME class="5" text="TOTALLYWRONGTWO" lev="3" loc="40.41"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="41.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="41.7">
+     <CALL. class="125" lev="4" kid="2" loc="41.7">
+      <NAME class="5" text="ECHO" lev="5" loc="41.7"/>
+      <STRING class="7" text="8" lev="5" loc="41.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <LABEL. class="182" lev="1" kid="1" loc="44.0">
+   <NAME class="5" text="END" lev="2" loc="44.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

@@ -1,0 +1,14 @@
+div.breadcrumbTrail {
+    font-size: 8pt;
+    font-weight: bold;
+    font-style: italic;
+    padding-bottom: 0.5em;
+}
+
+div.breadcrumbTrail a {
+    text-decoration: none;
+}
+
+div.breadcrumbTrail a:hover {
+    text-decoration: underline;
+}

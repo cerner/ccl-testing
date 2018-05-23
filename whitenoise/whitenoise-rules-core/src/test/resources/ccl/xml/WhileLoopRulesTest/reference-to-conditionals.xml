@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+
+declare hHandle = i4 with protect, noconstant(10)
+
+while (hHandle != 0)
+  call echo(hHandle)
+  
+  set hHandle = hHandle - 1
+endwhile
+
+set hHandle = initializeHandle(0)
+while (hHandle != 0)
+  call echo(hHandle)
+  
+  set hHandle = alterHandle(0)
+endwhile
+
+declare personId = f8 with protect, noconstant(0)
+while (personId = 0)
+  select into "nl:"
+  from person p
+  plan p where p.name_last_key = "TEST"
+  detail
+    personId = p.person_id
+  with nocounter
+endwhile
+
+end go
+ -->
+<ZC_PROGRAM. class="222" lev="0" kid="8" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_DECLARE. class="215" lev="1" kid="3" loc="3.8">
+   <NAME class="5" text="HHANDLE" lev="2" loc="3.8"/>
+   <NAME class="5" text="I4" lev="2" loc="3.18"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="3.26">
+    <OPTION. class="162" lev="3" kid="1" loc="3.26">
+     <NAME class="5" text="PROTECT" lev="4" loc="3.26"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="3.35">
+     <CALL. class="125" lev="4" kid="2" loc="3.35">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="3.35"/>
+      <INT class="4" text="10" lev="5" loc="3.46"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <WHILE. class="180" lev="1" kid="2" loc="5.7">
+   <NEQ. class="159" lev="2" kid="2" loc="5.7">
+    <NAME class="5" text="HHANDLE" lev="3" loc="5.7"/>
+    <INT class="4" text="0" lev="3" loc="5.18"/>
+   </NEQ.>
+   <COMMA. class="127" lev="2" kid="2" loc="6.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="6.7">
+     <CALL. class="125" lev="4" kid="2" loc="6.7">
+      <NAME class="5" text="ECHO" lev="5" loc="6.7"/>
+      <NAME class="5" text="HHANDLE" lev="5" loc="6.12"/>
+     </CALL.>
+    </Z_CALL.>
+    <Z_SET. class="210" lev="3" kid="2" loc="8.6">
+     <NAME class="5" text="HHANDLE" lev="4" loc="8.6"/>
+     <MINUS. class="155" lev="4" kid="2" loc="8.16">
+      <NAME class="5" text="HHANDLE" lev="5" loc="8.16"/>
+      <INT class="4" text="1" lev="5" loc="8.26"/>
+     </MINUS.>
+    </Z_SET.>
+   </COMMA.>
+  </WHILE.>
+  <Z_SET. class="210" lev="1" kid="2" loc="11.4">
+   <NAME class="5" text="HHANDLE" lev="2" loc="11.4"/>
+   <CALL. class="125" lev="2" kid="2" loc="11.14">
+    <NAME class="5" text="INITIALIZEHANDLE" lev="3" loc="11.14"/>
+    <INT class="4" text="0" lev="3" loc="11.31"/>
+   </CALL.>
+  </Z_SET.>
+  <WHILE. class="180" lev="1" kid="2" loc="12.7">
+   <NEQ. class="159" lev="2" kid="2" loc="12.7">
+    <NAME class="5" text="HHANDLE" lev="3" loc="12.7"/>
+    <INT class="4" text="0" lev="3" loc="12.18"/>
+   </NEQ.>
+   <COMMA. class="127" lev="2" kid="2" loc="13.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="13.7">
+     <CALL. class="125" lev="4" kid="2" loc="13.7">
+      <NAME class="5" text="ECHO" lev="5" loc="13.7"/>
+      <NAME class="5" text="HHANDLE" lev="5" loc="13.12"/>
+     </CALL.>
+    </Z_CALL.>
+    <Z_SET. class="210" lev="3" kid="2" loc="15.6">
+     <NAME class="5" text="HHANDLE" lev="4" loc="15.6"/>
+     <CALL. class="125" lev="4" kid="2" loc="15.16">
+      <NAME class="5" text="ALTERHANDLE" lev="5" loc="15.16"/>
+      <INT class="4" text="0" lev="5" loc="15.28"/>
+     </CALL.>
+    </Z_SET.>
+   </COMMA.>
+  </WHILE.>
+  <Z_DECLARE. class="215" lev="1" kid="3" loc="18.8">
+   <NAME class="5" text="PERSONID" lev="2" loc="18.8"/>
+   <NAME class="5" text="F8" lev="2" loc="18.19"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="18.27">
+    <OPTION. class="162" lev="3" kid="1" loc="18.27">
+     <NAME class="5" text="PROTECT" lev="4" loc="18.27"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="18.36">
+     <CALL. class="125" lev="4" kid="2" loc="18.36">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="18.36"/>
+      <INT class="4" text="0" lev="5" loc="18.47"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <WHILE. class="180" lev="1" kid="2" loc="19.7">
+   <EQL. class="132" lev="2" kid="2" loc="19.7">
+    <NAME class="5" text="PERSONID" lev="3" loc="19.7"/>
+    <INT class="4" text="0" lev="3" loc="19.18"/>
+   </EQL.>
+   <COMMA. class="127" lev="2" kid="1" loc="20.9">
+    <Z_SELECT. class="209" lev="3" kid="8" loc="20.9">
+     <COMMA. class="127" lev="4" loc="20.9"/>
+     <INTO. class="148" lev="4" kid="1" loc="20.14">
+      <STRING class="7" text="nl:" lev="5" loc="20.14"/>
+     </INTO.>
+     <COMMA. class="127" lev="4" loc="21.2"/>
+     <COMMA. class="127" lev="4" kid="1" loc="21.7">
+      <TABLE. class="177" lev="5" kid="2" loc="21.7">
+       <NAME class="5" text="PERSON" lev="6" loc="21.7"/>
+       <NAME class="5" text="P" lev="6" loc="21.14"/>
+      </TABLE.>
+     </COMMA.>
+     <PLAN. class="169" lev="4" kid="1" loc="22.7">
+      <COMMA. class="127" lev="5" kid="2" loc="22.7">
+       <NAME class="5" text="P" lev="6" loc="22.7"/>
+       <QUAL. class="173" lev="6" kid="1" loc="22.15">
+        <EQL. class="132" lev="7" kid="2" loc="22.15">
+         <ATTR. class="123" lev="8" kid="2" loc="22.15">
+          <NAME class="5" text="P" lev="9" loc="22.15"/>
+          <NAME class="5" text="NAME_LAST_KEY" lev="9" loc="22.17"/>
+         </ATTR.>
+         <STRING class="7" text="TEST" lev="8" loc="22.33"/>
+        </EQL.>
+       </QUAL.>
+      </COMMA.>
+     </PLAN.>
+     <ORDERLIST. class="166" lev="4" loc="23.2"/>
+     <COMMA. class="127" lev="4" kid="1" loc="24.4">
+      <DETAIL. class="129" lev="5" kid="1" loc="24.4">
+       <IS. class="149" lev="6" kid="2" loc="24.4">
+        <NAME class="5" text="PERSONID" lev="7" loc="24.4"/>
+        <ATTR. class="123" lev="7" kid="2" loc="24.15">
+         <NAME class="5" text="P" lev="8" loc="24.15"/>
+         <NAME class="5" text="PERSON_ID" lev="8" loc="24.17"/>
+        </ATTR.>
+       </IS.>
+      </DETAIL.>
+     </COMMA.>
+     <OPTIONS. class="163" lev="4" kid="1" loc="25.7">
+      <OPTION. class="162" lev="5" kid="1" loc="25.7">
+       <NAME class="5" text="NOCOUNTER" lev="6" loc="25.7"/>
+      </OPTION.>
+     </OPTIONS.>
+    </Z_SELECT.>
+   </COMMA.>
+  </WHILE.>
+  <LABEL. class="182" lev="1" kid="1" loc="28.0">
+   <NAME class="5" text="END" lev="2" loc="28.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

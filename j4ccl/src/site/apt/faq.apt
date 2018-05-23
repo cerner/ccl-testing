@@ -1,0 +1,20 @@
+        -----------
+        FAQ
+        -----------
+        Joshua Hyde
+        -----------
+        2010-04-28
+        -----------
+
+FAQ
+
+* Statement of Purpose
+
+  Provide an API that allows a Java code to programmatically interact with CCL.
+  
+* How Do I Use It?
+
+  For interactions with CCL, use {{{./apidocs/com/cerner/ccl/j4ccl/CclExecutor.html}CclExecutor}} to queue up commands.
+  
+  To manage resources outside of interactions with CCL (but to place them in a location that follows conventions in CCL programming), use {{{./apidocs/com/cerner/ccl/j4ccl/util/CclResourceUploader.html}CclResourceUploader}}. 
+

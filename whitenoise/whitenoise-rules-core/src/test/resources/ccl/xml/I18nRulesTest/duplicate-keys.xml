@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program:dba go
+create program sample_program:dba
+
+;No error
+call echo(uar_i18ngetmessage(hI18n, "Val1", "View Name"))
+
+;Duplicate key, but same text, no error
+call echo(uar_i18ngetmessage(hI18n, "Val1", "View Name"))
+
+;Duplicate key, different text, error
+call echo(uar_i18ngetmessage(hI18n, "Val1", "Different View Name"))
+
+;New key, new text, no error
+call echo(uar_i18ngetmessage(hI18n, "Val2", "Different View Name"))
+
+end go
+ -->
+ <ZC_PROGRAM. class="222" lev="0" kid="6" loc="1.15">
+  <USER. class="179" lev="1" kid="2" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+   <NAME class="5" text="DBA" lev="2" loc="1.27"/>
+  </USER.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="4.5">
+   <CALL. class="125" lev="2" kid="2" loc="4.5">
+    <NAME class="5" text="ECHO" lev="3" loc="4.5"/>
+    <CALL. class="125" lev="3" kid="4" loc="4.10">
+     <NAME class="5" text="UAR_I18NGETMESSAGE" lev="4" loc="4.10"/>
+     <NAME class="5" text="HI18N" lev="4" loc="4.29"/>
+     <STRING class="7" text="Val1" lev="4" loc="4.36"/>
+     <STRING class="7" text="View Name" lev="4" loc="4.44"/>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="7.5">
+   <CALL. class="125" lev="2" kid="2" loc="7.5">
+    <NAME class="5" text="ECHO" lev="3" loc="7.5"/>
+    <CALL. class="125" lev="3" kid="4" loc="7.10">
+     <NAME class="5" text="UAR_I18NGETMESSAGE" lev="4" loc="7.10"/>
+     <NAME class="5" text="HI18N" lev="4" loc="7.29"/>
+     <STRING class="7" text="Val1" lev="4" loc="7.36"/>
+     <STRING class="7" text="View Name" lev="4" loc="7.44"/>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="10.5">
+   <CALL. class="125" lev="2" kid="2" loc="10.5">
+    <NAME class="5" text="ECHO" lev="3" loc="10.5"/>
+    <CALL. class="125" lev="3" kid="4" loc="10.10">
+     <NAME class="5" text="UAR_I18NGETMESSAGE" lev="4" loc="10.10"/>
+     <NAME class="5" text="HI18N" lev="4" loc="10.29"/>
+     <STRING class="7" text="Val1" lev="4" loc="10.36"/>
+     <STRING class="7" text="Different View Name" lev="4" loc="10.44"/>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="13.5">
+   <CALL. class="125" lev="2" kid="2" loc="13.5">
+    <NAME class="5" text="ECHO" lev="3" loc="13.5"/>
+    <CALL. class="125" lev="3" kid="4" loc="13.10">
+     <NAME class="5" text="UAR_I18NGETMESSAGE" lev="4" loc="13.10"/>
+     <NAME class="5" text="HI18N" lev="4" loc="13.29"/>
+     <STRING class="7" text="Val2" lev="4" loc="13.36"/>
+     <STRING class="7" text="Different View Name" lev="4" loc="13.44"/>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <LABEL. class="182" lev="1" kid="1" loc="15.0">
+   <NAME class="5" text="END" lev="2" loc="15.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

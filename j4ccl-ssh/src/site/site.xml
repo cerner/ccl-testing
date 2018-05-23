@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="j4ccl-ssh">
+    <bannerLeft>
+        <name>SSH 4 J4CCL</name>
+        <href>https://github.com/cerner/ccl-testing</href>
+    </bannerLeft>
+    <body>
+        <menu name="SSH 4 J4CCL">
+            <item name="About" href="index.html" />
+            <item name="FAQ" href="faq.html" />
+            <item name="Changes Report" href="changes-report.html" />
+        </menu>
+        <menu ref="reports" />
+    </body>
+</project>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+
+set modify predeclare
+set message noinformation
+set trace debug
+set stat = 1
+set curalias e a->list[i]
+
+end
+go
+ -->
+ <ZC_PROGRAM. class="222" lev="0" kid="7" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_SET. class="210" lev="1" kid="2" loc="3.4">
+   <NAME class="5" text="MODIFY" lev="2" loc="3.4"/>
+   <NAME class="5" text="PREDECLARE" lev="2" loc="3.11"/>
+  </Z_SET.>
+  <Z_SET. class="210" lev="1" kid="2" loc="4.4">
+   <NAME class="5" text="MESSAGE" lev="2" loc="4.4"/>
+   <NAME class="5" text="NOINFORMATION" lev="2" loc="4.12"/>
+  </Z_SET.>
+  <Z_SET. class="210" lev="1" kid="2" loc="5.4">
+   <NAME class="5" text="TRACE" lev="2" loc="5.4"/>
+   <NAME class="5" text="DEBUG" lev="2" loc="5.10"/>
+  </Z_SET.>
+  <Z_SET. class="210" lev="1" kid="2" loc="6.4">
+   <NAME class="5" text="STAT" lev="2" loc="6.4"/>
+   <INT class="4" text="1" lev="2" loc="6.11"/>
+  </Z_SET.>
+  <Z_SET. class="210" lev="1" kid="2" loc="7.4">
+   <NAME class="5" text="CURALIAS" lev="2" loc="7.4"/>
+   <IS. class="149" lev="2" kid="2" loc="7.13">
+    <NAME class="5" text="E" lev="3" loc="7.13"/>
+    <MEMBER. class="187" lev="3" kid="2" loc="7.15">
+     <NAME class="5" text="A" lev="4" loc="7.15"/>
+     <ARRAY. class="122" lev="4" kid="2" loc="7.18">
+      <NAME class="5" text="LIST" lev="5" loc="7.18"/>
+      <NAME class="5" text="I" lev="5" loc="7.23"/>
+     </ARRAY.>
+    </MEMBER.>
+   </IS.>
+  </Z_SET.>
+  <LABEL. class="182" lev="1" kid="1" loc="9.0">
+   <NAME class="5" text="END" lev="2" loc="9.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

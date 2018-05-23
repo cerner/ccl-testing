@@ -1,0 +1,16 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="hostAddress" class="java.lang.String">
+        <constructor-arg index="0" value="${ccl-host}" />
+    </bean>
+
+    <bean id="hostUsername" class="java.lang.String">
+        <constructor-arg index="0" value="#{systemProperties['ccl-hostUsername']}" />
+    </bean>
+
+    <bean id="hostPassword" class="java.lang.String">
+        <constructor-arg index="0" value="#{systemProperties['ccl-hostPassword']}" />
+    </bean>
+</beans>

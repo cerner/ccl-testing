@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LISTING>
+    <LISTING_NAME>CCLUT_SIMPLE_MATH</LISTING_NAME>
+    <COMPILE_DATE>19-APR-2010 16:06:09.35</COMPILE_DATE>
+    <LINES>
+        <LINE>
+            <NBR>1</NBR>
+            <TEXT><![CDATA[create program cclut_simple_math]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>2</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>3</NBR>
+            <TEXT><![CDATA[;**********************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>4</NBR>
+            <TEXT><![CDATA[;DECLARE INCLUDE FILES]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>5</NBR>
+            <TEXT><![CDATA[;**********************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>6</NBR>
+            <TEXT/>
+            <START_OF_INC><![CDATA[%i cclsource:cclut_simple_math_ext.inc]]></START_OF_INC>
+        </LINE>
+        <LINE>
+            <NBR>7</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>8</NBR>
+            <TEXT><![CDATA[declare simpleMathVar1 = i2 with protect, noconstant(0)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>9</NBR>
+            <TEXT><![CDATA[declare simpleMathVar2 = i2 with protect, noconstant(0)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>10</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>11</NBR>
+            <TEXT><![CDATA[set simpleMathVar1 = 1]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>12</NBR>
+            <TEXT><![CDATA[set simpleMathVar2 = 2]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>13</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>14</NBR>
+            <TEXT/>
+            <END_OF_INC><![CDATA[%i cclsource:cclut_simple_math_ext.inc]]></END_OF_INC>
+        </LINE>
+        <LINE>
+            <NBR>15</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>16</NBR>
+            <TEXT><![CDATA[;**********************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>17</NBR>
+            <TEXT><![CDATA[;DECLARE RECORD STRUCTURES]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>18</NBR>
+            <TEXT><![CDATA[;**********************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>19</NBR>
+            <TEXT><![CDATA[/*]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>20</NBR>
+            <TEXT><![CDATA[record request(]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>21</NBR>
+            <TEXT><![CDATA[  1 numberOne = i4]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>22</NBR>
+            <TEXT><![CDATA[  1 numberTwo = i4]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>23</NBR>
+            <TEXT><![CDATA[  1 operation = vc ;ADD, SUBTRACT, MULTIPLY, DIVIDE]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>24</NBR>
+            <TEXT><![CDATA[)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>25</NBR>
+            <TEXT><![CDATA[*/]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>26</NBR>
+            <TEXT><![CDATA[call echoxml(reply, concat("XYZZY", trim(cnvtstring(curtime3))))]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>27</NBR>
+            <TEXT><![CDATA[if(not(validate(reply)))]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>28</NBR>
+            <TEXT><![CDATA[record reply]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>29</NBR>
+            <TEXT><![CDATA[(]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>30</NBR>
+            <TEXT><![CDATA[1 result = f8]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>31</NBR>
+            <TEXT/>
+            <START_OF_INC><![CDATA[%i cclsource:status_block.inc]]></START_OF_INC>
+        </LINE>
+        <LINE>
+            <NBR>32</NBR>
+            <TEXT><![CDATA[  1 status_data]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>33</NBR>
+            <TEXT><![CDATA[    2 status = c1]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>34</NBR>
+            <TEXT><![CDATA[    2 subeventstatus[1]]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>35</NBR>
+            <TEXT><![CDATA[      3 OperationName = c25]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>36</NBR>
+            <TEXT><![CDATA[      3 OperationStatus = c1]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>37</NBR>
+            <TEXT><![CDATA[      3 TargetObjectName = c25]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>38</NBR>
+            <TEXT><![CDATA[      3 TargetObjectValue = vc]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>39</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>40</NBR>
+            <TEXT/>
+            <END_OF_INC><![CDATA[%i cclsource:status_block.inc]]></END_OF_INC>
+        </LINE>
+        <LINE>
+            <NBR>41</NBR>
+            <TEXT><![CDATA[)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>42</NBR>
+            <TEXT><![CDATA[endif]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>43</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>44</NBR>
+            <TEXT><![CDATA[;**********************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>45</NBR>
+            <TEXT><![CDATA[;DECLARE SUBROUTINES]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>46</NBR>
+            <TEXT><![CDATA[;**********************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>47</NBR>
+            <TEXT><![CDATA[declare addNumbers(pNumOne = i4, pNumTwo = i4) = f8]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>48</NBR>
+            <TEXT><![CDATA[declare subtractNumbers(pNumOne = i4, pNumTwo = i4) = f8]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>49</NBR>
+            <TEXT><![CDATA[declare multiplyNumbers(pNumOne = i4, pNumTwo = i4) = f8]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>50</NBR>
+            <TEXT><![CDATA[declare divideNumbers(pNumOne = i4, pNumTwo = i4) = f8]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>51</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>52</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>53</NBR>
+            <TEXT><![CDATA[;**********************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>54</NBR>
+            <TEXT><![CDATA[;BEGIN MAIN LOGIC]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>55</NBR>
+            <TEXT><![CDATA[;**********************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>56</NBR>
+            <TEXT><![CDATA[set reply->status_data.status = 'S']]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>57</NBR>
+            <TEXT><![CDATA[case (cnvtupper(trim(request->operation,3)))]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>58</NBR>
+            <TEXT><![CDATA[of "ADD":]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>59</NBR>
+            <TEXT><![CDATA[  set reply->result =  addNumbers(request->numberOne, request->numberTwo)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>60</NBR>
+            <TEXT><![CDATA[of "SUBTRACT":]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>61</NBR>
+            <TEXT><![CDATA[  set reply->result = subtractNumbers(request->numberOne, request->numberTwo)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>62</NBR>
+            <TEXT><![CDATA[of "MULTIPLY":]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>63</NBR>
+            <TEXT><![CDATA[  set reply->result = multiplyNumbers(request->numberOne, request->numberTwo)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>64</NBR>
+            <TEXT><![CDATA[of "DIVIDE":]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>65</NBR>
+            <TEXT><![CDATA[  set reply->result = divideNumbers(request->numberOne, request->numberTwo)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>66</NBR>
+            <TEXT><![CDATA[else]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>67</NBR>
+            <TEXT><![CDATA[  set reply->status_data.status = 'F']]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>68</NBR>
+            <TEXT><![CDATA[endcase]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>69</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>70</NBR>
+            <TEXT><![CDATA[go to exit_script]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>71</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>72</NBR>
+            <TEXT><![CDATA[;pNumTwo is added to pNumOne]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>73</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>74</NBR>
+            <TEXT><![CDATA[subroutine addNumbers(pNumOne, pNumTwo)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>75</NBR>
+            <TEXT><![CDATA[  declare result = f8 with protect, noconstant(0.0)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>76</NBR>
+            <TEXT><![CDATA[  set result = pNumOne + pNumTwo]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>77</NBR>
+            <TEXT><![CDATA[  return(result)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>78</NBR>
+            <TEXT><![CDATA[end]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>79</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>80</NBR>
+            <TEXT><![CDATA[;pNumTwo is subtracted from pNumOne]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>81</NBR>
+            <TEXT><![CDATA[subroutine subtractNumbers(pNumOne, pNumTwo)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>82</NBR>
+            <TEXT><![CDATA[  declare result = f8 with protect, noconstant(0.0)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>83</NBR>
+            <TEXT><![CDATA[  set result = pNumOne - pNumTwo]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>84</NBR>
+            <TEXT><![CDATA[  return(result)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>85</NBR>
+            <TEXT><![CDATA[end]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>86</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>87</NBR>
+            <TEXT><![CDATA[;pNumOne is multiplied by pNumTwo]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>88</NBR>
+            <TEXT><![CDATA[subroutine multiplyNumbers(pNumOne, pNumTwo)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>89</NBR>
+            <TEXT><![CDATA[  declare result = f8 with protect, noconstant(0.0)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>90</NBR>
+            <TEXT><![CDATA[  set result = pNumOne * pNumTwo]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>91</NBR>
+            <TEXT><![CDATA[  return(result)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>92</NBR>
+            <TEXT><![CDATA[end]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>93</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>94</NBR>
+            <TEXT><![CDATA[;pNumOne is divided by pNumTwo]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>95</NBR>
+            <TEXT><![CDATA[;Division by 0 returns -1]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>96</NBR>
+            <TEXT><![CDATA[subroutine divideNumbers(pNumOne, pNumTwo)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>97</NBR>
+            <TEXT><![CDATA[  declare result = f8 with protect, noconstant(0.0)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>98</NBR>
+            <TEXT><![CDATA[  if(pNumTwo = 0)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>99</NBR>
+            <TEXT><![CDATA[    set result = -1]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>100</NBR>
+            <TEXT><![CDATA[  else]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>101</NBR>
+            <TEXT><![CDATA[    set result = pNumOne / pNumTwo]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>102</NBR>
+            <TEXT><![CDATA[  endif]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>103</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>104</NBR>
+            <TEXT><![CDATA[  return(result)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>105</NBR>
+            <TEXT><![CDATA[end]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>106</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>107</NBR>
+            <TEXT><![CDATA[#exit_script]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>108</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>109</NBR>
+            <TEXT><![CDATA[end]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>110</NBR>
+            <TEXT><![CDATA[go]]></TEXT>
+        </LINE>
+    </LINES>
+</LISTING>

@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+
+free record reply
+record reply
+(
+  1 listCnt = i4
+  1 list[*]
+    2 val = f8
+)
+
+declare myVal = i4 with protect, noconstant(0)
+
+call echo(mod(myVal, 1))
+
+call echo(mod(reply->listCnt, 1))
+
+call echo(mod(size(reply->list, 5), 1))
+
+end go
+ -->
+ <ZC_PROGRAM. class="222" lev="0" kid="8" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_FREE. class="200" lev="1" kid="2" loc="3.5">
+   <RECORD class="88" lev="2" loc="3.5"/>
+   <NAME class="5" text="REPLY" lev="2" loc="3.12"/>
+  </Z_FREE.>
+  <RECORD. class="174" lev="1" kid="2" loc="4.7">
+   <COMMA. class="127" lev="2" kid="1" loc="4.7">
+    <NAME class="5" text="REPLY" lev="3" loc="4.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="2" loc="6.2">
+    <FIELD. class="133" lev="3" kid="3" loc="6.2">
+     <INT class="4" text="1" lev="4" loc="6.2"/>
+     <NAME class="5" text="LISTCNT" lev="4" loc="6.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="6.14">
+      <NAME class="5" text="I4" lev="5" loc="6.14"/>
+      <COMMA. class="127" lev="5" loc="7.2"/>
+      <COMMA. class="127" lev="5" loc="7.2"/>
+     </FORMAT.>
+    </FIELD.>
+    <FIELD. class="133" lev="3" kid="4" loc="7.2">
+     <INT class="4" text="1" lev="4" loc="7.2"/>
+     <NAME class="5" text="LIST" lev="4" loc="7.4"/>
+     <OCCUR. class="161" lev="4" kid="1" loc="7.9">
+      <C_AST class="9" lev="5" loc="7.9"/>
+     </OCCUR.>
+     <FIELD. class="133" lev="4" kid="3" loc="8.4">
+      <INT class="4" text="2" lev="5" loc="8.4"/>
+      <NAME class="5" text="VAL" lev="5" loc="8.6"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="8.12">
+       <NAME class="5" text="F8" lev="6" loc="8.12"/>
+       <COMMA. class="127" lev="6" loc="9.0"/>
+       <COMMA. class="127" lev="6" loc="9.0"/>
+      </FORMAT.>
+     </FIELD.>
+    </FIELD.>
+   </INDENT.>
+  </RECORD.>
+  <Z_DECLARE. class="215" lev="1" kid="3" loc="11.8">
+   <NAME class="5" text="MYVAL" lev="2" loc="11.8"/>
+   <NAME class="5" text="I4" lev="2" loc="11.16"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="11.24">
+    <OPTION. class="162" lev="3" kid="1" loc="11.24">
+     <NAME class="5" text="PROTECT" lev="4" loc="11.24"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="11.33">
+     <CALL. class="125" lev="4" kid="2" loc="11.33">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="11.33"/>
+      <INT class="4" text="0" lev="5" loc="11.44"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="13.5">
+   <CALL. class="125" lev="2" kid="2" loc="13.5">
+    <NAME class="5" text="ECHO" lev="3" loc="13.5"/>
+    <CALL. class="125" lev="3" kid="3" loc="13.10">
+     <NAME class="5" text="MOD" lev="4" loc="13.10"/>
+     <NAME class="5" text="MYVAL" lev="4" loc="13.14"/>
+     <INT class="4" text="1" lev="4" loc="13.21"/>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="15.5">
+   <CALL. class="125" lev="2" kid="2" loc="15.5">
+    <NAME class="5" text="ECHO" lev="3" loc="15.5"/>
+    <CALL. class="125" lev="3" kid="3" loc="15.10">
+     <NAME class="5" text="MOD" lev="4" loc="15.10"/>
+     <MEMBER. class="187" lev="4" kid="2" loc="15.14">
+      <NAME class="5" text="REPLY" lev="5" loc="15.14"/>
+      <NAME class="5" text="LISTCNT" lev="5" loc="15.21"/>
+     </MEMBER.>
+     <INT class="4" text="1" lev="4" loc="15.30"/>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="17.5">
+   <CALL. class="125" lev="2" kid="2" loc="17.5">
+    <NAME class="5" text="ECHO" lev="3" loc="17.5"/>
+    <CALL. class="125" lev="3" kid="3" loc="17.10">
+     <NAME class="5" text="MOD" lev="4" loc="17.10"/>
+     <CALL. class="125" lev="4" kid="3" loc="17.14">
+      <NAME class="5" text="SIZE" lev="5" loc="17.14"/>
+      <MEMBER. class="187" lev="5" kid="2" loc="17.19">
+       <NAME class="5" text="REPLY" lev="6" loc="17.19"/>
+       <NAME class="5" text="LIST" lev="6" loc="17.26"/>
+      </MEMBER.>
+      <INT class="4" text="5" lev="5" loc="17.32"/>
+     </CALL.>
+     <INT class="4" text="1" lev="4" loc="17.36"/>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <LABEL. class="182" lev="1" kid="1" loc="19.0">
+   <NAME class="5" text="END" lev="2" loc="19.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

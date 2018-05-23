@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TESTCASE>
+    <NAME>cclut_test_example2.inc</NAME>
+    <TESTS>
+        <TEST>
+            <NAME>TESTDIVIDEBYZERO</NAME>
+            <ASSERTS>
+                <ASSERT>
+                    <LINENUMBER>736</LINENUMBER>
+                    <CONTEXT><![CDATA[testDivide]]></CONTEXT>
+                    <RESULT>PASSED</RESULT>
+                    <TEST><![CDATA[-1.000000=-1.000000]]></TEST>
+                </ASSERT>
+                <ASSERT>
+                    <LINENUMBER>739</LINENUMBER>
+                    <CONTEXT><![CDATA[testDivide]]></CONTEXT>
+                    <RESULT>PASSED</RESULT>
+                    <TEST><![CDATA[0.000000>-1.000000]]></TEST>
+                </ASSERT>
+            </ASSERTS>
+            <ERRORS/>
+            <RESULT>PASSED</RESULT>
+        </TEST>
+        <TEST>
+            <NAME>TESTNOREPLYSENTIN</NAME>
+            <ASSERTS/>
+            <ERRORS>
+                <ERROR>
+                    <LINENUMBER>65</LINENUMBER>
+                    <ERRORTEXT><![CDATA[%CCL-E-260-CCLUT_SIMPLE_MATH(65,6)S0L4.3r2{REPLY->RESULT}Found an invalid record structure member in expr.]]></ERRORTEXT>
+                </ERROR>
+            </ERRORS>
+            <RESULT>ERRORED</RESULT>
+        </TEST>
+        <TEST>
+            <NAME>TESTBOGUSOPERATION</NAME>
+            <ASSERTS>
+                <ASSERT>
+                    <LINENUMBER>758</LINENUMBER>
+                    <CONTEXT><![CDATA[]]></CONTEXT>
+                    <RESULT>PASSED</RESULT>
+                    <TEST><![CDATA["F"="F"]]></TEST>
+                </ASSERT>
+            </ASSERTS>
+            <ERRORS/>
+            <RESULT>PASSED</RESULT>
+        </TEST>
+    </TESTS>
+</TESTCASE>

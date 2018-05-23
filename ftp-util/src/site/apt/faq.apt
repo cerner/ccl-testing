@@ -1,0 +1,24 @@
+        -----------
+        FAQ
+        -----------
+        Joshua Hyde
+        -----------
+        2010-04-28
+        -----------
+
+FAQ
+
+* What Is This?
+
+  A generic API used to perform uploading and downloading of files.
+  
+* Why Use This?
+
+  {{{http://www.jcraft.com/jsch/}JSch}} is a popular library used for, among other things, FTP over SSH transactions.  However,
+  it is poorly-documented and cumbersome to use, at its best, despite its level of functionality.  This library was constructed
+  to help alleviate the burden of object management when wishing to perform simple file uploads and downloads.
+  
+* How Do I Use It?
+
+  Currently, only FTP over SSH is available.  The starting points for these actions are {{{./apidocs/com/cerner/ftp/sftp/SftpDownloader.html}SftpDownloader}}
+  and {{{./apidocs/com/cerner/ftp/sftp/SftpUploader.html}SftpUploader}}.

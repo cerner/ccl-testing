@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+
+declare strName = vc with protect, noconstant("")
+
+;Should fail, no trim
+call echo(size(strName))
+
+;Shouldn't Fail
+call echo(size(trim(strName)))
+ 
+;Should fail, no param
+if (size(request->objarray) > 0)
+  call echo(request->objArray[1].value)
+endif
+ 
+;Should fail, wrong param
+if (size(reply->objarray,2) > 0)
+  call echo(reply->objArray[1].value)
+endif
+ 
+select into "nl:"
+from person p
+plan p where p.name_first_key = "JEFF"
+head report
+  ;Should fail, wrong param
+  cnt = size(people->person,1)
+detail
+  cnt = cnt + 1
+  stat = alterlist(people->person, cnt)
+  people->person[cnt].name = p.name_full_formatted
+with nocounter
+ 
+;Shouldn't Fail
+set myCnt = size(request->objArray, 5)
+ 
+end go
+-->
+ <ZC_PROGRAM. class="222" lev="0" kid="9" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_DECLARE. class="215" lev="1" kid="3" loc="3.8">
+   <NAME class="5" text="STRNAME" lev="2" loc="3.8"/>
+   <NAME class="5" text="VC" lev="2" loc="3.18"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="3.26">
+    <OPTION. class="162" lev="3" kid="1" loc="3.26">
+     <NAME class="5" text="PROTECT" lev="4" loc="3.26"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="3.35">
+     <CALL. class="125" lev="4" kid="2" loc="3.35">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="3.35"/>
+      <STRING class="7" text="" lev="5" loc="3.46"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="6.5">
+   <CALL. class="125" lev="2" kid="2" loc="6.5">
+    <NAME class="5" text="ECHO" lev="3" loc="6.5"/>
+    <CALL. class="125" lev="3" kid="2" loc="6.10">
+     <NAME class="5" text="SIZE" lev="4" loc="6.10"/>
+     <NAME class="5" text="STRNAME" lev="4" loc="6.15"/>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="9.5">
+   <CALL. class="125" lev="2" kid="2" loc="9.5">
+    <NAME class="5" text="ECHO" lev="3" loc="9.5"/>
+    <CALL. class="125" lev="3" kid="2" loc="9.10">
+     <NAME class="5" text="SIZE" lev="4" loc="9.10"/>
+     <CALL. class="125" lev="4" kid="2" loc="9.15">
+      <NAME class="5" text="TRIM" lev="5" loc="9.15"/>
+      <NAME class="5" text="STRNAME" lev="5" loc="9.20"/>
+     </CALL.>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <IF. class="146" lev="1" kid="2" loc="12.4">
+   <GTR. class="142" lev="2" kid="2" loc="12.4">
+    <CALL. class="125" lev="3" kid="2" loc="12.4">
+     <NAME class="5" text="SIZE" lev="4" loc="12.4"/>
+     <MEMBER. class="187" lev="4" kid="2" loc="12.9">
+      <NAME class="5" text="REQUEST" lev="5" loc="12.9"/>
+      <NAME class="5" text="OBJARRAY" lev="5" loc="12.18"/>
+     </MEMBER.>
+    </CALL.>
+    <INT class="4" text="0" lev="3" loc="12.30"/>
+   </GTR.>
+   <COMMA. class="127" lev="2" kid="1" loc="13.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="13.7">
+     <CALL. class="125" lev="4" kid="2" loc="13.7">
+      <NAME class="5" text="ECHO" lev="5" loc="13.7"/>
+      <MEMBER. class="187" lev="5" kid="3" loc="13.12">
+       <NAME class="5" text="REQUEST" lev="6" loc="13.12"/>
+       <ARRAY. class="122" lev="6" kid="2" loc="13.21">
+        <NAME class="5" text="OBJARRAY" lev="7" loc="13.21"/>
+        <INT class="4" text="1" lev="7" loc="13.30"/>
+       </ARRAY.>
+       <NAME class="5" text="VALUE" lev="6" loc="13.33"/>
+      </MEMBER.>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </IF.>
+  <IF. class="146" lev="1" kid="2" loc="17.4">
+   <GTR. class="142" lev="2" kid="2" loc="17.4">
+    <CALL. class="125" lev="3" kid="3" loc="17.4">
+     <NAME class="5" text="SIZE" lev="4" loc="17.4"/>
+     <MEMBER. class="187" lev="4" kid="2" loc="17.9">
+      <NAME class="5" text="REPLY" lev="5" loc="17.9"/>
+      <NAME class="5" text="OBJARRAY" lev="5" loc="17.16"/>
+     </MEMBER.>
+     <INT class="4" text="2" lev="4" loc="17.25"/>
+    </CALL.>
+    <INT class="4" text="0" lev="3" loc="17.30"/>
+   </GTR.>
+   <COMMA. class="127" lev="2" kid="1" loc="18.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="18.7">
+     <CALL. class="125" lev="4" kid="2" loc="18.7">
+      <NAME class="5" text="ECHO" lev="5" loc="18.7"/>
+      <MEMBER. class="187" lev="5" kid="3" loc="18.12">
+       <NAME class="5" text="REPLY" lev="6" loc="18.12"/>
+       <ARRAY. class="122" lev="6" kid="2" loc="18.19">
+        <NAME class="5" text="OBJARRAY" lev="7" loc="18.19"/>
+        <INT class="4" text="1" lev="7" loc="18.28"/>
+       </ARRAY.>
+       <NAME class="5" text="VALUE" lev="6" loc="18.31"/>
+      </MEMBER.>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </IF.>
+  <Z_SELECT. class="209" lev="1" kid="8" loc="21.7">
+   <COMMA. class="127" lev="2" loc="21.7"/>
+   <INTO. class="148" lev="2" kid="1" loc="21.12">
+    <STRING class="7" text="nl:" lev="3" loc="21.12"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="22.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="22.5">
+    <TABLE. class="177" lev="3" kid="2" loc="22.5">
+     <NAME class="5" text="PERSON" lev="4" loc="22.5"/>
+     <NAME class="5" text="P" lev="4" loc="22.12"/>
+    </TABLE.>
+   </COMMA.>
+   <PLAN. class="169" lev="2" kid="1" loc="23.5">
+    <COMMA. class="127" lev="3" kid="2" loc="23.5">
+     <NAME class="5" text="P" lev="4" loc="23.5"/>
+     <QUAL. class="173" lev="4" kid="1" loc="23.13">
+      <EQL. class="132" lev="5" kid="2" loc="23.13">
+       <ATTR. class="123" lev="6" kid="2" loc="23.13">
+        <NAME class="5" text="P" lev="7" loc="23.13"/>
+        <NAME class="5" text="NAME_FIRST_KEY" lev="7" loc="23.15"/>
+       </ATTR.>
+       <STRING class="7" text="JEFF" lev="6" loc="23.32"/>
+      </EQL.>
+     </QUAL.>
+    </COMMA.>
+   </PLAN.>
+   <ORDERLIST. class="166" lev="2" loc="24.0"/>
+   <COMMA. class="127" lev="2" kid="2" loc="26.2">
+    <HEADREPORT. class="145" lev="3" kid="1" loc="26.2">
+     <IS. class="149" lev="4" kid="2" loc="26.2">
+      <NAME class="5" text="CNT" lev="5" loc="26.2"/>
+      <CALL. class="125" lev="5" kid="3" loc="26.8">
+       <NAME class="5" text="SIZE" lev="6" loc="26.8"/>
+       <MEMBER. class="187" lev="6" kid="2" loc="26.13">
+        <NAME class="5" text="PEOPLE" lev="7" loc="26.13"/>
+        <NAME class="5" text="PERSON" lev="7" loc="26.21"/>
+       </MEMBER.>
+       <INT class="4" text="1" lev="6" loc="26.28"/>
+      </CALL.>
+     </IS.>
+    </HEADREPORT.>
+    <DETAIL. class="129" lev="3" kid="3" loc="28.2">
+     <IS. class="149" lev="4" kid="2" loc="28.2">
+      <NAME class="5" text="CNT" lev="5" loc="28.2"/>
+      <PLUS. class="170" lev="5" kid="2" loc="28.8">
+       <NAME class="5" text="CNT" lev="6" loc="28.8"/>
+       <INT class="4" text="1" lev="6" loc="28.14"/>
+      </PLUS.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="29.2">
+      <NAME class="5" text="STAT" lev="5" loc="29.2"/>
+      <CALL. class="125" lev="5" kid="3" loc="29.9">
+       <NAME class="5" text="ALTERLIST" lev="6" loc="29.9"/>
+       <MEMBER. class="187" lev="6" kid="2" loc="29.19">
+        <NAME class="5" text="PEOPLE" lev="7" loc="29.19"/>
+        <NAME class="5" text="PERSON" lev="7" loc="29.27"/>
+       </MEMBER.>
+       <NAME class="5" text="CNT" lev="6" loc="29.35"/>
+      </CALL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="30.2">
+      <MEMBER. class="187" lev="5" kid="3" loc="30.2">
+       <NAME class="5" text="PEOPLE" lev="6" loc="30.2"/>
+       <ARRAY. class="122" lev="6" kid="2" loc="30.10">
+        <NAME class="5" text="PERSON" lev="7" loc="30.10"/>
+        <NAME class="5" text="CNT" lev="7" loc="30.17"/>
+       </ARRAY.>
+       <NAME class="5" text="NAME" lev="6" loc="30.22"/>
+      </MEMBER.>
+      <ATTR. class="123" lev="5" kid="2" loc="30.29">
+       <NAME class="5" text="P" lev="6" loc="30.29"/>
+       <NAME class="5" text="NAME_FULL_FORMATTED" lev="6" loc="30.31"/>
+      </ATTR.>
+     </IS.>
+    </DETAIL.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="31.5">
+    <OPTION. class="162" lev="3" kid="1" loc="31.5">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="31.5"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <Z_SET. class="210" lev="1" kid="2" loc="34.4">
+   <NAME class="5" text="MYCNT" lev="2" loc="34.4"/>
+   <CALL. class="125" lev="2" kid="3" loc="34.12">
+    <NAME class="5" text="SIZE" lev="3" loc="34.12"/>
+    <MEMBER. class="187" lev="3" kid="2" loc="34.17">
+     <NAME class="5" text="REQUEST" lev="4" loc="34.17"/>
+     <NAME class="5" text="OBJARRAY" lev="4" loc="34.26"/>
+    </MEMBER.>
+    <INT class="4" text="5" lev="3" loc="34.36"/>
+   </CALL.>
+  </Z_SET.>
+  <LABEL. class="182" lev="1" kid="1" loc="36.0">
+   <NAME class="5" text="END" lev="2" loc="36.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

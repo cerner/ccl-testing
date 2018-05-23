@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+drop program ap_cnvtstring_test go
+create program ap_cnvtstring_test
+ 
+record rec1
+(
+1 items[1]
+  2 chargeId   = f8
+) with protect
+ 
+;No Error since length param is used 
+call echo(cnvtstring(rec1->items[1].chargeId, 17))
+
+;Error since length param is not used
+call echo(cnvtstring(rec1->items[1].chargeId))
+
+end go
+-->
+ <ZC_PROGRAM. class="222" lev="0" kid="5" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="AP_CNVTSTRING_TEST" lev="2" loc="1.15"/>
+  </USER.>
+  <RECORD. class="174" lev="1" kid="3" loc="3.7">
+   <COMMA. class="127" lev="2" kid="1" loc="3.7">
+    <NAME class="5" text="REC1" lev="3" loc="3.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="5.0">
+    <FIELD. class="133" lev="3" kid="4" loc="5.0">
+     <INT class="4" text="1" lev="4" loc="5.0"/>
+     <NAME class="5" text="ITEMS" lev="4" loc="5.2"/>
+     <OCCUR. class="161" lev="4" kid="1" loc="5.8">
+      <INT class="4" text="1" lev="5" loc="5.8"/>
+     </OCCUR.>
+     <FIELD. class="133" lev="4" kid="3" loc="6.2">
+      <INT class="4" text="2" lev="5" loc="6.2"/>
+      <NAME class="5" text="CHARGEID" lev="5" loc="6.4"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="6.17">
+       <NAME class="5" text="F8" lev="6" loc="6.17"/>
+       <COMMA. class="127" lev="6" loc="7.0"/>
+       <COMMA. class="127" lev="6" loc="7.0"/>
+      </FORMAT.>
+     </FIELD.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="7.7">
+    <OPTION. class="162" lev="3" kid="1" loc="7.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="7.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="10.5">
+   <CALL. class="125" lev="2" kid="2" loc="10.5">
+    <NAME class="5" text="ECHO" lev="3" loc="10.5"/>
+    <CALL. class="125" lev="3" kid="3" loc="10.10">
+     <NAME class="5" text="CNVTSTRING" lev="4" loc="10.10"/>
+     <MEMBER. class="187" lev="4" kid="3" loc="10.21">
+      <NAME class="5" text="REC1" lev="5" loc="10.21"/>
+      <ARRAY. class="122" lev="5" kid="2" loc="10.27">
+       <NAME class="5" text="ITEMS" lev="6" loc="10.27"/>
+       <INT class="4" text="1" lev="6" loc="10.33"/>
+      </ARRAY.>
+      <NAME class="5" text="CHARGEID" lev="5" loc="10.36"/>
+     </MEMBER.>
+     <INT class="4" text="17" lev="4" loc="10.46"/>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="13.5">
+   <CALL. class="125" lev="2" kid="2" loc="13.5">
+    <NAME class="5" text="ECHO" lev="3" loc="13.5"/>
+    <CALL. class="125" lev="3" kid="2" loc="13.10">
+     <NAME class="5" text="CNVTSTRING" lev="4" loc="13.10"/>
+     <MEMBER. class="187" lev="4" kid="3" loc="13.21">
+      <NAME class="5" text="REC1" lev="5" loc="13.21"/>
+      <ARRAY. class="122" lev="5" kid="2" loc="13.27">
+       <NAME class="5" text="ITEMS" lev="6" loc="13.27"/>
+       <INT class="4" text="1" lev="6" loc="13.33"/>
+      </ARRAY.>
+      <NAME class="5" text="CHARGEID" lev="5" loc="13.36"/>
+     </MEMBER.>
+    </CALL.>
+   </CALL.>
+  </Z_CALL.>
+  <LABEL. class="182" lev="1" kid="1" loc="15.0">
+   <NAME class="5" text="END" lev="2" loc="15.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

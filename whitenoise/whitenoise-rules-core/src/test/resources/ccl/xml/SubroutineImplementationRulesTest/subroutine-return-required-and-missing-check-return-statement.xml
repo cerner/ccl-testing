@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+ 
+set stat = mysub1(0)
+set stat = mysub2(0)
+set stat = mysub3(0)
+set stat = mysub4(0)
+set stat = mysub5(0)
+ 
+ 
+subroutine mysub1(void)
+  return (1)
+end
+ 
+subroutine mysub2(void)
+  if (true)
+    return (1)
+  else
+    return (1)
+  endif
+end
+ 
+subroutine mysub3(void)
+  if (true)
+    return (1)
+  else
+    return (1)
+  endif
+  return (1)
+end
+ 
+subroutine mysub4(void)
+  if (true)
+    return (1)
+  else
+    return (1)
+  endif
+ 
+  return (1)
+  call echo("GOT HERE")
+end
+ 
+subroutine mysub5(void)
+  for (i = 1 to 10)
+    if (true)
+      return (true)
+    endif
+  endfor
+ 
+  return (false)
+end
+ 
+end
+go
+-->
+ <ZC_PROGRAM. class="222" lev="0" kid="12" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_SET. class="210" lev="1" kid="2" loc="3.4">
+   <NAME class="5" text="STAT" lev="2" loc="3.4"/>
+   <CALL. class="125" lev="2" kid="2" loc="3.11">
+    <NAME class="5" text="MYSUB1" lev="3" loc="3.11"/>
+    <INT class="4" text="0" lev="3" loc="3.18"/>
+   </CALL.>
+  </Z_SET.>
+  <Z_SET. class="210" lev="1" kid="2" loc="4.4">
+   <NAME class="5" text="STAT" lev="2" loc="4.4"/>
+   <CALL. class="125" lev="2" kid="2" loc="4.11">
+    <NAME class="5" text="MYSUB2" lev="3" loc="4.11"/>
+    <INT class="4" text="0" lev="3" loc="4.18"/>
+   </CALL.>
+  </Z_SET.>
+  <Z_SET. class="210" lev="1" kid="2" loc="5.4">
+   <NAME class="5" text="STAT" lev="2" loc="5.4"/>
+   <CALL. class="125" lev="2" kid="2" loc="5.11">
+    <NAME class="5" text="MYSUB3" lev="3" loc="5.11"/>
+    <INT class="4" text="0" lev="3" loc="5.18"/>
+   </CALL.>
+  </Z_SET.>
+  <Z_SET. class="210" lev="1" kid="2" loc="6.4">
+   <NAME class="5" text="STAT" lev="2" loc="6.4"/>
+   <CALL. class="125" lev="2" kid="2" loc="6.11">
+    <NAME class="5" text="MYSUB4" lev="3" loc="6.11"/>
+    <INT class="4" text="0" lev="3" loc="6.18"/>
+   </CALL.>
+  </Z_SET.>
+  <Z_SET. class="210" lev="1" kid="2" loc="7.4">
+   <NAME class="5" text="STAT" lev="2" loc="7.4"/>
+   <CALL. class="125" lev="2" kid="2" loc="7.11">
+    <NAME class="5" text="MYSUB5" lev="3" loc="7.11"/>
+    <INT class="4" text="0" lev="3" loc="7.18"/>
+   </CALL.>
+  </Z_SET.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="10.11">
+   <NAME class="5" text="MYSUB1" lev="2" loc="10.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="10.18">
+    <NAME class="5" text="VOID" lev="3" loc="10.18"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="11.10">
+    <RETURN. class="190" lev="3" kid="1" loc="11.10">
+     <INT class="4" text="1" lev="4" loc="11.10"/>
+    </RETURN.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="14.11">
+   <NAME class="5" text="MYSUB2" lev="2" loc="14.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="14.18">
+    <NAME class="5" text="VOID" lev="3" loc="14.18"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="15.6">
+    <IF. class="146" lev="3" kid="3" loc="15.6">
+     <NAME class="5" text="TRUE" lev="4" loc="15.6"/>
+     <COMMA. class="127" lev="4" kid="1" loc="16.12">
+      <RETURN. class="190" lev="5" kid="1" loc="16.12">
+       <INT class="4" text="1" lev="6" loc="16.12"/>
+      </RETURN.>
+     </COMMA.>
+     <COMMA. class="127" lev="4" kid="1" loc="18.12">
+      <RETURN. class="190" lev="5" kid="1" loc="18.12">
+       <INT class="4" text="1" lev="6" loc="18.12"/>
+      </RETURN.>
+     </COMMA.>
+    </IF.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="22.11">
+   <NAME class="5" text="MYSUB3" lev="2" loc="22.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="22.18">
+    <NAME class="5" text="VOID" lev="3" loc="22.18"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="2" loc="23.6">
+    <IF. class="146" lev="3" kid="3" loc="23.6">
+     <NAME class="5" text="TRUE" lev="4" loc="23.6"/>
+     <COMMA. class="127" lev="4" kid="1" loc="24.12">
+      <RETURN. class="190" lev="5" kid="1" loc="24.12">
+       <INT class="4" text="1" lev="6" loc="24.12"/>
+      </RETURN.>
+     </COMMA.>
+     <COMMA. class="127" lev="4" kid="1" loc="26.12">
+      <RETURN. class="190" lev="5" kid="1" loc="26.12">
+       <INT class="4" text="1" lev="6" loc="26.12"/>
+      </RETURN.>
+     </COMMA.>
+    </IF.>
+    <RETURN. class="190" lev="3" kid="1" loc="28.10">
+     <INT class="4" text="1" lev="4" loc="28.10"/>
+    </RETURN.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="31.11">
+   <NAME class="5" text="MYSUB4" lev="2" loc="31.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="31.18">
+    <NAME class="5" text="VOID" lev="3" loc="31.18"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="3" loc="32.6">
+    <IF. class="146" lev="3" kid="3" loc="32.6">
+     <NAME class="5" text="TRUE" lev="4" loc="32.6"/>
+     <COMMA. class="127" lev="4" kid="1" loc="33.12">
+      <RETURN. class="190" lev="5" kid="1" loc="33.12">
+       <INT class="4" text="1" lev="6" loc="33.12"/>
+      </RETURN.>
+     </COMMA.>
+     <COMMA. class="127" lev="4" kid="1" loc="35.12">
+      <RETURN. class="190" lev="5" kid="1" loc="35.12">
+       <INT class="4" text="1" lev="6" loc="35.12"/>
+      </RETURN.>
+     </COMMA.>
+    </IF.>
+    <RETURN. class="190" lev="3" kid="1" loc="38.10">
+     <INT class="4" text="1" lev="4" loc="38.10"/>
+    </RETURN.>
+    <Z_CALL. class="196" lev="3" kid="1" loc="39.7">
+     <CALL. class="125" lev="4" kid="2" loc="39.7">
+      <NAME class="5" text="ECHO" lev="5" loc="39.7"/>
+      <STRING class="7" text="GOT HERE" lev="5" loc="39.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="42.11">
+   <NAME class="5" text="MYSUB5" lev="2" loc="42.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="42.18">
+    <NAME class="5" text="VOID" lev="3" loc="42.18"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="2" loc="43.7">
+    <FOR. class="188" lev="3" kid="2" loc="43.7">
+     <COMMA. class="127" lev="4" kid="3" loc="43.7">
+      <NAME class="5" text="I" lev="5" loc="43.7"/>
+      <INT class="4" text="1" lev="5" loc="43.11"/>
+      <INT class="4" text="10" lev="5" loc="43.16"/>
+     </COMMA.>
+     <COMMA. class="127" lev="4" kid="1" loc="44.8">
+      <IF. class="146" lev="5" kid="2" loc="44.8">
+       <NAME class="5" text="TRUE" lev="6" loc="44.8"/>
+       <COMMA. class="127" lev="6" kid="1" loc="45.14">
+        <RETURN. class="190" lev="7" kid="1" loc="45.14">
+         <NAME class="5" text="TRUE" lev="8" loc="45.14"/>
+        </RETURN.>
+       </COMMA.>
+      </IF.>
+     </COMMA.>
+    </FOR.>
+    <RETURN. class="190" lev="3" kid="1" loc="49.10">
+     <NAME class="5" text="FALSE" lev="4" loc="49.10"/>
+    </RETURN.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <LABEL. class="182" lev="1" kid="1" loc="52.0">
+   <NAME class="5" text="END" lev="2" loc="52.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

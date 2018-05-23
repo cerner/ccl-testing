@@ -1,0 +1,83 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>j4ccl Changes Report</title>
+    </properties>
+    <body>
+        <release version="3.0" date="TBD">
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Remove pom data duplicated in the parent pom.
+            </action>
+        </release>
+        <release version="2.0" date="2011-11-14">
+            <action dev="joshua hyde" issue="CCLTEST-37" type="add" system="JIRA">
+                Refactor j4ccl to use JAAS objects.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-159" type="add" system="JIRA">
+                Enforce Maven 2 usage.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-176" type="add" system="JIRA">
+                Refactor CclResourceUploaderImpl to not require Subject until upload() is called.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-178" type="add" system="JIRA">
+                Allow for a StructureBuilder to be constructed from an existing Structure.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-179" type="add" system="JIRA">
+                Remove deprecated "setCclSessionOutputStream" method from CclExecutor.
+            </action>
+        </release>
+        <release version="1.2" date="2011-07-11">
+            <action dev="joshua hyde" issue="CCLTEST-144" type="add" system="JIRA">
+                Support script parameters in j4ccl.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-153" type="update" system="JIRA">
+                Add snapshot repo deployment information to CCLTEST projects.
+            </action>
+        </release>
+        <release version="1.1" date="2011-03-04">
+            <action dev="joshua hyde" issue="CCLTEST-40" type="update" system="JIRA">
+                Refactor Java projects to deploy using automated tools.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-125" type="add" system="JIRA">
+                Deploy site JAR alongside primary JAR.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-129" type="add" system="JIRA">
+                Add Java and Maven version enforcements to CCL Testing projects.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-134" type="add" system="JIRA">
+                Enable full debug output for maven-ccl-plugin.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-144" type="add" system="JIRA">
+                Support script parameters in j4ccl.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-153" type="add" system="JIRA">
+                Add snapshot repo deployment information to CCLTEST projects.
+            </action>
+        </release>
+        <release version="1.0.1" date="2010-10-21">
+            <action dev="joshua hyde" issue="CCLTEST-91" type="update" system="JIRA">
+                Create changelog for j4ccl library.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-105" type="update" system="JIRA">
+                Retrofit projects to use the maven-changes-plugin to track changes.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-106" type="fix" system="JIRA">
+                Compile Timeout Flag does not work.
+            </action>
+        </release>
+        <release version="1.0" date="2010-07-16">
+            <action dev="joshua hyde" issue="CCLTEST-35" type="update" system="JIRA">
+                Refactor j4ccl and j4ccl-ssh to reference the uDevelop SCM repo.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-47" type="update" system="JIRA">
+                Release v1.0 of j4ccl and j4ccl-ssh.
+            </action>
+        </release>
+        <release version="1.0-alpha-2" date="2010-05-20">
+            <action dev="joshua hyde" issue="CCLTEST-11" type="add" system="JIRA">
+                The structure of a DynamicRecordList cannot be viewed until an element is added.
+            </action>
+        </release>
+        <release version="1.0-alpha-1" date="2010-04-30">
+        </release>
+    </body>
+</document>

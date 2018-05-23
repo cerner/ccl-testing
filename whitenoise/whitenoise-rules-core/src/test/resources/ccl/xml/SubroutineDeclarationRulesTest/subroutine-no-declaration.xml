@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!-- 
+drop program sample_program go
+create program sample_program
+
+subroutine no_declare(void)
+    call echo("no declaration!")
+end
+
+end
+go
+ -->
+<ZC_PROGRAM. class="222" lev="0" kid="3" loc="1.15">
+    <USER. class="179" lev="1" kid="1" loc="1.15">
+        <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15" />
+    </USER.>
+    <SUBROUTINE. class="189" lev="1" kid="3" loc="3.11">
+        <NAME class="5" text="NO_DECLARE" lev="2" loc="3.11" />
+        <COMMA. class="127" lev="2" kid="1" loc="3.22">
+            <NAME class="5" text="VOID" lev="3" loc="3.22" />
+        </COMMA.>
+        <COMMA. class="127" lev="2" kid="1" loc="4.9">
+            <Z_CALL. class="196" lev="3" kid="1" loc="4.9">
+                <CALL. class="125" lev="4" kid="2" loc="4.9">
+                    <NAME class="5" text="ECHO" lev="5" loc="4.9" />
+                    <STRING class="7" text="no declaration!" lev="5" loc="4.14" />
+                </CALL.>
+            </Z_CALL.>
+        </COMMA.>
+    </SUBROUTINE.>
+    <LABEL. class="182" lev="1" kid="1" loc="7.0">
+        <NAME class="5" text="END" lev="2" loc="7.0" />
+    </LABEL.>
+</ZC_PROGRAM.>

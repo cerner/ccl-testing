@@ -1,0 +1,67 @@
+table, tr, th, td
+{
+	border-width: 1px;
+	border-spacing: 1px;
+	border-style: solid;
+	border-color: gray;
+	border-collapse: collapse;
+	font-size: small;
+	padding: 3px;
+}
+
+th
+{
+	background-color: #dcecff;
+}
+
+body
+{
+	font-family: sans-serif;
+}
+
+.percentageBar
+{
+	border-width: 0px;
+	border-spacing: 0px;
+	padding: 1px;
+}
+
+.greenBar
+{
+	background-color: #00FF00;
+	color: #00FF00;
+}
+.redBar
+{
+	background-color: #FF0000;
+	color: #FF0000;
+}
+
+.title
+{
+	font-weight: bold;
+	font-size: 30px;
+	color: #191970;
+	text-align: center; 
+}
+
+.sectionTitle, .sectionSubTitle
+{
+	font-weight: bold;
+	font-size: 25px;
+	color: #191970;
+}
+
+.sectionSubTitle
+{
+	font-size: medium;
+	font-style: italic; 
+}
+
+.sectionDescription
+{
+	width: 65%;
+	position:relative;
+	left: 20px;
+	color: #191970;
+}

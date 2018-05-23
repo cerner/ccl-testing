@@ -1,0 +1,287 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+
+declare public::with_declare(void) = null
+declare public::another_declare(val = i2) = null with protect
+declare public::third_declare(reference = vc(REF)) = i2
+declare public::multiple_params(param1 = i4, param2 = i2, param3 = vc(REF)) = i2
+
+subroutine public::with_declare(void)
+    call echo("with declaration!")
+end
+
+subroutine public::another_declare(val)
+    call echo("another declaration!")
+end
+
+subroutine public::third_declare(reference)
+    call echo("third declaration!")
+end
+
+subroutine public::multiple_params(param1, param2, param3)
+    call echo("multiple parameters declaration!")
+end
+
+subroutine (public::inline_declare(void) = null)
+  call echo("inline_declare")
+end
+
+subroutine (public::another_inline_declare(val = i2) = null with protect)
+  call echo("another_inline_declare")
+end
+
+subroutine (public::third_inline_declare(reference = vc(REF)) = i2)
+  call echo("third_inline_declare")
+end 
+
+subroutine (public::inline_multiple_params(param1 = i4, param2 = i2, param3 = vc(REF)) = i2)
+  call echo("inline_multiple_params")
+end
+
+end go
+ -->
+ <ZC_PROGRAM. class="223" lev="0" kid="13" loc="0.0">
+  <USER. class="179" lev="1" kid="1" loc="0.0">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="0.0"/>
+  </USER.>
+  <Z_DECLARE. class="216" lev="1" kid="2" loc="1.0">
+   <CALL. class="125" lev="2" kid="2" loc="1.1">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="1.1.1">
+     <NAME class="5" text="PUBLIC" lev="4" loc="1.1.1.1"/>
+     <NAME class="5" text="WITH_DECLARE" lev="4" loc="1.1.1.2"/>
+    </NAMESPACE.>
+    <NAME class="5" text="VOID" lev="3" loc="1.1.2"/>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="1.2"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="2.0">
+   <CALL. class="125" lev="2" kid="2" loc="2.1">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="2.1.1">
+     <NAME class="5" text="PUBLIC" lev="4" loc="2.1.1.1"/>
+     <NAME class="5" text="ANOTHER_DECLARE" lev="4" loc="2.1.1.2"/>
+    </NAMESPACE.>
+    <EQL. class="132" lev="3" kid="2" loc="2.1.2">
+     <NAME class="5" text="VAL" lev="4" loc="2.1.2.1"/>
+     <NAME class="5" text="I2" lev="4" loc="2.1.2.2"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="2.2"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="2.3">
+    <OPTION. class="162" lev="3" kid="1" loc="2.3.1">
+     <NAME class="5" text="PROTECT" lev="4" loc="2.3.1.1"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="2" loc="3.0">
+   <CALL. class="125" lev="2" kid="2" loc="3.1">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="3.1.1">
+     <NAME class="5" text="PUBLIC" lev="4" loc="3.1.1.1"/>
+     <NAME class="5" text="THIRD_DECLARE" lev="4" loc="3.1.1.2"/>
+    </NAMESPACE.>
+    <EQL. class="132" lev="3" kid="2" loc="3.1.2">
+     <NAME class="5" text="REFERENCE" lev="4" loc="3.1.2.1"/>
+     <CALL. class="125" lev="4" kid="2" loc="3.1.2.1">
+      <NAME class="5" text="VC" lev="5" loc="3.1.2.1.1"/>
+      <NAME class="5" text="REF" lev="5" loc="3.1.2.1.2"/>
+     </CALL.>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="3.2"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="2" loc="4.0">
+   <CALL. class="125" lev="2" kid="4" loc="4.1">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="4.1.1">
+     <NAME class="5" text="PUBLIC" lev="4" loc="4.1.1.1"/>
+     <NAME class="5" text="MULTIPLE_PARAMS" lev="4" loc="4.1.1.2"/>
+    </NAMESPACE.>
+    <EQL. class="132" lev="3" kid="2" loc="4.1.2">
+     <NAME class="5" text="PARAM1" lev="4" loc="4.1.2.1"/>
+     <NAME class="5" text="I4" lev="4" loc="4.1.2.2"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="4.1.3">
+     <NAME class="5" text="PARAM2" lev="4" loc="4.1.3.1"/>
+     <NAME class="5" text="I2" lev="4" loc="4.1.3.2"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="4.1.4">
+     <NAME class="5" text="PARAM3" lev="4" loc="4.1.4.1"/>
+     <CALL. class="125" lev="4" kid="2" loc="4.1.4.2">
+      <NAME class="5" text="VC" lev="5" loc="4.1.4.2.1"/>
+      <NAME class="5" text="REF" lev="5" loc="4.1.4.2.2"/>
+     </CALL.>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="4.2"/>
+  </Z_DECLARE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="WITH_DECLARE" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <NAME class="5" text="VOID" lev="3" loc="0.0"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="ECHO" lev="5" loc="0.0"/>
+      <STRING class="7" text="with declaration!" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="ANOTHER_DECLARE" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <NAME class="5" text="VAL" lev="3" loc="0.0"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="ECHO" lev="5" loc="0.0"/>
+      <STRING class="7" text="another declaration!" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="THIRD_DECLARE" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <NAME class="5" text="REFERENCE" lev="3" loc="0.0"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="ECHO" lev="5" loc="0.0"/>
+      <STRING class="7" text="third declaration!" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="MULTIPLE_PARAMS" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="3" loc="0.0">
+    <NAME class="5" text="PARAM1" lev="3" loc="0.0"/>
+    <NAME class="5" text="PARAM2" lev="3" loc="0.0"/>
+    <NAME class="5" text="PARAM3" lev="3" loc="0.0"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="ECHO" lev="5" loc="0.0"/>
+      <STRING class="7" text="multiple parameters declaration!" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="4" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="INLINE_DECLARE" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <NAME class="5" text="VOID" lev="3" loc="0.0"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="ECHO" lev="5" loc="0.0"/>
+      <STRING class="7" text="inline_declare" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="0.0"/>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="ANOTHER_INLINE_DECLARE" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="VAL" lev="4" loc="0.0"/>
+     <NAME class="5" text="I2" lev="4" loc="0.0"/>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="ECHO" lev="5" loc="0.0"/>
+      <STRING class="7" text="another_inline_declare" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="0.0"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="0.0">
+    <OPTION. class="162" lev="3" kid="1" loc="0.0">
+     <NAME class="5" text="PROTECT" lev="4" loc="0.0"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="4" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="THIRD_INLINE_DECLARE" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="REFERENCE" lev="4" loc="0.0"/>
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="VC" lev="5" loc="0.0"/>
+      <NAME class="5" text="REF" lev="5" loc="0.0"/>
+     </CALL.>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="ECHO" lev="5" loc="0.0"/>
+      <STRING class="7" text="third_inline_declare" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="I2" lev="2" loc="0.0"/>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="4" loc="0.0">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="0.0">
+    <NAME class="5" text="PUBLIC" lev="3" loc="0.0"/>
+    <NAME class="5" text="INLINE_MULTIPLE_PARAMS" lev="3" loc="0.0"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="3" loc="0.0">
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="PARAM1" lev="4" loc="0.0"/>
+     <NAME class="5" text="I4" lev="4" loc="0.0"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="PARAM2" lev="4" loc="0.0"/>
+     <NAME class="5" text="I2" lev="4" loc="0.0"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="0.0">
+     <NAME class="5" text="PARAM3" lev="4" loc="0.0"/>
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="VC" lev="5" loc="0.0"/>
+      <NAME class="5" text="REF" lev="5" loc="0.0"/>
+     </CALL.>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="0.0">
+    <Z_CALL. class="197" lev="3" kid="1" loc="0.0">
+     <CALL. class="125" lev="4" kid="2" loc="0.0">
+      <NAME class="5" text="ECHO" lev="5" loc="0.0"/>
+      <STRING class="7" text="inline_multiple_params" lev="5" loc="0.0"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="I2" lev="2" loc="0.0"/>
+  </SUBROUTINE.>
+ </ZC_PROGRAM.>

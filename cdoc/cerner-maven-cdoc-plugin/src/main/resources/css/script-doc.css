@@ -1,0 +1,95 @@
+div#contentTitle {
+    text-align: center;
+}
+
+
+/* Subroutines */
+div.subroutineHeader {
+    background-color: #99CCFF;
+    padding: 0.5em;
+    font-size: 12pt;
+    min-width: 50%;
+    font-family: Trebuchet MS;
+    border-top-left-radius: 1em;
+    -moz-border-radius-topleft: 1em;
+    border-top-right-radius: 1em;
+    -moz-border-radius-topright: 1em;
+}
+
+div.subroutineDefinition {
+    padding-left: 2%;
+}
+
+div.subroutineDetails {
+    background-color: #EAF4FF;
+    padding-left: 2%;
+    border-bottom-left-radius: 1em;
+    -moz-border-radius-bottomleft: 1em;
+    border-bottom-right-radius: 1em;
+    -moz-border-radius-bottomright: 1em;
+    padding: 0.5em;
+}
+
+/* Record Structures */
+div.recordStructureDetails {
+    background-color: #EFEFFE;
+}
+
+div.recordStructureDefinition {
+    font-family: Courier New;
+    font-size: 10pt;
+    padding: 1em;
+    border-bottom-left-radius: 0.5em;
+    -moz-border-radius-bottomleft: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    -moz-border-radius-bottomright: 0.5em;
+}
+
+div.recordStructureMemberDetail {
+    padding: 1%;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+div.recordStructureDescription {
+    padding: 1% 0 0 1%;
+    font-family: Tahoma;
+    font-size: 10pt;
+}
+
+.recordStructureName {
+    background-color: #CCCCFF;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    font-size: 13pt;
+    font-weight: bold;
+    border-top-left-radius: 0.5em;
+    -moz-border-radius-topleft: 0.5em;
+    border-top-right-radius: 0.5em;
+    -moz-border-radius-topright: 0.5em;
+}
+
+/* Script Executions */
+
+div.executedScriptDetailsHeader {
+    font-size: 12pt;
+    font-weight: bold;
+    background-color: #CCCCFF;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+    border-top-left-radius: 0.5em;
+    -moz-border-radius-topleft: 0.5em;
+    border-top-right-radius: 0.5em;
+    -moz-border-radius-topright: 0.5em;
+}
+
+div.executedScriptDetailsBody {
+    background-color: #EFEFFE;
+    padding: 0.25em;
+    font-size: 10pt;
+    padding: 0.5em 0.5em 0.75em 0.5em;
+    border-bottom-left-radius: 0.5em;
+    -moz-border-radius-bottomleft: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    -moz-border-radius-bottomright: 0.5em;
+}

@@ -1,0 +1,49 @@
+## A little indentation...
+#set( $maxPadLeft = $member.level * 2 )
+<div style="padding-left: $maxPadLeft%" class="recordStructureMember">
+$member.level 
+#if( $member.description != "" )
+<a href="javascript:toggleVisibility('$detailsDivName');">$member.name</a>
+#else
+$member.name
+#end
+ =  
+#if( $member.dataType.name() == "CHAR" )
+c$member.dataLength
+#else
+$member.dataType.name().toLowerCase()
+#end
+#if( $member.description != "")
+<div id="$detailsDivName" style="display: none">
+<br />
+<div class="recordStructureMemberDetail">
+$member.description
+#if( $member.isOptional() )
+<p>
+The population of this field is optional.
+</p>
+#end
+#if( !$member.codeSets.isEmpty() )
+<p>
+Code Sets:
+<ul>
+#foreach( $codeSet in $member.codeSets )
+<li>$codeSet.codeSet #if( $codeSet.description != "" ) - $codeSet.description #end</li>
+#end
+</ul>
+</p>
+#end
+#if( !$member.values.isEmpty() )
+<p>
+Values:
+<ul>
+#foreach( $value in $member.values )
+<li>"$value.value" #if( $value.description != "" ) - $value.description #end</li>
+#end
+</ul>
+</p>
+#end
+</div>
+</div>
+#end
+</div>

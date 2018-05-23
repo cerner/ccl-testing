@@ -1,0 +1,51 @@
+This assembly contains one or more third-party components, redistributed according to the terms of their respective licenses:
+
+Apache License, Version 2.0
+http://www.apache.org/licenses/LICENSE-2.0.html
+* cdoc-parser
+* commons-beanutils
+* commons-collections
+* commons-digester
+* commons-io
+* commons-lang
+* commons-logging
+* commons-validator
+* doxia-core
+* doxia-decoration-model
+* doxia-module-apt
+* doxia-module-fml
+* doxia-module-xdoc
+* doxia-module-xhtml
+* doxia-sink-api
+* doxia-site-renderer
+* maven-artifact
+* maven-artifact-manager
+* maven-doxia-tools
+* maven-model
+* maven-plugin-api
+* maven-profile
+* maven-project
+* maven-reporting-api
+* maven-reporting-impl
+* maven-repository-metadata
+* maven-settings
+* oro
+* plexus-container-default
+* plexus-i18n
+* plexus-utils
+* plexus-velocity
+* velocity
+* velocity-dep
+* wagon-provider-api
+* xml-apis
+
+BSD License
+http://www.opensource.org/licenses/bsd-license.php
+* JETM
+
+Classworlds License
+http://classworlds.codehaus.org/license.html
+* classworlds
+
+
+

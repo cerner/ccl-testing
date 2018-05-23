@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<!--
+set compile = debug go
+drop program sample_program go
+create program sample_program
+
+declare mismatchedParamCnt1(param1,param2) = i2
+declare mismatchedParamCnt2(param1=i2) = i2
+ 
+subroutine mismatchedParamCnt1(param1, param2)
+  call echo("1")
+end
+
+call mismatchedParamCnt1(1)
+ 
+subroutine mismatchedParamCnt2(param1)
+  call echo("2")
+end
+
+call mismatchedParamCnt2(0)
+
+subroutine (mismatchedParamCnt3(param1 = i4, param2 = i4) = null with protect)
+  call echo("mismatchedParamCnt3")
+end
+subroutine (mismatchedParamCnt4(param1 = i4) = null with protect)
+  call echo("mismatchedParamCnt4")
+end
+subroutine (public::mismatchedParamCnt5(param1 = i4, param2 = i4) = null with protect)
+  call echo("mismatchedParamCnt5")
+end
+subroutine (public::mismatchedParamCnt6(param1 = i4) = null with protect)
+  call echo("mismatchedParamCnt6")
+end
+call mismatchedParamCnt3(1)
+call mismatchedParamCnt4(1)
+call mismatchedParamCnt5(1)
+call mismatchedParamCnt6(1)
+ 
+end go
+translate sample_program with xml go
+-->
+ <ZC_PROGRAM. class="223" lev="0" kid="16" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_DECLARE. class="216" lev="1" kid="2" loc="3.8">
+   <CALL. class="125" lev="2" kid="3" loc="3.8">
+    <NAME class="5" text="MISMATCHEDPARAMCNT1" lev="3" loc="3.8"/>
+    <NAME class="5" text="PARAM1" lev="3" loc="3.28"/>
+    <NAME class="5" text="PARAM2" lev="3" loc="3.35"/>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="3.45"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="2" loc="4.8">
+   <CALL. class="125" lev="2" kid="2" loc="4.8">
+    <NAME class="5" text="MISMATCHEDPARAMCNT2" lev="3" loc="4.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="4.28">
+     <NAME class="5" text="PARAM1" lev="4" loc="4.28"/>
+     <NAME class="5" text="I2" lev="4" loc="4.35"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="4.41"/>
+  </Z_DECLARE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="6.11">
+   <NAME class="5" text="MISMATCHEDPARAMCNT1" lev="2" loc="6.11"/>
+   <COMMA. class="127" lev="2" kid="2" loc="6.31">
+    <NAME class="5" text="PARAM1" lev="3" loc="6.31"/>
+    <NAME class="5" text="PARAM2" lev="3" loc="6.39"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="7.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="7.7">
+     <CALL. class="125" lev="4" kid="2" loc="7.7">
+      <NAME class="5" text="ECHO" lev="5" loc="7.7"/>
+      <STRING class="7" text="1" lev="5" loc="7.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <Z_CALL. class="197" lev="1" kid="1" loc="10.5">
+   <CALL. class="125" lev="2" kid="2" loc="10.5">
+    <NAME class="5" text="MISMATCHEDPARAMCNT1" lev="3" loc="10.5"/>
+    <INT class="4" text="1" lev="3" loc="10.25"/>
+   </CALL.>
+  </Z_CALL.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="12.11">
+   <NAME class="5" text="MISMATCHEDPARAMCNT2" lev="2" loc="12.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="12.31">
+    <NAME class="5" text="PARAM1" lev="3" loc="12.31"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="13.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="13.7">
+     <CALL. class="125" lev="4" kid="2" loc="13.7">
+      <NAME class="5" text="ECHO" lev="5" loc="13.7"/>
+      <STRING class="7" text="2" lev="5" loc="13.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <Z_CALL. class="197" lev="1" kid="1" loc="16.5">
+   <CALL. class="125" lev="2" kid="2" loc="16.5">
+    <NAME class="5" text="MISMATCHEDPARAMCNT2" lev="3" loc="16.5"/>
+    <INT class="4" text="0" lev="3" loc="16.25"/>
+   </CALL.>
+  </Z_CALL.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="18.12">
+   <NAME class="5" text="MISMATCHEDPARAMCNT3" lev="2" loc="18.12"/>
+   <COMMA. class="127" lev="2" kid="2" loc="18.32">
+    <EQL. class="132" lev="3" kid="2" loc="18.32">
+     <NAME class="5" text="PARAM1" lev="4" loc="18.32"/>
+     <NAME class="5" text="I4" lev="4" loc="18.41"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="18.45">
+     <NAME class="5" text="PARAM2" lev="4" loc="18.45"/>
+     <NAME class="5" text="I4" lev="4" loc="18.54"/>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="19.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="19.7">
+     <CALL. class="125" lev="4" kid="2" loc="19.7">
+      <NAME class="5" text="ECHO" lev="5" loc="19.7"/>
+      <STRING class="7" text="mismatchedParamCnt3" lev="5" loc="19.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="18.60"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="18.70">
+    <OPTION. class="162" lev="3" kid="1" loc="18.70">
+     <NAME class="5" text="PROTECT" lev="4" loc="18.70"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="21.12">
+   <NAME class="5" text="MISMATCHEDPARAMCNT4" lev="2" loc="21.12"/>
+   <COMMA. class="127" lev="2" kid="1" loc="21.32">
+    <EQL. class="132" lev="3" kid="2" loc="21.32">
+     <NAME class="5" text="PARAM1" lev="4" loc="21.32"/>
+     <NAME class="5" text="I4" lev="4" loc="21.41"/>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="22.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="22.7">
+     <CALL. class="125" lev="4" kid="2" loc="22.7">
+      <NAME class="5" text="ECHO" lev="5" loc="22.7"/>
+      <STRING class="7" text="mismatchedParamCnt4" lev="5" loc="22.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="21.47"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="21.57">
+    <OPTION. class="162" lev="3" kid="1" loc="21.57">
+     <NAME class="5" text="PROTECT" lev="4" loc="21.57"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="24.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="24.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="24.12"/>
+    <NAME class="5" text="MISMATCHEDPARAMCNT5" lev="3" loc="24.20"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="2" loc="24.40">
+    <EQL. class="132" lev="3" kid="2" loc="24.40">
+     <NAME class="5" text="PARAM1" lev="4" loc="24.40"/>
+     <NAME class="5" text="I4" lev="4" loc="24.49"/>
+    </EQL.>
+    <EQL. class="132" lev="3" kid="2" loc="24.53">
+     <NAME class="5" text="PARAM2" lev="4" loc="24.53"/>
+     <NAME class="5" text="I4" lev="4" loc="24.62"/>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="25.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="25.7">
+     <CALL. class="125" lev="4" kid="2" loc="25.7">
+      <NAME class="5" text="ECHO" lev="5" loc="25.7"/>
+      <STRING class="7" text="mismatchedParamCnt5" lev="5" loc="25.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="24.68"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="24.78">
+    <OPTION. class="162" lev="3" kid="1" loc="24.78">
+     <NAME class="5" text="PROTECT" lev="4" loc="24.78"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="5" loc="27.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="27.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="27.12"/>
+    <NAME class="5" text="MISMATCHEDPARAMCNT6" lev="3" loc="27.20"/>
+   </NAMESPACE.>
+   <COMMA. class="127" lev="2" kid="1" loc="27.40">
+    <EQL. class="132" lev="3" kid="2" loc="27.40">
+     <NAME class="5" text="PARAM1" lev="4" loc="27.40"/>
+     <NAME class="5" text="I4" lev="4" loc="27.49"/>
+    </EQL.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="28.7">
+    <Z_CALL. class="197" lev="3" kid="1" loc="28.7">
+     <CALL. class="125" lev="4" kid="2" loc="28.7">
+      <NAME class="5" text="ECHO" lev="5" loc="28.7"/>
+      <STRING class="7" text="mismatchedParamCnt6" lev="5" loc="28.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="27.55"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="27.65">
+    <OPTION. class="162" lev="3" kid="1" loc="27.65">
+     <NAME class="5" text="PROTECT" lev="4" loc="27.65"/>
+    </OPTION.>
+   </OPTIONS.>
+  </SUBROUTINE.>
+  <Z_CALL. class="197" lev="1" kid="1" loc="30.5">
+   <CALL. class="125" lev="2" kid="2" loc="30.5">
+    <NAME class="5" text="MISMATCHEDPARAMCNT3" lev="3" loc="30.5"/>
+    <INT class="4" text="1" lev="3" loc="30.25"/>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="197" lev="1" kid="1" loc="31.5">
+   <CALL. class="125" lev="2" kid="2" loc="31.5">
+    <NAME class="5" text="MISMATCHEDPARAMCNT4" lev="3" loc="31.5"/>
+    <INT class="4" text="1" lev="3" loc="31.25"/>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="197" lev="1" kid="1" loc="32.5">
+   <CALL. class="125" lev="2" kid="2" loc="32.5">
+    <NAME class="5" text="MISMATCHEDPARAMCNT5" lev="3" loc="32.5"/>
+    <INT class="4" text="1" lev="3" loc="32.25"/>
+   </CALL.>
+  </Z_CALL.>
+  <Z_CALL. class="197" lev="1" kid="1" loc="33.5">
+   <CALL. class="125" lev="2" kid="2" loc="33.5">
+    <NAME class="5" text="MISMATCHEDPARAMCNT6" lev="3" loc="33.5"/>
+    <INT class="4" text="1" lev="3" loc="33.25"/>
+   </CALL.>
+  </Z_CALL.>
+  <LABEL. class="182" lev="1" kid="1" loc="35.0">
+   <NAME class="5" text="END" lev="2" loc="35.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

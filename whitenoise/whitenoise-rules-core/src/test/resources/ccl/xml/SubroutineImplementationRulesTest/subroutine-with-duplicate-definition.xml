@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+ 
+;Original definition
+declare mysub(void = i2) = i2
+subroutine mysub(void)
+  call echo("A")
+end
+ 
+;Should flag as duplicate
+declare mysub(void = i2) = i2
+subroutine mysub(void)
+  call echo("B")
+end
+ 
+;Shouldn't be flagged as a duplicate
+declare mysub(void = i2) = i2
+subroutine mysub(void)
+  call echo("B")
+end
+ 
+end
+go
+-->
+ <ZC_PROGRAM. class="222" lev="0" kid="8" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="4.8">
+   <CALL. class="125" lev="2" kid="2" loc="4.8">
+    <NAME class="5" text="MYSUB" lev="3" loc="4.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="4.14">
+     <NAME class="5" text="VOID" lev="4" loc="4.14"/>
+     <NAME class="5" text="I2" lev="4" loc="4.21"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="4.27"/>
+  </Z_DECLARE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="5.11">
+   <NAME class="5" text="MYSUB" lev="2" loc="5.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="5.17">
+    <NAME class="5" text="VOID" lev="3" loc="5.17"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="6.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="6.7">
+     <CALL. class="125" lev="4" kid="2" loc="6.7">
+      <NAME class="5" text="ECHO" lev="5" loc="6.7"/>
+      <STRING class="7" text="A" lev="5" loc="6.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="10.8">
+   <CALL. class="125" lev="2" kid="2" loc="10.8">
+    <NAME class="5" text="MYSUB" lev="3" loc="10.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="10.14">
+     <NAME class="5" text="VOID" lev="4" loc="10.14"/>
+     <NAME class="5" text="I2" lev="4" loc="10.21"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="10.27"/>
+  </Z_DECLARE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="11.11">
+   <NAME class="5" text="MYSUB" lev="2" loc="11.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="11.17">
+    <NAME class="5" text="VOID" lev="3" loc="11.17"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="12.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="12.7">
+     <CALL. class="125" lev="4" kid="2" loc="12.7">
+      <NAME class="5" text="ECHO" lev="5" loc="12.7"/>
+      <STRING class="7" text="B" lev="5" loc="12.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="16.8">
+   <CALL. class="125" lev="2" kid="2" loc="16.8">
+    <NAME class="5" text="MYSUB" lev="3" loc="16.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="16.14">
+     <NAME class="5" text="VOID" lev="4" loc="16.14"/>
+     <NAME class="5" text="I2" lev="4" loc="16.21"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="I2" lev="2" loc="16.27"/>
+  </Z_DECLARE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="17.11">
+   <NAME class="5" text="MYSUB" lev="2" loc="17.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="17.17">
+    <NAME class="5" text="VOID" lev="3" loc="17.17"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="18.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="18.7">
+     <CALL. class="125" lev="4" kid="2" loc="18.7">
+      <NAME class="5" text="ECHO" lev="5" loc="18.7"/>
+      <STRING class="7" text="B" lev="5" loc="18.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <LABEL. class="182" lev="1" kid="1" loc="21.0">
+   <NAME class="5" text="END" lev="2" loc="21.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

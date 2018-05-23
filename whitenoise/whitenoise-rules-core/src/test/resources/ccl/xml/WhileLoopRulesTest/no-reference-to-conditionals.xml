@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+
+while (cond1)
+  call echo("ABC")
+endwhile
+
+while (not cond2)
+  call echo("ABC")
+endwhile
+
+while (cond3 = TRUE)
+  call echo("ABC")
+endwhile
+
+while (cond4 != FALSE)
+  call echo("ABC")
+endwhile
+
+while (cond5 <= 10)
+  call echo("ABC")
+endwhile
+
+while (cond6 > 0)
+  call echo("ABC")
+endwhile
+
+end go
+ -->
+<ZC_PROGRAM. class="222" lev="0" kid="8" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <WHILE. class="180" lev="1" kid="2" loc="3.7">
+   <NAME class="5" text="COND1" lev="2" loc="3.7"/>
+   <COMMA. class="127" lev="2" kid="1" loc="4.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="4.7">
+     <CALL. class="125" lev="4" kid="2" loc="4.7">
+      <NAME class="5" text="ECHO" lev="5" loc="4.7"/>
+      <STRING class="7" text="ABC" lev="5" loc="4.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </WHILE.>
+  <WHILE. class="180" lev="1" kid="2" loc="7.11">
+   <NOT. class="160" lev="2" kid="1" loc="7.11">
+    <NAME class="5" text="COND2" lev="3" loc="7.11"/>
+   </NOT.>
+   <COMMA. class="127" lev="2" kid="1" loc="8.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="8.7">
+     <CALL. class="125" lev="4" kid="2" loc="8.7">
+      <NAME class="5" text="ECHO" lev="5" loc="8.7"/>
+      <STRING class="7" text="ABC" lev="5" loc="8.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </WHILE.>
+  <WHILE. class="180" lev="1" kid="2" loc="11.7">
+   <EQL. class="132" lev="2" kid="2" loc="11.7">
+    <NAME class="5" text="COND3" lev="3" loc="11.7"/>
+    <NAME class="5" text="TRUE" lev="3" loc="11.15"/>
+   </EQL.>
+   <COMMA. class="127" lev="2" kid="1" loc="12.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="12.7">
+     <CALL. class="125" lev="4" kid="2" loc="12.7">
+      <NAME class="5" text="ECHO" lev="5" loc="12.7"/>
+      <STRING class="7" text="ABC" lev="5" loc="12.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </WHILE.>
+  <WHILE. class="180" lev="1" kid="2" loc="15.7">
+   <NEQ. class="159" lev="2" kid="2" loc="15.7">
+    <NAME class="5" text="COND4" lev="3" loc="15.7"/>
+    <NAME class="5" text="FALSE" lev="3" loc="15.16"/>
+   </NEQ.>
+   <COMMA. class="127" lev="2" kid="1" loc="16.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="16.7">
+     <CALL. class="125" lev="4" kid="2" loc="16.7">
+      <NAME class="5" text="ECHO" lev="5" loc="16.7"/>
+      <STRING class="7" text="ABC" lev="5" loc="16.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </WHILE.>
+  <WHILE. class="180" lev="1" kid="2" loc="19.7">
+   <LEQ. class="152" lev="2" kid="2" loc="19.7">
+    <NAME class="5" text="COND5" lev="3" loc="19.7"/>
+    <INT class="4" text="10" lev="3" loc="19.16"/>
+   </LEQ.>
+   <COMMA. class="127" lev="2" kid="1" loc="20.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="20.7">
+     <CALL. class="125" lev="4" kid="2" loc="20.7">
+      <NAME class="5" text="ECHO" lev="5" loc="20.7"/>
+      <STRING class="7" text="ABC" lev="5" loc="20.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </WHILE.>
+  <WHILE. class="180" lev="1" kid="2" loc="23.7">
+   <GTR. class="142" lev="2" kid="2" loc="23.7">
+    <NAME class="5" text="COND6" lev="3" loc="23.7"/>
+    <INT class="4" text="0" lev="3" loc="23.15"/>
+   </GTR.>
+   <COMMA. class="127" lev="2" kid="1" loc="24.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="24.7">
+     <CALL. class="125" lev="4" kid="2" loc="24.7">
+      <NAME class="5" text="ECHO" lev="5" loc="24.7"/>
+      <STRING class="7" text="ABC" lev="5" loc="24.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </WHILE.>
+  <LABEL. class="182" lev="1" kid="1" loc="54.0">
+   <NAME class="5" text="END" lev="2" loc="54.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

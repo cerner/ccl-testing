@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TESTCASE>
+    <NAME>test.inc</NAME>
+    <TESTS>
+        <TEST>
+            <!-- NAME>TESTADD</NAME -->
+            <ASSERTS>
+                <ASSERT>
+                    <LINENUMBER>739</LINENUMBER>
+                    <CONTEXT><![CDATA[testAdd]]></CONTEXT>
+                    <RESULT>PASSED</RESULT>
+                    <TEST><![CDATA[3.000000=3.000000]]></TEST>
+                </ASSERT>
+            </ASSERTS>
+            <ERRORS/>
+            <RESULT>FAILED</RESULT>
+        </TEST>
+    </TESTS>
+</TESTCASE>

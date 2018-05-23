@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--
+drop program ap_locateval_test_uar go
+create program ap_locateval_test_uar
+ 
+record rec1
+(
+1 items[*]
+  2 chargeId   = f8
+  2 result     = vc
+  2 Quantity   = vc
+) with protect
+ 
+declare hRequest    = i4 with public, noconstant (0)
+declare srvStat    = i4 with public, noconstant (0)
+
+;Error : Nullterm is not used
+set srvStat = uar_SrvSetString(hRequest, "action_type", rec1->items[1].result)
+
+;No Error Nullterm is used
+set srvStat = uar_SrvSetString(hRequest, "action_type", nullterm(rec1->items[1].Quantity))
+ 
+end go
+-->
+ <ZC_PROGRAM. class="222" lev="0" kid="7" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="AP_NULLTERM_TEST" lev="2" loc="1.15"/>
+  </USER.>
+  <RECORD. class="174" lev="1" kid="3" loc="3.7">
+   <COMMA. class="127" lev="2" kid="1" loc="3.7">
+    <NAME class="5" text="REC1" lev="3" loc="3.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="5.0">
+    <FIELD. class="133" lev="3" kid="6" loc="5.0">
+     <INT class="4" text="1" lev="4" loc="5.0"/>
+     <NAME class="5" text="ITEMS" lev="4" loc="5.2"/>
+     <OCCUR. class="161" lev="4" kid="1" loc="5.8">
+      <C_AST class="9" lev="5" loc="5.8"/>
+     </OCCUR.>
+     <FIELD. class="133" lev="4" kid="3" loc="6.2">
+      <INT class="4" text="2" lev="5" loc="6.2"/>
+      <NAME class="5" text="CHARGEID" lev="5" loc="6.4"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="6.17">
+       <NAME class="5" text="F8" lev="6" loc="6.17"/>
+       <COMMA. class="127" lev="6" loc="7.2"/>
+       <COMMA. class="127" lev="6" loc="7.2"/>
+      </FORMAT.>
+     </FIELD.>
+     <FIELD. class="133" lev="4" kid="3" loc="7.2">
+      <INT class="4" text="2" lev="5" loc="7.2"/>
+      <NAME class="5" text="RESULT" lev="5" loc="7.4"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="7.17">
+       <NAME class="5" text="VC" lev="6" loc="7.17"/>
+       <COMMA. class="127" lev="6" loc="8.2"/>
+       <COMMA. class="127" lev="6" loc="8.2"/>
+      </FORMAT.>
+     </FIELD.>
+     <FIELD. class="133" lev="4" kid="3" loc="8.2">
+      <INT class="4" text="2" lev="5" loc="8.2"/>
+      <NAME class="5" text="QUANTITY" lev="5" loc="8.4"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="8.17">
+       <NAME class="5" text="VC" lev="6" loc="8.17"/>
+       <COMMA. class="127" lev="6" loc="9.0"/>
+       <COMMA. class="127" lev="6" loc="9.0"/>
+      </FORMAT.>
+     </FIELD.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="9.7">
+    <OPTION. class="162" lev="3" kid="1" loc="9.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="9.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <Z_DECLARE. class="215" lev="1" kid="3" loc="11.8">
+   <NAME class="5" text="HREQUEST" lev="2" loc="11.8"/>
+   <NAME class="5" text="I4" lev="2" loc="11.22"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="11.30">
+    <OPTION. class="162" lev="3" kid="1" loc="11.30">
+     <NAME class="5" text="PUBLIC" lev="4" loc="11.30"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="11.38">
+     <CALL. class="125" lev="4" kid="2" loc="11.38">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="11.38"/>
+      <INT class="4" text="0" lev="5" loc="11.50"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="3" loc="12.8">
+   <NAME class="5" text="SRVSTAT" lev="2" loc="12.8"/>
+   <NAME class="5" text="I4" lev="2" loc="12.21"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="12.29">
+    <OPTION. class="162" lev="3" kid="1" loc="12.29">
+     <NAME class="5" text="PUBLIC" lev="4" loc="12.29"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="12.37">
+     <CALL. class="125" lev="4" kid="2" loc="12.37">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="12.37"/>
+      <INT class="4" text="0" lev="5" loc="12.49"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_SET. class="210" lev="1" kid="2" loc="15.4">
+   <NAME class="5" text="SRVSTAT" lev="2" loc="15.4"/>
+   <CALL. class="125" lev="2" kid="4" loc="15.14">
+    <NAME class="5" text="UAR_SRVSETSTRING" lev="3" loc="15.14"/>
+    <NAME class="5" text="HREQUEST" lev="3" loc="15.31"/>
+    <STRING class="7" text="action_type" lev="3" loc="15.41"/>
+    <MEMBER. class="187" lev="3" kid="3" loc="15.56">
+     <NAME class="5" text="REC1" lev="4" loc="15.56"/>
+     <ARRAY. class="122" lev="4" kid="2" loc="15.62">
+      <NAME class="5" text="ITEMS" lev="5" loc="15.62"/>
+      <INT class="4" text="1" lev="5" loc="15.68"/>
+     </ARRAY.>
+     <NAME class="5" text="RESULT" lev="4" loc="15.71"/>
+    </MEMBER.>
+   </CALL.>
+  </Z_SET.>
+  <Z_SET. class="210" lev="1" kid="2" loc="18.4">
+   <NAME class="5" text="SRVSTAT" lev="2" loc="18.4"/>
+   <CALL. class="125" lev="2" kid="4" loc="18.14">
+    <NAME class="5" text="UAR_SRVSETSTRING" lev="3" loc="18.14"/>
+    <NAME class="5" text="HREQUEST" lev="3" loc="18.31"/>
+    <STRING class="7" text="action_type" lev="3" loc="18.41"/>
+    <CALL. class="125" lev="3" kid="2" loc="18.56">
+     <NAME class="5" text="NULLTERM" lev="4" loc="18.56"/>
+     <MEMBER. class="187" lev="4" kid="3" loc="18.65">
+      <NAME class="5" text="REC1" lev="5" loc="18.65"/>
+      <ARRAY. class="122" lev="5" kid="2" loc="18.71">
+       <NAME class="5" text="ITEMS" lev="6" loc="18.71"/>
+       <INT class="4" text="1" lev="6" loc="18.77"/>
+      </ARRAY.>
+      <NAME class="5" text="QUANTITY" lev="5" loc="18.80"/>
+     </MEMBER.>
+    </CALL.>
+   </CALL.>
+  </Z_SET.>
+  <LABEL. class="182" lev="1" kid="1" loc="20.0">
+   <NAME class="5" text="END" lev="2" loc="20.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

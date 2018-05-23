@@ -1,0 +1,39 @@
+  .summary      {
+                width: 650px;
+                border-collapse:collapse;
+                border:1px solid #FFCA5E;
+                }
+  .summary th   {
+              	background: url(bg_th.jpg) no-repeat right;
+              	height: 47px;
+              	color: #FFFFFF;
+              	font-size: 0.8em;
+              	font-weight: bold;
+              	padding: 0px 7px;
+              	margin: 20px 0px 0px;
+              	text-align: left;
+              	border-right: 1px solid #FCF1D4;
+                }
+  .summary tr   {
+                background: #FFF8E8  repeat-x;
+                }
+  .summary td   {
+                font-size: 0.8em;
+                line-height: 1.4em;
+                font-family: Arial, Helvetica, sans-serif;
+                color: black;
+                padding: 10px 7px;
+                border-top: 1px solid #FFCA5E;
+                border-right: 1px solid #DDDDDD;
+                text-align: left;
+                }
+  .programCode  {
+                background-color: #ffffff;
+                font-size:12px;
+                color: black;
+                font-family: monospace;
+                margin: 0em;
+                }
+  .code         {
+                  white-space:pre
+                }

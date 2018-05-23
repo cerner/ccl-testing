@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+ 
+record goodRecord1
+(
+  1 list[*]
+    2 value = f8
+) with protect
+ 
+record goodRecord2
+(
+  1 struct
+    2 value = f8
+) with protect
+ 
+record goodRecord3
+(
+  1 list[*]
+    2 substruct
+      3 value = f8
+) with protect
+ 
+record goodRecord4
+(
+  1 struct
+    2 value = f8
+    2 structVal = i2
+) with protect
+ 
+end go
+-->
+ <ZC_PROGRAM. class="222" lev="0" kid="6" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <RECORD. class="174" lev="1" kid="3" loc="3.7">
+   <COMMA. class="127" lev="2" kid="1" loc="3.7">
+    <NAME class="5" text="GOODRECORD1" lev="3" loc="3.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="5.2">
+    <FIELD. class="133" lev="3" kid="4" loc="5.2">
+     <INT class="4" text="1" lev="4" loc="5.2"/>
+     <NAME class="5" text="LIST" lev="4" loc="5.4"/>
+     <OCCUR. class="161" lev="4" kid="1" loc="5.9">
+      <C_AST class="9" lev="5" loc="5.9"/>
+     </OCCUR.>
+     <FIELD. class="133" lev="4" kid="3" loc="6.4">
+      <INT class="4" text="2" lev="5" loc="6.4"/>
+      <NAME class="5" text="VALUE" lev="5" loc="6.6"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="6.14">
+       <NAME class="5" text="F8" lev="6" loc="6.14"/>
+       <COMMA. class="127" lev="6" loc="7.0"/>
+       <COMMA. class="127" lev="6" loc="7.0"/>
+      </FORMAT.>
+     </FIELD.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="7.7">
+    <OPTION. class="162" lev="3" kid="1" loc="7.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="7.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="9.7">
+   <COMMA. class="127" lev="2" kid="1" loc="9.7">
+    <NAME class="5" text="GOODRECORD2" lev="3" loc="9.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="11.2">
+    <FIELD. class="133" lev="3" kid="3" loc="11.2">
+     <INT class="4" text="1" lev="4" loc="11.2"/>
+     <NAME class="5" text="STRUCT" lev="4" loc="11.4"/>
+     <FIELD. class="133" lev="4" kid="3" loc="12.4">
+      <INT class="4" text="2" lev="5" loc="12.4"/>
+      <NAME class="5" text="VALUE" lev="5" loc="12.6"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="12.14">
+       <NAME class="5" text="F8" lev="6" loc="12.14"/>
+       <COMMA. class="127" lev="6" loc="13.0"/>
+       <COMMA. class="127" lev="6" loc="13.0"/>
+      </FORMAT.>
+     </FIELD.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="13.7">
+    <OPTION. class="162" lev="3" kid="1" loc="13.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="13.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="15.7">
+   <COMMA. class="127" lev="2" kid="1" loc="15.7">
+    <NAME class="5" text="GOODRECORD3" lev="3" loc="15.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="17.2">
+    <FIELD. class="133" lev="3" kid="4" loc="17.2">
+     <INT class="4" text="1" lev="4" loc="17.2"/>
+     <NAME class="5" text="LIST" lev="4" loc="17.4"/>
+     <OCCUR. class="161" lev="4" kid="1" loc="17.9">
+      <C_AST class="9" lev="5" loc="17.9"/>
+     </OCCUR.>
+     <FIELD. class="133" lev="4" kid="3" loc="18.4">
+      <INT class="4" text="2" lev="5" loc="18.4"/>
+      <NAME class="5" text="SUBSTRUCT" lev="5" loc="18.6"/>
+      <FIELD. class="133" lev="5" kid="3" loc="19.6">
+       <INT class="4" text="3" lev="6" loc="19.6"/>
+       <NAME class="5" text="VALUE" lev="6" loc="19.8"/>
+       <FORMAT. class="138" lev="6" kid="3" loc="19.16">
+        <NAME class="5" text="F8" lev="7" loc="19.16"/>
+        <COMMA. class="127" lev="7" loc="20.0"/>
+        <COMMA. class="127" lev="7" loc="20.0"/>
+       </FORMAT.>
+      </FIELD.>
+     </FIELD.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="20.7">
+    <OPTION. class="162" lev="3" kid="1" loc="20.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="20.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="22.7">
+   <COMMA. class="127" lev="2" kid="1" loc="22.7">
+    <NAME class="5" text="GOODRECORD4" lev="3" loc="22.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="24.2">
+    <FIELD. class="133" lev="3" kid="4" loc="24.2">
+     <INT class="4" text="1" lev="4" loc="24.2"/>
+     <NAME class="5" text="STRUCT" lev="4" loc="24.4"/>
+     <FIELD. class="133" lev="4" kid="3" loc="25.4">
+      <INT class="4" text="2" lev="5" loc="25.4"/>
+      <NAME class="5" text="VALUE" lev="5" loc="25.6"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="25.14">
+       <NAME class="5" text="F8" lev="6" loc="25.14"/>
+       <COMMA. class="127" lev="6" loc="26.4"/>
+       <COMMA. class="127" lev="6" loc="26.4"/>
+      </FORMAT.>
+     </FIELD.>
+     <FIELD. class="133" lev="4" kid="3" loc="26.4">
+      <INT class="4" text="2" lev="5" loc="26.4"/>
+      <NAME class="5" text="STRUCTVAL" lev="5" loc="26.6"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="26.18">
+       <NAME class="5" text="I2" lev="6" loc="26.18"/>
+       <COMMA. class="127" lev="6" loc="27.0"/>
+       <COMMA. class="127" lev="6" loc="27.0"/>
+      </FORMAT.>
+     </FIELD.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="27.7">
+    <OPTION. class="162" lev="3" kid="1" loc="27.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="27.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <LABEL. class="182" lev="1" kid="1" loc="29.0">
+   <NAME class="5" text="END" lev="2" loc="29.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

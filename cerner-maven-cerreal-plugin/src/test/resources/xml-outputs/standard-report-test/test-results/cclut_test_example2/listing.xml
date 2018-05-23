@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LISTING>
+    <LISTING_NAME>CCLUT_TEST_EXAMPLE2.INC</LISTING_NAME>
+    <COMPILE_DATE>19-APR-2010 16:06:13.98</COMPILE_DATE>
+    <LINES>
+        <LINE>
+            <NBR>671</NBR>
+            <TEXT><![CDATA[;**************************************************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>672</NBR>
+            <TEXT><![CDATA[; INC Name: cclut_test_example2.inc]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>673</NBR>
+            <TEXT><![CDATA[; Component Tested: cclut_simple_math.prg]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>674</NBR>
+            <TEXT><![CDATA[; Description: Example automated test to test the cclut_simple_math.prg subroutines]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>675</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>676</NBR>
+            <TEXT><![CDATA[;*************************************************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>677</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>678</NBR>
+            <TEXT><![CDATA[;**************************************************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>679</NBR>
+            <TEXT><![CDATA[; Feature Mod   Date      Author     Description]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>680</NBR>
+            <TEXT><![CDATA[; ####### 001   03/31/10  XX000000   Initial release]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>681</NBR>
+            <TEXT><![CDATA[;**************************************************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>682</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>683</NBR>
+            <TEXT><![CDATA[;**************************************************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>684</NBR>
+            <TEXT><![CDATA[;** Declare Subroutines]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>685</NBR>
+            <TEXT><![CDATA[;**************************************************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>686</NBR>
+            <TEXT><![CDATA[;NOTE: Declare all subroutines]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>687</NBR>
+            <TEXT><![CDATA[declare setup(dummyVar = i2) = null]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>688</NBR>
+            <TEXT><![CDATA[declare testDivideByZero(dummyVar = i2) = null]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>689</NBR>
+            <TEXT><![CDATA[declare testNoReplySentIn(void = i2) = null]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>690</NBR>
+            <TEXT><![CDATA[declare testBogusOperation(void = i2) = null]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>691</NBR>
+            <TEXT><![CDATA[declare teardown(dummyVar = i2) = null]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>692</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>693</NBR>
+            <TEXT><![CDATA[;**************************************************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>694</NBR>
+            <TEXT><![CDATA[;** Subroutine Implementations]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>695</NBR>
+            <TEXT><![CDATA[;**************************************************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>696</NBR>
+            <TEXT><![CDATA[;*****************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>697</NBR>
+            <TEXT><![CDATA[;** SETUP]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>698</NBR>
+            <TEXT><![CDATA[;*****************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>699</NBR>
+            <TEXT><![CDATA[subroutine setup(dummyVar)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>700</NBR>
+            <TEXT><![CDATA[  free record simpleMathRequest]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>701</NBR>
+            <TEXT><![CDATA[  record simpleMathRequest(]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>702</NBR>
+            <TEXT><![CDATA[    1 numberOne = i4]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>703</NBR>
+            <TEXT><![CDATA[    1 numberTwo = i4]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>704</NBR>
+            <TEXT><![CDATA[    1 operation = vc ;ADD, SUBTRACT, MULTIPLY, DIVIDE]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>705</NBR>
+            <TEXT><![CDATA[  )with persistscript]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>706</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>707</NBR>
+            <TEXT><![CDATA[  free record simpleMathReply]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>708</NBR>
+            <TEXT><![CDATA[  record simpleMathReply(]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>709</NBR>
+            <TEXT><![CDATA[    1 result = f8]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>710</NBR>
+            <TEXT><![CDATA[  1 status_data]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>711</NBR>
+            <TEXT><![CDATA[    2 status = c1]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>712</NBR>
+            <TEXT><![CDATA[    2 subeventstatus[1]]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>713</NBR>
+            <TEXT><![CDATA[      3 OperationName = c25]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>714</NBR>
+            <TEXT><![CDATA[      3 OperationStatus = c1]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>715</NBR>
+            <TEXT><![CDATA[      3 TargetObjectName = c25]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>716</NBR>
+            <TEXT><![CDATA[      3 TargetObjectValue = vc]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>717</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>718</NBR>
+            <TEXT><![CDATA[  )with persistscript]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>719</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>720</NBR>
+            <TEXT><![CDATA[end ;setup]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>721</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>722</NBR>
+            <TEXT><![CDATA[;***********************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>723</NBR>
+            <TEXT><![CDATA[;Scenario: Test Division 6 / 0 = -1]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>724</NBR>
+            <TEXT><![CDATA[;***********************************************************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>725</NBR>
+            <TEXT><![CDATA[subroutine testDivideByZero(dummyVar)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>726</NBR>
+            <TEXT><![CDATA[  set stat = initrec(simpleMathRequest)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>727</NBR>
+            <TEXT><![CDATA[  set stat = initrec(simpleMathReply)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>728</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>729</NBR>
+            <TEXT><![CDATA[  set simpleMathRequest->numberOne = 6]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>730</NBR>
+            <TEXT><![CDATA[  set simpleMathRequest->numberTwo = 0]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>731</NBR>
+            <TEXT><![CDATA[  set simpleMathRequest->operation = "DIVIDE"]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>732</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>733</NBR>
+            <TEXT><![CDATA[  execute cclut_simple_math with replace("REQUEST", SIMPLEMATHREQUEST), replace("REPLY", SIMPLEMATHREPLY)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>734</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>735</NBR>
+            <TEXT><![CDATA[  ;Add assert statement to ensure that result is -1]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>736</NBR>
+            <TEXT><![CDATA[  call cclutAssertf8Equal(CURREF,"testDivide", -1.0, simpleMathReply->result)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>737</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>738</NBR>
+            <TEXT><![CDATA[  ;Add assert statement to ensure that result is greater than 0]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>739</NBR>
+            <TEXT><![CDATA[  call cclutAssertf8GreaterThan(CURREF,"testDivide", 0.0, simpleMathReply->result)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>740</NBR>
+            <TEXT><![CDATA[end]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>741</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>742</NBR>
+            <TEXT><![CDATA[subroutine testNoReplySentIn(void)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>743</NBR>
+            <TEXT><![CDATA[  set simpleMathRequest->numberOne = 6]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>744</NBR>
+            <TEXT><![CDATA[  set simpleMathRequest->numberTwo = 2]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>745</NBR>
+            <TEXT><![CDATA[  set simpleMathRequest->operation = "DIVIDE"]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>746</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>747</NBR>
+            <TEXT><![CDATA[  execute cclut_simple_math with replace("REQUEST", SIMPLEMATHREQUEST)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>748</NBR>
+            <TEXT><![CDATA[end ;testNoReplySentIn]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>749</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>750</NBR>
+            <TEXT><![CDATA[subroutine testBogusOperation(void)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>751</NBR>
+            <TEXT><![CDATA[  set simpleMathRequest->numberOne = 6]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>752</NBR>
+            <TEXT><![CDATA[  set simpleMathRequest->numberTwo = 2]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>753</NBR>
+            <TEXT><![CDATA[  set simpleMathRequest->operation = "QUARK"]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>754</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>755</NBR>
+            <TEXT><![CDATA[  execute cclut_simple_math with replace("REQUEST", SIMPLEMATHREQUEST), replace("REPLY", SIMPLEMATHREPLY)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>756</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>757</NBR>
+            <TEXT><![CDATA[  ;Ensure that the script return a failure status]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>758</NBR>
+            <TEXT><![CDATA[  call cclutAssertvcEqual(CURREF, "", "F", simpleMathReply->status_data.status)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>759</NBR>
+            <TEXT><![CDATA[end ;testBogusOperation]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>760</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>761</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>762</NBR>
+            <TEXT><![CDATA[;*****************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>763</NBR>
+            <TEXT><![CDATA[;** TEARDOWN]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>764</NBR>
+            <TEXT><![CDATA[;*****************************]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>765</NBR>
+            <TEXT><![CDATA[subroutine teardown(errorMessage)]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>766</NBR>
+            <TEXT><![CDATA[  rollback]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>767</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>768</NBR>
+            <TEXT><![CDATA[  free record simpleMathRequest]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>769</NBR>
+            <TEXT><![CDATA[  free record simpleMathReply]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>770</NBR>
+            <TEXT><![CDATA[end ;teardown]]></TEXT>
+        </LINE>
+        <LINE>
+            <NBR>771</NBR>
+            <TEXT><![CDATA[]]></TEXT>
+        </LINE>
+    </LINES>
+</LISTING>

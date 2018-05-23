@@ -1,0 +1,439 @@
+<?xml version="1.0"?>
+<!--
+set compile = debug go
+drop program sample_program go
+create program sample_program
+ 
+select into "nl:"
+from person p
+plan p where p.name_first_key = "JOHN"
+order by p.person_id
+head p.person_id
+  call echo(p.name_full_formatted)
+with nocounter
+ 
+select into "nl:"
+from person p
+plan p where p.name_first_key = "JOHN"
+head report
+  call echo(p.name_full_formatted)
+with nocounter
+ 
+select into "nl:"
+from person p
+plan p where p.name_first_key = "JOHN"
+head p.person_id
+  call echo(p.name_full_formatted)
+with nocounter
+ 
+select into "nl:"
+from person p,
+     address a
+plan p where p.name_first_key = "JOHN"
+join a where a.parent_entity_id = p.person_id
+         and a.parent_entity_name = "PERSON"
+order by p.person_id
+foot a.address_id
+  call echo(p.name_full_formatted)
+  call echo(a.street_addr)
+  call echo(a.street_addr2)
+  call echo(a.state)
+with nocounter
+
+select into "nl:" 
+  personId = p.person_id
+from person p
+plan p where p.name_first_key = "JOHN"
+order by personId
+head personId
+  call echo(p.name_full_formatted)
+with nocounter
+ 
+select into "nl:" 
+  personId = p.person_id
+from person p
+plan p where p.name_first_key = "JOHN"
+order by personId
+foot personId
+  call echo(p.name_full_formatted)
+with nocounter
+
+end go
+translate sample_program with xml go
+drop program sample_program go
+-->
+ <ZC_PROGRAM. class="223" lev="0" kid="8" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="3.7">
+   <COMMA. class="127" lev="2" loc="3.7"/>
+   <INTO. class="148" lev="2" kid="1" loc="3.12">
+    <STRING class="7" text="nl:" lev="3" loc="3.12"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="4.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="4.5">
+    <TABLE. class="177" lev="3" kid="2" loc="4.5">
+     <NAME class="5" text="PERSON" lev="4" loc="4.5"/>
+     <NAME class="5" text="P" lev="4" loc="4.12"/>
+    </TABLE.>
+   </COMMA.>
+   <PLAN. class="169" lev="2" kid="1" loc="5.5">
+    <COMMA. class="127" lev="3" kid="2" loc="5.5">
+     <NAME class="5" text="P" lev="4" loc="5.5"/>
+     <QUAL. class="173" lev="4" kid="1" loc="5.13">
+      <EQL. class="132" lev="5" kid="2" loc="5.13">
+       <ATTR. class="123" lev="6" kid="2" loc="5.13">
+        <NAME class="5" text="P" lev="7" loc="5.13"/>
+        <NAME class="5" text="NAME_FIRST_KEY" lev="7" loc="5.15"/>
+       </ATTR.>
+       <STRING class="7" text="JOHN" lev="6" loc="5.32"/>
+      </EQL.>
+     </QUAL.>
+    </COMMA.>
+   </PLAN.>
+   <ORDERLIST. class="166" lev="2" kid="1" loc="6.9">
+    <ORDER. class="165" lev="3" kid="1" loc="6.9">
+     <ATTR. class="123" lev="4" kid="2" loc="6.9">
+      <NAME class="5" text="P" lev="5" loc="6.9"/>
+      <NAME class="5" text="PERSON_ID" lev="5" loc="6.11"/>
+     </ATTR.>
+    </ORDER.>
+   </ORDERLIST.>
+   <COMMA. class="127" lev="2" kid="1" loc="7.5">
+    <HEADBREAK. class="143" lev="3" kid="2" loc="7.5">
+     <ATTR. class="123" lev="4" kid="2" loc="7.5">
+      <NAME class="5" text="P" lev="5" loc="7.5"/>
+      <NAME class="5" text="PERSON_ID" lev="5" loc="7.7"/>
+     </ATTR.>
+     <Z_CALL. class="197" lev="4" kid="2" loc="8.7">
+      <NAME class="5" text="ECHO" lev="5" loc="8.7"/>
+      <ATTR. class="123" lev="5" kid="2" loc="8.12">
+       <NAME class="5" text="P" lev="6" loc="8.12"/>
+       <NAME class="5" text="NAME_FULL_FORMATTED" lev="6" loc="8.14"/>
+      </ATTR.>
+     </Z_CALL.>
+    </HEADBREAK.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="9.5">
+    <OPTION. class="162" lev="3" kid="1" loc="9.5">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="9.5"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="11.7">
+   <COMMA. class="127" lev="2" loc="11.7"/>
+   <INTO. class="148" lev="2" kid="1" loc="11.12">
+    <STRING class="7" text="nl:" lev="3" loc="11.12"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="12.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="12.5">
+    <TABLE. class="177" lev="3" kid="2" loc="12.5">
+     <NAME class="5" text="PERSON" lev="4" loc="12.5"/>
+     <NAME class="5" text="P" lev="4" loc="12.12"/>
+    </TABLE.>
+   </COMMA.>
+   <PLAN. class="169" lev="2" kid="1" loc="13.5">
+    <COMMA. class="127" lev="3" kid="2" loc="13.5">
+     <NAME class="5" text="P" lev="4" loc="13.5"/>
+     <QUAL. class="173" lev="4" kid="1" loc="13.13">
+      <EQL. class="132" lev="5" kid="2" loc="13.13">
+       <ATTR. class="123" lev="6" kid="2" loc="13.13">
+        <NAME class="5" text="P" lev="7" loc="13.13"/>
+        <NAME class="5" text="NAME_FIRST_KEY" lev="7" loc="13.15"/>
+       </ATTR.>
+       <STRING class="7" text="JOHN" lev="6" loc="13.32"/>
+      </EQL.>
+     </QUAL.>
+    </COMMA.>
+   </PLAN.>
+   <ORDERLIST. class="166" lev="2" loc="14.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="15.7">
+    <HEADREPORT. class="145" lev="3" kid="1" loc="15.7">
+     <Z_CALL. class="197" lev="4" kid="2" loc="15.7">
+      <NAME class="5" text="ECHO" lev="5" loc="15.7"/>
+      <ATTR. class="123" lev="5" kid="2" loc="15.12">
+       <NAME class="5" text="P" lev="6" loc="15.12"/>
+       <NAME class="5" text="NAME_FULL_FORMATTED" lev="6" loc="15.14"/>
+      </ATTR.>
+     </Z_CALL.>
+    </HEADREPORT.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="16.5">
+    <OPTION. class="162" lev="3" kid="1" loc="16.5">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="16.5"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="18.7">
+   <COMMA. class="127" lev="2" loc="18.7"/>
+   <INTO. class="148" lev="2" kid="1" loc="18.12">
+    <STRING class="7" text="nl:" lev="3" loc="18.12"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="19.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="19.5">
+    <TABLE. class="177" lev="3" kid="2" loc="19.5">
+     <NAME class="5" text="PERSON" lev="4" loc="19.5"/>
+     <NAME class="5" text="P" lev="4" loc="19.12"/>
+    </TABLE.>
+   </COMMA.>
+   <PLAN. class="169" lev="2" kid="1" loc="20.5">
+    <COMMA. class="127" lev="3" kid="2" loc="20.5">
+     <NAME class="5" text="P" lev="4" loc="20.5"/>
+     <QUAL. class="173" lev="4" kid="1" loc="20.13">
+      <EQL. class="132" lev="5" kid="2" loc="20.13">
+       <ATTR. class="123" lev="6" kid="2" loc="20.13">
+        <NAME class="5" text="P" lev="7" loc="20.13"/>
+        <NAME class="5" text="NAME_FIRST_KEY" lev="7" loc="20.15"/>
+       </ATTR.>
+       <STRING class="7" text="JOHN" lev="6" loc="20.32"/>
+      </EQL.>
+     </QUAL.>
+    </COMMA.>
+   </PLAN.>
+   <ORDERLIST. class="166" lev="2" loc="21.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="21.5">
+    <HEADBREAK. class="143" lev="3" kid="2" loc="21.5">
+     <ATTR. class="123" lev="4" kid="2" loc="21.5">
+      <NAME class="5" text="P" lev="5" loc="21.5"/>
+      <NAME class="5" text="PERSON_ID" lev="5" loc="21.7"/>
+     </ATTR.>
+     <Z_CALL. class="197" lev="4" kid="2" loc="22.7">
+      <NAME class="5" text="ECHO" lev="5" loc="22.7"/>
+      <ATTR. class="123" lev="5" kid="2" loc="22.12">
+       <NAME class="5" text="P" lev="6" loc="22.12"/>
+       <NAME class="5" text="NAME_FULL_FORMATTED" lev="6" loc="22.14"/>
+      </ATTR.>
+     </Z_CALL.>
+    </HEADBREAK.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="23.5">
+    <OPTION. class="162" lev="3" kid="1" loc="23.5">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="23.5"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="25.7">
+   <COMMA. class="127" lev="2" loc="25.7"/>
+   <INTO. class="148" lev="2" kid="1" loc="25.12">
+    <STRING class="7" text="nl:" lev="3" loc="25.12"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="26.0"/>
+   <COMMA. class="127" lev="2" kid="2" loc="26.5">
+    <TABLE. class="177" lev="3" kid="2" loc="26.5">
+     <NAME class="5" text="PERSON" lev="4" loc="26.5"/>
+     <NAME class="5" text="P" lev="4" loc="26.12"/>
+    </TABLE.>
+    <TABLE. class="177" lev="3" kid="2" loc="27.5">
+     <NAME class="5" text="ADDRESS" lev="4" loc="27.5"/>
+     <NAME class="5" text="A" lev="4" loc="27.13"/>
+    </TABLE.>
+   </COMMA.>
+   <PLAN. class="169" lev="2" kid="1" loc="28.5">
+    <AND. class="121" lev="3" kid="2" loc="28.5">
+     <COMMA. class="127" lev="4" kid="2" loc="28.5">
+      <NAME class="5" text="P" lev="5" loc="28.5"/>
+      <QUAL. class="173" lev="5" kid="1" loc="28.13">
+       <EQL. class="132" lev="6" kid="2" loc="28.13">
+        <ATTR. class="123" lev="7" kid="2" loc="28.13">
+         <NAME class="5" text="P" lev="8" loc="28.13"/>
+         <NAME class="5" text="NAME_FIRST_KEY" lev="8" loc="28.15"/>
+        </ATTR.>
+        <STRING class="7" text="JOHN" lev="7" loc="28.32"/>
+       </EQL.>
+      </QUAL.>
+     </COMMA.>
+     <COMMA. class="127" lev="4" kid="2" loc="29.5">
+      <NAME class="5" text="A" lev="5" loc="29.5"/>
+      <QUAL. class="173" lev="5" kid="1" loc="29.13">
+       <AND. class="121" lev="6" kid="2" loc="29.13">
+        <EQL. class="132" lev="7" kid="2" loc="29.13">
+         <ATTR. class="123" lev="8" kid="2" loc="29.13">
+          <NAME class="5" text="A" lev="9" loc="29.13"/>
+          <NAME class="5" text="PARENT_ENTITY_ID" lev="9" loc="29.15"/>
+         </ATTR.>
+         <ATTR. class="123" lev="8" kid="2" loc="29.34">
+          <NAME class="5" text="P" lev="9" loc="29.34"/>
+          <NAME class="5" text="PERSON_ID" lev="9" loc="29.36"/>
+         </ATTR.>
+        </EQL.>
+        <EQL. class="132" lev="7" kid="2" loc="30.13">
+         <ATTR. class="123" lev="8" kid="2" loc="30.13">
+          <NAME class="5" text="A" lev="9" loc="30.13"/>
+          <NAME class="5" text="PARENT_ENTITY_NAME" lev="9" loc="30.15"/>
+         </ATTR.>
+         <STRING class="7" text="PERSON" lev="8" loc="30.36"/>
+        </EQL.>
+       </AND.>
+      </QUAL.>
+     </COMMA.>
+    </AND.>
+   </PLAN.>
+   <ORDERLIST. class="166" lev="2" kid="1" loc="31.9">
+    <ORDER. class="165" lev="3" kid="1" loc="31.9">
+     <ATTR. class="123" lev="4" kid="2" loc="31.9">
+      <NAME class="5" text="P" lev="5" loc="31.9"/>
+      <NAME class="5" text="PERSON_ID" lev="5" loc="31.11"/>
+     </ATTR.>
+    </ORDER.>
+   </ORDERLIST.>
+   <COMMA. class="127" lev="2" kid="1" loc="32.5">
+    <FOOTBREAK. class="135" lev="3" kid="5" loc="32.5">
+     <ATTR. class="123" lev="4" kid="2" loc="32.5">
+      <NAME class="5" text="A" lev="5" loc="32.5"/>
+      <NAME class="5" text="ADDRESS_ID" lev="5" loc="32.7"/>
+     </ATTR.>
+     <Z_CALL. class="197" lev="4" kid="2" loc="33.7">
+      <NAME class="5" text="ECHO" lev="5" loc="33.7"/>
+      <ATTR. class="123" lev="5" kid="2" loc="33.12">
+       <NAME class="5" text="P" lev="6" loc="33.12"/>
+       <NAME class="5" text="NAME_FULL_FORMATTED" lev="6" loc="33.14"/>
+      </ATTR.>
+     </Z_CALL.>
+     <Z_CALL. class="197" lev="4" kid="2" loc="34.7">
+      <NAME class="5" text="ECHO" lev="5" loc="34.7"/>
+      <ATTR. class="123" lev="5" kid="2" loc="34.12">
+       <NAME class="5" text="A" lev="6" loc="34.12"/>
+       <NAME class="5" text="STREET_ADDR" lev="6" loc="34.14"/>
+      </ATTR.>
+     </Z_CALL.>
+     <Z_CALL. class="197" lev="4" kid="2" loc="35.7">
+      <NAME class="5" text="ECHO" lev="5" loc="35.7"/>
+      <ATTR. class="123" lev="5" kid="2" loc="35.12">
+       <NAME class="5" text="A" lev="6" loc="35.12"/>
+       <NAME class="5" text="STREET_ADDR2" lev="6" loc="35.14"/>
+      </ATTR.>
+     </Z_CALL.>
+     <Z_CALL. class="197" lev="4" kid="2" loc="36.7">
+      <NAME class="5" text="ECHO" lev="5" loc="36.7"/>
+      <ATTR. class="123" lev="5" kid="2" loc="36.12">
+       <NAME class="5" text="A" lev="6" loc="36.12"/>
+       <NAME class="5" text="STATE" lev="6" loc="36.14"/>
+      </ATTR.>
+     </Z_CALL.>
+    </FOOTBREAK.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="37.5">
+    <OPTION. class="162" lev="3" kid="1" loc="37.5">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="37.5"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="39.7">
+   <COMMA. class="127" lev="2" loc="39.7"/>
+   <INTO. class="148" lev="2" kid="1" loc="39.12">
+    <STRING class="7" text="nl:" lev="3" loc="39.12"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" kid="1" loc="40.2">
+    <IS. class="149" lev="3" kid="2" loc="40.2">
+     <NAME class="5" text="PERSONID" lev="4" loc="40.2"/>
+     <ATTR. class="123" lev="4" kid="2" loc="40.13">
+      <NAME class="5" text="P" lev="5" loc="40.13"/>
+      <NAME class="5" text="PERSON_ID" lev="5" loc="40.15"/>
+     </ATTR.>
+    </IS.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="41.5">
+    <TABLE. class="177" lev="3" kid="2" loc="41.5">
+     <NAME class="5" text="PERSON" lev="4" loc="41.5"/>
+     <NAME class="5" text="P" lev="4" loc="41.12"/>
+    </TABLE.>
+   </COMMA.>
+   <PLAN. class="169" lev="2" kid="1" loc="42.5">
+    <COMMA. class="127" lev="3" kid="2" loc="42.5">
+     <NAME class="5" text="P" lev="4" loc="42.5"/>
+     <QUAL. class="173" lev="4" kid="1" loc="42.13">
+      <EQL. class="132" lev="5" kid="2" loc="42.13">
+       <ATTR. class="123" lev="6" kid="2" loc="42.13">
+        <NAME class="5" text="P" lev="7" loc="42.13"/>
+        <NAME class="5" text="NAME_FIRST_KEY" lev="7" loc="42.15"/>
+       </ATTR.>
+       <STRING class="7" text="JOHN" lev="6" loc="42.32"/>
+      </EQL.>
+     </QUAL.>
+    </COMMA.>
+   </PLAN.>
+   <ORDERLIST. class="166" lev="2" kid="1" loc="43.9">
+    <ORDER. class="165" lev="3" kid="1" loc="43.9">
+     <NAME class="5" text="PERSONID" lev="4" loc="43.9"/>
+    </ORDER.>
+   </ORDERLIST.>
+   <COMMA. class="127" lev="2" kid="1" loc="44.5">
+    <HEADBREAK. class="143" lev="3" kid="2" loc="44.5">
+     <NAME class="5" text="PERSONID" lev="4" loc="44.5"/>
+     <Z_CALL. class="197" lev="4" kid="2" loc="45.7">
+      <NAME class="5" text="ECHO" lev="5" loc="45.7"/>
+      <ATTR. class="123" lev="5" kid="2" loc="45.12">
+       <NAME class="5" text="P" lev="6" loc="45.12"/>
+       <NAME class="5" text="NAME_FULL_FORMATTED" lev="6" loc="45.14"/>
+      </ATTR.>
+     </Z_CALL.>
+    </HEADBREAK.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="46.5">
+    <OPTION. class="162" lev="3" kid="1" loc="46.5">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="46.5"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="48.7">
+   <COMMA. class="127" lev="2" loc="48.7"/>
+   <INTO. class="148" lev="2" kid="1" loc="48.12">
+    <STRING class="7" text="nl:" lev="3" loc="48.12"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" kid="1" loc="49.2">
+    <IS. class="149" lev="3" kid="2" loc="49.2">
+     <NAME class="5" text="PERSONID" lev="4" loc="49.2"/>
+     <ATTR. class="123" lev="4" kid="2" loc="49.13">
+      <NAME class="5" text="P" lev="5" loc="49.13"/>
+      <NAME class="5" text="PERSON_ID" lev="5" loc="49.15"/>
+     </ATTR.>
+    </IS.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="50.5">
+    <TABLE. class="177" lev="3" kid="2" loc="50.5">
+     <NAME class="5" text="PERSON" lev="4" loc="50.5"/>
+     <NAME class="5" text="P" lev="4" loc="50.12"/>
+    </TABLE.>
+   </COMMA.>
+   <PLAN. class="169" lev="2" kid="1" loc="51.5">
+    <COMMA. class="127" lev="3" kid="2" loc="51.5">
+     <NAME class="5" text="P" lev="4" loc="51.5"/>
+     <QUAL. class="173" lev="4" kid="1" loc="51.13">
+      <EQL. class="132" lev="5" kid="2" loc="51.13">
+       <ATTR. class="123" lev="6" kid="2" loc="51.13">
+        <NAME class="5" text="P" lev="7" loc="51.13"/>
+        <NAME class="5" text="NAME_FIRST_KEY" lev="7" loc="51.15"/>
+       </ATTR.>
+       <STRING class="7" text="JOHN" lev="6" loc="51.32"/>
+      </EQL.>
+     </QUAL.>
+    </COMMA.>
+   </PLAN.>
+   <ORDERLIST. class="166" lev="2" kid="1" loc="52.9">
+    <ORDER. class="165" lev="3" kid="1" loc="52.9">
+     <NAME class="5" text="PERSONID" lev="4" loc="52.9"/>
+    </ORDER.>
+   </ORDERLIST.>
+   <COMMA. class="127" lev="2" kid="1" loc="53.5">
+    <FOOTBREAK. class="135" lev="3" kid="2" loc="53.5">
+     <NAME class="5" text="PERSONID" lev="4" loc="53.5"/>
+     <Z_CALL. class="197" lev="4" kid="2" loc="54.7">
+      <NAME class="5" text="ECHO" lev="5" loc="54.7"/>
+      <ATTR. class="123" lev="5" kid="2" loc="54.12">
+       <NAME class="5" text="P" lev="6" loc="54.12"/>
+       <NAME class="5" text="NAME_FULL_FORMATTED" lev="6" loc="54.14"/>
+      </ATTR.>
+     </Z_CALL.>
+    </FOOTBREAK.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="55.5">
+    <OPTION. class="162" lev="3" kid="1" loc="55.5">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="55.5"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <LABEL. class="182" lev="1" kid="1" loc="57.0">
+   <NAME class="5" text="END" lev="2" loc="57.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

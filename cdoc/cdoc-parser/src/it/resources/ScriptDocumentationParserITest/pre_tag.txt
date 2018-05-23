@@ -1,0 +1,8 @@
+/**
+ Transform a list of source code text into an XML format. The XML will be formatted as follows:
+ <pre>
+    &lt;LISTING&gt;
+        &lt;LISTING_NAME&gt;program name&lt;/LISTING_NAME&gt;
+    &lt;/LISTING&gt;
+ </pre>
+ */

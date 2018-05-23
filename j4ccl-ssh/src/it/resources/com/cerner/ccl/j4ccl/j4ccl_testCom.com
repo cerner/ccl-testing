@@ -1,0 +1,1 @@
+write sys$output "I am a VMS COM file."

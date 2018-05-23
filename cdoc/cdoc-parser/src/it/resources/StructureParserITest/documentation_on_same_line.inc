@@ -1,0 +1,1 @@
+record request (    1 field = vc ; this has documentation on the same line as the field)

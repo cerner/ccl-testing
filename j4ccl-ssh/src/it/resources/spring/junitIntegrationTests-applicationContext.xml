@@ -1,0 +1,42 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <bean id="backendNodePrincipal" class="com.cerner.ccl.j4ccl.impl.jaas.BackendNodePrincipal">
+        <constructor-arg index="0" value="#{systemProperties['ccl-hostUsername']}" />
+        <constructor-arg index="1" value="${ccl-host}" />
+        <constructor-arg index="2" value="${ccl-environment}" />
+    </bean>
+
+    <bean id="backendNodePasswordCredential" class="com.cerner.ccl.j4ccl.impl.jaas.BackendNodePasswordCredential">
+        <constructor-arg index="0" value="#{systemProperties['ccl-hostPassword']}" />
+    </bean>
+
+    <bean id="millenniumDomainPrincipal" class="com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPrincipal">
+        <constructor-arg index="0" value="#{systemProperties['ccl-domainUsername']}" />
+        <constructor-arg index="1" value="${ccl-domain}" />
+    </bean>
+
+    <bean id="millenniumDomainPasswordCredential" class="com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPasswordCredential">
+        <constructor-arg index="0" value="#{systemProperties['ccl-domainPassword']}" />
+    </bean>
+
+    <bean id="millenniumSubject" class="javax.security.auth.Subject">
+        <constructor-arg index="0" value="true" />
+        <constructor-arg index="1">
+            <util:set>
+                <ref bean="millenniumDomainPrincipal" />
+                <ref bean="backendNodePrincipal" />
+            </util:set>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <util:set />
+        </constructor-arg>
+        <constructor-arg index="3">
+            <util:set>
+                <ref bean="millenniumDomainPasswordCredential" />
+                <ref bean="backendNodePasswordCredential" />
+            </util:set>
+        </constructor-arg>
+    </bean>
+</beans>

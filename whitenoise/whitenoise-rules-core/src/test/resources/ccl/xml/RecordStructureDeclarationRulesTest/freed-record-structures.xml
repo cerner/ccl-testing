@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+ 
+free record myrec
+record myrec
+(
+  1 value = i4
+) with protect
+ 
+record anotherRec
+(
+  1 value = i4
+) with protect
+ 
+record aThirdRec
+(
+  1 value = i4
+) with protect
+ 
+record lastRec
+(
+  1 value = i4
+) with protect
+ 
+free set aThirdRec
+free record anotherRec
+ 
+end
+go
+-->
+ <ZC_PROGRAM. class="222" lev="0" kid="9" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_FREE. class="200" lev="1" kid="2" loc="3.5">
+   <RECORD class="88" lev="2" loc="3.5"/>
+   <NAME class="5" text="MYREC" lev="2" loc="3.12"/>
+  </Z_FREE.>
+  <RECORD. class="174" lev="1" kid="3" loc="4.7">
+   <COMMA. class="127" lev="2" kid="1" loc="4.7">
+    <NAME class="5" text="MYREC" lev="3" loc="4.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="6.2">
+    <FIELD. class="133" lev="3" kid="3" loc="6.2">
+     <INT class="4" text="1" lev="4" loc="6.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="6.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="6.12">
+      <NAME class="5" text="I4" lev="5" loc="6.12"/>
+      <COMMA. class="127" lev="5" loc="7.0"/>
+      <COMMA. class="127" lev="5" loc="7.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="7.7">
+    <OPTION. class="162" lev="3" kid="1" loc="7.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="7.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="9.7">
+   <COMMA. class="127" lev="2" kid="1" loc="9.7">
+    <NAME class="5" text="ANOTHERREC" lev="3" loc="9.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="11.2">
+    <FIELD. class="133" lev="3" kid="3" loc="11.2">
+     <INT class="4" text="1" lev="4" loc="11.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="11.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="11.12">
+      <NAME class="5" text="I4" lev="5" loc="11.12"/>
+      <COMMA. class="127" lev="5" loc="12.0"/>
+      <COMMA. class="127" lev="5" loc="12.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="12.7">
+    <OPTION. class="162" lev="3" kid="1" loc="12.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="12.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="14.7">
+   <COMMA. class="127" lev="2" kid="1" loc="14.7">
+    <NAME class="5" text="ATHIRDREC" lev="3" loc="14.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="16.2">
+    <FIELD. class="133" lev="3" kid="3" loc="16.2">
+     <INT class="4" text="1" lev="4" loc="16.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="16.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="16.12">
+      <NAME class="5" text="I4" lev="5" loc="16.12"/>
+      <COMMA. class="127" lev="5" loc="17.0"/>
+      <COMMA. class="127" lev="5" loc="17.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="17.7">
+    <OPTION. class="162" lev="3" kid="1" loc="17.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="17.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <RECORD. class="174" lev="1" kid="3" loc="19.7">
+   <COMMA. class="127" lev="2" kid="1" loc="19.7">
+    <NAME class="5" text="LASTREC" lev="3" loc="19.7"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="1" loc="21.2">
+    <FIELD. class="133" lev="3" kid="3" loc="21.2">
+     <INT class="4" text="1" lev="4" loc="21.2"/>
+     <NAME class="5" text="VALUE" lev="4" loc="21.4"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="21.12">
+      <NAME class="5" text="I4" lev="5" loc="21.12"/>
+      <COMMA. class="127" lev="5" loc="22.0"/>
+      <COMMA. class="127" lev="5" loc="22.0"/>
+     </FORMAT.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="22.7">
+    <OPTION. class="162" lev="3" kid="1" loc="22.7">
+     <NAME class="5" text="PROTECT" lev="4" loc="22.7"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <Z_FREE. class="200" lev="1" kid="2" loc="24.5">
+   <SET class="94" lev="2" loc="24.5"/>
+   <NAME class="5" text="ATHIRDREC" lev="2" loc="24.9"/>
+  </Z_FREE.>
+  <Z_FREE. class="200" lev="1" kid="2" loc="25.5">
+   <RECORD class="88" lev="2" loc="25.5"/>
+   <NAME class="5" text="ANOTHERREC" lev="2" loc="25.12"/>
+  </Z_FREE.>
+  <LABEL. class="182" lev="1" kid="1" loc="27.0">
+   <NAME class="5" text="END" lev="2" loc="27.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

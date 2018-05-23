@@ -1,0 +1,77 @@
+## This formats the model of subroutines within a given script
+#if( !$object.subroutines.isEmpty() )
+<a href="javascript:toggleVisibility('subroutineDoc');" id="subroutineVisibilityToggle">Toggle Subroutine View</a>
+<div id="subroutineDoc" style="display: none">
+<p>
+<h2>Subroutines</h2>
+#foreach( $subroutine in $object.subroutines)
+<div class="subroutineDefinition">
+<div id="declaration-$subroutine.name" class="subroutineHeader">$subroutine.name (
+#if( $subroutine.arguments.isEmpty() )
+VOID
+#else
+#set( $argCount = 0 )
+#foreach( $subroutineArgument in $subroutine.arguments )
+$subroutineArgument.name
+#if( $subroutineArgument.dataType )
+ = 
+#if( $subroutineArgument.dataType.name() == "CHAR" )
+c$subroutineArgument.dataLength
+#else
+$subroutineArgument.dataType.name().toLowerCase() 
+#end
+#end
+#if( $subroutineArgument.isByRef() )
+(REF)
+#end
+#if( $argCount < $subroutine.arguments.size() - 1)
+,  
+#end
+#set( $argCount = $argCount + 1 )
+#end
+#end
+)
+#if( $subroutine.returnDataType )
+    #if( $subroutine.returnDataType.class.simpleName != "UnknownReturnType" )
+        #if( $subroutine.returnDataType.dataType.name() == "CHAR" )
+ = c$subroutine.returnDataType.dataLength
+        #else
+ = $subroutine.returnDataType.dataType.name().toLowerCase()
+        #end
+    #end
+#elseif( $subroutine.returnsVoid() )
+ = NULL
+#end
+</div> <!-- end $subroutine.name declaration -->
+<div class="subroutineDetails">
+#if( $subroutine.description != "")
+<span id="description-$subroutine.name">$subroutine.description</span>
+#end
+#if( !$subroutine.arguments.isEmpty() )
+<p>
+Parameters:
+<ul>
+#foreach( $subroutineArgument in $subroutine.arguments )
+<li id="$subroutine.name&$subroutineArgument.name">
+$subroutineArgument.name #if( $subroutineArgument.description != "" ) - $subroutineArgument.description #end
+</li>
+#end
+</ul>
+</p>
+#end
+#if( $subroutine.returnDataDescription != "" )
+<p>
+Returns:
+<br />
+<div style="padding-left: 2%" id="returns-$subroutine.name">
+$subroutine.returnDataDescription
+</div>
+</p>
+#end
+</div>
+</div>
+<br />
+#end
+</p>
+</div>
+#end

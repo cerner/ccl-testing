@@ -1,0 +1,32 @@
+#if( $requestDefinition || $replyDefinition )
+    <h2>Request/Reply Record Structures</h2>
+    #if( $requestRecordStructure )
+        <div class="recordStructureName">Request</div>
+        <div class="recordStructureDetails">
+            #if( $requestRecordStructure.description != "" )
+                <div class="recordStructureDescription" id="requestRecordDescription">$requestRecordStructure.description</div>
+            #end
+            <div class="recordStructureDefinition">
+                record $requestRecordStructure.name (
+                $requestDefinition
+                )
+            </div>
+        </div>
+        #if( $replyDefinition )
+            <br />
+        #end
+    #end
+    #if( $replyRecordStructure )
+        <div class="recordStructureName">Reply</div>
+        <div class="recordStructureDetails">
+            #if( $replyRecordStructure.description != "" )
+                <div class="recordStructureDescription" id="replyRecordDescription">$replyRecordStructure.description</div>
+            #end
+            <div class="recordStructureDefinition">
+                record $replyRecordStructure.name (
+                $replyDefinition
+                )
+            </div>
+        </div>
+    #end
+#end

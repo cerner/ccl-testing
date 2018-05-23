@@ -1,0 +1,41 @@
+div#summaryTitle {
+    text-align: center;
+}
+
+table#docLinks {
+    width: 100%;
+}
+
+table#docLinks th {
+    background-color: #CCCCFF;
+    border-top-left-radius: 0.5em;
+    -moz-border-radius-topleft: 0.5em;
+    border-top-right-radius: 0.5em;
+    -moz-border-radius-topright: 0.5em;
+    text-align: left;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+}
+
+table#docLinks td {
+    border-style: solid;
+    border-width: 0 2px 0 2px;
+    border-color: #CCCCFF;
+    font-family: Verdana;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+}
+
+table#docLinks td a {
+    text-decoration: none;
+}
+
+table#docLinks td a:hover {
+    text-decoration: underline;
+}
+
+table#docLinks td.highlighted {
+    background-color: #EFEFFE;
+}
+
+table#docLinks td.nonHighlighted {
+    background-color: #E0E0FF;
+}

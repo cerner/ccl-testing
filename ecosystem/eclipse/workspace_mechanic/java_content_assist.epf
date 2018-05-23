@@ -1,0 +1,9 @@
+# @title Java Content Assist
+# @description Content assist settings for Java development
+# @task_type LASTMOD
+file_export_version=3.0
+/instance/org.eclipse.jdt.ui/content_assist_disabled_computers=org.eclipse.jdt.ui.swtProposalCategory\u0000org.eclipse.jdt.ui.javaNoTypeProposalCategory\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\u0000org.eclipse.jdt.ui.textProposalCategory\u0000org.eclipse.jpt.jaxb.ui.jaxbCompletionProposals\u0000org.eclipse.jpt.jpa.ui.jpaProposalCategory\u0000org.eclipse.jst.ws.jaxws.ui.jaxwsProposalComputer\u0000
+/instance/org.eclipse.jdt.ui/content_assist_category_order=org.eclipse.jdt.ui.templateProposalCategory\:0\u0000org.eclipse.jdt.ui.swtProposalCategory\:65536\u0000org.eclipse.jdt.ui.javaNoTypeProposalCategory\:65537\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\:65538\u0000org.eclipse.jdt.ui.textProposalCategory\:65539\u0000org.eclipse.jdt.ui.javaAllProposalCategory\:65540\u0000org.eclipse.jpt.jaxb.ui.jaxbCompletionProposals\:65541\u0000org.eclipse.jpt.jpa.ui.jpaProposalCategory\:65542\u0000org.eclipse.jst.ws.jaxws.ui.jaxwsProposalComputer\:65543\u0000org.eclipse.mylyn.java.ui.javaAllProposalCategory\:9\u0000org.eclipse.pde.api.tools.ui.apitools_proposal_category\:10\u0000
+/instance/org.eclipse.jdt.ui/content_assist_insert_completion=false
+/instance/org.eclipse.jdt.ui/content_assist_favorite_static_members=java.lang.Math.*;org.junit.Assert.*;org.mockito.Mockito.*;org.mockito.Matchers.*;org.mockito.AdditionalMatchers.*;org.jmock.Expectations.*;org.hamcrest.Matchers.*;org.hamcrest.CoreMatchers.*;org.powermock.api.mockito.PowerMockito.*;org.junit.Assume.*;com.cerner.system.exception.Verifier.*;org.junit.matchers.JUnitMatchers.*
+/instance/org.eclipse.jdt.ui/escapeStrings=true

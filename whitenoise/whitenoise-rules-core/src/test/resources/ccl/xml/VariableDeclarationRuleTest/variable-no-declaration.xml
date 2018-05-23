@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+
+set undeclared_var = 23
+
+end
+go 
+ -->
+<ZC_PROGRAM. class="222" lev="0" kid="3" loc="1.15">
+    <USER. class="179" lev="1" kid="1" loc="1.15">
+        <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15" />
+    </USER.>
+    <Z_SET. class="210" lev="1" kid="2" loc="3.4">
+        <NAME class="5" text="UNDECLARED_VAR" lev="2" loc="3.4" />
+        <INT class="4" text="23" lev="2" loc="3.21" />
+    </Z_SET.>
+    <LABEL. class="182" lev="1" kid="1" loc="5.0">
+        <NAME class="5" text="END" lev="2" loc="5.0" />
+    </LABEL.>
+</ZC_PROGRAM.>

@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>CDoc Script Summary</title>
+<link rel="stylesheet" href="$cssDirectory/script-doc-summary.css" type="text/css" />
+<link rel="stylesheet" href="$cssDirectory/cdoc.css" type="text/css" />
+</head>
+<body>
+<div class="breadcrumbTrail">
+&lt;&lt; <a href="./project-reports.html">Back to Maven Site</a>
+</div>
+<div id="summaryTitle">
+<h1>CDoc Report</h1>
+<h3 id="projectTitle">$projectName - $projectVersion</h3>
+</div>
+<table id="docLinks" cellspacing="0">
+<th>Filename</th>
+#set( $isHighlightedRow = true )
+#foreach( $doc in $docs )
+<tr>
+#if( $isHighlightedRow )
+#set( $rowClass = "highlighted" )
+#else
+#set( $rowClass = "nonHighlighted" )
+#end
+#set( $isHighlightedRow = !$isHighlightedRow )
+<td class="$rowClass"><a href="./cdoc-report/$doc.destinationFilename">$doc.objectFilename</a></td>
+</tr>
+#end
+</table>
+</body>
+</html>

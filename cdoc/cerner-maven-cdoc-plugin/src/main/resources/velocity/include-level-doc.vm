@@ -1,0 +1,4 @@
+## This formats the include-level documentation
+<p>
+<span id="includeDescription">$object.includeDocumentation.description</span>
+</p>

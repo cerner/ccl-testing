@@ -1,0 +1,367 @@
+<?xml version="1.0"?>
+<!--
+drop program sample_program go
+create program sample_program
+ 
+declare no_return1(void = i2) = null
+declare no_return2(void = i2) = null
+declare no_return3(void = i2) = null
+declare no_return4(void = i2) = null
+declare no_return5(void = i2) = null
+declare no_return6(void = i2) = null
+declare no_return7(void = i2) = null
+ 
+;Should fail
+if (no_return1(0))
+  call echo("NO RETURN")
+endif
+ 
+;Should fail
+if (no_return2(0) > 0)
+  call echo("NO RETURN")
+endif
+ 
+;Should fail
+if (trim(no_return3(0)) != "")
+  call echo("NO RETURN")
+endif
+ 
+;Should fail
+set stat = no_return4(0)
+ 
+select into "nl:"
+from person p
+plan p where p.name_last_key = "JEFF"
+head report
+  ;Should fail
+  stat = no_return5(0)
+with nocounter
+ 
+;Should succeed
+call no_return6(0)
+ 
+;Should succeed
+set dummyVar = no_return7(0)
+ 
+subroutine no_return1(void)
+    call echo("no return!")
+end
+ 
+subroutine no_return2(void)
+    call echo("no return!")
+end
+ 
+subroutine no_return3(void)
+    call echo("no return!")
+end
+ 
+subroutine no_return4(void)
+    call echo("no return!")
+end
+ 
+subroutine no_return5(void)
+    call echo("no return!")
+end
+ 
+subroutine no_return6(void)
+    call echo("no return!")
+end
+ 
+subroutine no_return7(void)
+    call echo("no return!")
+end
+ 
+end
+go
+-->
+ <ZC_PROGRAM. class="222" lev="0" kid="23" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="3.8">
+   <CALL. class="125" lev="2" kid="2" loc="3.8">
+    <NAME class="5" text="NO_RETURN1" lev="3" loc="3.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="3.19">
+     <NAME class="5" text="VOID" lev="4" loc="3.19"/>
+     <NAME class="5" text="I2" lev="4" loc="3.26"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="3.32"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="4.8">
+   <CALL. class="125" lev="2" kid="2" loc="4.8">
+    <NAME class="5" text="NO_RETURN2" lev="3" loc="4.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="4.19">
+     <NAME class="5" text="VOID" lev="4" loc="4.19"/>
+     <NAME class="5" text="I2" lev="4" loc="4.26"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="4.32"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="5.8">
+   <CALL. class="125" lev="2" kid="2" loc="5.8">
+    <NAME class="5" text="NO_RETURN3" lev="3" loc="5.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="5.19">
+     <NAME class="5" text="VOID" lev="4" loc="5.19"/>
+     <NAME class="5" text="I2" lev="4" loc="5.26"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="5.32"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="6.8">
+   <CALL. class="125" lev="2" kid="2" loc="6.8">
+    <NAME class="5" text="NO_RETURN4" lev="3" loc="6.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="6.19">
+     <NAME class="5" text="VOID" lev="4" loc="6.19"/>
+     <NAME class="5" text="I2" lev="4" loc="6.26"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="6.32"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="7.8">
+   <CALL. class="125" lev="2" kid="2" loc="7.8">
+    <NAME class="5" text="NO_RETURN5" lev="3" loc="7.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="7.19">
+     <NAME class="5" text="VOID" lev="4" loc="7.19"/>
+     <NAME class="5" text="I2" lev="4" loc="7.26"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="7.32"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="8.8">
+   <CALL. class="125" lev="2" kid="2" loc="8.8">
+    <NAME class="5" text="NO_RETURN6" lev="3" loc="8.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="8.19">
+     <NAME class="5" text="VOID" lev="4" loc="8.19"/>
+     <NAME class="5" text="I2" lev="4" loc="8.26"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="8.32"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="215" lev="1" kid="2" loc="9.8">
+   <CALL. class="125" lev="2" kid="2" loc="9.8">
+    <NAME class="5" text="NO_RETURN7" lev="3" loc="9.8"/>
+    <EQL. class="132" lev="3" kid="2" loc="9.19">
+     <NAME class="5" text="VOID" lev="4" loc="9.19"/>
+     <NAME class="5" text="I2" lev="4" loc="9.26"/>
+    </EQL.>
+   </CALL.>
+   <NAME class="5" text="NULL" lev="2" loc="9.32"/>
+  </Z_DECLARE.>
+  <IF. class="146" lev="1" kid="2" loc="12.4">
+   <CALL. class="125" lev="2" kid="2" loc="12.4">
+    <NAME class="5" text="NO_RETURN1" lev="3" loc="12.4"/>
+    <INT class="4" text="0" lev="3" loc="12.15"/>
+   </CALL.>
+   <COMMA. class="127" lev="2" kid="1" loc="13.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="13.7">
+     <CALL. class="125" lev="4" kid="2" loc="13.7">
+      <NAME class="5" text="ECHO" lev="5" loc="13.7"/>
+      <STRING class="7" text="NO RETURN" lev="5" loc="13.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </IF.>
+  <IF. class="146" lev="1" kid="2" loc="17.4">
+   <GTR. class="142" lev="2" kid="2" loc="17.4">
+    <CALL. class="125" lev="3" kid="2" loc="17.4">
+     <NAME class="5" text="NO_RETURN2" lev="4" loc="17.4"/>
+     <INT class="4" text="0" lev="4" loc="17.15"/>
+    </CALL.>
+    <INT class="4" text="0" lev="3" loc="17.20"/>
+   </GTR.>
+   <COMMA. class="127" lev="2" kid="1" loc="18.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="18.7">
+     <CALL. class="125" lev="4" kid="2" loc="18.7">
+      <NAME class="5" text="ECHO" lev="5" loc="18.7"/>
+      <STRING class="7" text="NO RETURN" lev="5" loc="18.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </IF.>
+  <IF. class="146" lev="1" kid="2" loc="22.4">
+   <NEQ. class="159" lev="2" kid="2" loc="22.4">
+    <CALL. class="125" lev="3" kid="2" loc="22.4">
+     <NAME class="5" text="TRIM" lev="4" loc="22.4"/>
+     <CALL. class="125" lev="4" kid="2" loc="22.9">
+      <NAME class="5" text="NO_RETURN3" lev="5" loc="22.9"/>
+      <INT class="4" text="0" lev="5" loc="22.20"/>
+     </CALL.>
+    </CALL.>
+    <STRING class="7" text="" lev="3" loc="22.27"/>
+   </NEQ.>
+   <COMMA. class="127" lev="2" kid="1" loc="23.7">
+    <Z_CALL. class="196" lev="3" kid="1" loc="23.7">
+     <CALL. class="125" lev="4" kid="2" loc="23.7">
+      <NAME class="5" text="ECHO" lev="5" loc="23.7"/>
+      <STRING class="7" text="NO RETURN" lev="5" loc="23.12"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </IF.>
+  <Z_SET. class="210" lev="1" kid="2" loc="27.4">
+   <NAME class="5" text="STAT" lev="2" loc="27.4"/>
+   <CALL. class="125" lev="2" kid="2" loc="27.11">
+    <NAME class="5" text="NO_RETURN4" lev="3" loc="27.11"/>
+    <INT class="4" text="0" lev="3" loc="27.22"/>
+   </CALL.>
+  </Z_SET.>
+  <Z_SELECT. class="209" lev="1" kid="8" loc="29.7">
+   <COMMA. class="127" lev="2" loc="29.7"/>
+   <INTO. class="148" lev="2" kid="1" loc="29.12">
+    <STRING class="7" text="nl:" lev="3" loc="29.12"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="30.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="30.5">
+    <TABLE. class="177" lev="3" kid="2" loc="30.5">
+     <NAME class="5" text="PERSON" lev="4" loc="30.5"/>
+     <NAME class="5" text="P" lev="4" loc="30.12"/>
+    </TABLE.>
+   </COMMA.>
+   <PLAN. class="169" lev="2" kid="1" loc="31.5">
+    <COMMA. class="127" lev="3" kid="2" loc="31.5">
+     <NAME class="5" text="P" lev="4" loc="31.5"/>
+     <QUAL. class="173" lev="4" kid="1" loc="31.13">
+      <EQL. class="132" lev="5" kid="2" loc="31.13">
+       <ATTR. class="123" lev="6" kid="2" loc="31.13">
+        <NAME class="5" text="P" lev="7" loc="31.13"/>
+        <NAME class="5" text="NAME_LAST_KEY" lev="7" loc="31.15"/>
+       </ATTR.>
+       <STRING class="7" text="JEFF" lev="6" loc="31.31"/>
+      </EQL.>
+     </QUAL.>
+    </COMMA.>
+   </PLAN.>
+   <ORDERLIST. class="166" lev="2" loc="32.0"/>
+   <COMMA. class="127" lev="2" kid="1" loc="34.2">
+    <HEADREPORT. class="145" lev="3" kid="1" loc="34.2">
+     <IS. class="149" lev="4" kid="2" loc="34.2">
+      <NAME class="5" text="STAT" lev="5" loc="34.2"/>
+      <CALL. class="125" lev="5" kid="2" loc="34.9">
+       <NAME class="5" text="NO_RETURN5" lev="6" loc="34.9"/>
+       <INT class="4" text="0" lev="6" loc="34.20"/>
+      </CALL.>
+     </IS.>
+    </HEADREPORT.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="35.5">
+    <OPTION. class="162" lev="3" kid="1" loc="35.5">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="35.5"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <Z_CALL. class="196" lev="1" kid="1" loc="38.5">
+   <CALL. class="125" lev="2" kid="2" loc="38.5">
+    <NAME class="5" text="NO_RETURN6" lev="3" loc="38.5"/>
+    <INT class="4" text="0" lev="3" loc="38.16"/>
+   </CALL.>
+  </Z_CALL.>
+  <Z_SET. class="210" lev="1" kid="2" loc="41.4">
+   <NAME class="5" text="DUMMYVAR" lev="2" loc="41.4"/>
+   <CALL. class="125" lev="2" kid="2" loc="41.15">
+    <NAME class="5" text="NO_RETURN7" lev="3" loc="41.15"/>
+    <INT class="4" text="0" lev="3" loc="41.26"/>
+   </CALL.>
+  </Z_SET.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="43.11">
+   <NAME class="5" text="NO_RETURN1" lev="2" loc="43.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="43.22">
+    <NAME class="5" text="VOID" lev="3" loc="43.22"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="44.9">
+    <Z_CALL. class="196" lev="3" kid="1" loc="44.9">
+     <CALL. class="125" lev="4" kid="2" loc="44.9">
+      <NAME class="5" text="ECHO" lev="5" loc="44.9"/>
+      <STRING class="7" text="no return!" lev="5" loc="44.14"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="47.11">
+   <NAME class="5" text="NO_RETURN2" lev="2" loc="47.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="47.22">
+    <NAME class="5" text="VOID" lev="3" loc="47.22"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="48.9">
+    <Z_CALL. class="196" lev="3" kid="1" loc="48.9">
+     <CALL. class="125" lev="4" kid="2" loc="48.9">
+      <NAME class="5" text="ECHO" lev="5" loc="48.9"/>
+      <STRING class="7" text="no return!" lev="5" loc="48.14"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="51.11">
+   <NAME class="5" text="NO_RETURN3" lev="2" loc="51.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="51.22">
+    <NAME class="5" text="VOID" lev="3" loc="51.22"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="52.9">
+    <Z_CALL. class="196" lev="3" kid="1" loc="52.9">
+     <CALL. class="125" lev="4" kid="2" loc="52.9">
+      <NAME class="5" text="ECHO" lev="5" loc="52.9"/>
+      <STRING class="7" text="no return!" lev="5" loc="52.14"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="55.11">
+   <NAME class="5" text="NO_RETURN4" lev="2" loc="55.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="55.22">
+    <NAME class="5" text="VOID" lev="3" loc="55.22"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="56.9">
+    <Z_CALL. class="196" lev="3" kid="1" loc="56.9">
+     <CALL. class="125" lev="4" kid="2" loc="56.9">
+      <NAME class="5" text="ECHO" lev="5" loc="56.9"/>
+      <STRING class="7" text="no return!" lev="5" loc="56.14"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="59.11">
+   <NAME class="5" text="NO_RETURN5" lev="2" loc="59.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="59.22">
+    <NAME class="5" text="VOID" lev="3" loc="59.22"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="60.9">
+    <Z_CALL. class="196" lev="3" kid="1" loc="60.9">
+     <CALL. class="125" lev="4" kid="2" loc="60.9">
+      <NAME class="5" text="ECHO" lev="5" loc="60.9"/>
+      <STRING class="7" text="no return!" lev="5" loc="60.14"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="63.11">
+   <NAME class="5" text="NO_RETURN6" lev="2" loc="63.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="63.22">
+    <NAME class="5" text="VOID" lev="3" loc="63.22"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="64.9">
+    <Z_CALL. class="196" lev="3" kid="1" loc="64.9">
+     <CALL. class="125" lev="4" kid="2" loc="64.9">
+      <NAME class="5" text="ECHO" lev="5" loc="64.9"/>
+      <STRING class="7" text="no return!" lev="5" loc="64.14"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <SUBROUTINE. class="189" lev="1" kid="3" loc="67.11">
+   <NAME class="5" text="NO_RETURN7" lev="2" loc="67.11"/>
+   <COMMA. class="127" lev="2" kid="1" loc="67.22">
+    <NAME class="5" text="VOID" lev="3" loc="67.22"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="68.9">
+    <Z_CALL. class="196" lev="3" kid="1" loc="68.9">
+     <CALL. class="125" lev="4" kid="2" loc="68.9">
+      <NAME class="5" text="ECHO" lev="5" loc="68.9"/>
+      <STRING class="7" text="no return!" lev="5" loc="68.14"/>
+     </CALL.>
+    </Z_CALL.>
+   </COMMA.>
+  </SUBROUTINE.>
+  <LABEL. class="182" lev="1" kid="1" loc="71.0">
+   <NAME class="5" text="END" lev="2" loc="71.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>
