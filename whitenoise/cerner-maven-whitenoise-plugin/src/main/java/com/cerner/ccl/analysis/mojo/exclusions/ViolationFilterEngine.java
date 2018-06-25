@@ -11,7 +11,8 @@ import com.cerner.ccl.analysis.mojo.exclusions.jaxb.Exclusion;
 import com.cerner.ccl.analysis.mojo.exclusions.jaxb.Exclusions;
 
 /**
- * This maintains a chain of {@link ViolationFilterChain} objects that can be used to determine whether or not a {@link Violation} qualifies for exclusion based on a user-set criteria.
+ * This maintains a chain of {@link ViolationFilterChain} objects that can be used to determine whether or not a
+ * {@link Violation} qualifies for exclusion based on a user-set criteria.
  * 
  * @author Joshua Hyde
  * 

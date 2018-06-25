@@ -46,7 +46,8 @@ public class AbstractPropertyReflectingFilterTest {
     }
 
     /**
-     * If the requested property cannot be found, then the retrieval of the internal value should simply be {@code null}.
+     * If the requested property cannot be found, then the retrieval of the internal value should simply be
+     * {@code null}.
      */
     @Test
     public void testGetInternalValueNotFound() {

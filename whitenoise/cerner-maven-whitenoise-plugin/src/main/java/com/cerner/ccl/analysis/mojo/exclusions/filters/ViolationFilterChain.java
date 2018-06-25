@@ -10,8 +10,8 @@ import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A chain of {@link ViolationFilter} objects representing the criteria of exclusion for a violation. This chain operates by ANDing all of the evaluations of the individual filters composing the chain
- * and returning the result.
+ * A chain of {@link ViolationFilter} objects representing the criteria of exclusion for a violation. This chain
+ * operates by ANDing all of the evaluations of the individual filters composing the chain and returning the result.
  *
  * @author Joshua Hyde
  *
@@ -117,7 +117,8 @@ public class ViolationFilterChain {
          *            The ID of the violation.
          * @return This builder.
          * @throws IllegalArgumentException
-         *             If the given violation is {@code null} or is not qualified (e.g., it must be {@code <namespace>.<namespace identifier>}).
+         *             If the given violation is {@code null} or is not qualified (e.g., it must be
+         *             {@code <namespace>.<namespace identifier>}).
          */
         public Builder withViolationId(final String violationId) {
             if (violationId == null)
@@ -145,7 +146,8 @@ public class ViolationFilterChain {
          *            The name of the script.
          * @param violation
          *            The {@link Violation} that was reported.
-         * @return {@code true} if this filter's criteria indicates that the violation should be exempted; {@code false} if not.
+         * @return {@code true} if this filter's criteria indicates that the violation should be exempted; {@code false}
+         *         if not.
          * @throws IllegalArgumentException
          *             If the script name or {@link Violation} are {@code null}.
          */
@@ -165,7 +167,8 @@ public class ViolationFilterChain {
     private final Collection<ViolationFilter> filters = new ArrayList<ViolationFilter>();
 
     /**
-     * Create a filter chain. If any of the given values are not {@code null}, then a corresponding {@link ViolationFilter} will be created.
+     * Create a filter chain. If any of the given values are not {@code null}, then a corresponding
+     * {@link ViolationFilter} will be created.
      *
      * @param scriptName
      *            The name of the script.
@@ -178,13 +181,15 @@ public class ViolationFilterChain {
      * @param lineNumber
      *            The line number.
      */
-    private ViolationFilterChain(final String scriptName, final String violationId, final String variableName, final String subroutineName, final Integer lineNumber) {
+    private ViolationFilterChain(final String scriptName, final String violationId, final String variableName,
+            final String subroutineName, final Integer lineNumber) {
         if (scriptName != null)
             filters.add(new ScriptNameFilter(scriptName));
 
         if (violationId != null) {
             final int periodPos = violationId.indexOf('.');
-            filters.add(new ViolationIdFilter(new ViolationId(violationId.substring(0, periodPos), violationId.substring(periodPos + 1))));
+            filters.add(new ViolationIdFilter(
+                    new ViolationId(violationId.substring(0, periodPos), violationId.substring(periodPos + 1))));
         }
 
         if (variableName != null)

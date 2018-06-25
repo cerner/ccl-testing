@@ -8,7 +8,6 @@ import org.junit.Test;
 import io.takari.maven.testing.TestMavenRuntime;
 import io.takari.maven.testing.TestResources;
 
-
 /**
  * Unit Tests for WhitenoiseMojo.
  *
@@ -17,12 +16,11 @@ import io.takari.maven.testing.TestResources;
  */
 // TODO - use this or get rid of it.
 // TODO - finish this test case.
-//@RunWith(PowerMockRunner.class)
-//@PrepareForTest(value = { WhitenoiseMojo.class, FileUtils.class, BackendNodePasswordCredential.class,
-//        BackendNodePrincipal.class, CclExecutor.class, MillenniumDomainPrincipal.class,
-//        MillenniumDomainPasswordCredential.class })
+// @RunWith(PowerMockRunner.class)
+// @PrepareForTest(value = { WhitenoiseMojo.class, FileUtils.class, BackendNodePasswordCredential.class,
+// BackendNodePrincipal.class, CclExecutor.class, MillenniumDomainPrincipal.class,
+// MillenniumDomainPasswordCredential.class })
 public class WhitenoiseMojoTest {
-
 
     /**
      * Access to the test resources.

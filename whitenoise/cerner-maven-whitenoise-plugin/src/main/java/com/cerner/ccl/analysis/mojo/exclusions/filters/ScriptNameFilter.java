@@ -22,7 +22,7 @@ public class ScriptNameFilter implements ViolationFilter {
      *             If any errors occur during the test run.
      */
     public ScriptNameFilter(final String scriptName) {
-        if(scriptName == null)
+        if (scriptName == null)
             throw new IllegalArgumentException("Script name cannot be null.");
 
         this.scriptName = scriptName;

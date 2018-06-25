@@ -5,7 +5,8 @@ import com.cerner.ccl.j4ccl.impl.util.AuthHelper;
 import com.cerner.ftp.data.FtpProduct;
 
 /**
- * An {@link FtpProductProvider} that leverages utilities provided by the {@code j4ccl-ssh} to construct an {@link FtpProduct}.
+ * An {@link FtpProductProvider} that leverages utilities provided by the {@code j4ccl-ssh} to construct an
+ * {@link FtpProduct}.
  * 
  * @author Joshua Hyde
  * 

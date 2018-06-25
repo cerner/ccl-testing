@@ -10,7 +10,8 @@ import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.mojo.exclusions.filters.ViolationFilterChain.ViolationFilter;
 
 /**
- * Skeleton definition of a {@link ViolationFilter} that can use reflections to inspect a violation for a getter and field matching a property name.
+ * Skeleton definition of a {@link ViolationFilter} that can use reflections to inspect a violation for a getter and
+ * field matching a property name.
  *
  * @author Joshua Hyde
  *
@@ -50,7 +51,7 @@ public abstract class AbstractPropertyReflectingFilter implements ViolationFilte
             if (!field.isAccessible())
                 field.setAccessible(true);
             return (T) field.get(violation);
-        } catch(final Exception e) {
+        } catch (final Exception e) {
             LOGGER.trace("Failed to retrieve field by name '{}' off of {}.", propertyName, violation);
             LOGGER.trace("Tracing thrown exception during retrieval by field.", e);
         }

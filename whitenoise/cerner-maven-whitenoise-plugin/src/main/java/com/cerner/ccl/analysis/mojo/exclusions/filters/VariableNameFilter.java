@@ -9,8 +9,10 @@ import com.cerner.ccl.analysis.mojo.exclusions.filters.ViolationFilterChain.Viol
 /**
  * A {@link ViolationFilter} that excludes a violation by its variable name. It operates on the following criteria:
  * <ol>
- * <li>If the given {@link Violation} is a {@link VariableViolation}, then a comparison is made against its {@link VariableViolation#getVariableName() variable name}.</li>
- * <li>If it has a {@code getVariableName()} method that returns a {@link String}, a comparison is made against that.</li>
+ * <li>If the given {@link Violation} is a {@link VariableViolation}, then a comparison is made against its
+ * {@link VariableViolation#getVariableName() variable name}.</li>
+ * <li>If it has a {@code getVariableName()} method that returns a {@link String}, a comparison is made against
+ * that.</li>
  * <li>If it has a field called {@code VariableName}, then the comparison is made against that.</li>
  * <li>If none of these hold true, then no comparison is made and the violation is not excluded.</li>
  * </ol>
@@ -32,7 +34,7 @@ public class VariableNameFilter extends AbstractPropertyReflectingFilter {
      *             If the given variable name is {@code null}.
      */
     public VariableNameFilter(final String variableName) {
-        if(variableName == null)
+        if (variableName == null)
             throw new IllegalArgumentException("Variable name cannot be null.");
 
         this.variableName = variableName;
@@ -48,8 +50,8 @@ public class VariableNameFilter extends AbstractPropertyReflectingFilter {
         if (violation == null)
             throw new IllegalArgumentException("Violation cannot be null.");
 
-        if(violation instanceof VariableViolation)
-            return variableName.equalsIgnoreCase(((VariableViolation)violation).getVariableName());
+        if (violation instanceof VariableViolation)
+            return variableName.equalsIgnoreCase(((VariableViolation) violation).getVariableName());
 
         final String internalValue = getInternalValue(violation, "variableName");
         return variableName.equalsIgnoreCase(internalValue);

@@ -7,7 +7,8 @@ import com.cerner.ccl.analysis.data.ViolationId;
 import com.cerner.ccl.analysis.mojo.exclusions.filters.ViolationFilterChain.ViolationFilter;
 
 /**
- * A {@link ViolationFilter} that will mark a violation as a candidate for exclusion if it matches the given violation ID.
+ * A {@link ViolationFilter} that will mark a violation as a candidate for exclusion if it matches the given violation
+ * ID.
  * 
  * @author Joshua Hyde
  * 

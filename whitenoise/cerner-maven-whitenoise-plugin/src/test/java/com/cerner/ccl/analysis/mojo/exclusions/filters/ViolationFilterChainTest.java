@@ -84,7 +84,8 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
         final Violation violation = mock(Violation.class);
 
         assertThat(builder.withScriptName(scriptName).build().exclude(scriptName, violation)).isTrue();
-        assertThat(builder.withScriptName(scriptName).build().exclude(StringUtils.reverse(scriptName), violation)).isFalse();
+        assertThat(builder.withScriptName(scriptName).build().exclude(StringUtils.reverse(scriptName), violation))
+                .isFalse();
     }
 
     /**
@@ -107,7 +108,8 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
         when(violation.getVariableName()).thenReturn(variableName);
 
         assertThat(builder.withVariableName(variableName).build().exclude("any_script", violation)).isTrue();
-        assertThat(builder.withVariableName(StringUtils.reverse(variableName)).build().exclude("any_script", violation)).isFalse();
+        assertThat(builder.withVariableName(StringUtils.reverse(variableName)).build().exclude("any_script", violation))
+                .isFalse();
     }
 
     /**
@@ -130,7 +132,8 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
         when(violation.getSubroutineName()).thenReturn(subroutineName);
 
         assertThat(builder.withSubroutineName(subroutineName).build().exclude("any_script", violation)).isTrue();
-        assertThat(builder.withSubroutineName(StringUtils.reverse(subroutineName)).build().exclude("any_script", violation)).isFalse();
+        assertThat(builder.withSubroutineName(StringUtils.reverse(subroutineName)).build().exclude("any_script",
+                violation)).isFalse();
     }
 
     /**
@@ -153,7 +156,8 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
         when(violation.getViolationId()).thenReturn(new ViolationId("a", "violation"));
 
         assertThat(builder.withViolationId(violationId).build().exclude("any_script", violation)).isTrue();
-        assertThat(builder.withViolationId(StringUtils.reverse(violationId)).build().exclude("any_script", violation)).isFalse();
+        assertThat(builder.withViolationId(StringUtils.reverse(violationId)).build().exclude("any_script", violation))
+                .isFalse();
     }
 
     /**

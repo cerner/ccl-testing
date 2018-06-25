@@ -13,7 +13,6 @@ import org.junit.Test;
 import com.cerner.ccl.analysis.data.SubroutineViolation;
 import com.cerner.ccl.analysis.data.Violation;
 
-
 /**
  * Unit tests for {@link SubroutineNameFilter}.
  *
@@ -37,7 +36,8 @@ public class SubroutineNameFilterTest extends AbstractViolationFilterUnitTest<Su
     }
 
     /**
-     * If the given violation is a {@link SubroutineViolation}, then it should merely compare against the violation's getter.
+     * If the given violation is a {@link SubroutineViolation}, then it should merely compare against the violation's
+     * getter.
      */
     @Test
     public void testExcludeSubroutineViolation() {

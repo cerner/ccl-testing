@@ -9,8 +9,10 @@ import com.cerner.ccl.analysis.mojo.exclusions.filters.ViolationFilterChain.Viol
 /**
  * A {@link ViolationFilter} that filters by subroutine name. It operates on the following criteria:
  * <ol>
- * <li>If the given {@link Violation} is a {@link SubroutineViolation}, then a comparison is made against its {@link SubroutineViolation#getSubroutineName() subroutine name}.</li>
- * <li>If it has a {@code getSubroutineName()} method that returns a {@link String}, a comparison is made against that.</li>
+ * <li>If the given {@link Violation} is a {@link SubroutineViolation}, then a comparison is made against its
+ * {@link SubroutineViolation#getSubroutineName() subroutine name}.</li>
+ * <li>If it has a {@code getSubroutineName()} method that returns a {@link String}, a comparison is made against
+ * that.</li>
  * <li>If it has a field called {@code subroutineName}, then the comparison is made against that.</li>
  * <li>If none of these hold true, then no comparison is made and the violation is not excluded.</li>
  * </ol>
