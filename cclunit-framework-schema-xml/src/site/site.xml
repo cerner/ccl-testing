@@ -1,0 +1,19 @@
+<project name="${project.name}"> 
+    <bannerLeft> 
+        <name>${project.name}</name> 
+    </bannerLeft> 
+    <body> 
+        <links> 
+            <item name="${project.name}" href="${project.url}" /> 
+        </links> 
+ 
+        <menu name="Schemas"> 
+            <item name="coverage.xsd" href="resources/xsd/coverage.xsd" />
+            <item name="environment.xsd" href="resources/xsd/environment.xsd" />
+            <item name="listing.xsd" href="resources/xsd/listing.xsd" />
+            <item name="test-results.xsd" href="resources/xsd/test-results.xsd" /> 
+        </menu> 
+ 
+        ${reports}
+    </body> 
+</project>

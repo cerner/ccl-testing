@@ -12,6 +12,7 @@
         <module>j4ccl</module>
         <module>j4ccl-ssh</module>
         <module>jsch-util</module>
+        <module>cclunit-framework-schema-xml</module>
         <module>cerner-maven-ccl-plugin</module>
         <module>cerner-maven-cerreal-plugin</module>
         <module>whitenoise/whitenoise-parent-pom</module>

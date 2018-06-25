@@ -3,7 +3,7 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.cerner.ccltesting.maven.ccl.reports</groupId>
+				<groupId>com.cerner.ccl.testing.maven.ccl.reports</groupId>
 				<artifactId>maven-cerreal-plugin</artifactId>
 				<version>1.0-SNAPSHOT</version>
 				<configuration>

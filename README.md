@@ -19,7 +19,8 @@ tests, and retrieving the test and coverage results.
 
 
 Some significant differences from legacy versions to note 
-* The prefix ***cerner-*** in the artifactId of the maven plugins. 
+* The prefix ***cerner-*** in the artifactId of the maven plugins.
+* Several groupId changes. All components now live below com.cerner.ccl or com.cerner.ftp.
 * The [specifyDebugCcl](cerner-maven-ccl-plugin/doc/CONFIGURATIONOPTIONS.md#specifyDebugCcl) flag in the cerner-maven-ccl-plugin.
 
 ## Quick Start Guide

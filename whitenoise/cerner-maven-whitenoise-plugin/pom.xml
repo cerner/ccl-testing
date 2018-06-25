@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.cerner.engineering</groupId>
+    <groupId>com.cerner.ccl.whitenoise</groupId>
     <artifactId>cerner-maven-whitenoise-plugin</artifactId>
     <version>2.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
@@ -23,8 +23,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <doxiaVersion>1.8</doxiaVersion>
-        <doxiaSitetoolsVersion>1.8</doxiaSitetoolsVersion>
-        <mavenVersion>3.3.9</mavenVersion>
+        <doxiaSitetoolsVersion>1.8.1</doxiaSitetoolsVersion>
+        <mavenVersion>3.5.3</mavenVersion>
     </properties>
     <developers>
         <developer>
@@ -46,7 +46,7 @@
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.8.0</version>
+                <version>0.14.0</version>
                 <executions>
                     <execution>
                         <id>generate-exclusion-objects</id>
@@ -207,7 +207,7 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.5</version>
+            <version>3.5.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -233,34 +233,34 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.cerner.ccl</groupId>
+            <groupId>com.cerner.ccl.comm</groupId>
             <artifactId>j4ccl-ssh</artifactId>
             <version>4.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.cerner.engineering</groupId>
+            <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-data</artifactId>
             <version>2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.cerner.engineering</groupId>
+            <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-data-jdom-ext</artifactId>
             <version>2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.cerner.engineering</groupId>
+            <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-engine</artifactId>
             <version>2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.cerner.engineering</groupId>
+            <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-rules-core</artifactId>
             <version>2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.2.4</version>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.doxia</groupId>
@@ -303,12 +303,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.8.0-beta1</version>
+            <version>1.8.0-beta2</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-nop</artifactId>
-            <version>1.8.0-beta1</version>
+            <version>1.8.0-beta2</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -341,7 +341,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.15.0</version>
+            <version>2.18.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -406,7 +406,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
+                <version>3.0.1</version>
                 <configuration>
                   <excludePackageNames>com.cerner.ccl.analysis.mojo.exclusions.jaxb</excludePackageNames>
                 </configuration>
@@ -428,6 +428,11 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>3.0.4</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <excludeFilterFile>${project.basedir}/src/etc/findbugs-exclude.xml</excludeFilterFile>
+                </configuration>
             </plugin>
             <!-- Must be executed after surefire and Javadoc -->
             <plugin>

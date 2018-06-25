@@ -7,7 +7,7 @@
         <version>2.0.0-SNAPSHOT</version>
         <relativePath>../parent-pom</relativePath>
     </parent>
-    <groupId>com.cerner.ccltesting</groupId>
+    <groupId>com.cerner.ccl.testing</groupId>
     <artifactId>cerner-maven-ccl-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <version>3.0-SNAPSHOT</version>
@@ -15,7 +15,7 @@
     <description>A Maven plugin used to compile and test CCL code.</description>
     <properties>
       <plugin.api.version>3.5.3</plugin.api.version>
-      <plugin.api-tools.version>3.5.1</plugin.api-tools.version>
+      <plugin.api-tools.version>3.5.2</plugin.api-tools.version>
     </properties>
     <scm>
         <connection>scm:git:https://github.com/cerner/ccl-testing.git</connection>
@@ -130,12 +130,12 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>com.cerner.ccl</groupId>
+            <groupId>com.cerner.ccl.comm</groupId>
             <artifactId>j4ccl</artifactId>
             <version>3.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.cerner.ccl</groupId>
+            <groupId>com.cerner.ccl.comm</groupId>
             <artifactId>j4ccl-ssh</artifactId>
             <version>4.0-SNAPSHOT</version>
         </dependency>
@@ -273,6 +273,8 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
                     <excludeFilterFile>src/etc/findbugs-exclude.xml</excludeFilterFile>
                 </configuration>
             </plugin>

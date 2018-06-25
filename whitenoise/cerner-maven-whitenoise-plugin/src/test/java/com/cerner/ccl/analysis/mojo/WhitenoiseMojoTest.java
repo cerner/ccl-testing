@@ -49,7 +49,7 @@ public class WhitenoiseMojoTest {
     @Test
     public void testIt() throws Exception {
         File basedir = testResources.getBasedir("testIt");
-        // TODo - use integration testing for tests that require back-end interactions. mock then in unit tests.
+        // TODo - use integration testing for tests that require back-end interactions. mock them in unit tests.
         // TODO - figure out how to read this from the current profile (or maybe it can set the profile ?).
         System.setProperty("maven-profile", "provide");
         System.setProperty("doCompile", "true");

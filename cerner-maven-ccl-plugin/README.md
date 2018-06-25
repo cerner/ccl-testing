@@ -22,7 +22,7 @@ project_directory
 Here is the plugin specification.
 ```xml
   <plugin>
-    <groupId>com.cerner.ccltesting</groupId>
+    <groupId>com.cerner.ccl.testing</groupId>
     <artifactId>cerner-maven-ccl-plugin</artifactId>
     <version>3.0</version>
     <extensions>true</extensions>

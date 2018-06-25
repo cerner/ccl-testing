@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <Match>
+        <Bug code="SIC,UwF,UrF,NP" />
+        <Package name="com.cerner.ccl.cdoc.mojo" />
+    </Match>
+    <Match>
+        <Class name="com.cerner.ccl.cdoc.mojo.HelpMojo" />
+    </Match>
+</FindBugsFilter>

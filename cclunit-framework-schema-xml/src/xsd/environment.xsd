@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <element name="ENVIRONMENT">
+        <complexType>
+            <sequence>
+                <element name="CURNODE" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The backend node on which the tests were executed.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURDOMAIN" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The HNAM domain in which the tests were executed.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURRDB" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The brand of the relational database currently running within the environment.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURRDBNAME" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The name of the relational database currently running within the environment.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURRDBUSER" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The username being used to communicate with the relational database.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURRDBSYS" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The operating system on which the relational database is running.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CCLVER" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The version of CCL running in the environment.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURSYS" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            A mnemonic representing the operating system of the system on which CCL is running (but incorrect for HPUX and Linux). 
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURSYS2" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            A mnemonic representing the operating system of the system on which CCL is running.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURLOCALE" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The locale of environment on which CCL is running.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURUSER" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The username of the user who is running CCL.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURUTC" type="integer">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            A 0/1 boolean indicator indicating whether or not UTC is enabled in the CCL environment.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURUTCDIFF" type="integer">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The difference in seconds between UTC and local time. If UTC is disabled, this will be zero.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURTIMEZONE" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The name of the current time zone.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURTIMEZONEAPP" type="integer">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            Returns the time zone index for the calling application, irrespective of UTC.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURTIMEZONESYS" type="integer">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            Returns the time zone index for the backend system, irrespective of UTC.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURREVAFD" type="integer">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            This value is no longer in use.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CURGROUP" type="integer">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The CCL group number to which the CURUSER belongs.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="DBVERSION" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The version of the database that is running within the 
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="DBOPTMODE" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The optimizer mode currently in use within the database. 
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="CCLUSER" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The username of the HNAM account used when running the tests. 
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="FRAMEWORK_VERSION" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The version of the CCL Unit framework installed when running the tests. 
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="REQUIRED_CCL" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The minimum CCL version required by the CCL Unit framework installed when running the tests. 
+                        </documentation>
+                    </annotation>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+</schema>

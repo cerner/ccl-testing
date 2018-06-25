@@ -9,11 +9,11 @@
                     <lifecycle>
                         <id>default</id>
                         <phases>
-                            <process-resources>com.cerner.ccltesting:cerner-maven-ccl-plugin:process-resources</process-resources>
-                            <compile>com.cerner.ccltesting:cerner-maven-ccl-plugin:compile</compile>
-                            <process-test-resources>com.cerner.ccltesting:cerner-maven-ccl-plugin:process-test-resources</process-test-resources>
-                            <test-compile>com.cerner.ccltesting:cerner-maven-ccl-plugin:test-compile</test-compile>
-                            <test>com.cerner.ccltesting:cerner-maven-ccl-plugin:test</test>
+                            <process-resources>com.cerner.ccl.testing:cerner-maven-ccl-plugin:process-resources</process-resources>
+                            <compile>com.cerner.ccl.testing:cerner-maven-ccl-plugin:compile</compile>
+                            <process-test-resources>com.cerner.ccl.testing:cerner-maven-ccl-plugin:process-test-resources</process-test-resources>
+                            <test-compile>com.cerner.ccl.testing:cerner-maven-ccl-plugin:test-compile</test-compile>
+                            <test>com.cerner.ccl.testing:cerner-maven-ccl-plugin:test</test>
                         </phases>
                     </lifecycle>
                 </lifecycles>

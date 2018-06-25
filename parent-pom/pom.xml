@@ -26,12 +26,12 @@
 
         <changes.plugin.version>2.12.1</changes.plugin.version>
         <plugin.plugin.version>3.4</plugin.plugin.version>
-        <mockito-all.version>2.15.0</mockito-all.version>
-        <mockito.version>2.15.0</mockito.version>
+        <mockito-all.version>2.0.2-beta</mockito-all.version>
+        <mockito.version>2.18.3</mockito.version>
         <!-- can't use powermock 1.6.6 because of https://github.com/powermock/powermock/issues/731 -->
         <powermock.version>2.0.0-beta.5</powermock.version>
-        <spring.version>4.3.14.RELEASE</spring.version>
-        <slf4j.version>1.8.0-beta1</slf4j.version>
+        <spring.version>4.3.18.RELEASE</spring.version>
+        <slf4j.version>1.8.0-beta2</slf4j.version>
         <surefire.version>2.20.1</surefire.version>
 
         <site.path>${project.groupId}/${project.artifactId}/${project.version}</site.path>
@@ -48,13 +48,6 @@
         </snapshotRepository>
       -->        
     </distributionManagement>
-    <licenses>
-        <license>
-            <name>Apache 2</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
     <developers>
         <developer>
             <name>Fred Eckertson</name>
@@ -184,7 +177,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.20.1</version>
                 <configuration>
                     <argLine>-Xmx1024m</argLine>
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
@@ -192,6 +184,7 @@
                         <include>**/*ITest.java</include>
                     </includes>
                     <systemPropertyVariables>
+                        <maven.home>${maven.home}</maven.home>                      
                         <!-- these are only necessary to build cerner-maven-ccl-plugin, but why duplicate the entire plugin spec in that one project? -->
                         <ccl-host>${ccl-host}</ccl-host>
                         <ccl-environment>${ccl-environment}</ccl-environment>
@@ -408,6 +401,9 @@
                 <version>3.5</version>
                 <configuration>
                     <targetJdk>${jdk.version}</targetJdk>
+                    <excludes>
+                        <exclude>**/HelpMojo.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -415,10 +411,11 @@
                 <artifactId>clirr-maven-plugin</artifactId>
                 <version>2.6.1</version>
             </plugin>
+<!--            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
+                <version>3.0.1</version>
                 <configuration>
                     <charset>UTF-8</charset>
                     <docencoding>UTF-8</docencoding>
@@ -430,6 +427,7 @@
                     <show>protected</show>
                 </configuration>
             </plugin>
+-->            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -648,7 +646,7 @@
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
-                <version>2.9.9</version>
+                <version>2.10</version>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
@@ -706,7 +704,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.10.3</version>
+                        <version>3.0.1</version>
                         <executions>
                             <execution>
                                 <goals>

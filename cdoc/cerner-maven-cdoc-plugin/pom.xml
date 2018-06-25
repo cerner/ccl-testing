@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.cerner.engineering</groupId>
+  <groupId>com.cerner.ccl.cdoc</groupId>
   <artifactId>cerner-maven-cdoc-plugin</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
@@ -12,7 +12,7 @@
 
     <jdk.version>1.7</jdk.version>
     <powermock.version>2.0.0-beta.5</powermock.version>
-    <maven.version>3.3.9</maven.version>
+    <maven.version>3.5.3</maven.version>
   </properties>
   <url>https://github.com/cerner/ccl-testing</url>
   <scm>
@@ -138,8 +138,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.20</version>
+        <version>2.20.1</version>
         <configuration>
+          <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
           <excludes>
             <exclude>**/*ITest.java</exclude>
             <exclude>**/*$*.java</exclude>
@@ -157,7 +158,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.cerner.engineering</groupId>
+      <groupId>com.cerner.ccl.cdoc</groupId>
       <artifactId>cdoc-parser</artifactId>
       <version>2.0-SNAPSHOT</version>
     </dependency>
@@ -211,7 +212,7 @@
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
       <artifactId>maven-plugin-annotations</artifactId>
-      <version>3.5</version>
+      <version>3.5.2</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -309,7 +310,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.3</version>
+        <version>3.0.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -323,6 +324,7 @@
         <configuration>
           <effort>Max</effort>
           <threshold>Low</threshold>
+          <excludeFilterFile>src/etc/findbugs-exclude.xml</excludeFilterFile>
         </configuration>
       </plugin>
       <!-- Must be executed after surefire and Javadoc -->
@@ -371,120 +373,133 @@
         <artifactId>maven-plugin-plugin</artifactId>
         <version>3.5</version>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>analyze-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.2</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependency-updates-report</report>
+              <report>plugin-updates-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
     </plugins>
   </reporting>
-  <profiles>
-    <!-- Separated into its own profile since EC doesn't like the shitty-maven-plugin -->
-    <!-- TODO: once we no longer build with EC, remove this and move the plugins back into <build />, above -->
-    <profile>
-      <id>do-integration-tests</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>shitty-maven-plugin</artifactId>
-            <version>1.0-alpha-3</version>
-            <executions>
-              <execution>
-                <id>install-maven-plugin</id>
-                <goals>
-                  <goal>install</goal>
-                </goals>
-                <configuration>
-                  <version>${project.version}</version>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.20</version>
-            <configuration>
-              <excludes>
-                <exclude>**/*ITest.java</exclude>
-                <exclude>**/*$*.java</exclude>
-              </excludes>
-            </configuration>
-            <executions>
-              <execution>
-                <id>integration-test</id>
-                <goals>
-                  <goal>test</goal>
-                </goals>
-                <phase>integration-test</phase>
-                <configuration>
-                  <excludes>
-                    <exclude>none</exclude>
-                  </excludes>
-                  <includes>
-                    <include>**/*ITest.java</include>
-                  </includes>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>attach-artifacts</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>3.0.1</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.10.3</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-site-plugin</artifactId>
-            <version>3.6</version>
-            <executions>
-              <execution>
-                <id>generate-site-jar</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
-    <distributionManagement>
-      <!--
-        <repository>
-        </repository>
-        <site> 
-        </site>
-        <snapshotRepository>
-        </snapshotRepository>
-      -->        
-    </distributionManagement>
+<profiles>
+  <!-- Separated into its own profile since EC doesn't like the shitty-maven-plugin -->
+  <!-- TODO: once we no longer build with EC, remove this and move the plugins back into <build />, above -->
+  <profile>
+    <id>do-integration-tests</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>shitty-maven-plugin</artifactId>
+          <version>1.0-alpha-3</version>
+          <executions>
+            <execution>
+              <id>install-maven-plugin</id>
+              <goals>
+                <goal>install</goal>
+              </goals>
+              <configuration>
+                <version>${project.version}</version>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>2.20.1</version>
+          <configuration>
+            <argLine>-Xmx1024m</argLine>
+            <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+            <includes>
+              <include>**/*ITest.java</include>
+            </includes>
+            <systemPropertyVariables>
+              <maven.home>${maven.home}</maven.home>
+              <!-- these are only necessary to build cerner-maven-ccl-plugin, but why duplicate the entire plugin spec in that one project? -->
+              <ccl-host>${ccl-host}</ccl-host>
+              <ccl-environment>${ccl-environment}</ccl-environment>
+              <ccl-domain>${ccl-domain}</ccl-domain>
+              <ccl-hostCredentialsId>${ccl-hostCredentialsId}</ccl-hostCredentialsId>
+              <ccl-frontendCredentialsId>${ccl-frontendCredentialsId}</ccl-frontendCredentialsId>
+            </systemPropertyVariables>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </build>
+  </profile>
+  <profile>
+    <id>attach-artifacts</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.0.1</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.6</version>
+          <executions>
+            <execution>
+              <id>generate-site-jar</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </build>
+  </profile>
+</profiles>
+<distributionManagement>
+  <!--
+  <repository>
+  </repository>
+  <site>
+  </site>
+  <snapshotRepository>
+  </snapshotRepository>
+  -->
+</distributionManagement>
 </project>

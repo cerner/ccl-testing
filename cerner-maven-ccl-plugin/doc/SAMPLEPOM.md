@@ -11,7 +11,7 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.cerner.ccltesting</groupId>
+        <groupId>com.cerner.ccl.testing</groupId>
         <artifactId>cerner-maven-ccl-plugin</artifactId>
         <version>3.0-SNAPSHOT</version>
         <extensions>true</extensions>
@@ -79,17 +79,17 @@
   <reporting>
     <plugins>
       <plugin>
-        <groupId>com.cerner.ccltesting</groupId>
+        <groupId>com.cerner.ccl.testing</groupId>
         <artifactId>cerner-maven-cerreal-plugin</artifactId>
         <version>2.0.0-SNAPSHOT</version>
       </plugin>
       <plugin>
-        <groupId>com.cerner.engineering</groupId>
+        <groupId>com.cerner.ccl.whitenoise</groupId>
         <artifactId>cerner-maven-whitenoise-plugin</artifactId>
         <version>2.0-SNAPSHOT</version>
       </plugin>
       <plugin>
-        <groupId>com.cerner.engineering</groupId>
+        <groupId>com.cerner.ccl.cdoc</groupId>
         <artifactId>cerner-maven-cdoc-plugin</artifactId>
         <version>1.1-SNAPSHOT</version>
       </plugin>

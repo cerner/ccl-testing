@@ -2,9 +2,9 @@
 <FindBugsFilter>
     <Match>
         <Bug code="SIC,UwF,UrF,NP" />
-        <Package name="com.cerner.ccltesting.maven.ccl.reports" />
+        <Package name="com.cerner.ccl.testing.maven.ccl.reports" />
     </Match>
     <Match>
-        <Class name="com.cerner.ccltesting.maven.ccl.reports.HelpMojo" />
+        <Class name="com.cerner.ccl.testing.maven.ccl.reports.HelpMojo" />
     </Match>
 </FindBugsFilter>
