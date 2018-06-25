@@ -6,6 +6,9 @@
     <packaging>pom</packaging>
     <name>CCL Testing Plugins</name>
     <description>A reactor pom for generating the CCL Testing plugins and depdendencies</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <modules>
         <module>parent-pom</module>
         <module>ftp-util</module>
@@ -41,6 +44,14 @@
               <version>2.8.2</version>
               <configuration>
                   <skip>true</skip>
+              </configuration>
+          </plugin>
+          <plugin>
+              <groupId>net.revelc.code.formatter</groupId>
+              <artifactId>formatter-maven-plugin</artifactId>
+              <version>2.6.0</version>
+              <configuration>
+                  <skipFormatting>true</skipFormatting>
               </configuration>
           </plugin>
         </plugins>
