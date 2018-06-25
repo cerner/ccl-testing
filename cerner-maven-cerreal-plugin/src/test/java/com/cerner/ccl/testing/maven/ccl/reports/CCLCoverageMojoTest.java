@@ -589,7 +589,8 @@ public class CCLCoverageMojoTest {
          * @param sourcePrograms
          *            The source programs to be set.
          */
-        public void setSourcePrograms(final File programListingsDirectory, final Map<String, CCLCoverageProgram> sourcePrograms) {
+        public void setSourcePrograms(final File programListingsDirectory,
+                final Map<String, CCLCoverageProgram> sourcePrograms) {
             this.sourcePrograms.put(programListingsDirectory, sourcePrograms);
         }
 
@@ -601,7 +602,8 @@ public class CCLCoverageMojoTest {
          * @param testPrograms
          *            The test programs to be set.
          */
-        public void setTestPrograms(final File testResultsDirectory, final Map<String, CCLCoverageProgram> testPrograms) {
+        public void setTestPrograms(final File testResultsDirectory,
+                final Map<String, CCLCoverageProgram> testPrograms) {
             this.testPrograms.put(testResultsDirectory, testPrograms);
         }
 
