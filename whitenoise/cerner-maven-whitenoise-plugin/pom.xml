@@ -25,6 +25,7 @@
         <doxiaVersion>1.8</doxiaVersion>
         <doxiaSitetoolsVersion>1.8.1</doxiaSitetoolsVersion>
         <mavenVersion>3.5.3</mavenVersion>
+        <surefire.version>2.20.1</surefire.version>
     </properties>
     <developers>
         <developer>
@@ -89,14 +90,58 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-src-it-java</id>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/src/it/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20.1</version>
+                <version>${surefire.version}</version>
                 <configuration>
                     <argLine>-Xmx1024m</argLine>
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <excludes>
+                        <exclude>**/*ITest.java</exclude>
+                        <exclude>**/*$*.java</exclude>
+                    </excludes>
                 </configuration>
-            </plugin>            
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <argLine>-Xmx1024m</argLine>
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <includes>
+                        <include>**/*ITest.java</include>
+                    </includes>
+                    <systemPropertyVariables>
+                        <maven-profile>${project.activeProfiles[0].id}</maven-profile>
+                    </systemPropertyVariables>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -113,7 +158,6 @@
                                     <version>[2.1,4.0)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <!-- java 8 is only required to run the unit tests not to use the plugin -->
                                     <version>[1.8,)</version>
                                 </requireJavaVersion>
                             </rules>

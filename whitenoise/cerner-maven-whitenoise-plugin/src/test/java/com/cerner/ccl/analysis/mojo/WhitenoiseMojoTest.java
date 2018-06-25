@@ -1,11 +1,7 @@
 package com.cerner.ccl.analysis.mojo;
 
-import static org.fest.assertions.Assertions.assertThat;
-
 import java.io.File;
 
-import org.apache.maven.execution.MavenSession;
-import org.apache.maven.project.MavenProject;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -49,17 +45,5 @@ public class WhitenoiseMojoTest {
     @Test
     public void testIt() throws Exception {
         File basedir = testResources.getBasedir("testIt");
-        // TODo - use integration testing for tests that require back-end interactions. mock them in unit tests.
-        // TODO - figure out how to read this from the current profile (or maybe it can set the profile ?).
-        System.setProperty("maven-profile", "provide");
-        System.setProperty("doCompile", "true");
-        maven.executeMojo(basedir, "whitenoise-report");
-        System.out.println("done");
-
-        MavenProject project = maven.readMavenProject(basedir);
-        MavenSession session = maven.newMavenSession(project);
-        WhitenoiseMojo mojo = (WhitenoiseMojo) maven.lookupConfiguredMojo(session,
-                maven.newMojoExecution("whitenoise-report"));
-        assertThat(mojo.hostCredentialsId).isEqualTo("spoon");
     }
 }

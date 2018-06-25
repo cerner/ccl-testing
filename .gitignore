@@ -18,3 +18,5 @@ deploy_site_key
 pubring.gpg
 secring.gpg
 .tags
+sun-jaxb.episode
+jaxb/*.java
