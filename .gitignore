@@ -19,4 +19,5 @@ pubring.gpg
 secring.gpg
 .tags
 sun-jaxb.episode
-jaxb/*.java
+jaxb
+dependency-reduced-pom.xml
