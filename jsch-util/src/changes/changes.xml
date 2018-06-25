@@ -3,7 +3,7 @@
         <title>jsch-util Changes Report</title>
     </properties>
     <body>
-        <release version="2.0.0" date="TBD">
+        <release version="2.0.0" date="2018-06-30">
             <action dev="fred eckertson" issue="" type="add" system="JIRA">
                 Change ConnectionPool from abstract class to interface removing getInstance. Consumers should use ConnectionPoolFactory.getInstance instead.
             </action>
@@ -11,7 +11,7 @@
                 Remove pom data duplicated in the parent pom.
             </action>
         </release>
-        <release version="1.0.2" date="TBD">
+        <release version="1.0.2" date="2011-02-02">
             <action dev="joshua hyde" issue="CCLTEST-159" type="add" system="JIRA">
                 Enforce Maven 2 usage.
             </action>

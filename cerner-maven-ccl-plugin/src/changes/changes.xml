@@ -3,7 +3,7 @@
         <title>cerner-maven-ccl-plugin Changes Report</title>
     </properties>
     <body>
-        <release version="3.0" date="TBD">
+        <release version="3.0" date="2018-06-30">
             <action dev="fred eckertson" issue="" type="add" system="JIRA">
                 Upgrade j4ccl-ssh to version 4.0 providing Linux support, skipping CCL login when compiling scripts and optionally skipping envset.
             </action>

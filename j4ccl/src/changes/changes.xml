@@ -3,7 +3,7 @@
         <title>j4ccl Changes Report</title>
     </properties>
     <body>
-        <release version="3.0" date="TBD">
+        <release version="3.0" date="2018-06-30">
             <action dev="fred eckertson" issue="" type="add" system="JIRA">
                 Remove pom data duplicated in the parent pom.
             </action>
