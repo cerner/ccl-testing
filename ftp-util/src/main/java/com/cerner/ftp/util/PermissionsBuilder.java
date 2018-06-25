@@ -17,8 +17,7 @@ public final class PermissionsBuilder {
     }
 
     /**
-     * Create an integer representing the cumulative permissions on a file.
-     * <br>
+     * Create an integer representing the cumulative permissions on a file. <br>
      * These values follow UNIX bitwise representation of permission:
      * <ul>
      * <li>7: read, write, execute</li>

@@ -250,9 +250,8 @@ public class Environment {
             if (logicalCount < 5) {
                 logger.error("Some environment logical retrieval commamds failed.");
                 logger.error(new StringBuilder().append("\n\r").append("---------raw output start---------")
-                        .append("\n\r")
-                        .append(terminalRepsonse.getOutput()).append("\n\r").append("---------raw output end---------")
-                        .toString());
+                        .append("\n\r").append(terminalRepsonse.getOutput()).append("\n\r")
+                        .append("---------raw output end---------").toString());
             }
             return logicalCount > 0 ? finalOutput.substring(1).replaceAll("\\|\\|", "") : "";
         } catch (SshException e) {

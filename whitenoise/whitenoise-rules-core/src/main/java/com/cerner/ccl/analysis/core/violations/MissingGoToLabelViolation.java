@@ -11,7 +11,8 @@ import com.cerner.ccl.analysis.data.ViolationId;
 /**
  * A {@link Violation} indicating that a {@code go to} command has no corresponding label inside of a CCL script.
  * <p>
- * This violation dictates its uniquess on the given label name and, if available, its line number; the comparison of label names is case-insensitive.
+ * This violation dictates its uniquess on the given label name and, if available, its line number; the comparison of
+ * label names is case-insensitive.
  *
  * @author Joshua Hyde
  * @author Jeff Wiedemann
@@ -54,7 +55,8 @@ public class MissingGoToLabelViolation implements Violation {
     }
 
     /**
-     * Get the name of the label referenced in a {@code go to} statement that does not actually exist as a definition within the CCL script.
+     * Get the name of the label referenced in a {@code go to} statement that does not actually exist as a definition
+     * within the CCL script.
      *
      * @return The label name.
      */

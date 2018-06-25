@@ -9,8 +9,7 @@ package com.cerner.ccl.j4ccl.record;
 
 public interface Field {
     /**
-     * Get the length of the data stored within the field. This applies to only fixed-length primitive fields.
-     * <br>
+     * Get the length of the data stored within the field. This applies to only fixed-length primitive fields. <br>
      * Use {@link #getType()} to get the data type of this field and then {@link DataType#isFixedLengthPrimitive()} to
      * determine whether or not this field represents a fixed-length primitive value.
      *
@@ -29,8 +28,7 @@ public interface Field {
     String getDeclaration();
 
     /**
-     * If applicable, get the size of the fixed-length list represented by this field.
-     * <br>
+     * If applicable, get the size of the fixed-length list represented by this field. <br>
      * Use {@link #getType()} to obtain this field's datatype and verify that it is a {@link DataType#LIST} type to
      * avoid thrown exceptions.
      *
@@ -48,8 +46,7 @@ public interface Field {
     String getName();
 
     /**
-     * If applicable, get the underlying structure that backs this field.
-     * <br>
+     * If applicable, get the underlying structure that backs this field. <br>
      * To determine whether or not this object has an underlying structure, use {@link #getType()} to get the type of
      * the field and {@link DataType#isComplexType()} to determine whether or not this represents a primitive datatype.
      *

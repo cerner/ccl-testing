@@ -32,7 +32,6 @@ public class CodeParserSupport {
         }
     }
 
-
     static class ExtendLineResponse {
         private final String response;
         private final int finalLineNumber;

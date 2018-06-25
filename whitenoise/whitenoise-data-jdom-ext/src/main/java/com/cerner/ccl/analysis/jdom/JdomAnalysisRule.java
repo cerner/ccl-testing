@@ -106,8 +106,8 @@ public class JdomAnalysisRule implements AnalysisRule {
         private List<Element> definedSubroutines = null;
         private Map<String, Element> definedSubroutineMap = null;
         private Map<Element, Set<Element>> callGraph = null;
-//  TODO:use this or get rid of it
-//        private final Map<Element, Set<Element>> inverseCallGraph = null;
+        // TODO:use this or get rid of it
+        // private final Map<Element, Set<Element>> inverseCallGraph = null;
         private Map<String, Set<String>> nameCallGraph = null;
         private Map<String, Set<String>> inverseNameCallGraph = null;
         private final Map<Element, List<List<Element>>> scopes = null;
@@ -119,7 +119,6 @@ public class JdomAnalysisRule implements AnalysisRule {
         public Delegate(final Document document) {
             this.document = document;
         }
-
 
         /**
          * Returns the set of violations which will be checked by this rule during analysis regardless of whether or not
@@ -167,6 +166,7 @@ public class JdomAnalysisRule implements AnalysisRule {
 
         /**
          * Returns the list of all {@code SUBROUTINE.} elements in the program.
+         * 
          * @return A {@link List} of {@link Element} objects representing all subroutine implementations defined in the
          *         program
          * @throws JDOMException
@@ -213,10 +213,9 @@ public class JdomAnalysisRule implements AnalysisRule {
          * @throws JDOMException
          *             The exception thrown if errors occur while parsing the document.
          */
-        protected Element getSubroutineDefinition(final String subroutineName)
-                throws JDOMException {
+        protected Element getSubroutineDefinition(final String subroutineName) throws JDOMException {
             Map<String, Element> subroutineMap = getSubroutineMap();
-            if(subroutineMap.containsKey(subroutineName)) {
+            if (subroutineMap.containsKey(subroutineName)) {
                 return subroutineMap.get(subroutineName);
             }
             return subroutineMap.get("PUBLIC::" + subroutineName);
@@ -307,8 +306,8 @@ public class JdomAnalysisRule implements AnalysisRule {
             return invokedElementNames;
         }
 
-        private Set<Element> getInvokedElements(final Element invokingElement,
-                final String predicate) throws JDOMException {
+        private Set<Element> getInvokedElements(final Element invokingElement, final String predicate)
+                throws JDOMException {
             getSubroutineMap();
             List<Element> callElements = selectNodes(invokingElement,
                     "(.//OPTION.|.//Z_SET.|.//Z_CALL.|.//CALL.|.//RETURN.)/CALL." + predicate);
@@ -349,6 +348,7 @@ public class JdomAnalysisRule implements AnalysisRule {
         /**
          * Returns the list of all {@code Z_DECLARE.} elements in the program which are declaring variables (as opposed
          * to subroutines).
+         * 
          * @return A {@link List} of {@link Element} objects representing all variable declarations in the program
          * @throws JDOMException
          *             If any errors occur during the analysis.
@@ -375,8 +375,7 @@ public class JdomAnalysisRule implements AnalysisRule {
          * @throws JDOMException
          *             If any errors occur during the analysis.
          */
-        protected List<Attribute> selectAttributes(final String expression)
-                throws JDOMException {
+        protected List<Attribute> selectAttributes(final String expression) throws JDOMException {
             return selectAttributeInternal(document, expression);
         }
 
@@ -474,8 +473,7 @@ public class JdomAnalysisRule implements AnalysisRule {
          * @throws JDOMException
          *             If any errors occur during the analysis.
          */
-        protected List<Element> selectNodesByName(final String name, final String predicate)
-                throws JDOMException {
+        protected List<Element> selectNodesByName(final String name, final String predicate) throws JDOMException {
             return selectNodesByName(document.getRootElement(), name, predicate);
         }
 

@@ -192,7 +192,7 @@ public class ResultsTestSuiteTest {
     @Test
     public void testGetTestCount() throws Exception {
         int expectedSum = 0;
-        for(ResultsTestCase testCase : cases) {
+        for (ResultsTestCase testCase : cases) {
             when(testCase.getTestCount()).thenReturn(Integer.valueOf(2));
             expectedSum += 2;
         }
@@ -200,10 +200,12 @@ public class ResultsTestSuiteTest {
     }
 
     /**
-     * Set up a series of directories to be turned into {@link ResultsTestCase} objects. The two given arrays should be parallel.
+     * Set up a series of directories to be turned into {@link ResultsTestCase} objects. The two given arrays should be
+     * parallel.
      *
      * @param directories
-     *            An array of {@link File} objects representing the directories to be turned into results test case objects.
+     *            An array of {@link File} objects representing the directories to be turned into results test case
+     *            objects.
      * @param cases
      *            An array {@link ResultsTestCase} objects representing the cases into which the files are to be turned.
      * @throws Exception

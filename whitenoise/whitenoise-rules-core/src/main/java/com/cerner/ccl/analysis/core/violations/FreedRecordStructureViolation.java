@@ -10,7 +10,8 @@ import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link Violation} used to describe a situation where a record structure is not explicitly declared with private or protect.
+ * A {@link Violation} used to describe a situation where a record structure is not explicitly declared with private or
+ * protect.
  * <p>
  *
  * @author Jeff Wiedemann
@@ -77,7 +78,8 @@ public class FreedRecordStructureViolation implements RecordStructureViolation {
     public String getViolationExplanation() {
         return "Record structures do not need to be freed. The memory they consume is freed automatically when the structure goes out of scope. "
                 + "If the structure you are freeing was declared by a parent script, this free statement could maliciously free the record while the "
-                + "parent script still depends on it's existance. Use appropriate scoping of your structure declarations to avoid this questionable " + "programming practice.";
+                + "parent script still depends on it's existance. Use appropriate scoping of your structure declarations to avoid this questionable "
+                + "programming practice.";
     }
 
     /**

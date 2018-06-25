@@ -101,7 +101,8 @@ public class CoverageLineTest {
     }
 
     /**
-     * If nothing indicates coverage, nor that it was not executable, but at least one indicates that it was not covered, then that should be the returned aggregate state.
+     * If nothing indicates coverage, nor that it was not executable, but at least one indicates that it was not
+     * covered, then that should be the returned aggregate state.
      */
     @Test
     public void testGetAggregateCoveredStatusNotCovered() {
@@ -123,7 +124,8 @@ public class CoverageLineTest {
     }
 
     /**
-     * If there is nothing to indicate whether or not anything was executed, then the aggregate state should be "undefined".
+     * If there is nothing to indicate whether or not anything was executed, then the aggregate state should be
+     * "undefined".
      */
     @Test
     public void testGetAggregateCoveredStatusUndefined() {
@@ -139,7 +141,9 @@ public class CoverageLineTest {
         final CCLCoverageProgram notCovered = mock(CCLCoverageProgram.class);
         line.addTestCoverage(covered, CoveredStatus.COVERED);
         line.addTestCoverage(notCovered, CoveredStatus.NOT_COVERED);
-        assertThat(line.getCoverage()).includes(entry(covered, CoveredStatus.COVERED), entry(notCovered, CoveredStatus.NOT_COVERED)).hasSize(2);
+        assertThat(line.getCoverage())
+                .includes(entry(covered, CoveredStatus.COVERED), entry(notCovered, CoveredStatus.NOT_COVERED))
+                .hasSize(2);
     }
 
     /**

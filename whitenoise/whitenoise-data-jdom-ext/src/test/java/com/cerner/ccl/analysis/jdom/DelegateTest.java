@@ -103,8 +103,7 @@ public class DelegateTest {
 
         final Delegate toTest = new ConcreteDelegate(document) {
             @Override
-            protected List<Element> selectNodesByName(final String name,
-                    final String predicate) {
+            protected List<Element> selectNodesByName(final String name, final String predicate) {
                 assertThat(name).isEqualTo("Z_DECLARE.");
                 assertThat(predicate).isEqualTo("[NAME and not(CALL.)]");
                 return Arrays.asList(firstDeclaration, secondDeclaration);

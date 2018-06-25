@@ -324,8 +324,7 @@ public class RecordDataExtractorTest {
         final File tempDirectory = mock(File.class);
         final String username = System.getProperty("user.name").toLowerCase(Locale.getDefault()).replace("$", "");
         when(File.createTempFile(matches("j4ccl_dataout_" + username + "_-?\\d+\\.json"),
-                ArgumentMatchers.<String> isNull()))
-                .thenReturn(tempDirectory);
+                ArgumentMatchers.<String> isNull())).thenReturn(tempDirectory);
         final Record record = RecordFactory.create("REPLY", StructureBuilder.getBuilder().addVC("MULTILINE").build());
         new RecordDataExtractor(record, environment);
         verify(tempDirectory).deleteOnExit();

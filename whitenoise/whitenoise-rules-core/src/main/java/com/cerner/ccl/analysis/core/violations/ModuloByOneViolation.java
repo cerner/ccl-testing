@@ -59,8 +59,8 @@ public class ModuloByOneViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "When using the modulo function with a divisor of one, the resulting value will always be zero. Inspect the modulo " +
-        		"function call to ensure that it is coded as intended";
+        return "When using the modulo function with a divisor of one, the resulting value will always be zero. Inspect the modulo "
+                + "function call to ensure that it is coded as intended";
     }
 
     /**

@@ -32,8 +32,7 @@ public class CclUtils {
      *
      * @param timestamp
      *            The timestamp to be converted. The expected format is: {@code
-     *            yyyy-MM-ddTHH:MM:ss.SZ}.
-     *            <br>
+     *            yyyy-MM-ddTHH:MM:ss.SZ}. <br>
      *            For example, the following is a valid timestamp: 2009-01-01T01:01:01.000-05:00
      * @return A {@link Date} object that matches the given timestamp.
      */

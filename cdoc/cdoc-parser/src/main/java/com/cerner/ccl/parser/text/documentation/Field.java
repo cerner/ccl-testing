@@ -72,9 +72,8 @@ public class Field implements Described, Named {
         final Field other = (Field) obj;
         return new EqualsBuilder()
                 .append(name.toLowerCase(Locale.getDefault()), other.name.toLowerCase(Locale.getDefault()))
-                .append(description, other.description)
-                .append(optional, other.optional).append(codeSets, other.codeSets).append(values, other.values)
-                .isEquals();
+                .append(description, other.description).append(optional, other.optional)
+                .append(codeSets, other.codeSets).append(values, other.values).isEquals();
     }
 
     /**

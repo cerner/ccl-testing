@@ -8,10 +8,12 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractSubroutineViolat
  * @author Joshua Hyde
  */
 
-public class MismatchedSubroutineDeclarationViolationTest extends AbstractSubroutineViolationTest<MismatchedSubroutineDeclarationViolation> {
+public class MismatchedSubroutineDeclarationViolationTest
+        extends AbstractSubroutineViolationTest<MismatchedSubroutineDeclarationViolation> {
 
     @Override
-    protected MismatchedSubroutineDeclarationViolation createViolation(final String subroutineName, final Integer lineNumber) {
+    protected MismatchedSubroutineDeclarationViolation createViolation(final String subroutineName,
+            final Integer lineNumber) {
         return new MismatchedSubroutineDeclarationViolation(subroutineName, lineNumber);
     }
 

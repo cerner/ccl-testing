@@ -4,8 +4,7 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.ChannelShell;
 
 /**
- * Definition of an object representing a JSch connection.
- * <br>
+ * Definition of an object representing a JSch connection. <br>
  * This object is intended to be a <i>short-lived</i> object; that is, do not retain a reference to this object.
  * {@link #close() Close} it immediately once you are done with it to free any resources allocated to it as part of its
  * run while under your ownership.

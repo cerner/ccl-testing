@@ -59,9 +59,9 @@ public class ReversedModuloParametersViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "When using the modulo function in CCL the first parameter is usually a variable representing the dividend while the second " +
-        		"parameter is usually a hardcoded integer indicating the divisor. If these parameters are switched while using this function " +
-        		"the resulting value is almost always incorrect";
+        return "When using the modulo function in CCL the first parameter is usually a variable representing the dividend while the second "
+                + "parameter is usually a hardcoded integer indicating the divisor. If these parameters are switched while using this function "
+                + "the resulting value is almost always incorrect";
     }
 
     /**

@@ -121,7 +121,8 @@ public class CCLProgram {
             String newOrigin = origin;
             // Determine if this code is from an include file
             for (int j = 0; j < lines.item(i).getChildNodes().getLength(); j++) {
-                if (origin.equals("PROGRAM") && lines.item(i).getChildNodes().item(j).getNodeName().equals("START_OF_INC"))
+                if (origin.equals("PROGRAM")
+                        && lines.item(i).getChildNodes().item(j).getNodeName().equals("START_OF_INC"))
                     newOrigin = lines.item(i).getChildNodes().item(j).getFirstChild().getNodeValue();
                 else if (lines.item(i).getChildNodes().item(j).getNodeName().equals("END_OF_INC"))
                     newOrigin = "PROGRAM";
@@ -166,7 +167,8 @@ public class CCLProgram {
     /**
      * Get the lines of the source code.
      *
-     * @return A {@link List} of {@link ProgramLine} objects representing the lines of the source code and their metadata.
+     * @return A {@link List} of {@link ProgramLine} objects representing the lines of the source code and their
+     *         metadata.
      */
     public List<ProgramLine> getProgramLines() {
         return Collections.unmodifiableList(this.programLines);
@@ -177,7 +179,8 @@ public class CCLProgram {
      *
      * @param lineNumber
      *            The number of the line to be retrieved.
-     * @return A blank string if the given number corresponds to no known line number; otherwise, the text of the requested line number.
+     * @return A blank string if the given number corresponds to no known line number; otherwise, the text of the
+     *         requested line number.
      */
     @SuppressWarnings("synthetic-access")
     public String getSourceCodeAtLine(int lineNumber) {

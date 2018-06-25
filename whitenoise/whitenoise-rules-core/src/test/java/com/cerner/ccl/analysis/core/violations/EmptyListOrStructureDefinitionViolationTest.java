@@ -13,7 +13,8 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractRecordStructureV
  * @author Joshua Hyde
  */
 
-public class EmptyListOrStructureDefinitionViolationTest extends AbstractRecordStructureViolationTest<EmptyListOrStructureDefinitionViolation> {
+public class EmptyListOrStructureDefinitionViolationTest
+        extends AbstractRecordStructureViolationTest<EmptyListOrStructureDefinitionViolation> {
     private final String fieldName = "a.field";
 
     /**
@@ -32,8 +33,10 @@ public class EmptyListOrStructureDefinitionViolationTest extends AbstractRecordS
     @Test
     public void testEqualsCaseInsensitiveFieldName() {
         final String recordStructureName = "record";
-        final EmptyListOrStructureDefinitionViolation first = new EmptyListOrStructureDefinitionViolation(recordStructureName, fieldName, null);
-        final EmptyListOrStructureDefinitionViolation second = new EmptyListOrStructureDefinitionViolation(recordStructureName, StringUtils.swapCase(fieldName), null);
+        final EmptyListOrStructureDefinitionViolation first = new EmptyListOrStructureDefinitionViolation(
+                recordStructureName, fieldName, null);
+        final EmptyListOrStructureDefinitionViolation second = new EmptyListOrStructureDefinitionViolation(
+                recordStructureName, StringUtils.swapCase(fieldName), null);
         assertThat(first).isEqualTo(second);
         assertThat(second).isEqualTo(first);
         assertThat(first.hashCode()).isEqualTo(second.hashCode());
@@ -45,8 +48,10 @@ public class EmptyListOrStructureDefinitionViolationTest extends AbstractRecordS
     @Test
     public void testEqualsDifferentFieldName() {
         final String recordStructureName = "record";
-        final EmptyListOrStructureDefinitionViolation first = new EmptyListOrStructureDefinitionViolation(recordStructureName, fieldName, null);
-        final EmptyListOrStructureDefinitionViolation second = new EmptyListOrStructureDefinitionViolation(recordStructureName, StringUtils.reverse(fieldName), null);
+        final EmptyListOrStructureDefinitionViolation first = new EmptyListOrStructureDefinitionViolation(
+                recordStructureName, fieldName, null);
+        final EmptyListOrStructureDefinitionViolation second = new EmptyListOrStructureDefinitionViolation(
+                recordStructureName, StringUtils.reverse(fieldName), null);
         assertThat(first).isNotEqualTo(second);
         assertThat(second).isNotEqualTo(first);
     }

@@ -17,8 +17,7 @@ public class CclOutputStreamProxy extends OutputStreamProxy {
     private boolean doForward;
 
     /**
-     * Create an output stream proxy.
-     * <br>
+     * Create an output stream proxy. <br>
      * Data starting the line after the given starting keyword through the line before the line containing the given
      * keyword will be forwarded. A line is defined as a string of characters terminated by a {@code \n} character.
      *

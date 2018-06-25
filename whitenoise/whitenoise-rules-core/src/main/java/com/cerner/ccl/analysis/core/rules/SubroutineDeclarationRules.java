@@ -59,8 +59,7 @@ public class SubroutineDeclarationRules extends TimedDelegate {
 
         // Loop through all subroutine declarations and store off for later checks
         List<Element> subroutineDeclares = new ArrayList<Element>();
-        subroutineDeclares
-                .addAll(selectNodesByName("Z_DECLARE.", "[CALL./NAME and not(CALL./NAMESPACE./NAME)]"));
+        subroutineDeclares.addAll(selectNodesByName("Z_DECLARE.", "[CALL./NAME and not(CALL./NAMESPACE./NAME)]"));
         subroutineDeclares.addAll(selectNodesByName("Z_DECLARE.", "[CALL./NAMESPACE./NAME[1]/@text]"));
         for (final Element subroutineDeclare : subroutineDeclares) {
             final String subroutineName = getCclName(subroutineDeclare.getChild("CALL."));

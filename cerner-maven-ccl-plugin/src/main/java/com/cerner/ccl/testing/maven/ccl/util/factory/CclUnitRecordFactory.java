@@ -101,8 +101,7 @@ public final class CclUnitRecordFactory {
     }
 
     /**
-     * Construct a reply record structure to hold data returned by the CCL unit testing framework.
-     * <br>
+     * Construct a reply record structure to hold data returned by the CCL unit testing framework. <br>
      * The build record structure looks like the following:
      *
      * <pre>

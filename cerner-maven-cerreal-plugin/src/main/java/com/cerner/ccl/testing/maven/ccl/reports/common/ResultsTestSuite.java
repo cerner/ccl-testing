@@ -25,7 +25,8 @@ public class ResultsTestSuite {
      * @param testResultsDirectory
      *            The directory of the test-results which holds all of the data for the results from the last test run
      * @throws MavenReportException
-     *             When the test cases cannot be created from the test results passed in, or when the test results directory passed in is invalid
+     *             When the test cases cannot be created from the test results passed in, or when the test results
+     *             directory passed in is invalid
      */
     public ResultsTestSuite(File testResultsDirectory) throws MavenReportException {
         File environmentXmlFile = AbstractCCLMavenReport.getDirectoryFile(testResultsDirectory, "environment.xml");
@@ -39,7 +40,8 @@ public class ResultsTestSuite {
         }
         for (File file : directoryList) {
             // If the subdirectory of test-results contains a listing.xml and a test-results.xml
-            if (AbstractCCLMavenReport.getDirectoryFile(file, "listing.xml") != null && AbstractCCLMavenReport.getDirectoryFile(file, "test-results.xml") != null) {
+            if (AbstractCCLMavenReport.getDirectoryFile(file, "listing.xml") != null
+                    && AbstractCCLMavenReport.getDirectoryFile(file, "test-results.xml") != null) {
                 testCases.add(new ResultsTestCase(file));
             }
         }

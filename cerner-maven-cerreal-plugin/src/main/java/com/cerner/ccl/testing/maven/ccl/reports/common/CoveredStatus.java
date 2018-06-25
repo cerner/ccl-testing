@@ -40,8 +40,8 @@ public enum CoveredStatus {
      * @see #getCharacterRepresentation()
      */
     public static CoveredStatus forCharacterRepresentation(String characterRepresentation) {
-        for(CoveredStatus status : values())
-            if(status.getCharacterRepresentation().equals(characterRepresentation))
+        for (CoveredStatus status : values())
+            if (status.getCharacterRepresentation().equals(characterRepresentation))
                 return status;
 
         throw new IllegalArgumentException("Unknown character representation: " + characterRepresentation);

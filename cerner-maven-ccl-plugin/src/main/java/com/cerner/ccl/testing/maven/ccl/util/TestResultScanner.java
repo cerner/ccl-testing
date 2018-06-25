@@ -52,7 +52,7 @@ public class TestResultScanner {
      */
     private Collection<UnitTest> collectFailures(final Node testNode) {
         if (!testNode.hasChildNodes())
-            return Collections.<UnitTest>emptyList();
+            return Collections.<UnitTest> emptyList();
 
         final Collection<UnitTest> tests = new ArrayList<UnitTest>();
         final NodeList children = testNode.getChildNodes();

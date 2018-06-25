@@ -20,7 +20,8 @@ public class InvalidCnvtOnOracleFieldViolation implements Violation {
      * Create a violation.
      *
      * @param lineNumber
-     *            An {@link Integer} representing the line of the beginning of the while loop with the violation, if applicable.
+     *            An {@link Integer} representing the line of the beginning of the while loop with the violation, if
+     *            applicable.
      */
     public InvalidCnvtOnOracleFieldViolation(final Integer lineNumber) {
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -56,12 +57,12 @@ public class InvalidCnvtOnOracleFieldViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "The use of cnvtreal(string) or cnvtint(string) on an Oracle database field is discouraged. If the field stores non-numeric " +
-        		"values on any row of the table then you run the risk of an Oracle error being raised when a cnvtreal or cnvtint is attempted " +
-        		"against a non-numeric value in your result set. You cannot guarantee conditional filters (where field = value) or join path " +
-        		"will limit your result set to only numeric values prior to the cnvt function being applied. Environmental variables such as " +
-        		"optimization mode or Oracle version will eventually cause your assumption to be proven incorrect. Consider using cnvtstring " +
-        		"in CCL or some other method evaluating this field.";
+        return "The use of cnvtreal(string) or cnvtint(string) on an Oracle database field is discouraged. If the field stores non-numeric "
+                + "values on any row of the table then you run the risk of an Oracle error being raised when a cnvtreal or cnvtint is attempted "
+                + "against a non-numeric value in your result set. You cannot guarantee conditional filters (where field = value) or join path "
+                + "will limit your result set to only numeric values prior to the cnvt function being applied. Environmental variables such as "
+                + "optimization mode or Oracle version will eventually cause your assumption to be proven incorrect. Consider using cnvtstring "
+                + "in CCL or some other method evaluating this field.";
     }
 
     /**

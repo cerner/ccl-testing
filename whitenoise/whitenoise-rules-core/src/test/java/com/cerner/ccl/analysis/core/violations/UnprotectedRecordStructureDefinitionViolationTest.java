@@ -8,10 +8,12 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractRecordStructureV
  * @author Joshua Hyde
  */
 
-public class UnprotectedRecordStructureDefinitionViolationTest extends AbstractRecordStructureViolationTest<UnprotectedRecordStructureDefinitionViolation> {
+public class UnprotectedRecordStructureDefinitionViolationTest
+        extends AbstractRecordStructureViolationTest<UnprotectedRecordStructureDefinitionViolation> {
 
     @Override
-    protected UnprotectedRecordStructureDefinitionViolation createViolation(String recordStructureName, Integer lineNumber) {
+    protected UnprotectedRecordStructureDefinitionViolation createViolation(String recordStructureName,
+            Integer lineNumber) {
         return new UnprotectedRecordStructureDefinitionViolation(recordStructureName, lineNumber);
     }
 

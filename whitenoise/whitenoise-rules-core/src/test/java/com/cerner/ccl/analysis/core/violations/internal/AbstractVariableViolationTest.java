@@ -51,7 +51,7 @@ public abstract class AbstractVariableViolationTest<T extends VariableViolation>
         assertThat(first).isNotEqualTo(second);
         assertThat(second).isNotEqualTo(first);
     }
-    
+
     /**
      * Test the retrieval of the variable name.
      */

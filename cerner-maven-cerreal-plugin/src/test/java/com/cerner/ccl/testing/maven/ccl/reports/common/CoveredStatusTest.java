@@ -28,12 +28,13 @@ public class CoveredStatusTest {
      */
     @Test
     public void testForCharacterRepresentation() {
-        for(CoveredStatus status : CoveredStatus.values())
+        for (CoveredStatus status : CoveredStatus.values())
             assertThat(status).isEqualTo(CoveredStatus.forCharacterRepresentation(status.getCharacterRepresentation()));
     }
 
     /**
-     * Resolution of covered status by character representation should be case-sensitive to ensure that the proper format of the XML is being followed.
+     * Resolution of covered status by character representation should be case-sensitive to ensure that the proper
+     * format of the XML is being followed.
      */
     @Test
     public void testForCharacterRepresentationCaseSensitive() {

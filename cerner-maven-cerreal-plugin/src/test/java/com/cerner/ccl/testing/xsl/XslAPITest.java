@@ -44,8 +44,8 @@ import com.cerner.ccl.testing.xsl.XslAPI;
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value = { DocumentBuilderFactory.class, IOUtils.class, StreamResult.class, StreamSource.class, StringReader.class, StringURIResolver.class, TransformerFactory.class,
-        XPathFactory.class, XslAPI.class })
+@PrepareForTest(value = { DocumentBuilderFactory.class, IOUtils.class, StreamResult.class, StreamSource.class,
+        StringReader.class, StringURIResolver.class, TransformerFactory.class, XPathFactory.class, XslAPI.class })
 public class XslAPITest {
     /**
      * Test the transformation of XML to XSL.

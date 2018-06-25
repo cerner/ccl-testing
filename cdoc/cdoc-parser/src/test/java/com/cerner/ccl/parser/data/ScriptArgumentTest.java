@@ -28,7 +28,6 @@ public class ScriptArgumentTest extends AbstractBeanUnitTest<ScriptArgument> {
         new ScriptArgument(null);
     }
 
-
     /**
      * Test the retrieval of the description.
      */

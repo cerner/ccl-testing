@@ -19,7 +19,7 @@ import com.cerner.ccl.analysis.data.ViolationId;
 public class UnreferencedForLoopIteratorViolation implements Violation {
     private static final ViolationId VIOLATION_ID = new CoreViolationId("UNREFERENCED_FOR_LOOP_ITERATOR");
 
-    private final String  iterator;
+    private final String iterator;
     private final Integer lineNumber;
 
     /**
@@ -52,7 +52,6 @@ public class UnreferencedForLoopIteratorViolation implements Violation {
         return getIterator().equalsIgnoreCase(other.getIterator()) && getLineNumber().equals(other.getLineNumber());
     }
 
-
     /**
      * @return The name of the iterator variable used in the for loop
      */
@@ -78,8 +77,8 @@ public class UnreferencedForLoopIteratorViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "If for loop for(idx = 1 to 10) is created and idx is not referenced anywhere in the for loop, the" +
-        		" loop is most likely incorrectly coded";
+        return "If for loop for(idx = 1 to 10) is created and idx is not referenced anywhere in the for loop, the"
+                + " loop is most likely incorrectly coded";
     }
 
     /**

@@ -31,13 +31,13 @@ public class WhileLoopRulesTest extends AbstractJDomTest {
     public void testNoReferenceToConditionals() throws Exception {
         final Set<Violation> violations = new WhileLoopRules(toDocument("no-reference-to-conditionals.xml"))
                 .doMeasuredAnalysis();
-    	assertThat(violations).hasSize(6);
+        assertThat(violations).hasSize(6);
 
-    	final List<Integer> failedLines = new ArrayList<Integer>(Arrays.asList(23,19,15,11,7,3));
+        final List<Integer> failedLines = new ArrayList<Integer>(Arrays.asList(23, 19, 15, 11, 7, 3));
 
-    	for (Violation v : violations) {
-    		assertThat(failedLines).contains(v.getLineNumber());
-    	}
+        for (Violation v : violations) {
+            assertThat(failedLines).contains(v.getLineNumber());
+        }
     }
 
     /**
@@ -51,6 +51,6 @@ public class WhileLoopRulesTest extends AbstractJDomTest {
     public void testReferenceToConditionals() throws Exception {
         final Set<Violation> violations = new WhileLoopRules(toDocument("reference-to-conditionals.xml"))
                 .doMeasuredAnalysis();
-    	assertThat(violations).hasSize(0);
+        assertThat(violations).hasSize(0);
     }
 }

@@ -36,12 +36,15 @@ public class XmlGenerator {
      * @param listingName
      *            The name of the program for which the listing is generated.
      * @param source
-     *            A {@link Collection} of {@code String} objects representing the source code. If you wish to represent code nested inside an in-line include file, use {@link #INC_START} and
-     *            {@link #INC_END} to signify this. Each line should be followed by the inclusion statement. For example:
+     *            A {@link Collection} of {@code String} objects representing the source code. If you wish to represent
+     *            code nested inside an in-line include file, use {@link #INC_START} and {@link #INC_END} to signify
+     *            this. Each line should be followed by the inclusion statement. For example:
      * 
      *            <pre>
-     * Arrays.asList(&quot;call echo('test')&quot;, incStart + &quot;%i cclsource:test.inc&quot;, &quot;call echo('nested in an include!')&quot;, incEnd + &quot;%i cclsource:test.inc&quot;, &quot;call echo('not nested!')&quot;)
-     * </pre>
+     *            Arrays.asList(&quot;call echo('test')&quot;, incStart + &quot;%i cclsource:test.inc&quot;, &quot;call echo('nested in an include!')&quot;,
+     *                    incEnd + &quot;%i cclsource:test.inc&quot;, &quot;call echo('not nested!')&quot;)
+     *            </pre>
+     * 
      * @return A {@link String} containing the listing XML.
      * @throws Exception
      *             If any errors occur while creating XML.
@@ -73,6 +76,7 @@ public class XmlGenerator {
         context.createMarshaller().marshal(listing, writer);
         return writer.toString();
     }
+
     /**
      * Create test coverage data.
      * 
@@ -84,7 +88,8 @@ public class XmlGenerator {
      * @throws Exception
      *             If any errors occur generating the XML.
      */
-    public static String createTestCoverageXml(String scriptName, Collection<XmlCoverageLine> coverageLines) throws Exception {
+    public static String createTestCoverageXml(String scriptName, Collection<XmlCoverageLine> coverageLines)
+            throws Exception {
         final ObjectFactory objectFactory = new ObjectFactory();
 
         final LINES lines = objectFactory.createCOVERAGELINES();

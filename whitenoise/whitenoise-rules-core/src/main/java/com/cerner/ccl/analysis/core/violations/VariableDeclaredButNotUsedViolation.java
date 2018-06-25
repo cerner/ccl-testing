@@ -11,7 +11,8 @@ import com.cerner.ccl.analysis.data.ViolationId;
 /**
  * A {@link VariableViolation} indicating that a variable has been declared but never used
  * <p>
- * This violation bases its uniqueness on a combination of the given variable name, and (if available) the line number. The comparison of variable names is case-insensitive.
+ * This violation bases its uniqueness on a combination of the given variable name, and (if available) the line number.
+ * The comparison of variable names is case-insensitive.
  *
  * @author Jeff Wiedemann
  *
@@ -30,7 +31,8 @@ public class VariableDeclaredButNotUsedViolation implements VariableViolation {
      * @param lineNumber
      *            An {@link Integer} representing the line at which the violation was encountered, if applicable.
      * @throws IllegalArgumentException
-     *             If any of the given objects, except for the line number, are {@code null}, or if the variable name is blank.
+     *             If any of the given objects, except for the line number, are {@code null}, or if the variable name is
+     *             blank.
      */
     public VariableDeclaredButNotUsedViolation(final String variableName, final Integer lineNumber) {
         if (variableName == null)
@@ -71,8 +73,8 @@ public class VariableDeclaredButNotUsedViolation implements VariableViolation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "Variables which are declared but never used are often left over from refactored code and contribute to clutter and readability " +
-        		"problems in the script. Consider removing the declaration to the unused variable.";
+        return "Variables which are declared but never used are often left over from refactored code and contribute to clutter and readability "
+                + "problems in the script. Consider removing the declaration to the unused variable.";
     }
 
     /**
@@ -88,7 +90,6 @@ public class VariableDeclaredButNotUsedViolation implements VariableViolation {
     public String getVariableName() {
         return variableName;
     }
-
 
     @Override
     public int hashCode() {

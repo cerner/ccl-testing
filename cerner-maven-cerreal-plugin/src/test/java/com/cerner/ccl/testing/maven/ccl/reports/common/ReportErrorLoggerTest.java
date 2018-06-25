@@ -91,8 +91,11 @@ public class ReportErrorLoggerTest {
         logger.logFailedTransformation(xml, xsl);
 
         verifyStatic(FileUtils.class);
-        FileUtils.writeStringToFile(logFile, "An attempt to run an XSLT transformation has failed\n" + "The xml file has been written out to " + xmlFileAbsolutePath + "\n"
-                + "The xsl file has been written out to " + xslFileAbsolutePath + "\n", "utf-8");
+        FileUtils.writeStringToFile(logFile,
+                "An attempt to run an XSLT transformation has failed\n" + "The xml file has been written out to "
+                        + xmlFileAbsolutePath + "\n" + "The xsl file has been written out to " + xslFileAbsolutePath
+                        + "\n",
+                "utf-8");
 
         verifyStatic(FileUtils.class);
         FileUtils.writeStringToFile(xslFile, xsl, "utf-8");

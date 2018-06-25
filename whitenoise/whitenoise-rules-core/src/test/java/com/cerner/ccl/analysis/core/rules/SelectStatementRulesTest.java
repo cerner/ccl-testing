@@ -30,9 +30,9 @@ public class SelectStatementRulesTest extends AbstractJDomTest {
     @Test
     public void testFilesortAndMaxqual() throws Exception {
         final Set<Violation> violations = new SelectStatementRules(toDocument("filesort-and-maxqual.xml")).analyze();
-    	assertThat(violations).hasSize(1);
+        assertThat(violations).hasSize(1);
 
-    	assertThat(violations).contains(new FilesortAndMaxqualViolation(9));
+        assertThat(violations).contains(new FilesortAndMaxqualViolation(9));
     }
 
     /**
@@ -48,8 +48,8 @@ public class SelectStatementRulesTest extends AbstractJDomTest {
                 .analyze();
         assertThat(violations).hasSize(4);
 
-    	assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("P.PERSON_ID", 21));
-    	assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("A.ADDRESS_ID", 32));
+        assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("P.PERSON_ID", 21));
+        assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("A.ADDRESS_ID", 32));
         assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("PERSONID", 44));
         assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("PERSONID", 53));
     }
@@ -64,12 +64,12 @@ public class SelectStatementRulesTest extends AbstractJDomTest {
     @Test
     public void testPrivateVariableAccess() throws Exception {
         final Set<Violation> violations = new SelectStatementRules(toDocument("private-variable-access.xml")).analyze();
-    	assertThat(violations).hasSize(4);
+        assertThat(violations).hasSize(4);
 
-    	assertThat(violations).contains(new AccessToPrivateVariableFromSelectViolation("S1_VAR", 10));
-    	assertThat(violations).contains(new AccessToPrivateVariableFromSelectViolation("S4_VAR", 39));
-    	assertThat(violations).contains(new AccessToPrivateVariableFromSelectViolation("S5_VAR", 52));
-    	assertThat(violations).contains(new AccessToPrivateVariableFromSelectViolation("S6_VAR", 62));
+        assertThat(violations).contains(new AccessToPrivateVariableFromSelectViolation("S1_VAR", 10));
+        assertThat(violations).contains(new AccessToPrivateVariableFromSelectViolation("S4_VAR", 39));
+        assertThat(violations).contains(new AccessToPrivateVariableFromSelectViolation("S5_VAR", 52));
+        assertThat(violations).contains(new AccessToPrivateVariableFromSelectViolation("S6_VAR", 62));
     }
 
     /**
@@ -82,10 +82,10 @@ public class SelectStatementRulesTest extends AbstractJDomTest {
     public void testCnvtintOrCnvtrealOnOracleField() throws Exception {
         final Set<Violation> violations = new SelectStatementRules(toDocument("cnvt-function-on-oracle-field.xml"))
                 .analyze();
-    	assertThat(violations).hasSize(3);
+        assertThat(violations).hasSize(3);
 
-    	assertThat(violations).contains(new InvalidCnvtOnOracleFieldViolation(6));
-    	assertThat(violations).contains(new InvalidCnvtOnOracleFieldViolation(14));
-    	assertThat(violations).contains(new InvalidCnvtOnOracleFieldViolation(22));
+        assertThat(violations).contains(new InvalidCnvtOnOracleFieldViolation(6));
+        assertThat(violations).contains(new InvalidCnvtOnOracleFieldViolation(14));
+        assertThat(violations).contains(new InvalidCnvtOnOracleFieldViolation(22));
     }
 }

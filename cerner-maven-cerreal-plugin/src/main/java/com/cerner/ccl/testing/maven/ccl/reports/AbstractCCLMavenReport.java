@@ -77,7 +77,8 @@ public abstract class AbstractCCLMavenReport extends AbstractMavenReport {
     }
 
     /**
-     * Helper routine for Mojos inheriting this class which gets the requested File from the specified directory by the files name
+     * Helper routine for Mojos inheriting this class which gets the requested File from the specified directory by the
+     * files name
      *
      * @param directory
      *            The directory to scan for the file

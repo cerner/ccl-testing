@@ -29,8 +29,7 @@ public interface ScriptExecutionAdder extends Adder {
     ScriptExecutionAdder withReplace(String recordName, Record record);
 
     /**
-     * Specify any command-line arguments to be used in the execution of the script.
-     * <br>
+     * Specify any command-line arguments to be used in the execution of the script. <br>
      * This is not a cumulative method. Multiple calls to this method will overwrite any previously-set arguments.
      *
      * @param arguments
@@ -44,8 +43,7 @@ public interface ScriptExecutionAdder extends Adder {
 
     /**
      * Indicate whether the domain credentials should be used to authenticate the CCL session before running the script.
-     * The system will not validate the credentials. The script should do that if it is important.
-     * <br>
+     * The system will not validate the credentials. The script should do that if it is important. <br>
      * This is not a cumulative method. Multiple calls to this method will overwrite any previously-set value.
      *
      * @param authenticate

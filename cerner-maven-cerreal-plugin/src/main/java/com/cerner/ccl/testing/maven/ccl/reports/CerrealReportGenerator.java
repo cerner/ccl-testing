@@ -181,7 +181,6 @@ public class CerrealReportGenerator {
             sink.table_();
         }
 
-
         sink.lineBreak();
         sink.lineBreak();
 
@@ -349,18 +348,17 @@ public class CerrealReportGenerator {
         sink.tableRow_();
     }
 
-    private static String getAssertStatement(final ResultsTestCase testCase, final ResultsTest test, final int assertIndex) {
+    private static String getAssertStatement(final ResultsTestCase testCase, final ResultsTest test,
+            final int assertIndex) {
         final int assertLineNumber = test.getAssertSourceCodeLineNumber(assertIndex);
         int startLineNumber = assertLineNumber;
         int endLineNumber = assertLineNumber;
         if (testCase.getName().equals("ut_cclut_execute_test_case_file")) {
-            logger.trace(
-                    "getAssertStatement for testName: {}, assertIndex: {}, assertLineNumber: {}", test.getName(),
+            logger.trace("getAssertStatement for testName: {}, assertIndex: {}, assertLineNumber: {}", test.getName(),
                     assertIndex, assertLineNumber);
         }
 
-        String assertStatementMasked = testCase.getSourceByLineNumber(startLineNumber)
-                .toLowerCase(Locale.getDefault());
+        String assertStatementMasked = testCase.getSourceByLineNumber(startLineNumber).toLowerCase(Locale.getDefault());
         String previousLine = testCase.getSourceByLineNumber(startLineNumber - 1).toLowerCase(Locale.getDefault());
         while (previousLine.endsWith("\\")) {
             assertStatementMasked = previousLine.substring(0, previousLine.length() - 1) + assertStatementMasked;

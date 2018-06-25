@@ -7,11 +7,10 @@ import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link Violation} used to describe a situation of an improper use of the CCL
- * {@code uar_srvsetstring()} function.
+ * A {@link Violation} used to describe a situation of an improper use of the CCL {@code uar_srvsetstring()} function.
  * <p>
- * The uniqueness of this violation is a combination of the given option, and the line
- * number - if any - at which it appears.
+ * The uniqueness of this violation is a combination of the given option, and the line number - if any - at which it
+ * appears.
  *
  * @author Albert Ponraj
  */
@@ -25,11 +24,9 @@ public class NulltermViolation implements Violation {
      * Create a violation.
      *
      * @param lineNumber
-     *            An {@link Integer} representing the line at which the violation was
-     *            encountered, if applicable.
+     *            An {@link Integer} representing the line at which the violation was encountered, if applicable.
      * @throws IllegalArgumentException
-     *             If any of the given objects, except for the line number, are
-     *             {@code null}.
+     *             If any of the given objects, except for the line number, are {@code null}.
      */
     public NulltermViolation(final Integer lineNumber) {
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -37,9 +34,11 @@ public class NulltermViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this) return true;
+        if (obj == this)
+            return true;
 
-        if (!(obj instanceof NulltermViolation)) return false;
+        if (!(obj instanceof NulltermViolation))
+            return false;
 
         final NulltermViolation other = (NulltermViolation) obj;
         return getLineNumber().equals(other.getLineNumber());
@@ -63,7 +62,8 @@ public class NulltermViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "When using vc strings as input into a UAR, the nullterm function should be wrapped around the variable. " + "Garbage characters get injected in CCL when using SRV_UAR calls without the nullterm() usage.";
+        return "When using vc strings as input into a UAR, the nullterm function should be wrapped around the variable. "
+                + "Garbage characters get injected in CCL when using SRV_UAR calls without the nullterm() usage.";
     }
 
     /**

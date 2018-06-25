@@ -34,7 +34,8 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
      * @throws IllegalArgumentException
      *             If any of the given objects, except for the line number, are {@code null}.
      */
-    public EmptyListOrStructureDefinitionViolation(final String recordStructureName, final String fieldName, final Integer lineNumber) {
+    public EmptyListOrStructureDefinitionViolation(final String recordStructureName, final String fieldName,
+            final Integer lineNumber) {
         if (recordStructureName == null)
             throw new IllegalArgumentException("Record structure name cannot be null.");
 
@@ -55,7 +56,8 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
             return false;
 
         final EmptyListOrStructureDefinitionViolation other = (EmptyListOrStructureDefinitionViolation) obj;
-        return getRecordStructureName().equalsIgnoreCase(other.getRecordStructureName()) && getFieldName().equalsIgnoreCase(other.getFieldName())
+        return getRecordStructureName().equalsIgnoreCase(other.getRecordStructureName())
+                && getFieldName().equalsIgnoreCase(other.getFieldName())
                 && getLineNumber().equals(other.getLineNumber());
     }
 
@@ -84,7 +86,8 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
      * {@inheritDoc}
      */
     public String getViolationDescription() {
-        return "Record [" + recordStructureName + "] contains list or struct member [" + fieldName + "] which does not have any child elements";
+        return "Record [" + recordStructureName + "] contains list or struct member [" + fieldName
+                + "] which does not have any child elements";
     }
 
     /**
@@ -92,7 +95,8 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
      */
     public String getViolationExplanation() {
         return "If a record structure declaration contains either a list or structure member with no child elements, there is almost certainly"
-                + " a problem with the definition of the record. Either the depth of the child elements was defined incorrectly or the list/struct" + " is not needed";
+                + " a problem with the definition of the record. Either the depth of the child elements was defined incorrectly or the list/struct"
+                + " is not needed";
     }
 
     /**
@@ -104,7 +108,8 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(recordStructureName.toLowerCase(Locale.US)).append(fieldName.toLowerCase(Locale.US)).append(lineNumber).toHashCode();
+        return new HashCodeBuilder().append(recordStructureName.toLowerCase(Locale.US))
+                .append(fieldName.toLowerCase(Locale.US)).append(lineNumber).toHashCode();
     }
 
     @Override

@@ -98,13 +98,14 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
         loadCoverage(testResultsDirectory, sourcePrograms, testPrograms);
 
         // Generate the coverage report given the source and test programs
-        new CCLCoverageReportGenerator(outputDirectory, testPrograms.values(), sourcePrograms.values(), e).generateReport();
+        new CCLCoverageReportGenerator(outputDirectory, testPrograms.values(), sourcePrograms.values(), e)
+                .generateReport();
     }
 
     /**
-     * This routine performs the (less than straight forward) task of marrying the coverage xml files with the programs that they test and then subsequently add the coverage to the program via the
-     * addCoverage() routine. Once all of the coverage information is added the programs can be later queried for coverage information
-     * <br>
+     * This routine performs the (less than straight forward) task of marrying the coverage xml files with the programs
+     * that they test and then subsequently add the coverage to the program via the addCoverage() routine. Once all of
+     * the coverage information is added the programs can be later queried for coverage information <br>
      * This method is purposefully left as package-private to expose it for testing.
      *
      * @param testResultsDirectory
@@ -116,7 +117,8 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
      * @throws MavenReportException
      *             When the xml files cannot be read or parsed and interpreted as coverage data
      */
-    void loadCoverage(File testResultsDirectory, Map<String, CCLCoverageProgram> programs, Map<String, CCLCoverageProgram> tests) throws MavenReportException {
+    void loadCoverage(File testResultsDirectory, Map<String, CCLCoverageProgram> programs,
+            Map<String, CCLCoverageProgram> tests) throws MavenReportException {
         File[] directoryList = testResultsDirectory.listFiles();
         if (directoryList == null) {
             return;
@@ -128,7 +130,8 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
                 CCLCoverageProgram testProgram = tests.get(dir.getName());
 
                 if (testProgram == null)
-                    throw new MavenReportException("Failed to get the test program object for test folder " + dir.getName());
+                    throw new MavenReportException(
+                            "Failed to get the test program object for test folder " + dir.getName());
 
                 // Find the coverage sub-directory
                 File[] subdirectoryList = dir.listFiles();
@@ -162,7 +165,9 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
                                     // source program and add this coverage to it
                                     CCLCoverageProgram sourceProgram = programs.get(f.getName().replace(".xml", ""));
                                     if (sourceProgram == null)
-                                        throw new MavenReportException("Expected a corresponding program listing for the coverage file " + f.getAbsolutePath());
+                                        throw new MavenReportException(
+                                                "Expected a corresponding program listing for the coverage file "
+                                                        + f.getAbsolutePath());
 
                                     // Add the coverage information to the source program
                                     sourceProgram.addCoverage(testProgram, coverageXML);
@@ -176,8 +181,8 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
     }
 
     /**
-     * Given the programListingsDirectory, this routine will scan all xml files and attempt to parse them into CCLCoveragePrograms where they can later be queried for coverage statistics
-     * <br>
+     * Given the programListingsDirectory, this routine will scan all xml files and attempt to parse them into
+     * CCLCoveragePrograms where they can later be queried for coverage statistics <br>
      * This method is purposefully left as package-private to expose it for testing.
      *
      * @param programListingsDirectory
@@ -207,8 +212,8 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
     }
 
     /**
-     * Given the testResultsDirectory, this routine will scan all xml files and attempt to parse them into CCLCoveragePrograms where they can later be queried for coverage statistics
-     * <br>
+     * Given the testResultsDirectory, this routine will scan all xml files and attempt to parse them into
+     * CCLCoveragePrograms where they can later be queried for coverage statistics <br>
      * This method is purposefully left as package-private to expose it for testing.
      *
      * @param testResultsDirectory
@@ -231,7 +236,9 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
                 try {
                     listingXML = FileUtils.readFileToString(listingFile, "utf-8");
                 } catch (IOException e) {
-                    throw new MavenReportException("Failed to read test program listing XML from directory " + dir.getName() + " due to error", e);
+                    throw new MavenReportException(
+                            "Failed to read test program listing XML from directory " + dir.getName() + " due to error",
+                            e);
                 }
                 tests.put(dir.getName(), new CCLCoverageProgram(listingXML));
             }

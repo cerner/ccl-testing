@@ -13,7 +13,8 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractViolationTest;
  * @author Joshua Hyde
  */
 
-public class LargeSequenceConvertedToIntegerViolationTest extends AbstractViolationTest<LargeSequenceConvertedToIntegerViolation> {
+public class LargeSequenceConvertedToIntegerViolationTest
+        extends AbstractViolationTest<LargeSequenceConvertedToIntegerViolation> {
     private final String onVariable = "whoops";
 
     /**
@@ -21,7 +22,8 @@ public class LargeSequenceConvertedToIntegerViolationTest extends AbstractViolat
      */
     @Test
     public void testConstructNullOnVariableName() {
-        final LargeSequenceConvertedToIntegerViolation violation = new LargeSequenceConvertedToIntegerViolation(null, null);
+        final LargeSequenceConvertedToIntegerViolation violation = new LargeSequenceConvertedToIntegerViolation(null,
+                null);
         assertThat(violation.getOnVariable()).isNull();
     }
 
@@ -30,8 +32,10 @@ public class LargeSequenceConvertedToIntegerViolationTest extends AbstractViolat
      */
     @Test
     public void testEqualsCaseInsensitiveVariableName() {
-        final LargeSequenceConvertedToIntegerViolation first = new LargeSequenceConvertedToIntegerViolation(onVariable, null);
-        final LargeSequenceConvertedToIntegerViolation second = new LargeSequenceConvertedToIntegerViolation(StringUtils.swapCase(onVariable), null);
+        final LargeSequenceConvertedToIntegerViolation first = new LargeSequenceConvertedToIntegerViolation(onVariable,
+                null);
+        final LargeSequenceConvertedToIntegerViolation second = new LargeSequenceConvertedToIntegerViolation(
+                StringUtils.swapCase(onVariable), null);
         assertThat(first).isEqualTo(second);
         assertThat(second).isEqualTo(first);
         assertThat(first.hashCode()).isEqualTo(second.hashCode());
@@ -42,8 +46,10 @@ public class LargeSequenceConvertedToIntegerViolationTest extends AbstractViolat
      */
     @Test
     public void testEqualsDifferentVariableName() {
-        final LargeSequenceConvertedToIntegerViolation first = new LargeSequenceConvertedToIntegerViolation(onVariable, null);
-        final LargeSequenceConvertedToIntegerViolation second = new LargeSequenceConvertedToIntegerViolation(StringUtils.reverse(onVariable), null);
+        final LargeSequenceConvertedToIntegerViolation first = new LargeSequenceConvertedToIntegerViolation(onVariable,
+                null);
+        final LargeSequenceConvertedToIntegerViolation second = new LargeSequenceConvertedToIntegerViolation(
+                StringUtils.reverse(onVariable), null);
         assertThat(first).isNotEqualTo(second);
         assertThat(second).isNotEqualTo(first);
     }

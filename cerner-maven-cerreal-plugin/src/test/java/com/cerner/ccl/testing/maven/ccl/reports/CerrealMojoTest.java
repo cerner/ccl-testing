@@ -30,7 +30,8 @@ import com.cerner.ccl.testing.maven.ccl.reports.common.ResultsTestSuite;
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value = { CerrealMojo.class, CerrealReportGenerator.class, ReportErrorLogger.class, ResultsTestSuite.class })
+@PrepareForTest(value = { CerrealMojo.class, CerrealReportGenerator.class, ReportErrorLogger.class,
+        ResultsTestSuite.class })
 public class CerrealMojoTest {
     private CerrealMojo mojo = new CerrealMojo();
 
@@ -47,7 +48,8 @@ public class CerrealMojoTest {
     }
 
     /**
-     * If the test-results directory exists but is not a directory, then the mojo should not be able to generate the report.
+     * If the test-results directory exists but is not a directory, then the mojo should not be able to generate the
+     * report.
      */
     @Test
     public void testCanGenerateReportNotDirectory() {
@@ -55,10 +57,10 @@ public class CerrealMojoTest {
         final File directory = mock(File.class);
         when(directory.exists()).thenReturn(Boolean.TRUE);
         when(directory.isDirectory()).thenReturn(Boolean.FALSE);
-    
+
         mojo.testResultsDirectory = directory;
         mojo.setLog(log);
-    
+
         assertThat(mojo.canGenerateReport()).isFalse();
         verify(log).info("Cannot generate Cerreal report due to missing test-results directory");
     }
@@ -71,10 +73,10 @@ public class CerrealMojoTest {
         final Log log = mock(Log.class);
         final File directory = mock(File.class);
         when(directory.exists()).thenReturn(Boolean.FALSE);
-    
+
         mojo.testResultsDirectory = directory;
         mojo.setLog(log);
-    
+
         assertThat(mojo.canGenerateReport()).isFalse();
         verify(log).info("Cannot generate Cerreal report due to missing test-results directory");
     }
@@ -134,12 +136,12 @@ public class CerrealMojoTest {
         mojo.reportErrorDirectory = reportErrorDirectory;
         mojo.outputDirectory = outputDirectory;
         mojo.testResultsDirectory = testResultsDirectory;
-        
+
         final Sink sink = mock(Sink.class);
         Whitebox.setInternalState(mojo, "sink", sink);
 
         mojo.executeReport(Locale.getDefault());
-        
+
         verify(generator).generateReport(sink);
     }
 
@@ -155,7 +157,8 @@ public class CerrealMojoTest {
         final File testResultsDirectory = mock(File.class);
         when(testResultsDirectory.exists()).thenReturn(Boolean.FALSE);
 
-        whenNew(ReportErrorLogger.class).withArguments(reportErrorDirectory).thenThrow(new AssertionError("The report error logger should never be instantiated."));
+        whenNew(ReportErrorLogger.class).withArguments(reportErrorDirectory)
+                .thenThrow(new AssertionError("The report error logger should never be instantiated."));
 
         mojo.reportErrorDirectory = reportErrorDirectory;
         mojo.testResultsDirectory = testResultsDirectory;

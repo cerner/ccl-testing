@@ -481,8 +481,7 @@ public class RecordSetterTest {
     }
 
     /**
-     * Test the setting of values for a list structure.
-     * <br>
+     * Test the setting of values for a list structure. <br>
      * The constructed structure is:
      *
      * <pre>
@@ -548,8 +547,7 @@ public class RecordSetterTest {
     }
 
     /**
-     * Test the creation of setter commands for a fixed-length list.
-     * <br>
+     * Test the creation of setter commands for a fixed-length list. <br>
      * The constructed structure is:
      *
      * <pre>
@@ -589,8 +587,7 @@ public class RecordSetterTest {
     }
 
     /**
-     * Test that assignment statements for a nested record structure work.
-     * <br>
+     * Test that assignment statements for a nested record structure work. <br>
      * The structure of the record structure is:
      *
      * <pre>

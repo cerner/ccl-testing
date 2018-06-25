@@ -20,9 +20,8 @@ public class TerminalProperties {
     private static final String DEFAULT_CCL_PROMPT_PATTERN = "\\n\\s*[1-9]\\d*\\)$";
     private static final String DEFAULT_CCL_LOGIN_PROMPT_PATTERN = "\\(Hit PF3 or RETURN to skip security login; this will disable Uar functions\\)";
     private static final String DEFAULT_CCL_LOGIN_SUCCESS_PROMPT_PATTERN = "Enter Y to continue.*";
-    private static final List<String> DEFAULT_CCL_LOGIN_FAILURE_PROMPT_PATTERNS = Arrays
-            .asList("V500 SECURITY LOGIN FAILURE", "V500 SECURITY LOGIN WARNING", "Retry \\(Y/N\\)",
-                    "Repeat New Password:");
+    private static final List<String> DEFAULT_CCL_LOGIN_FAILURE_PROMPT_PATTERNS = Arrays.asList(
+            "V500 SECURITY LOGIN FAILURE", "V500 SECURITY LOGIN WARNING", "Retry \\(Y/N\\)", "Repeat New Password:");
 
     private static TerminalProperties globalTerminalProperties;
 

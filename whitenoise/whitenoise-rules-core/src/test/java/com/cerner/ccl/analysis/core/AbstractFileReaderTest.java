@@ -35,7 +35,8 @@ public abstract class AbstractFileReaderTest extends AbstractJetmTest {
      * Read a test resource as a string.
      *
      * @param fileName
-     *            The name of the file to be read in. The file will be read in from the path of {@code /ccl/xml/<simple class name>/<given filename>}.
+     *            The name of the file to be read in. The file will be read in from the path of
+     *            {@code /ccl/xml/<simple class name>/<given filename>}.
      * @return A {@link String} representing the contents of the requested resource.
      */
     protected String toString(final String fileName) {

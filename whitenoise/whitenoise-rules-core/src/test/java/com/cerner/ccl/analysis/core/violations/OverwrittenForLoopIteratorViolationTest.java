@@ -13,7 +13,8 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractViolationTest;
  * @author Joshua Hyde
  */
 
-public class OverwrittenForLoopIteratorViolationTest extends AbstractViolationTest<OverwrittenForLoopIteratorViolation> {
+public class OverwrittenForLoopIteratorViolationTest
+        extends AbstractViolationTest<OverwrittenForLoopIteratorViolation> {
     private final String iterator = "an.iterator";
 
     /**
@@ -32,7 +33,8 @@ public class OverwrittenForLoopIteratorViolationTest extends AbstractViolationTe
     @Test
     public void testEqualsCaseInsensitiveIterator() {
         final OverwrittenForLoopIteratorViolation first = createViolation(null);
-        final OverwrittenForLoopIteratorViolation second = new OverwrittenForLoopIteratorViolation(StringUtils.swapCase(iterator), null);
+        final OverwrittenForLoopIteratorViolation second = new OverwrittenForLoopIteratorViolation(
+                StringUtils.swapCase(iterator), null);
         assertThat(first).isEqualTo(second);
         assertThat(second).isEqualTo(first);
         assertThat(first.hashCode()).isEqualTo(second.hashCode());
@@ -44,7 +46,8 @@ public class OverwrittenForLoopIteratorViolationTest extends AbstractViolationTe
     @Test
     public void testEqualsDifferentIterator() {
         final OverwrittenForLoopIteratorViolation first = createViolation(null);
-        final OverwrittenForLoopIteratorViolation second = new OverwrittenForLoopIteratorViolation(StringUtils.reverse(iterator), null);
+        final OverwrittenForLoopIteratorViolation second = new OverwrittenForLoopIteratorViolation(
+                StringUtils.reverse(iterator), null);
         assertThat(first).isNotEqualTo(second);
         assertThat(second).isNotEqualTo(first);
     }

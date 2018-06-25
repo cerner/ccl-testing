@@ -1,4 +1,5 @@
 package com.cerner.ccl.testing.maven.ccl.reports.common;
+
 import static org.fest.assertions.Assertions.assertThat;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -35,7 +36,8 @@ import com.cerner.ccl.testing.xsl.XslAPI;
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value = { CCLProgram.class, File.class, FileUtils.class, ResultsTestCase.class, ResultsTest.class, XslAPI.class })
+@PrepareForTest(value = { CCLProgram.class, File.class, FileUtils.class, ResultsTestCase.class, ResultsTest.class,
+        XslAPI.class })
 public class ResultsTestCaseTest {
     private final String testResultsXml = "i am the rest results XML";
     private final String testName = "a test name";
@@ -50,7 +52,8 @@ public class ResultsTestCaseTest {
     private NodeList nodeList;
 
     /**
-     * Set up all of the prerequisites to set up a {@link ResultsTest} instantiation with the exception of the actual {@link ResultsTest} objects.
+     * Set up all of the prerequisites to set up a {@link ResultsTest} instantiation with the exception of the actual
+     * {@link ResultsTest} objects.
      * 
      * @throws Exception
      *             If any errors occur during the setup.
@@ -97,7 +100,7 @@ public class ResultsTestCaseTest {
     @Test
     public void testGetListingXml() throws Exception {
         setUpTestResults();
-        
+
         final String listingXml = "i am the listing xml";
         when(program.getListingXML()).thenReturn(listingXml);
         assertThat(new ResultsTestCase(testDirectory).getListingXML()).isEqualTo(listingXml);
@@ -163,7 +166,8 @@ public class ResultsTestCaseTest {
      */
     @Test
     public void testGetPassedTestCount() throws Exception {
-        setUpTestResults(TestResult.PASSED, TestResult.FAILED, TestResult.PASSED, TestResult.PASSED, TestResult.ERRORED);
+        setUpTestResults(TestResult.PASSED, TestResult.FAILED, TestResult.PASSED, TestResult.PASSED,
+                TestResult.ERRORED);
         assertThat(new ResultsTestCase(testDirectory).getPassedTestCount()).isEqualTo(3);
     }
 

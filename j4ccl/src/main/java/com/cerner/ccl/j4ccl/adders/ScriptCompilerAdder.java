@@ -36,8 +36,7 @@ public interface ScriptCompilerAdder<S extends ScriptCompilerAdder> extends Adde
     S withDependency(File file);
 
     /**
-     * Set the location on the local harddisk to where the listing output will be downloaded.
-     * <br>
+     * Set the location on the local harddisk to where the listing output will be downloaded. <br>
      * This is an optional action.
      *
      * @param file

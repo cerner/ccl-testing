@@ -9,9 +9,11 @@ import com.cerner.ccl.analysis.data.SubroutineViolation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link SubroutineViolation} detailing when a subroutine's invocation does not match its corresponding {@code implementation} statement.
+ * A {@link SubroutineViolation} detailing when a subroutine's invocation does not match its corresponding
+ * {@code implementation} statement.
  * <p>
- * The uniqueness of this violation is determined by its given subroutine name and, if available, the line number; the comparison of subroutine names is case-insensitive.
+ * The uniqueness of this violation is determined by its given subroutine name and, if available, the line number; the
+ * comparison of subroutine names is case-insensitive.
  *
  * @author Albert Ponraj
  *

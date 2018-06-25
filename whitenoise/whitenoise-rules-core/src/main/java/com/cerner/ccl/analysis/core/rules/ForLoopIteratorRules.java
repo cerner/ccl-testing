@@ -55,8 +55,7 @@ public class ForLoopIteratorRules extends TimedDelegate {
                                     + "'] and NAME[position()=2 and @text = '" + name + "']]")
                     : selectNodes(forLoop, "./*[position() > 1]/descendant::NAME[@text = '" + name + "']");
 
-            if (references.isEmpty()
-                    && !forLoopContainsAlias(forLoop, getAliasesForVariable(name, namespace))) {
+            if (references.isEmpty() && !forLoopContainsAlias(forLoop, getAliasesForVariable(name, namespace))) {
                 violations.add(new UnreferencedForLoopIteratorViolation(iteratorName, getLineNumber(forLoop)));
             }
 
@@ -136,8 +135,7 @@ public class ForLoopIteratorRules extends TimedDelegate {
      * @throws JDOMException
      *             A jdom exception could occur if there are issues with the document.
      */
-    private List<Element> getAliasesForVariable(String variableName, String variableNamespace)
-            throws JDOMException {
+    private List<Element> getAliasesForVariable(String variableName, String variableNamespace) throws JDOMException {
         List<Element> result = new ArrayList<Element>();
         List<Element> aliases = lazyLoadAliases();
 

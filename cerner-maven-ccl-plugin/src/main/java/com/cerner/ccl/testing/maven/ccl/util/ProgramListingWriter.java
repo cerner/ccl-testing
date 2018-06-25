@@ -9,8 +9,7 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 
 /**
- * An object to write the listing output of a program's compilation to the local disk.
- * <br>
+ * An object to write the listing output of a program's compilation to the local disk. <br>
  * The output will be structured in the following structure (assume that "target" is the output directory and "program1"
  * is a program that was compiled):
  *
@@ -74,8 +73,8 @@ public class ProgramListingWriter {
         if (hasWrittenListing(cclObjectName))
             return;
         try {
-        formatter.formatAndWriteXml(xml,
-                new File(listingsDirectory, cclObjectName.toLowerCase(Locale.getDefault()) + ".xml"));
+            formatter.formatAndWriteXml(xml,
+                    new File(listingsDirectory, cclObjectName.toLowerCase(Locale.getDefault()) + ".xml"));
         } catch (RuntimeException e) {
             throw new RuntimeException("Failed to write xml program listing for " + cclObjectName, e);
         }

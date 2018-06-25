@@ -100,11 +100,10 @@ public class EnvironmentTest {
      */
     @BeforeClass
     public static void setupOnce() {
-        TerminalProperties.setGlobalTerminalProperties(
-                TerminalProperties.getNewBuilder()
-                        .setOsPromptPattern(
-                                TerminalProperties.constructDefaultOsPromptPattern("host", "enviornment.name", "user"))
-                        .build());
+        TerminalProperties.setGlobalTerminalProperties(TerminalProperties.getNewBuilder()
+                .setOsPromptPattern(
+                        TerminalProperties.constructDefaultOsPromptPattern("host", "enviornment.name", "user"))
+                .build());
     }
 
     /**
@@ -321,8 +320,7 @@ public class EnvironmentTest {
             verify(mockLogger, times(3)).error(logCaptor.capture());
 
             final List<String> logEntries = logCaptor.getAllValues();
-            assertThat(logEntries.get(0))
-                    .isEqualTo("Some environment logical retrieval commamds failed.");
+            assertThat(logEntries.get(0)).isEqualTo("Some environment logical retrieval commamds failed.");
             assertThat(logEntries.get(2)).contains("---------envData start---------");
             assertThat(logEntries.get(2)).contains("---------envData end---------");
         }
@@ -350,8 +348,7 @@ public class EnvironmentTest {
             verify(mockLogger, times(3)).error(logCaptor.capture());
 
             final List<String> logEntries = logCaptor.getAllValues();
-            assertThat(logEntries.get(0))
-                    .isEqualTo("Some environment logical retrieval commamds failed.");
+            assertThat(logEntries.get(0)).isEqualTo("Some environment logical retrieval commamds failed.");
             assertThat(logEntries.get(1)).isEqualTo(
                     "\n\r---------raw output start---------\n\rwhatever the terminal happens to return.\n\r---------raw output end---------");
             assertThat(logEntries.get(2)).contains("---------envData start---------");

@@ -29,8 +29,7 @@ import com.cerner.ccl.testing.maven.ccl.mojo.CompileMojo;
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value = { BaseCclMojo.class, CclExecutor.class, CclResourceUploader.class, 
-        CompileMojo.class })
+@PrepareForTest(value = { BaseCclMojo.class, CclExecutor.class, CclResourceUploader.class, CompileMojo.class })
 public class CompileMojoTest {
     /**
      * A {@link Rule} used to test for thrown exceptions.

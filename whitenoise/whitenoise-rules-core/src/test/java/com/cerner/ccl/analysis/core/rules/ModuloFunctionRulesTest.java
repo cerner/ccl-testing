@@ -61,8 +61,7 @@ public class ModuloFunctionRulesTest extends AbstractJDomTest {
      */
     @Test
     public void testModuloByOne() throws Exception {
-        final Set<Violation> violations = new ModuloFunctionRules(toDocument("modulo-by-one.xml"))
-                .doMeasuredAnalysis();
+        final Set<Violation> violations = new ModuloFunctionRules(toDocument("modulo-by-one.xml")).doMeasuredAnalysis();
         assertThat(violations).hasSize(3);
 
         assertThat(violations).contains(new ModuloByOneViolation(13));

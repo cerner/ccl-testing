@@ -30,12 +30,12 @@ public class SizeFunctionRulesTest extends AbstractJDomTest {
     public void testNoDeclaredRecordStructure() throws Exception {
         final Set<Violation> violations = new SizeFunctionRules(toDocument("size-function-use-no-record-declared.xml"))
                 .analyze();
-    	assertThat(violations).hasSize(4);
+        assertThat(violations).hasSize(4);
 
-    	assertThat(violations).contains(new SizeOfRecordMissingTrimViolation(6));
-    	assertThat(violations).contains(new SizeOfRecordMemberViolation("1",12));
-    	assertThat(violations).contains(new SizeOfRecordMemberViolation("2",17));
-    	assertThat(violations).contains(new SizeOfRecordMemberViolation("1",26));
+        assertThat(violations).contains(new SizeOfRecordMissingTrimViolation(6));
+        assertThat(violations).contains(new SizeOfRecordMemberViolation("1", 12));
+        assertThat(violations).contains(new SizeOfRecordMemberViolation("2", 17));
+        assertThat(violations).contains(new SizeOfRecordMemberViolation("1", 26));
     }
 
     /**
@@ -49,12 +49,12 @@ public class SizeFunctionRulesTest extends AbstractJDomTest {
     public void testDeclaredRecordStructure() throws Exception {
         final Set<Violation> violations = new SizeFunctionRules(toDocument("size-function-use-record-declared.xml"))
                 .analyze();
-    	assertThat(violations).hasSize(4);
+        assertThat(violations).hasSize(4);
 
-    	assertThat(violations).contains(new SizeOfRecordMemberViolation("1",13));
-    	assertThat(violations).contains(new SizeOfRecordMemberViolation("1",18));
-    	assertThat(violations).contains(new SizeOfRecordMemberViolation("2",23));
-    	assertThat(violations).contains(new SizeOfRecordMemberViolation("3",28));
+        assertThat(violations).contains(new SizeOfRecordMemberViolation("1", 13));
+        assertThat(violations).contains(new SizeOfRecordMemberViolation("1", 18));
+        assertThat(violations).contains(new SizeOfRecordMemberViolation("2", 23));
+        assertThat(violations).contains(new SizeOfRecordMemberViolation("3", 28));
 
     }
 }

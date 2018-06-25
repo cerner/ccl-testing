@@ -437,8 +437,8 @@ public class SubroutineDeclarationParserTest {
      */
     @Test
     public void testDeclareAllTheTypes() {
-        final SubroutineDeclaration declaration = parser.parse(
-                "declare allTheTypes(arg1 = vc, arg2 = vc(ref), arg3 = f4, arg4 = f4(ref), arg5 = f8, arg6 = f8(ref), "
+        final SubroutineDeclaration declaration = parser
+                .parse("declare allTheTypes(arg1 = vc, arg2 = vc(ref), arg3 = f4, arg4 = f4(ref), arg5 = f8, arg6 = f8(ref), "
                         + "arg7 = i1, arg8 = i1(ref), arg9 = ui1, arg10 = ui1(ref), arg11 = i2, arg12 = i2(ref), arg13 = ui2, arg14 = ui2(ref), "
                         + "arg15 = i4, arg16 = i4(ref), arg17 = ui4, arg18 = ui4(ref), arg19 = w8, arg20 = w8(ref), arg21 = uw8, arg22 = uw8(ref),  "
                         + "arg23 = h, arg24 = h(ref), arg25 = gvc, arg26 = gvc(ref),  arg27 = ZVC, arg28 = ZVC(ref),  arg29 = ZGVC, arg30 = ZGVC(ref),  "

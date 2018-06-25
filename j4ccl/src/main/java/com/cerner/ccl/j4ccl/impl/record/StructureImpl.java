@@ -68,8 +68,7 @@ public class StructureImpl implements Structure {
     }
 
     /**
-     * Add the declaration of this structure to a builder.
-     * <br>
+     * Add the declaration of this structure to a builder. <br>
      * This is intentionally kept at package-private to avoid it being part of the published API.
      *
      * @param builder

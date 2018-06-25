@@ -186,8 +186,8 @@ public class RecordWriter {
                         "Date value " + dateStringValue + " does not match pattern " + jsonDatePattern.toString());
 
             dateStringValue = dateStringValue.substring(6, dateStringValue.length() - 2);
-            if(dateStringValue.equals("0000-00-00T00:00:00.000+00:00"))
-                record.setDQ8(fieldName,null);
+            if (dateStringValue.equals("0000-00-00T00:00:00.000+00:00"))
+                record.setDQ8(fieldName, null);
             else
                 record.setDQ8(fieldName, CclUtils.convertTimestamp(dateStringValue));
             return;

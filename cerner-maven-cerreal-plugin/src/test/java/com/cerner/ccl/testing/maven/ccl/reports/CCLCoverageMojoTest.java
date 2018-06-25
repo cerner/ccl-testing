@@ -33,9 +33,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
-import com.cerner.ccl.testing.maven.ccl.reports.AbstractCCLMavenReport;
-import com.cerner.ccl.testing.maven.ccl.reports.CCLCoverageMojo;
-import com.cerner.ccl.testing.maven.ccl.reports.CCLCoverageReportGenerator;
 import com.cerner.ccl.testing.maven.ccl.reports.CCLCoverageMojoTest.InjectableMojo.LoadInvocation;
 import com.cerner.ccl.testing.maven.ccl.reports.common.CCLCoverageProgram;
 import com.cerner.ccl.testing.maven.ccl.reports.common.ReportErrorLogger;
@@ -48,7 +45,8 @@ import com.cerner.ccl.testing.maven.ccl.reports.common.ReportErrorLogger;
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value = { AbstractCCLMavenReport.class, CCLCoverageMojo.class, CCLCoverageReportGenerator.class, FileUtils.class, ReportErrorLogger.class })
+@PrepareForTest(value = { AbstractCCLMavenReport.class, CCLCoverageMojo.class, CCLCoverageReportGenerator.class,
+        FileUtils.class, ReportErrorLogger.class })
 public class CCLCoverageMojoTest {
     /**
      * A {@link Rule} used to test for thrown exceptions.
@@ -142,7 +140,8 @@ public class CCLCoverageMojoTest {
     }
 
     /**
-     * If the test results directory does exist but it is not, in fact, a directory, then the mojo cannot generate the report.
+     * If the test results directory does exist but it is not, in fact, a directory, then the mojo cannot generate the
+     * report.
      *
      * @throws Exception
      *             If any errors occur during the test run.
@@ -176,7 +175,8 @@ public class CCLCoverageMojoTest {
         when(programs.values()).thenReturn(programValues);
 
         final CCLCoverageReportGenerator generator = mock(CCLCoverageReportGenerator.class);
-        whenNew(CCLCoverageReportGenerator.class).withArguments(outputDirectory, testValues, programValues, errorLogger).thenReturn(generator);
+        whenNew(CCLCoverageReportGenerator.class).withArguments(outputDirectory, testValues, programValues, errorLogger)
+                .thenReturn(generator);
 
         final InjectableMojo injectable = new InjectableMojo();
         setUpMojo(injectable);
@@ -205,7 +205,8 @@ public class CCLCoverageMojoTest {
         final InjectableMojo injectable = new InjectableMojo();
         setUpMojo(injectable);
 
-        whenNew(ReportErrorLogger.class).withArguments(reportErrorDirectory).thenThrow(new AssertionError("I shouldn't have been called"));
+        whenNew(ReportErrorLogger.class).withArguments(reportErrorDirectory)
+                .thenThrow(new AssertionError("I shouldn't have been called"));
         // a lack of errors indicates that the report generation was aborted
         injectable.executeReport(Locale.getDefault());
     }
@@ -265,10 +266,11 @@ public class CCLCoverageMojoTest {
         // A directory to make sure that, if a directory has no listing.xml file, it will not be read
         final File noListingXmlDirectory = mock(File.class);
 
-        /*
-         * Create three files to exercise the iteration of the contents of the test result directory: 1) to exercise the reading of the coverage contents; 2) to make sure that a non-coverage directory
-         * is not read; 3) to make sure a non-directory is not read
-         */
+        // Create three files to exercise the iteration of the contents of the test result directory:
+        // 1) to exercise the reading of the coverage contents;
+        // 2) to make sure that a non-coverage directory is not read;
+        // 3) to make sure a non-directory is not read
+
         final File coverageDirectory = mock(File.class);
         when(coverageDirectory.getName()).thenReturn("coverage");
         when(coverageDirectory.isDirectory()).thenReturn(Boolean.TRUE);
@@ -278,12 +280,14 @@ public class CCLCoverageMojoTest {
         when(notCoverageDirectory.getName()).thenReturn("notCoverage");
 
         final File notDirectory = mock(File.class);
-        when(testResultDirectory.listFiles()).thenReturn(new File[] { coverageDirectory, notCoverageDirectory, notDirectory });
+        when(testResultDirectory.listFiles())
+                .thenReturn(new File[] { coverageDirectory, notCoverageDirectory, notDirectory });
 
-        /*
-         * Set up four files in the coverage directory: 1) a test-coverage file to exercise the reading of test coverage data; 2) a program's coverage data; 3) a file that is not an XML file; 4) a
-         * non-file
-         */
+        // Set up four files in the coverage directory:
+        // 1) a test-coverage file to exercise the reading of test coverage data;
+        // 2) a program's coverage data;
+        // 3) a file that is not an XML file;
+        // 4) a non-file
         final File testCoverageFile = mock(File.class);
         when(testCoverageFile.isFile()).thenReturn(Boolean.TRUE);
         when(testCoverageFile.getName()).thenReturn("test-coverage.xml");
@@ -298,7 +302,8 @@ public class CCLCoverageMojoTest {
 
         final File notFile = mock(File.class);
         when(notFile.isFile()).thenReturn(Boolean.FALSE);
-        when(coverageDirectory.listFiles()).thenReturn(new File[] { testCoverageFile, programCoverageFile, notXmlFile, notFile });
+        when(coverageDirectory.listFiles())
+                .thenReturn(new File[] { testCoverageFile, programCoverageFile, notXmlFile, notFile });
 
         final File testResultsDirectory = mock(File.class);
         when(testResultsDirectory.listFiles()).thenReturn(new File[] { testResultDirectory, noListingXmlDirectory });
@@ -354,11 +359,13 @@ public class CCLCoverageMojoTest {
 
         expected.expect(MavenReportException.class);
         expected.expectMessage("Failed to get the test program object for test folder " + testResultDirectoryName);
-        mojo.loadCoverage(testResultsDirectory, Collections.<String, CCLCoverageProgram> emptyMap(), Collections.<String, CCLCoverageProgram> emptyMap());
+        mojo.loadCoverage(testResultsDirectory, Collections.<String, CCLCoverageProgram> emptyMap(),
+                Collections.<String, CCLCoverageProgram> emptyMap());
     }
 
     /**
-     * If an attempt is made to load coverage for a program that is not known to the mojo, then loading the coverage should fail.
+     * If an attempt is made to load coverage for a program that is not known to the mojo, then loading the coverage
+     * should fail.
      *
      * @throws Exception
      *             If any errors occur during the test run.
@@ -395,7 +402,8 @@ public class CCLCoverageMojoTest {
         testPrograms.put(testResultDirectoryName, testProgram);
 
         mockStatic(FileUtils.class);
-        when(FileUtils.readFileToString(programCoverageFile, "utf-8")).thenReturn("this is just to prevent this call from failing");
+        when(FileUtils.readFileToString(programCoverageFile, "utf-8"))
+                .thenReturn("this is just to prevent this call from failing");
 
         expected.expect(MavenReportException.class);
         expected.expectMessage("Expected a corresponding program listing for the coverage file " + programAbsolutePath);
@@ -451,12 +459,13 @@ public class CCLCoverageMojoTest {
 
         final File noListingXmlDirectory = mock(File.class);
 
-        when(testResultsDirectory.listFiles()).thenReturn(new File[]{noListingXmlDirectory, listingXmlDirectory});
+        when(testResultsDirectory.listFiles()).thenReturn(new File[] { noListingXmlDirectory, listingXmlDirectory });
 
         final CCLCoverageProgram testProgram = mock(CCLCoverageProgram.class);
         whenNew(CCLCoverageProgram.class).withArguments(listingXml).thenReturn(testProgram);
 
-        assertThat(mojo.loadTestPrograms(testResultsDirectory)).hasSize(1).includes(entry(listingXmlDirectoryName, testProgram));
+        assertThat(mojo.loadTestPrograms(testResultsDirectory)).hasSize(1)
+                .includes(entry(listingXmlDirectoryName, testProgram));
     }
 
     /**
@@ -465,7 +474,7 @@ public class CCLCoverageMojoTest {
      * @param mojo
      *            The {@link CCLCoverageMojo} whose attributes are to be set.
      */
-    private void setUpMojo(CCLCoverageMojo mojo) {
+    private void setUpMojo(final CCLCoverageMojo mojo) {
         mojo.setLog(log);
         mojo.testResultsDirectory = testResultsDirectory;
         mojo.reportErrorDirectory = reportErrorDirectory;
@@ -502,7 +511,8 @@ public class CCLCoverageMojoTest {
              * @param tests
              *            The test programs.
              */
-            public LoadInvocation(File testResultsDirectory, Map<String, CCLCoverageProgram> programs, Map<String, CCLCoverageProgram> tests) {
+            public LoadInvocation(final File testResultsDirectory, final Map<String, CCLCoverageProgram> programs,
+                    final Map<String, CCLCoverageProgram> tests) {
                 this.testResultsDirectory = testResultsDirectory;
                 this.programs = programs;
                 this.tests = tests;
@@ -567,7 +577,7 @@ public class CCLCoverageMojoTest {
          * @param canGenerateReport
          *            A {@code boolean} dictating whether or not reports can be generated.
          */
-        public void setCanGenerateReport(boolean canGenerateReport) {
+        public void setCanGenerateReport(final boolean canGenerateReport) {
             this.canGenerateReport = canGenerateReport;
         }
 
@@ -579,7 +589,7 @@ public class CCLCoverageMojoTest {
          * @param sourcePrograms
          *            The source programs to be set.
          */
-        public void setSourcePrograms(File programListingsDirectory, Map<String, CCLCoverageProgram> sourcePrograms) {
+        public void setSourcePrograms(final File programListingsDirectory, final Map<String, CCLCoverageProgram> sourcePrograms) {
             this.sourcePrograms.put(programListingsDirectory, sourcePrograms);
         }
 
@@ -591,23 +601,23 @@ public class CCLCoverageMojoTest {
          * @param testPrograms
          *            The test programs to be set.
          */
-        public void setTestPrograms(File testResultsDirectory, Map<String, CCLCoverageProgram> testPrograms) {
+        public void setTestPrograms(final File testResultsDirectory, final Map<String, CCLCoverageProgram> testPrograms) {
             this.testPrograms.put(testResultsDirectory, testPrograms);
         }
 
         @Override
-        void loadCoverage(File testResultsDirectory, Map<String, CCLCoverageProgram> programs,
-                Map<String, CCLCoverageProgram> tests) {
+        void loadCoverage(final File testResultsDirectory, final Map<String, CCLCoverageProgram> programs,
+                final Map<String, CCLCoverageProgram> tests) {
             invocations.add(new LoadInvocation(testResultsDirectory, programs, tests));
         }
 
         @Override
-        Map<String, CCLCoverageProgram> loadSourcePrograms(File programListingsDirectory) {
+        Map<String, CCLCoverageProgram> loadSourcePrograms(final File programListingsDirectory) {
             return sourcePrograms.get(programListingsDirectory);
         }
 
         @Override
-        Map<String, CCLCoverageProgram> loadTestPrograms(File testResultsDirectory) {
+        Map<String, CCLCoverageProgram> loadTestPrograms(final File testResultsDirectory) {
             return testPrograms.get(testResultsDirectory);
         }
     }

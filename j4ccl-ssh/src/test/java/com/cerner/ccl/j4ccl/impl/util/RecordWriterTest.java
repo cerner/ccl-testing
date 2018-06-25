@@ -167,7 +167,7 @@ public class RecordWriterTest {
 
         RecordWriter.putFromJson(json, record);
 
-        verify(record,times(1)).setDQ8(DQ8_FIELD.getName(),null);
+        verify(record, times(1)).setDQ8(DQ8_FIELD.getName(), null);
     }
 
     /**

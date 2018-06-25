@@ -90,7 +90,8 @@ public class CCLCoverageProgramTest {
     @Test
     public void testAddCoverage() throws Exception {
         final String coverageXml = XmlGenerator.createTestCoverageXml("addedCoverage",
-                Arrays.asList(line(CoveredStatus.COVERED, 1), line(CoveredStatus.NOT_COVERED, 2), line(CoveredStatus.NOT_EXECUTABLE, 3)));
+                Arrays.asList(line(CoveredStatus.COVERED, 1), line(CoveredStatus.NOT_COVERED, 2),
+                        line(CoveredStatus.NOT_EXECUTABLE, 3)));
         final CCLCoverageProgram testProgram = mock(CCLCoverageProgram.class);
         coverageProgram.addCoverage(testProgram, coverageXml);
 
@@ -100,14 +101,16 @@ public class CCLCoverageProgramTest {
     }
 
     /**
-     * If the source code contains a reference to a line not in the coverage data, then {@link CoveredStatus#UNDEFINED} should be added to that line's coverage.
+     * If the source code contains a reference to a line not in the coverage data, then {@link CoveredStatus#UNDEFINED}
+     * should be added to that line's coverage.
      *
      * @throws Exception
      *             If any errors occur during the test run.
      */
     @Test
     public void testAddCoverageMissingLine() throws Exception {
-        final String coverageXml = XmlGenerator.createTestCoverageXml("addedCoverage", Arrays.asList(line(CoveredStatus.COVERED, 1), line(CoveredStatus.NOT_EXECUTABLE, 3)));
+        final String coverageXml = XmlGenerator.createTestCoverageXml("addedCoverage",
+                Arrays.asList(line(CoveredStatus.COVERED, 1), line(CoveredStatus.NOT_EXECUTABLE, 3)));
         final CCLCoverageProgram testProgram = mock(CCLCoverageProgram.class);
         coverageProgram.addCoverage(testProgram, coverageXml);
 
@@ -175,7 +178,8 @@ public class CCLCoverageProgramTest {
     }
 
     /**
-     * If the option to account for includes has been set, then the origin of the line should be disregarded. The setup is as follows:
+     * If the option to account for includes has been set, then the origin of the line should be disregarded. The setup
+     * is as follows:
      * <ul>
      * <li><b>coverageLineA</b>: This will match the requested status and be from "PROGRAM".</li>
      * <li><b>coverageLineB</b>: This will not match the given status.</li>
@@ -204,8 +208,10 @@ public class CCLCoverageProgramTest {
      * Test the counting of coverage for a specific test. The setup is as follows:
      * <ul>
      * <li><b>coverageLineA</b>: This will be covered by the given test and have a source of "PROGRAM".</li>
-     * <li><b>coverageLineB</b>: This will be covered by the given test, but with a coverage different from the request, and will have a source of "PROGRAM".</li>
-     * <li><b>coverageLineC</b>: This will be covered by the given test with a matching coverage, but will not come from a "PROGRAM" source.</li>
+     * <li><b>coverageLineB</b>: This will be covered by the given test, but with a coverage different from the request,
+     * and will have a source of "PROGRAM".</li>
+     * <li><b>coverageLineC</b>: This will be covered by the given test with a matching coverage, but will not come from
+     * a "PROGRAM" source.</li>
      * </ul>
      */
     @Test
@@ -227,7 +233,8 @@ public class CCLCoverageProgramTest {
     }
 
     /**
-     * Verify that counting the coverage by a specific test accounts for lines not covered at all by the given test. It will be set up as follows:
+     * Verify that counting the coverage by a specific test accounts for lines not covered at all by the given test. It
+     * will be set up as follows:
      * <ul>
      * <li><b>coverageLineA</b>: This will be covered by the given test and have a source of "PROGRAM".</li>
      * <li><b>coverageLineB</b>: This will not be covered by the given test.</li>
@@ -264,7 +271,8 @@ public class CCLCoverageProgramTest {
     }
 
     /**
-     * When counting the program lines, the source should not be considered if the {@code withIncludes} parameter is {@code true}.
+     * When counting the program lines, the source should not be considered if the {@code withIncludes} parameter is
+     * {@code true}.
      */
     @Test
     public void testGetTotalProgramLinesWithIncludes() {
@@ -286,7 +294,8 @@ public class CCLCoverageProgramTest {
         final CCLCoverageProgram wasTested = mock(CCLCoverageProgram.class);
         final CCLCoverageProgram notTested = mock(CCLCoverageProgram.class);
 
-        coverageProgram.addCoverage(wasTested, XmlGenerator.createTestCoverageXml("scriptName", Collections.<XmlCoverageLine> emptySet()));
+        coverageProgram.addCoverage(wasTested,
+                XmlGenerator.createTestCoverageXml("scriptName", Collections.<XmlCoverageLine> emptySet()));
         assertThat(coverageProgram.wasTestedBy(wasTested)).isTrue();
         assertThat(coverageProgram.wasTestedBy(notTested)).isFalse();
     }

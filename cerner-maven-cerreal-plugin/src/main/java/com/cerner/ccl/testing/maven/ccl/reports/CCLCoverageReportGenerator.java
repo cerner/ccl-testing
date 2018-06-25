@@ -43,7 +43,8 @@ public class CCLCoverageReportGenerator {
      * @param errorLogger
      *            A {@link ReportErrorLogger} used to report errors.
      */
-    public CCLCoverageReportGenerator(File outputDirectory, Collection<CCLCoverageProgram> testPrograms, Collection<CCLCoverageProgram> sourcePrograms, ReportErrorLogger errorLogger) {
+    public CCLCoverageReportGenerator(File outputDirectory, Collection<CCLCoverageProgram> testPrograms,
+            Collection<CCLCoverageProgram> sourcePrograms, ReportErrorLogger errorLogger) {
         this.outputDirectory = outputDirectory;
         this.sourcePrograms = sourcePrograms;
         this.testPrograms = testPrograms;
@@ -128,12 +129,15 @@ public class CCLCoverageReportGenerator {
      * @param program
      *            A {@link CCLCoverageProgram} representing the program for which the filename is to be created.
      * @param testProgram
-     *            A {@link CCLCoverageProgram} representing the test case, if any, for which the filename is to be generated. If {@code null}, then the filename of an aggregate report will be created.
+     *            A {@link CCLCoverageProgram} representing the test case, if any, for which the filename is to be
+     *            generated. If {@code null}, then the filename of an aggregate report will be created.
      * @param withIncludes
-     *            A {@code boolean} to indicate whether or not this is the filename of a report that includes include file source.
+     *            A {@code boolean} to indicate whether or not this is the filename of a report that includes include
+     *            file source.
      * @return The name of a report for the given inputs.
      */
-    private String createCoverageProgramFileName(CCLCoverageProgram program, CCLCoverageProgram testProgram, boolean withIncludes) {
+    private String createCoverageProgramFileName(CCLCoverageProgram program, CCLCoverageProgram testProgram,
+            boolean withIncludes) {
         String fileName = "ccl-coverage-reports/" + program.getName().toLowerCase(Locale.getDefault())
                 + (withIncludes == true ? "-wi-" : "-woi-");
 
@@ -151,14 +155,18 @@ public class CCLCoverageReportGenerator {
      * @param program
      *            A {@link CCLCoverageProgram} representing the program for which a coverage report is to be generated.
      * @param testProgram
-     *            A {@link CCLCoverageProgram} representing the test program for which the coverage report is to be generated; if {@code null}, this will be an aggregate report.
+     *            A {@link CCLCoverageProgram} representing the test program for which the coverage report is to be
+     *            generated; if {@code null}, this will be an aggregate report.
      * @param withIncludes
-     *            A {@code boolean} value; if {@code true}, then include source files will be considered in the report; if {@code false}, they will not be considered.
+     *            A {@code boolean} value; if {@code true}, then include source files will be considered in the report;
+     *            if {@code false}, they will not be considered.
      * @throws MavenReportException
      *             If any errors occur in the report generation.
      */
-    private void createProgramReport(CCLCoverageProgram program, CCLCoverageProgram testProgram, boolean withIncludes) throws MavenReportException {
-        File programFile = new File(outputDirectory.getAbsolutePath() + "/" + createCoverageProgramFileName(program, testProgram, withIncludes));
+    private void createProgramReport(CCLCoverageProgram program, CCLCoverageProgram testProgram, boolean withIncludes)
+            throws MavenReportException {
+        File programFile = new File(outputDirectory.getAbsolutePath() + "/"
+                + createCoverageProgramFileName(program, testProgram, withIncludes));
 
         String programXML;
         String programXSLT;
@@ -182,18 +190,21 @@ public class CCLCoverageReportGenerator {
     }
 
     /**
-     * Creates the xml representation of this program given the passed in test program and withIncludes variable. Generated XML will be in the form
-     * program name lines line number text coveredStatus
+     * Creates the xml representation of this program given the passed in test program and withIncludes variable.
+     * Generated XML will be in the form program name lines line number text coveredStatus
      *
      * @param program
      *            The CCL program object with coverage information to create the XML for
      * @param testProgram
-     *            This can either be valued or null. If null the coverage XML will indicate coverage for all tests which are testing the program instead of just coverage for a single test
+     *            This can either be valued or null. If null the coverage XML will indicate coverage for all tests which
+     *            are testing the program instead of just coverage for a single test
      * @param withIncludes
-     *            When set to true, lines/line will include source code that was included into the programs source via a %i include, otherwise when false, %i code is omitted from the coverage XML
+     *            When set to true, lines/line will include source code that was included into the programs source via a
+     *            %i include, otherwise when false, %i code is omitted from the coverage XML
      * @return The coverage XML for the program given the context of the testProgram and withIncludes parameters
      */
-    private String createProgramCoverageXML(CCLCoverageProgram program, CCLCoverageProgram testProgram, boolean withIncludes) {
+    private String createProgramCoverageXML(CCLCoverageProgram program, CCLCoverageProgram testProgram,
+            boolean withIncludes) {
         boolean writeIncludeLine = true;
 
         StringBuilder xml = new StringBuilder();
@@ -234,10 +245,13 @@ public class CCLCoverageReportGenerator {
     }
 
     /**
-     * Creates an XML representation of all programs, and tests which have been tested and what the code coverage for those tests are. The XML is returned in the following format
+     * Creates an XML representation of all programs, and tests which have been tested and what the code coverage for
+     * those tests are. The XML is returned in the following format
      *
-     * coverageSummary testPrograms testProgram name totalLines coverage covered notCovered linkURL sourcePrograms sourceProgram name withIncludes totalLines coverage aggregate covered notCovered
-     * linkURL tests test name covered notCovered linkURL withoutIncludes totalLines coverage aggregate covered notCovered linkURL tests test name covered notCovered linkURL
+     * coverageSummary testPrograms testProgram name totalLines coverage covered notCovered linkURL sourcePrograms
+     * sourceProgram name withIncludes totalLines coverage aggregate covered notCovered linkURL tests test name covered
+     * notCovered linkURL withoutIncludes totalLines coverage aggregate covered notCovered linkURL tests test name
+     * covered notCovered linkURL
      *
      * @return The coverage summary XML
      */
@@ -402,7 +416,8 @@ public class CCLCoverageReportGenerator {
         File cssFile;
 
         try {
-            cssFile = new File(outputDirectory.getAbsolutePath() + "/ccl-coverage-reports/css/codeCoverageDashboard.css");
+            cssFile = new File(
+                    outputDirectory.getAbsolutePath() + "/ccl-coverage-reports/css/codeCoverageDashboard.css");
             FileUtils.writeStringToFile(cssFile, getResourceAsString("css/codeCoverageDashboard.css"), "utf-8");
 
             cssFile = new File(outputDirectory.getAbsolutePath() + "/ccl-coverage-reports/css/codeCoverageProgram.css");

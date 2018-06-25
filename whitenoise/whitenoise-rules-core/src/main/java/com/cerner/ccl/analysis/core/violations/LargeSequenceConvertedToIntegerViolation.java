@@ -10,8 +10,8 @@ import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link Violation} indicating that a cnvtint() function was applied to a new sequence returned from
- * Oracle which would violate large sequence logic
+ * A {@link Violation} indicating that a cnvtint() function was applied to a new sequence returned from Oracle which
+ * would violate large sequence logic
  * <p>
  *
  * @author Jeff Wiedemann
@@ -37,7 +37,7 @@ public class LargeSequenceConvertedToIntegerViolation implements Violation {
      * Create a large sequence cnvtint violation.
      *
      * @param onVariable
-     * 		The name of the variable the cnvtint was done on when not directly done on the seq() function result
+     *            The name of the variable the cnvtint was done on when not directly done on the seq() function result
      *
      * @param lineNumber
      *            An {@link Integer} representing the line at which the violation was encountered, if applicable.
@@ -81,8 +81,8 @@ public class LargeSequenceConvertedToIntegerViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "CNVTINT on the resulting return value of the Oracle SEQ() function will overflow and not function correctly when the sequence " +
-                "exceeds 2^31. This is commonly referred to as the large sequence problem. CNVTREAL is the appropriate function to use instead.";
+        return "CNVTINT on the resulting return value of the Oracle SEQ() function will overflow and not function correctly when the sequence "
+                + "exceeds 2^31. This is commonly referred to as the large sequence problem. CNVTREAL is the appropriate function to use instead.";
 
     }
 
@@ -102,10 +102,10 @@ public class LargeSequenceConvertedToIntegerViolation implements Violation {
         return onVariable;
     }
 
-
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(StringUtils.lowerCase(onVariable, Locale.US)).append(getLineNumber()).toHashCode();
+        return new HashCodeBuilder().append(StringUtils.lowerCase(onVariable, Locale.US)).append(getLineNumber())
+                .toHashCode();
     }
 
     @Override

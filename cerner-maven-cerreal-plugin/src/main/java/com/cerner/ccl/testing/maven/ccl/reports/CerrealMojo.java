@@ -26,7 +26,8 @@ public class CerrealMojo extends AbstractCCLMavenReport {
     private String outputName;
 
     /**
-     * This method will return true if the test-results directory exists. If the directory does not exist, it is most likely because the test phase was not run, or was cleaned since the last run
+     * This method will return true if the test-results directory exists. If the directory does not exist, it is most
+     * likely because the test phase was not run, or was cleaned since the last run
      *
      * @see org.apache.maven.reporting.AbstractMavenReport#canGenerateReport()
      */

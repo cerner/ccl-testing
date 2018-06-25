@@ -6,8 +6,7 @@ import com.cerner.ccl.j4ccl.record.Structure;
 import com.cerner.ccl.j4ccl.record.StructureBuilder;
 
 /**
- * A factory object to create {@link Record} objects out of a structure.
- * <br>
+ * A factory object to create {@link Record} objects out of a structure. <br>
  * For more information on the relationships of records and structures, see {@link StructureBuilder}.
  *
  * @author Mark Cummings

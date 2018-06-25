@@ -35,7 +35,8 @@ public class ScriptTranslator {
      * Create a translator.
      * 
      * @param productProvider
-     *            An {@link FtpProductProvider} used to provide sufficient information to download files from the remote server.
+     *            An {@link FtpProductProvider} used to provide sufficient information to download files from the remote
+     *            server.
      * @throws IllegalArgumentException
      *             If the given product provider is {@code null}.
      */
@@ -50,8 +51,10 @@ public class ScriptTranslator {
      * Translate scripts into XML.
      * 
      * @param programNames
-     *            A {@link Collection} of {@link String} objects that are the names of the CCL programs to be translated to XML.
-     * @return A {@link Map}; the keys are the program names that were translated successfully, and the values are the XML forms of each file.
+     *            A {@link Collection} of {@link String} objects that are the names of the CCL programs to be translated
+     *            to XML.
+     * @return A {@link Map}; the keys are the program names that were translated successfully, and the values are the
+     *         XML forms of each file.
      * @throws IllegalArgumentException
      *             If any of the given collection is {@code null}.
      */
@@ -65,18 +68,21 @@ public class ScriptTranslator {
         final CclExecutor executor = CclExecutor.getExecutor();
         for (final String programName : programNames)
             request.getDynamicList("programs").addItem().setVC("program_name", programName);
-        executor.addScriptExecution("ccl_xml_translator").withReplace("reply", reply).withReplace("request", request).commit();
+        executor.addScriptExecution("ccl_xml_translator").withReplace("reply", reply).withReplace("request", request)
+                .commit();
         executor.execute();
 
         if (!reply.getRecord("status_data").getChar("status").trim().equalsIgnoreCase("S"))
-            throw new TranslationException(reply.getRecord("status_data").getList("subeventstatus").get(0).getVC("TargetObjectValue"));
+            throw new TranslationException(
+                    reply.getRecord("status_data").getList("subeventstatus").get(0).getVC("TargetObjectValue"));
 
         final DynamicRecordList programsList = reply.getDynamicList("programs");
         final Map<String, String> translations = new HashMap<String, String>(programsList.getSize());
         for (final Record program : programsList) {
             final File localDestination = createTempFile();
             final Downloader downloader = SftpDownloader.createDownloader(productProvider.getProduct());
-            downloader.download(Collections.singleton(FileRequestFactory.create(URI.create(program.getVC("translation_xml_file")), localDestination.toURI())));
+            downloader.download(Collections.singleton(FileRequestFactory
+                    .create(URI.create(program.getVC("translation_xml_file")), localDestination.toURI())));
 
             translations.put(program.getVC("program_name"), readFile(localDestination));
         }
@@ -100,8 +106,10 @@ public class ScriptTranslator {
      * @return A {@link Structure} representing the structure of the reply from the XML translation program.
      */
     protected Structure getReplyStructure() {
-        final Structure replyProgramsListStructure = StructureBuilder.getBuilder().addVC("program_name").addVC("translation_xml_file").build();
-        return StructureBuilder.getBuilder().addDynamicList("programs", replyProgramsListStructure).addStatusData().build();
+        final Structure replyProgramsListStructure = StructureBuilder.getBuilder().addVC("program_name")
+                .addVC("translation_xml_file").build();
+        return StructureBuilder.getBuilder().addDynamicList("programs", replyProgramsListStructure).addStatusData()
+                .build();
     }
 
     /**

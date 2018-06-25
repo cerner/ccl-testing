@@ -89,7 +89,8 @@ public class XslAPI {
      *            The parent {@link Node} on which the xpath expression is to be applied.
      * @param xPath
      *            The xpath expression to be applied.
-     * @return {@code null} if nothing can be found using the given xpath expression; otherwise, a {@link NodeList} representing the results.
+     * @return {@code null} if nothing can be found using the given xpath expression; otherwise, a {@link NodeList}
+     *         representing the results.
      */
     public static NodeList getXPathNodeList(Node node, String xPath) {
         try {

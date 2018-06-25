@@ -16,7 +16,8 @@ import com.cerner.ccl.analysis.data.RecordStructureViolation;
  *            The {@link RecordStructureViolation} implementation to be tested.
  */
 
-public abstract class AbstractRecordStructureViolationTest<T extends RecordStructureViolation> extends AbstractViolationTest<T> {
+public abstract class AbstractRecordStructureViolationTest<T extends RecordStructureViolation>
+        extends AbstractViolationTest<T> {
     private final String recordStructureName = "recordStructureName";
     private final Integer lineNumber = Integer.valueOf(2);
 

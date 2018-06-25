@@ -19,8 +19,7 @@ public final class FileAssistant {
     }
 
     /**
-     * Determine the location a file should reside on on the remote environment.
-     * <br>
+     * Determine the location a file should reside on on the remote environment. <br>
      * This requires an {@link Environment#getEnvironment()} to be in scope.
      *
      * @param localFile

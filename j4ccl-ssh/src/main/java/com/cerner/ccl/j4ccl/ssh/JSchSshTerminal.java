@@ -147,10 +147,12 @@ public class JSchSshTerminal {
                         buffer.append(expectStateBuffer);
                         stream.write(expectStateBuffer.getBytes("UTF-8"));
 
-// ********* helpful for debugging issues with expect **********
-//                        System.out.println("-------------------------------buffer start------------------------------");
-//                        System.out.println(expectStateBuffer);
-//                        System.out.println("-------------------------------buffer end------------------------------");
+                        // ********* helpful for debugging issues with expect **********
+                        // System.out.println("-------------------------------buffer
+                        // start------------------------------");
+                        // System.out.println(expectStateBuffer);
+                        // System.out.println("-------------------------------buffer
+                        // end------------------------------");
 
                         String match = expectState.getMatch().replaceAll("(?:\r|\n)", "");
                         // cclPromptIsSet && pairIndex==0 --> ccl prompt or ccl execute prompt pattern was matched.
@@ -199,9 +201,8 @@ public class JSchSshTerminal {
                         }
                         expect.send(command);
                         expect.send("\r");
-                        final int expectVal = command.isEmpty() ? 0
-                                : isCclExecuteCommand(command) ? expect.expect(cclExecuteExpectationPatterns)
-                                        : expect.expect(lstPattern);
+                        final int expectVal = command.isEmpty() ? 0 : isCclExecuteCommand(command)
+                                ? expect.expect(cclExecuteExpectationPatterns) : expect.expect(lstPattern);
                         if (expectVal < 0) {
                             logger.debug("The expectation result was {} for command {} with patterns {}",
                                     translateExpectVal(expectVal), commandDisplay,
@@ -264,7 +265,7 @@ public class JSchSshTerminal {
         // TODO: allow different wait times for the "ccl" command and the "exit" command. ???
         return expectationTimeout == EXPECT4J_TIMEOUT_INFINITE ? EXPECT4J_TIMEOUT_INFINITE
                 : isCclExecuteCommand(command) ? EXPECT4J_TIMEOUT_INFINITE
-                : isCclExitCommand(command) ? 2 * expectationTimeout : expectationTimeout;
+                        : isCclExitCommand(command) ? 2 * expectationTimeout : expectationTimeout;
     }
 
     private boolean isCclExecuteCommand(final String command) {

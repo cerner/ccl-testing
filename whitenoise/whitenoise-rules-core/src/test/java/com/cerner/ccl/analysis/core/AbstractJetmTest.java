@@ -31,7 +31,7 @@ public abstract class AbstractJetmTest {
     @Rule
     public TestName testName = new TestName();
 
-    private  EtmMonitor monitor;
+    private EtmMonitor monitor;
 
     /**
      * Configure and start the JETM monitor.
@@ -79,6 +79,7 @@ public abstract class AbstractJetmTest {
 
     /**
      * Get the name of the current test.
+     * 
      * @return The name of the current test.
      */
     protected String getTestName() {

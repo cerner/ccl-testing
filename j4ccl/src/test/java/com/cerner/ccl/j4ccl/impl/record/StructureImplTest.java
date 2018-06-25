@@ -134,8 +134,7 @@ public class StructureImplTest {
     }
 
     /**
-     * Test the contribution of a declaration when the field represents a nested structure.
-     * <br>
+     * Test the contribution of a declaration when the field represents a nested structure. <br>
      * The built record structure is:
      *
      * <pre>

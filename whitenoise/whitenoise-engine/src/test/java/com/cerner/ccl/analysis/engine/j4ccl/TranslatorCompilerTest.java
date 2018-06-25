@@ -32,7 +32,8 @@ import com.cerner.ccl.j4ccl.adders.ScriptCompilerAdder;
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value = { CclExecutor.class, FileOutputStream.class, IOUtils.class, OutputStreamWriter.class, TranslatorCompiler.class })
+@PrepareForTest(value = { CclExecutor.class, FileOutputStream.class, IOUtils.class, OutputStreamWriter.class,
+        TranslatorCompiler.class })
 public class TranslatorCompilerTest extends AbstractUnitTest {
     /**
      * Test the execution of the compilation of the translation script.

@@ -10,7 +10,8 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
 
 /**
- * A {@link URIResolver} used to track resources and create stream references. It uses a concatenation of the base URI and {@code href} attribute to identify resources.
+ * A {@link URIResolver} used to track resources and create stream references. It uses a concatenation of the base URI
+ * and {@code href} attribute to identify resources.
  * 
  * @author Jeff Wiedemann
  * 

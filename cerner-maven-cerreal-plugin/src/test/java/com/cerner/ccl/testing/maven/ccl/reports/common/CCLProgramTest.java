@@ -42,8 +42,8 @@ public class CCLProgramTest {
     @Rule
     public TestName testName = new TestName();
     /**
-     * A {@link Rule} used to test for thrown exceptions. This <b>must</b> appear last of all rules in order to ensure it can catch any exceptions (instead of letting another rule catch and mishandle
-     * the expected exception).
+     * A {@link Rule} used to test for thrown exceptions. This <b>must</b> appear last of all rules in order to ensure
+     * it can catch any exceptions (instead of letting another rule catch and mishandle the expected exception).
      */
     @Rule
     public ExpectedException expected = ExpectedException.none();
@@ -70,7 +70,8 @@ public class CCLProgramTest {
      */
     @Test
     public void testGetListingXml() throws Exception {
-        final String listingXml = createListingXml(testName.getMethodName(), Collections.singleton("call echo('test')"));
+        final String listingXml = createListingXml(testName.getMethodName(),
+                Collections.singleton("call echo('test')"));
         assertThat(new CCLProgram(listingXml).getListingXML()).isEqualTo(listingXml);
     }
 
@@ -136,8 +137,8 @@ public class CCLProgramTest {
     @Test
     public void testGetProgramLinesWithInclude() throws Exception {
         final String includeStatement = "%i cclsource:test.inc";
-        final List<String> source = Arrays.asList("call echo('not nested before')", INC_START + includeStatement, "call echo('nested in include')", INC_END + includeStatement,
-                "call echo('not nested after')");
+        final List<String> source = Arrays.asList("call echo('not nested before')", INC_START + includeStatement,
+                "call echo('nested in include')", INC_END + includeStatement, "call echo('not nested after')");
         final String listingXml = createListingXml(testName.getMethodName(), source);
         final CCLProgram program = new CCLProgram(listingXml);
         final List<ProgramLine> programLines = program.getProgramLines();

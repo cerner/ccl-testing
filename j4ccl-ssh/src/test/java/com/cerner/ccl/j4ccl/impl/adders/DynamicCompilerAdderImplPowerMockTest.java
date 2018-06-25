@@ -125,9 +125,8 @@ public class DynamicCompilerAdderImplPowerMockTest extends AbstractUnitTest {
 
         final ArgumentCaptor<File> scriptFileCaptor = ArgumentCaptor.forClass(File.class);
         final ScriptCompilerCommand compileCommand = mock(ScriptCompilerCommand.class);
-        whenNew(ScriptCompilerCommand.class)
-                .withArguments(scriptFileCaptor.capture(), ArgumentMatchers.<Collection<File>> any(),
-                        ArgumentMatchers.<File> any(), eq(Boolean.FALSE))
+        whenNew(ScriptCompilerCommand.class).withArguments(scriptFileCaptor.capture(),
+                ArgumentMatchers.<Collection<File>> any(), ArgumentMatchers.<File> any(), eq(Boolean.FALSE))
                 .thenReturn(compileCommand);
 
         final DropScriptCommand dropCommand = mock(DropScriptCommand.class);
@@ -158,9 +157,8 @@ public class DynamicCompilerAdderImplPowerMockTest extends AbstractUnitTest {
 
         final ArgumentCaptor<File> scriptFileCaptor = ArgumentCaptor.forClass(File.class);
         final ScriptCompilerCommand compileCommand = mock(ScriptCompilerCommand.class);
-        whenNew(ScriptCompilerCommand.class)
-                .withArguments(scriptFileCaptor.capture(), ArgumentMatchers.<Collection<File>> any(),
-                        ArgumentMatchers.<File> any(), eq(Boolean.TRUE))
+        whenNew(ScriptCompilerCommand.class).withArguments(scriptFileCaptor.capture(),
+                ArgumentMatchers.<Collection<File>> any(), ArgumentMatchers.<File> any(), eq(Boolean.TRUE))
                 .thenReturn(compileCommand);
 
         final DropScriptCommand dropCommand = mock(DropScriptCommand.class);

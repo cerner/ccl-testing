@@ -268,7 +268,6 @@ public class TestMojoTest {
         assertThat(record.getI2Boolean("compile")).isTrue();
     }
 
-
     /**
      * If the user specifies a test subroutine name, then it should be sent to the testing framework.
      *

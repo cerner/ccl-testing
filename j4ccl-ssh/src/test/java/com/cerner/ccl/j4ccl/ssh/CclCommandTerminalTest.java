@@ -228,9 +228,8 @@ public class CclCommandTerminalTest {
         assertThat(commandExpectationGroups.get(3).getExpectations()).isEqualTo(Arrays.asList("cclPromptPattern"));
         assertThat(commandExpectationGroups.get(4).getCommands())
                 .isEqualTo(Arrays.asList("set width 132 go", command1));
-        assertThat(commandExpectationGroups.get(4).getExpectations())
-                .isEqualTo(Arrays.asList("cclPromptPattern", CclCommandTerminal.CCL_VIEWER_PATTERN,
-                        CclCommandTerminal.CCL_ABORT_PATTERN));
+        assertThat(commandExpectationGroups.get(4).getExpectations()).isEqualTo(Arrays.asList("cclPromptPattern",
+                CclCommandTerminal.CCL_VIEWER_PATTERN, CclCommandTerminal.CCL_ABORT_PATTERN));
         assertThat(commandExpectationGroups.get(5).getCommands()).isEqualTo(Arrays.asList("exit"));
         assertThat(commandExpectationGroups.get(5).getExpectations()).isEqualTo(Arrays.asList("osPromptPattern"));
 
@@ -278,9 +277,8 @@ public class CclCommandTerminalTest {
         assertThat(commandExpectationGroups.get(6).getExpectations()).isEqualTo(Arrays.asList("cclPromptPattern"));
         assertThat(commandExpectationGroups.get(7).getCommands())
                 .isEqualTo(Arrays.asList("set width 132 go", command1));
-        assertThat(commandExpectationGroups.get(7).getExpectations())
-                .isEqualTo(Arrays.asList("cclPromptPattern", CclCommandTerminal.CCL_VIEWER_PATTERN,
-                        CclCommandTerminal.CCL_ABORT_PATTERN));
+        assertThat(commandExpectationGroups.get(7).getExpectations()).isEqualTo(Arrays.asList("cclPromptPattern",
+                CclCommandTerminal.CCL_VIEWER_PATTERN, CclCommandTerminal.CCL_ABORT_PATTERN));
         assertThat(commandExpectationGroups.get(8).getCommands()).isEqualTo(Arrays.asList("exit"));
         assertThat(commandExpectationGroups.get(8).getExpectations()).isEqualTo(Arrays.asList("osPromptPattern"));
         verify(sshTerminal).setExpectationTimeout(333);
@@ -347,9 +345,8 @@ public class CclCommandTerminalTest {
         assertThat(commandExpectationGroups.get(6).getExpectations()).isEqualTo(Arrays.asList("cclPromptPattern"));
         assertThat(commandExpectationGroups.get(7).getCommands())
                 .isEqualTo(Arrays.asList("set width 132 go", command1, command2, command3));
-        assertThat(commandExpectationGroups.get(7).getExpectations())
-                .isEqualTo(Arrays.asList("cclPromptPattern", CclCommandTerminal.CCL_VIEWER_PATTERN,
-                        CclCommandTerminal.CCL_ABORT_PATTERN));
+        assertThat(commandExpectationGroups.get(7).getExpectations()).isEqualTo(Arrays.asList("cclPromptPattern",
+                CclCommandTerminal.CCL_VIEWER_PATTERN, CclCommandTerminal.CCL_ABORT_PATTERN));
         assertThat(commandExpectationGroups.get(8).getCommands()).isEqualTo(Arrays.asList("exit"));
         assertThat(commandExpectationGroups.get(8).getExpectations()).isEqualTo(Arrays.asList("osPromptPattern"));
 

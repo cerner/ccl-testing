@@ -181,9 +181,8 @@ public class TextParser {
                                     (SubroutineDocumentation) lastDocumentation);
                         } else {
                             logger.warn("CDOC warning");
-                            logger.warn(
-                                    "The documentation immediately preceding subroutine '" + declaration.getName()
-                                            + "' is not valid subroutine documentation.");
+                            logger.warn("The documentation immediately preceding subroutine '" + declaration.getName()
+                                    + "' is not valid subroutine documentation.");
                         }
                     }
                     lastDocumentation = null;
@@ -203,9 +202,8 @@ public class TextParser {
                                     (SubroutineDocumentation) lastDocumentation);
                         } else {
                             logger.warn("CDOC warning");
-                            logger.warn(
-                                    "The documentation immediately preceding subroutine '" + definition.getName()
-                                            + "' is not valid subroutine documentation.");
+                            logger.warn("The documentation immediately preceding subroutine '" + definition.getName()
+                                    + "' is not valid subroutine documentation.");
                         }
                     }
                     lastDocumentation = null;

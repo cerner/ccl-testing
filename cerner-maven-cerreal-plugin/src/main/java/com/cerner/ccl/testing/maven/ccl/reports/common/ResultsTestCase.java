@@ -32,18 +32,25 @@ public class ResultsTestCase {
      * Constructor for a test case
      * 
      * @param testCaseDirectory
-     *            The directory from target/test-results which stores the listing xml for this test case as well as the test results from the last test run
+     *            The directory from target/test-results which stores the listing xml for this test case as well as the
+     *            test results from the last test run
      * @throws MavenReportException
-     *             When the listing xml file cannot be read or interpreted as valid xml for a CCL program. When the test-results xml file cannot be read or interpreted as valid results xml for the
-     *             test run. When a data abnormality in the test results xml is identified which likely compromises the integrity of the test results
+     *             When the listing xml file cannot be read or interpreted as valid xml for a CCL program. When the
+     *             test-results xml file cannot be read or interpreted as valid results xml for the test run. When a
+     *             data abnormality in the test results xml is identified which likely compromises the integrity of the
+     *             test results
      */
     public ResultsTestCase(File testCaseDirectory) throws MavenReportException {
         this.name = testCaseDirectory.getName();
         try {
-            this.testProgram = new CCLProgram(FileUtils.readFileToString(new File(testCaseDirectory, "listing.xml"), "utf-8"));
+            this.testProgram = new CCLProgram(
+                    FileUtils.readFileToString(new File(testCaseDirectory, "listing.xml"), "utf-8"));
             this.testResultsXML = FileUtils.readFileToString(new File(testCaseDirectory, "test-results.xml"), "utf-8");
         } catch (IOException e) {
-            throw new MavenReportException("Failed to open listing.xml or test-results.xml files from test-result directory " + this.name + " due to error", e);
+            throw new MavenReportException(
+                    "Failed to open listing.xml or test-results.xml files from test-result directory " + this.name
+                            + " due to error",
+                    e);
         }
 
         try {

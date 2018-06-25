@@ -13,7 +13,8 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractVariableViolatio
  * @author Joshua Hyde
  */
 
-public class InvalidVariableInitializationViolationTest extends AbstractVariableViolationTest<InvalidVariableInitializationViolation> {
+public class InvalidVariableInitializationViolationTest
+        extends AbstractVariableViolationTest<InvalidVariableInitializationViolation> {
     private final String variableName = "a.variable";
     private final String initializationValue = "24";
 
@@ -33,7 +34,8 @@ public class InvalidVariableInitializationViolationTest extends AbstractVariable
     @Test
     public void testEqualsDifferentInitializationValue() {
         final InvalidVariableInitializationViolation first = createViolation(variableName, null);
-        final InvalidVariableInitializationViolation second = new InvalidVariableInitializationViolation(variableName, StringUtils.reverse(initializationValue), null);
+        final InvalidVariableInitializationViolation second = new InvalidVariableInitializationViolation(variableName,
+                StringUtils.reverse(initializationValue), null);
         assertThat(first).isNotEqualTo(second);
         assertThat(second).isNotEqualTo(first);
     }
@@ -43,11 +45,13 @@ public class InvalidVariableInitializationViolationTest extends AbstractVariable
      */
     @Test
     public void testGetInitializationValue() {
-        assertThat(new InvalidVariableInitializationViolation(variableName, initializationValue, null).getInitializationValue()).isEqualTo(initializationValue);
+        assertThat(new InvalidVariableInitializationViolation(variableName, initializationValue, null)
+                .getInitializationValue()).isEqualTo(initializationValue);
     }
 
     @Override
-    protected InvalidVariableInitializationViolation createViolation(final String variableName, final Integer lineNumber) {
+    protected InvalidVariableInitializationViolation createViolation(final String variableName,
+            final Integer lineNumber) {
         return new InvalidVariableInitializationViolation(variableName, initializationValue, lineNumber);
     }
 

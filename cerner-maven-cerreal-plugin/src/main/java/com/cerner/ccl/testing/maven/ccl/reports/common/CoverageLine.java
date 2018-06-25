@@ -64,18 +64,19 @@ public class CoverageLine {
             // If ever the line is marked as not executable, it's not executable
             if (status == CoveredStatus.NOT_EXECUTABLE)
                 return CoveredStatus.NOT_EXECUTABLE;
-    
+
             // If ever the line was covered, indicate covered
             if (status == CoveredStatus.COVERED)
                 return CoveredStatus.COVERED;
-    
+
             isNotCovered |= CoveredStatus.NOT_COVERED.equals(status);
         }
-    
-        // If the line was never covered, and never not executable and there exists a time when it was not covered... it's not covered
+
+        // If the line was never covered, and never not executable and there exists a time when it was not covered...
+        // it's not covered
         if (isNotCovered)
             return CoveredStatus.NOT_COVERED;
-    
+
         // If it's none of the other statuses... it's not defined
         return CoveredStatus.UNDEFINED;
     }
@@ -83,7 +84,8 @@ public class CoverageLine {
     /**
      * Get the coverage data for this line.
      * 
-     * @return A {@link Map}. The keys are each test script that has covered this line; the values are the coverage of this line.
+     * @return A {@link Map}. The keys are each test script that has covered this line; the values are the coverage of
+     *         this line.
      */
     public Map<CCLCoverageProgram, CoveredStatus> getCoverage() {
         return Collections.unmodifiableMap(coverage);
@@ -94,13 +96,13 @@ public class CoverageLine {
      * 
      * @param testCase
      *            The {@link CCLCoverageProgram} for which coverage is to be determined.
-     * @return A {@link CoveredStatus} enum; if the given test case is {@code null}, then this is the aggregate covered status; otherwise, this represents the coverage of this line by the given test
-     *         case.
+     * @return A {@link CoveredStatus} enum; if the given test case is {@code null}, then this is the aggregate covered
+     *         status; otherwise, this represents the coverage of this line by the given test case.
      */
     public CoveredStatus getCoveredStatusByTestCase(CCLCoverageProgram testCase) {
         if (testCase == null)
             return getAggregateCoveredStatus();
-    
+
         return coverage.get(testCase);
     }
 

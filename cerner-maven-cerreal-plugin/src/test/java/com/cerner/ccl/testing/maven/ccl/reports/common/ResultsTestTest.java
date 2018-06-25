@@ -124,7 +124,8 @@ public class ResultsTestTest {
     public void testGetAssertSourceCodeLineNumber() {
         final int lineNumber = 2346;
         final int assertIdx = 363;
-        when(XslAPI.getNodeXPathValue(node, "./ASSERTS/ASSERT[" + assertIdx + "]/LINENUMBER")).thenReturn(Integer.toString(lineNumber));
+        when(XslAPI.getNodeXPathValue(node, "./ASSERTS/ASSERT[" + assertIdx + "]/LINENUMBER"))
+                .thenReturn(Integer.toString(lineNumber));
         assertThat(test.getAssertSourceCodeLineNumber(assertIdx)).isEqualTo(lineNumber);
     }
 
@@ -135,7 +136,8 @@ public class ResultsTestTest {
     public void testGetErrorLineNumber() {
         final int lineNumber = 47099;
         final int errorIdx = 1695;
-        when(XslAPI.getNodeXPathValue(node, "./ERRORS/ERROR[" + errorIdx + "]/LINENUMBER")).thenReturn(Integer.toString(lineNumber));
+        when(XslAPI.getNodeXPathValue(node, "./ERRORS/ERROR[" + errorIdx + "]/LINENUMBER"))
+                .thenReturn(Integer.toString(lineNumber));
         assertThat(test.getErrorLineNumber(errorIdx)).isEqualTo(lineNumber);
     }
 

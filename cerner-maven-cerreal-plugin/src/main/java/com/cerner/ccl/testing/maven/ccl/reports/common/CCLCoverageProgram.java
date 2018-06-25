@@ -21,8 +21,8 @@ import com.cerner.ccl.testing.xsl.XslAPIException;
  *
  */
 /*
- * TODO: would it make sense to separate this from the concept of test coverage *by* a test script and the script that is covered? It's a bit of a cognitive dissonance to have one object represent
- * both concepts.
+ * TODO: would it make sense to separate this from the concept of test coverage *by* a test script and the script that
+ * is covered? It's a bit of a cognitive dissonance to have one object represent both concepts.
  */
 public class CCLCoverageProgram {
     private final List<CoverageLine> coverageLines = new ArrayList<CoverageLine>();
@@ -82,7 +82,7 @@ public class CCLCoverageProgram {
                     lineNumber = Integer.valueOf(nodes.item(i).getChildNodes().item(j).getFirstChild().getNodeValue());
                 else if (nodes.item(i).getChildNodes().item(j).getNodeName().equals("TYPE")
                         && nodes.item(i).getChildNodes().item(j).hasChildNodes()) {
-                        coveredStatus = nodes.item(i).getChildNodes().item(j).getFirstChild().getNodeValue();
+                    coveredStatus = nodes.item(i).getChildNodes().item(j).getFirstChild().getNodeValue();
                 }
             }
 
@@ -94,7 +94,8 @@ public class CCLCoverageProgram {
         // for this particular testCase
         for (CoverageLine l : coverageLines) {
             final String status = coverageMap.get(Integer.valueOf(l.getLineNumber()));
-            final CoveredStatus coveredStatus = status == null ? CoveredStatus.UNDEFINED : CoveredStatus.forCharacterRepresentation(status);
+            final CoveredStatus coveredStatus = status == null ? CoveredStatus.UNDEFINED
+                    : CoveredStatus.forCharacterRepresentation(status);
             l.addTestCoverage(testProgram, coveredStatus);
         }
 
@@ -125,11 +126,13 @@ public class CCLCoverageProgram {
      * @param status
      *            A {@link CoveredStatus} enum representing the coverage type for which a line count is to be obtained.
      * @param withIncludes
-     *            A {@code boolean} value indicating whether or not source code from include files is to be included in the count; if {@code false}, then anything that does not originate from a
-     *            program will not be considered.
+     *            A {@code boolean} value indicating whether or not source code from include files is to be included in
+     *            the count; if {@code false}, then anything that does not originate from a program will not be
+     *            considered.
      * @param byTestCase
-     *            A {@link CCLCoverageProgram} for which the specific coverage is to be determined; if {@code null}, then the aggregate coverage of the line will be used; otherwise, a line count for
-     *            lines whose coverage match the coverage by the given test case will be calculated.
+     *            A {@link CCLCoverageProgram} for which the specific coverage is to be determined; if {@code null},
+     *            then the aggregate coverage of the line will be used; otherwise, a line count for lines whose coverage
+     *            match the coverage by the given test case will be calculated.
      * @return A count of the lines whose coverage matches for the given status and test case.
      */
     public int getCoverageTotalOf(CoveredStatus status, boolean withIncludes, CCLCoverageProgram byTestCase) {
@@ -154,7 +157,8 @@ public class CCLCoverageProgram {
      * Get the total number of lines in the program.
      *
      * @param withIncludes
-     *            A {@code boolean}; if {@code true}, then lines from include files will be counted; if {@code false}, then only lines in the PRG source code will be counted.
+     *            A {@code boolean}; if {@code true}, then lines from include files will be counted; if {@code false},
+     *            then only lines in the PRG source code will be counted.
      * @return The number of lines in the source code.
      */
     public int getTotalProgramLines(boolean withIncludes) {
@@ -173,7 +177,8 @@ public class CCLCoverageProgram {
      * Determine whether or not this program was tested by the given program.
      *
      * @param testProgram
-     *            A {@link CCLCoverageProgram} representing the test program for which test coverage is to be determined.
+     *            A {@link CCLCoverageProgram} representing the test program for which test coverage is to be
+     *            determined.
      * @return {@code true} if the given test program tested this program; otherwise, {@code false}.
      */
     public boolean wasTestedBy(CCLCoverageProgram testProgram) {
