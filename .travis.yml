@@ -1,6 +1,9 @@
 language: java
 jdk:
   - oraclejdk8
+stages:
+  - validate
+  - test
 jobs:
   include:
     - stage: validate
