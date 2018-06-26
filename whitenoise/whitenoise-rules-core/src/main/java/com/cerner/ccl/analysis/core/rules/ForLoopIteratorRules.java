@@ -31,7 +31,7 @@ public class ForLoopIteratorRules extends TimedDelegate {
      * @param document
      *            The {@link Document} representing the XML representation for the CCL script to be analyzed.
      */
-    public ForLoopIteratorRules(final Document document )  {
+    public ForLoopIteratorRules(final Document document) {
         super(document);
     }
 
