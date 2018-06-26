@@ -4,4 +4,4 @@ jdk:
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -Pfmt-validate -B -V
 script:
-  - mvn clean install -Dmaven.javadoc.skip=true -DskipITs=true -Pfmt-validate -B -V -e
+  - mvn clean install -Dmaven.javadoc.skip=true -DskipITs=true -B -V -e
