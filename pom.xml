@@ -50,9 +50,6 @@
               <groupId>net.revelc.code.formatter</groupId>
               <artifactId>formatter-maven-plugin</artifactId>
               <version>2.6.0</version>
-              <configuration>
-                  <skipFormatting>true</skipFormatting>
-              </configuration>
           </plugin>
         </plugins>
     </build>
