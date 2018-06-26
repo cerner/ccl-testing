@@ -42,8 +42,7 @@ public class DynamicCompilerAdderImpl extends AbstractCompilerAdder
      * @throws IllegalArgumentException
      *             If the given source code location does not end in a ".inc" or ".sub" file extension.
      */
-    public DynamicCompilerAdderImpl(File sourceFile, final CommandQueue queue ) 
-    {
+    public DynamicCompilerAdderImpl(File sourceFile, final CommandQueue queue) {
         if (sourceFile == null)
             throw new NullPointerException("Source code cannot be null.");
 
