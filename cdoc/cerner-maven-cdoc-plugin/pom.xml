@@ -131,6 +131,7 @@
         <version>2.6.0</version>
         <executions>
           <execution>
+            <id>fmt-format</id>
             <goals>
               <goal>format</goal>
             </goals>
@@ -513,6 +514,7 @@
           <version>2.6.0</version>
           <executions>
             <execution>
+              <id>fmt-validate</id>
               <goals>
                 <goal>validate</goal>
               </goals>
