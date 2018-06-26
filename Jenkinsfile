@@ -12,7 +12,7 @@ pipeline {
         stage('test') {
             steps {
                 withMaven(maven: '3.3.9') {
-                    sh 'mvn clean test'
+                    sh 'mvn clean install -Pci'
                 }
             }
         }

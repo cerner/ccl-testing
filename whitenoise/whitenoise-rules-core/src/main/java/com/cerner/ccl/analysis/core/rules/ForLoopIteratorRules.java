@@ -102,7 +102,7 @@ public class ForLoopIteratorRules extends TimedDelegate {
      * @throws JDOMException
      *             A jdom exception could occur if there are issues with the document.
      */
-    private boolean forLoopContainsAlias(Element forLoop, List<Element> aliases) throws JDOMException {
+    private boolean forLoopContainsAlias(final Element forLoop, final List<Element> aliases) throws JDOMException {
         for (Element alias : aliases) {
             String aliasName = getCclName(selectNodes(alias, "./IS.").iterator().next());
             String nameParts[] = aliasName.split("::");
@@ -135,12 +135,13 @@ public class ForLoopIteratorRules extends TimedDelegate {
      * @throws JDOMException
      *             A jdom exception could occur if there are issues with the document.
      */
-    private List<Element> getAliasesForVariable(String variableName, String variableNamespace) throws JDOMException {
+    private List<Element> getAliasesForVariable(final String variableName, final String variableNamespace) throws JDOMException {
         List<Element> result = new ArrayList<Element>();
         List<Element> aliases = lazyLoadAliases();
 
-        if (aliases.isEmpty())
+        if (aliases.isEmpty()) {
             return result;
+        }
 
         for (Element alias : aliases) {
             if (variableNamespace.isEmpty()) {
@@ -168,12 +169,14 @@ public class ForLoopIteratorRules extends TimedDelegate {
      * @throws JDOMException
      */
     private List<Element> lazyLoadAliases() throws JDOMException {
-        if (documentAliases != null)
+        if (documentAliases != null) {
             return documentAliases;
+        }
 
         documentAliases = new ArrayList<Element>();
-        for (Element name : selectNodesByName("NAME", "[@text='CURALIAS']"))
+        for (Element name : selectNodesByName("NAME", "[@text='CURALIAS']")) {
             documentAliases.add(name.getParentElement());
+        }
 
         return documentAliases;
     }
