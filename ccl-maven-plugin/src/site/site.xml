@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="${project.name}">
+    <bannerLeft>
+        <name>${project.name}</name>
+    </bannerLeft>
+    <body>
+        <links>
+            <item name="${project.name}" href="${project.url}" />
+        </links>
+
+        <menu name="Overview">
+            <item name="About" href="index.html" />
+            <item name="Project Wiki" href="https://github.com/cerner/ccl-testing/wiki" />
+            <item name="Goals" href="plugin-info.html" />
+            <item name="Configuration" href="https://github.com/cerner/ccl-testing/blob/master/ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md" />
+            <item name="Changes Report" href="changes-report.html" />
+        </menu>
+
+        <menu ref="reports"></menu>
+    </body>
+</project>

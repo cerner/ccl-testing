@@ -30,6 +30,6 @@ Here are a some references containing guidelines for selecting a groupId, artifa
 [maven conventions]:https://maven.apache.org/maven-conventions.html
 [maven coordinates]:https://maven.apache.org/pom.html#Maven_Coordinates
 [choosing coordinates]:http://central.sonatype.org/pages/choosing-your-coordinates.html
-[cerreal]:../cerner-maven-cerreal-plugin/README.md
-[whitenoise]:../cerner-maven-whitnoise-plugin/README.md
-[cdoc]:../cerner-maven-cdoc-plugin/README.md
+[cerreal]:../cerreal-maven-plugin/README.md
+[whitenoise]:../whitnoise-maven-plugin/README.md
+[cdoc]:../cdoc-maven-plugin/README.md

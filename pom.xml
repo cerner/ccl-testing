@@ -16,16 +16,16 @@
         <module>j4ccl-ssh</module>
         <module>jsch-util</module>
         <module>cclunit-framework-schema-xml</module>
-        <module>cerner-maven-ccl-plugin</module>
-        <module>cerner-maven-cerreal-plugin</module>
+        <module>ccl-maven-plugin</module>
+        <module>cerreal-maven-plugin</module>
         <module>whitenoise/whitenoise-parent-pom</module>
         <module>whitenoise/whitenoise-data</module>
         <module>whitenoise/whitenoise-data-jdom-ext</module>
         <module>whitenoise/whitenoise-rules-core</module>
         <module>whitenoise/whitenoise-engine</module>
-        <module>whitenoise/cerner-maven-whitenoise-plugin</module>
+        <module>whitenoise/whitenoise-maven-plugin</module>
         <module>cdoc/cdoc-parser</module>
-        <module>cdoc/cerner-maven-cdoc-plugin</module>
+        <module>cdoc/cdoc-maven-plugin</module>
         <module>archetype/cclunit-archetype</module>
         <module>archetype/cclunit-maven-settings-check-archetype</module>
     </modules>

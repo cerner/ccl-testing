@@ -13,7 +13,7 @@
   <packaging>maven-archetype</packaging>
 
   <name>cclunit-maven-settings-check-archetype</name>
-  <description>Archetype to create a project for checking the maven setttings required for cerner-maven-ccl-plugin</description>
+  <description>Archetype to create a project for checking the maven setttings required for ccl-maven-plugin</description>
 
   <scm>
     <connection>scm:git:https://github.com/cerner/ccl-testing.git</connection>

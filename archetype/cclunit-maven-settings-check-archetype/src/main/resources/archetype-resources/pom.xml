@@ -11,7 +11,7 @@
     <plugins>
       <plugin>
         <groupId>com.cerner.ccl.testing</groupId>
-        <artifactId>cerner-maven-ccl-plugin</artifactId>
+        <artifactId>ccl-maven-plugin</artifactId>
         <version>3.0-SNAPSHOT</version>
         <extensions>true</extensions>
         <configuration>

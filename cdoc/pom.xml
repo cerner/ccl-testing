@@ -15,7 +15,7 @@
     </properties>
     <modules>
         <module>cdoc-parser</module>
-        <module>cerner-maven-cdoc-plugin</module>
+        <module>cdoc-maven-plugin</module>
     </modules>
     <build>
         <plugins>
