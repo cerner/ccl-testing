@@ -5,3 +5,5 @@ install:
   - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -Pfmt-validate -B -V
 script:
   - mvn clean install -Dmaven.javadoc.skip=true -DskipITs=true -B -V -e
+after_failure:
+  - lynx dump /home/travis/build/cerner/ccl-testing/cerreal-maven-plugin/target/surefire-reports/com.cerner.ccl.testing.maven.ccl.reports.CerrealPluginITest.txt  
