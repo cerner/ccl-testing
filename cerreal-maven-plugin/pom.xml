@@ -218,7 +218,7 @@
                 <executions>
                     <execution>
                         <id>generate-cclunit-objects</id>
-                        <phase>process-test-sources</phase>
+                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>

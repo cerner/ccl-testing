@@ -51,7 +51,7 @@
                 <executions>
                     <execution>
                         <id>generate-exclusion-objects</id>
-                        <phase>process-sources</phase>
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
