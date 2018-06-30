@@ -1,7 +1,3 @@
-addons:
-  apt:
-    packages:
-      - lynx
 language: java
 jdk:
   - oraclejdk8
@@ -10,4 +6,4 @@ install:
 script:
   - mvn clean install -Dmaven.javadoc.skip=true -DskipITs=true -B -V -e
 after_failure:
-  - lynx dump /home/travis/build/cerner/ccl-testing/cerreal-maven-plugin/target/surefire-reports/com.cerner.ccl.testing.maven.ccl.reports.CerrealPluginITest.txt  
+  - cat target/surefire-reports/*.txt  
