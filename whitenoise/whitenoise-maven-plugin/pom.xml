@@ -51,7 +51,7 @@
                 <executions>
                     <execution>
                         <id>generate-exclusion-objects</id>
-                        <phase>generate-sources</phase>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -659,6 +659,11 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/jaxb/*.java</exclude>
+                            </excludes>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
