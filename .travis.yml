@@ -1,3 +1,7 @@
+addons:
+  apt:
+    packages:
+      - lynx
 language: java
 jdk:
   - oraclejdk8
