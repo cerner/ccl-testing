@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cerner.ccl.testing</groupId>
+    <artifactId>ccl-maven-plugin-itests-parent-pom</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>CCL Parent POM Example</name>
+    <description>Parent POM for ccl-maven-plugin integration tests</description>
+    <packaging>pom</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <pluginVersion>3.0-SNAPSHOT</pluginVersion>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.cerner.ccl.testing</groupId>
+                <artifactId>ccl-maven-plugin</artifactId>
+                <version>${pluginVersion}</version>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -123,8 +123,7 @@ public class CachedLibrarian implements ConnectionLibrarian<CachedConnection> {
     }
 
     /**
-     * Cast an object to another object type.
-     * <br>
+     * Cast an object to another object type. <br>
      * This method exists to reduce the scope of {@link SuppressWarnings} annotations.
      *
      * @param <T>

@@ -108,8 +108,7 @@ public class DropScriptCommandTest extends AbstractUnitTest {
         whenNew(JSchSshTerminal.class).withAnyArguments().thenReturn(sshTerminal);
 
         doThrow(new SshException("uh-oh!")).when(cclTerminal).executeCommands(ArgumentMatchers.<JSchSshTerminal> any(),
-                ArgumentMatchers.<List<String>> any(),
-                anyBoolean());
+                ArgumentMatchers.<List<String>> any(), anyBoolean());
 
         expect(CclCommandException.class);
         expect("Dropping script " + scriptName + " failed.");

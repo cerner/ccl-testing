@@ -20,8 +20,7 @@ import com.google.code.jetm.reporting.ext.PointFactory;
 import etm.core.monitor.EtmPoint;
 
 /**
- * An implementation of {@link CclResourceUploader}.
- * <br>
+ * An implementation of {@link CclResourceUploader}. <br>
  * This requires a subject in context at all times in order to retrieve the paths on the remote server that are going to
  * be used.
  *

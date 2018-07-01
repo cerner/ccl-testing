@@ -4,8 +4,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /**
- * Supported CCL data types.
- * <br>
+ * Supported CCL data types. <br>
  * The following are lists (see {@link #isList()}):
  * <ul>
  * <li>{@link #DYNAMIC_LIST}</li>

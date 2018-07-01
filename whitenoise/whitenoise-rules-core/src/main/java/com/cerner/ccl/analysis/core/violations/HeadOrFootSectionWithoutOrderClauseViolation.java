@@ -9,7 +9,8 @@ import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link Violation} used to describe a situation where a report writer section contains a head or foot section but not the corresponding order by clause
+ * A {@link Violation} used to describe a situation where a report writer section contains a head or foot section but
+ * not the corresponding order by clause
  * <p>
  *
  * @author Jeff Wiedemann
@@ -31,7 +32,8 @@ public class HeadOrFootSectionWithoutOrderClauseViolation implements Violation {
      * @throws IllegalArgumentException
      *             When headFootOn is not a valid string value
      */
-    public HeadOrFootSectionWithoutOrderClauseViolation(final String headerOrFooterField, final Integer lineNumber) throws IllegalArgumentException {
+    public HeadOrFootSectionWithoutOrderClauseViolation(final String headerOrFooterField, final Integer lineNumber)
+            throws IllegalArgumentException {
         if (headerOrFooterField == null)
             throw new IllegalArgumentException("Header/footer field name cannot be null.");
 
@@ -53,9 +55,11 @@ public class HeadOrFootSectionWithoutOrderClauseViolation implements Violation {
     }
 
     /**
-     * Get the name of the field that is used in a {@code HEAD} or {@code FOOT} report writer section, but is not used in an {@code ORDER BY} statement.FreedRecordStructureViolation
+     * Get the name of the field that is used in a {@code HEAD} or {@code FOOT} report writer section, but is not used
+     * in an {@code ORDER BY} statement.FreedRecordStructureViolation
      *
-     * @return The name of the field that is used in a {@code HEAD} or {@code FOOT} report writer section, but is not used in an {@code ORDER BY} statement.FreedRecordStructureViolation
+     * @return The name of the field that is used in a {@code HEAD} or {@code FOOT} report writer section, but is not
+     *         used in an {@code ORDER BY} statement.FreedRecordStructureViolation
      */
     public String getHeaderOrFooterField() {
         return headFootOn;

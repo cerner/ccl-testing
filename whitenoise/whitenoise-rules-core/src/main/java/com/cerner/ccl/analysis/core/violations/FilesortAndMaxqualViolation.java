@@ -7,8 +7,8 @@ import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link Violation} indicating that a select statement is detected where filesort and maxqual options have been found together
- * in the select
+ * A {@link Violation} indicating that a select statement is detected where filesort and maxqual options have been found
+ * together in the select
  *
  * @author Jeff Wiedemann
  */
@@ -21,7 +21,8 @@ public class FilesortAndMaxqualViolation implements Violation {
      * Create a violation.
      *
      * @param lineNumber
-     *            An {@link Integer} representing the line of the beginning of the while loop with the violation, if applicable.
+     *            An {@link Integer} representing the line of the beginning of the while loop with the violation, if
+     *            applicable.
      */
     public FilesortAndMaxqualViolation(final Integer lineNumber) {
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -57,10 +58,10 @@ public class FilesortAndMaxqualViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "The filesort option causes all order by statements for this select to be performed on the result set in CCL as " +
-        		"opposed to Oracle; therefore the maxqual will limit the result set by the specified number, but will do so in an arbitrary " +
-        		"fashion. If you require your data to be ordered prior to limiting the result set with the maxqual option, the filesort " +
-        		"cannot be used. This behavior might become more apparent in CBO than RBO.";
+        return "The filesort option causes all order by statements for this select to be performed on the result set in CCL as "
+                + "opposed to Oracle; therefore the maxqual will limit the result set by the specified number, but will do so in an arbitrary "
+                + "fashion. If you require your data to be ordered prior to limiting the result set with the maxqual option, the filesort "
+                + "cannot be used. This behavior might become more apparent in CBO than RBO.";
     }
 
     /**

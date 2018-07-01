@@ -28,6 +28,7 @@ public class IntegerInitializationRules extends TimedDelegate {
     private static final Logger LOGGER = LoggerFactory.getLogger(IntegerInitializationRules.class);
     private static final List<String> INTEGER_TYPES = Arrays
             .asList(new String[] { "I1", "UI1", "UI2", "UI2", "I4", "UI4", "W8", "UW8", "H" });
+
     /**
      * @param document
      *            The {@link Document} representing the XML representation for the CCL script to be analyzed.
@@ -46,8 +47,10 @@ public class IntegerInitializationRules extends TimedDelegate {
             if (real != null) {
                 final String variableName = getCclName(declaredInt);
                 final String initializationValue = real.getAttributeValue("text");
-                LOGGER.trace("Variable {} has an initialization value of {} and will be marked as a violation.", variableName, initializationValue);
-                violations.add(new InvalidVariableInitializationViolation(variableName, initializationValue, getLineNumber(declaredInt)));
+                LOGGER.trace("Variable {} has an initialization value of {} and will be marked as a violation.",
+                        variableName, initializationValue);
+                violations.add(new InvalidVariableInitializationViolation(variableName, initializationValue,
+                        getLineNumber(declaredInt)));
             }
         }
 
@@ -72,12 +75,15 @@ public class IntegerInitializationRules extends TimedDelegate {
 
     /**
      * Get all integers declared within the document.
-     * @param document The {@link Document} representing the XML representation of the CCL program.
+     * 
+     * @param document
+     *            The {@link Document} representing the XML representation of the CCL program.
      * @return A {@link List} of {@link Element} objects representing the integer declarations within the document.
-     * @throws JDOMException If any errors occur during the retrieval.
+     * @throws JDOMException
+     *             If any errors occur during the retrieval.
      */
     private List<Element> getDeclaredIntegers() throws JDOMException {
-        final List <Element> result = new ArrayList<Element>();
+        final List<Element> result = new ArrayList<Element>();
 
         for (final Element declare : getVariableDeclarations()) {
             if (declare.getChildren("NAMESPACE.").size() > 0) {

@@ -3,8 +3,7 @@ package com.cerner.ccl.j4ccl.record;
 import java.util.List;
 
 /**
- * Represents a CCL structure definition.
- * <br>
+ * Represents a CCL structure definition. <br>
  * A structure is defined as the skeleton that supports a record structure - the fields within it, the names of those
  * fields. It contains no information about the name of the record structure or the values stored within it; for that,
  * see {@link Record}.

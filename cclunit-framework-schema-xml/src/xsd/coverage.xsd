@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <element name="COVERAGE">
+        <complexType>
+            <sequence>
+                <element name="COVERAGE_NAME" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The name of the CCL script or include file whose coverage data is described in this document.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="LINES" minOccurs="0" maxOccurs="1">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The list of lines and their coverage.
+                        </documentation>
+                    </annotation>
+                    <complexType>
+                        <sequence>
+                            <element name="LINE" minOccurs="0" maxOccurs="unbounded">
+                                <annotation>
+                                    <documentation xml:lang="en">
+                                        An individual line's code coverage information.
+                                    </documentation>
+                                </annotation>
+                                <complexType>
+                                    <sequence>
+                                        <element name="NBR" type="long">
+                                            <annotation>
+                                                <documentation xml:lang="en">
+                                                    The sequential number identifying what position within the source code that this line exists.
+                                                </documentation>
+                                            </annotation>
+                                        </element>
+                                        <element name="TYPE">
+                                            <annotation>
+                                                <documentation xml:lang="en">
+                                                    The type of code coverage received by this line.
+                                                </documentation>
+                                            </annotation>
+                                            <simpleType>
+                                                <restriction base="string">
+                                                    <enumeration value="U">
+                                                        <annotation>
+                                                            <documentation xml:lang="en">
+                                                                The line was not covered.
+                                                            </documentation>
+                                                        </annotation>
+                                                    </enumeration>
+                                                    <enumeration value="N">
+                                                        <annotation>
+                                                            <documentation xml:lang="en">
+                                                                The line is not executable (i.e., a comment).
+                                                            </documentation>
+                                                        </annotation>
+                                                    </enumeration>
+                                                    <enumeration value="C">
+                                                        <annotation>
+                                                            <documentation xml:lang="en">
+                                                                The line was covered by execution of code.
+                                                            </documentation>
+                                                        </annotation>
+                                                    </enumeration>
+                                                    <enumeration value="Z">
+                                                        <annotation>
+                                                            <documentation xml:lang="en">
+                                                                The coverage of the line could not be determined.
+                                                            </documentation>
+                                                        </annotation>
+                                                    </enumeration>
+                                                </restriction>
+                                            </simpleType>
+                                        </element>
+                                    </sequence>
+                                </complexType>
+                            </element>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+</schema>

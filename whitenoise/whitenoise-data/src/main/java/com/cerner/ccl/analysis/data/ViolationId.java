@@ -33,10 +33,12 @@ public class ViolationId {
      */
     public ViolationId(final String namespace, final String namespacedIdentifier) {
         if (StringUtils.isBlank(namespace))
-            throw new IllegalArgumentException("Invalid namespace; given namespace was [" + (namespace == null ? "<null>" : namespace) + "]");
+            throw new IllegalArgumentException(
+                    "Invalid namespace; given namespace was [" + (namespace == null ? "<null>" : namespace) + "]");
 
         if (StringUtils.isBlank(namespacedIdentifier))
-            throw new IllegalArgumentException("Invalid namespaced identifier; given identifier was [" + (namespacedIdentifier == null ? "<null>" : namespacedIdentifier) + "]");
+            throw new IllegalArgumentException("Invalid namespaced identifier; given identifier was ["
+                    + (namespacedIdentifier == null ? "<null>" : namespacedIdentifier) + "]");
 
         this.namespace = namespace.toUpperCase(Locale.US);
         this.namespacedIdentifier = namespacedIdentifier.toUpperCase(Locale.US);
@@ -54,7 +56,8 @@ public class ViolationId {
     }
 
     /**
-     * Get the identifier, which is composed of both the given {@link #getNamespace() namespace} and {@link #getNamespacedIdentifier() identifier}.
+     * Get the identifier, which is composed of both the given {@link #getNamespace() namespace} and
+     * {@link #getNamespacedIdentifier() identifier}.
      *
      * @return The identifier of a violation.
      */

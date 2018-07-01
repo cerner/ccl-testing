@@ -10,8 +10,8 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.cerner.ccltesting</groupId>
-        <artifactId>cerner-maven-ccl-plugin</artifactId>
+        <groupId>com.cerner.ccl.testing</groupId>
+        <artifactId>ccl-maven-plugin</artifactId>
         <version>3.0-SNAPSHOT</version>
         <extensions>true</extensions>
         <configuration>

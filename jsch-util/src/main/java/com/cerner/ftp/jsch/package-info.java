@@ -1,7 +1,6 @@
 /**
  * This package contains all objects that consumers need concern themselves with when using the jsch-utilities. In this
- * package:
- * <br>
+ * package: <br>
  * <ul>
  * <li>{@link com.cerner.ftp.jsch.Connection}: a representative of a connection wrapping a JSch
  * {@link com.jcraft.jsch.Session} object.</li>

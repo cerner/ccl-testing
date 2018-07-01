@@ -32,8 +32,7 @@ public class CompileErrorValidator {
     private final ListingParser listingParser;
 
     /**
-     * Create a validator to check a listing output for errors.
-     * <br>
+     * Create a validator to check a listing output for errors. <br>
      * This constructor is intentionally left package-private to expose it for unit testing while obfuscating it from
      * consumers.
      *

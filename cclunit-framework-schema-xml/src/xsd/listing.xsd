@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <element name="LISTING">
+        <complexType>
+            <sequence>
+                <element name="LISTING_NAME" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The name of the file or script.
+                    </documentation>
+                    </annotation>
+                </element>
+                <element name="COMPILE_DATE" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The date and time at which the file was last included into the CCL dictionary.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="LINES">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            A collection of data describing each line within the included file.
+                        </documentation>
+                    </annotation>
+                    <complexType>
+                        <sequence>
+                            <element name="LINE" minOccurs="1" maxOccurs="unbounded">
+                                <annotation>
+                                    <documentation xml:lang="en">
+                                        A single line within the included file.
+                                    </documentation>
+                                </annotation>
+                                <complexType>
+                                    <sequence>
+                                        <element name="NBR" type="integer">
+                                            <annotation>
+                                                <documentation xml:lang="en">
+                                                    The sequential number, indicating what order in which this line appeared in the included file.
+                                                 </documentation>
+                                            </annotation>
+                                        </element>
+                                        <element name="TEXT" type="string">
+                                            <annotation>
+                                                <documentation xml:lang="en">
+                                                    The text of the line. In the event of this being the start or end of an include file, this value will be blank.
+                                                </documentation>
+                                            </annotation>
+                                        </element>
+                                        <choice maxOccurs="1" minOccurs="0">
+                                            <element name="START_OF_INC" type="string">
+                                                <annotation>
+                                                    <documentation xml:lang="en">
+                                                        This marks the beginning of an include file (%i) inside a CCL script. The textual content should be the
+                                                        include statement.
+                                                    </documentation>
+                                                </annotation>
+                                            </element>
+                                            <element name="END_OF_INC" type="string">
+                                                <annotation>
+                                                    <documentation xml:lang="en">
+                                                        This marks the end of an include file (%i) inside a CCL script. The textual content should be the include
+                                                        statement.
+                                                    </documentation>
+                                                </annotation>
+                                            </element>
+                                        </choice>
+                                    </sequence>
+                                </complexType>
+                            </element>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+</schema>

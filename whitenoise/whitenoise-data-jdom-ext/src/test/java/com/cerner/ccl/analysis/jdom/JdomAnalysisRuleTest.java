@@ -44,6 +44,7 @@ public class JdomAnalysisRuleTest {
     /**
      *
      * A JdomAnalysisDelegeate to be used for testing JdomAnalysisRule.Delegate methods based on translate1.xml.
+     * 
      * @author Fred Eckertson
      *
      */
@@ -119,8 +120,7 @@ public class JdomAnalysisRuleTest {
         assertThat(nameCallGraph.keySet()).containsOnly("ZC_PROGRAM.", "SUB0", "SUB1", "SUB2", "PUBLIC::SUB3",
                 "PUBLIC::SUB4", "SUB5", "PUBLIC::SUB6");
         assertThat(nameCallGraph.get("ZC_PROGRAM.")).containsOnly("SUB2", "SUB3", "SUB4", "PUBLIC::SUB1",
-                "NS0000::SUB1",
-                "NS0000::SUB2");
+                "NS0000::SUB1", "NS0000::SUB2");
         assertThat(nameCallGraph.get("SUB0")).isEmpty();
         assertThat(nameCallGraph.get("SUB1")).isEmpty();
         assertThat(nameCallGraph.get("SUB2")).containsOnly("SUB1");

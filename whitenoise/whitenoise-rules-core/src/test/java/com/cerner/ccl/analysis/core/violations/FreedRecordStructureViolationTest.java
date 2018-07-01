@@ -8,7 +8,8 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractRecordStructureV
  * @author Joshua Hyde
  */
 
-public class FreedRecordStructureViolationTest extends AbstractRecordStructureViolationTest<FreedRecordStructureViolation> {
+public class FreedRecordStructureViolationTest
+        extends AbstractRecordStructureViolationTest<FreedRecordStructureViolation> {
 
     @Override
     protected FreedRecordStructureViolation createViolation(String recordStructureName, Integer lineNumber) {

@@ -9,8 +9,7 @@ import com.cerner.ccl.j4ccl.impl.record.factory.FieldImplFactory;
 import com.cerner.ccl.j4ccl.record.factory.RecordFactory;
 
 /**
- * Builder for constructing instances of {@link Structure}.
- * <br>
+ * Builder for constructing instances of {@link Structure}. <br>
  * A structure is defined as the skeleton that backs a record structure's framework. For example, take the two following
  * record structures:
  *
@@ -161,8 +160,7 @@ public abstract class StructureBuilder {
     public abstract StructureBuilder addRecord(String name, Structure structure);
 
     /**
-     * Add a status_data element to the structure.
-     * <br>
+     * Add a status_data element to the structure. <br>
      * The structure of the record added will be:
      *
      * <pre>

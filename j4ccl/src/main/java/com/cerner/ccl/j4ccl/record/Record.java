@@ -3,8 +3,7 @@ package com.cerner.ccl.j4ccl.record;
 import java.util.Date;
 
 /**
- * Represents a CCL record.
- * <br>
+ * Represents a CCL record. <br>
  * A CCL record is defined as an instance of a record structure - a name, the values within it - backed by a
  * {@link Structure}.
  *
@@ -37,8 +36,7 @@ public interface Record {
     String getDeclaration();
 
     /**
-     * Returns whether a field with the given name exists within this record.
-     * <br>
+     * Returns whether a field with the given name exists within this record. <br>
      * Equivalent to calling getStructure().hasMember(fieldName)
      *
      * @param fieldName
@@ -48,8 +46,7 @@ public interface Record {
     boolean hasMember(String fieldName);
 
     /**
-     * Returns the {@link DataType type} of the field with the given name.
-     * <br>
+     * Returns the {@link DataType type} of the field with the given name. <br>
      * Equivalent to calling getStructure().getType(fieldName)
      *
      * @param fieldName
@@ -92,8 +89,7 @@ public interface Record {
 
     /**
      * Returns the <em>dynamic</em> list field with the given name. This equates to a list that is declared in CCL with
-     * an unspecified size as follows:
-     * <br>
+     * an unspecified size as follows: <br>
      *
      * <pre>
      * record my_record
@@ -160,8 +156,7 @@ public interface Record {
 
     /**
      * Returns the <em>fixed-size</em> list field with the given name. This equates to a list that is declared in CCL
-     * with a specific size as follows:
-     * <br>
+     * with a specific size as follows: <br>
      *
      * <pre>
      * record my_record
@@ -189,8 +184,7 @@ public interface Record {
     int getNestedLevel();
 
     /**
-     * Returns the record field with the given name. This equates in CCL to a nested record of the form:
-     * <br>
+     * Returns the record field with the given name. This equates in CCL to a nested record of the form: <br>
      *
      * <pre>
      * record my_record

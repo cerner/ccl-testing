@@ -92,8 +92,9 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
         final File listingFile = mock(File.class);
 
         final ScriptCompilerCommand command = mock(ScriptCompilerCommand.class);
-        whenNew(ScriptCompilerCommand.class).withArguments(sourceCodeFile, Collections.singleton(dependencyFile),
-                listingFile, Boolean.FALSE).thenReturn(command);
+        whenNew(ScriptCompilerCommand.class)
+                .withArguments(sourceCodeFile, Collections.singleton(dependencyFile), listingFile, Boolean.FALSE)
+                .thenReturn(command);
         adder.withDependency(dependencyFile).withListingOutput(listingFile).commit();
         verify(queue).addInCclSessionCommand(command);
     }

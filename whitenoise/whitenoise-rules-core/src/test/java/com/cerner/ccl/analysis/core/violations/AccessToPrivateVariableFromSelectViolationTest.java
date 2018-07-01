@@ -8,7 +8,8 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractVariableViolatio
  * @author Joshua Hyde
  */
 
-public class AccessToPrivateVariableFromSelectViolationTest extends AbstractVariableViolationTest<AccessToPrivateVariableFromSelectViolation> {
+public class AccessToPrivateVariableFromSelectViolationTest
+        extends AbstractVariableViolationTest<AccessToPrivateVariableFromSelectViolation> {
 
     @Override
     protected AccessToPrivateVariableFromSelectViolation createViolation(String variableName, Integer lineNumber) {

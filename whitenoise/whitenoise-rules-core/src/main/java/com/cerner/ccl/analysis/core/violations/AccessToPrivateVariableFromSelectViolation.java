@@ -64,7 +64,7 @@ public class AccessToPrivateVariableFromSelectViolation implements VariableViola
      * {@inheritDoc}
      */
     public String getVariableName() {
-    	return variableName;
+        return variableName;
     }
 
     /**
@@ -78,9 +78,9 @@ public class AccessToPrivateVariableFromSelectViolation implements VariableViola
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "Variables which have been defined as private scope from a CCL script are not accessible from a select statement. " +
-        		"Either the script will throw a runtime CCL-E when an attempt to access the variable is made, or a second instance " +
-        		"of the variable will be dynamically created within the scope of the select and not be accessible outside of the select.";
+        return "Variables which have been defined as private scope from a CCL script are not accessible from a select statement. "
+                + "Either the script will throw a runtime CCL-E when an attempt to access the variable is made, or a second instance "
+                + "of the variable will be dynamically created within the scope of the select and not be accessible outside of the select.";
     }
 
     /**

@@ -9,7 +9,8 @@ import com.cerner.ccl.analysis.data.SubroutineViolation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link SubroutineViolation} detailing when a subroutine is missing a return statement but the code is coded to store the return
+ * A {@link SubroutineViolation} detailing when a subroutine is missing a return statement but the code is coded to
+ * store the return
  *
  *
  * @author Jeff Wiedemann
@@ -34,7 +35,8 @@ public class SubroutineReturnRequiredAndMissingViolation implements SubroutineVi
      * @throws IllegalArgumentException
      *             If the given subroutine name is {@code null}.
      */
-    public SubroutineReturnRequiredAndMissingViolation(final String subroutineName, final Integer subroutineLineNumber, final Integer invocationLineNumber) {
+    public SubroutineReturnRequiredAndMissingViolation(final String subroutineName, final Integer subroutineLineNumber,
+            final Integer invocationLineNumber) {
         if (subroutineName == null)
             throw new IllegalArgumentException("Subroutine name cannot be null.");
 
@@ -68,7 +70,8 @@ public class SubroutineReturnRequiredAndMissingViolation implements SubroutineVi
      * {@inheritDoc}
      */
     public String getViolationDescription() {
-        return getSubroutineName() + " invoked from line [" + invocationLineNumber + "] appears to have no return statement but is required by invocation";
+        return getSubroutineName() + " invoked from line [" + invocationLineNumber
+                + "] appears to have no return statement but is required by invocation";
     }
 
     /**
@@ -101,7 +104,8 @@ public class SubroutineReturnRequiredAndMissingViolation implements SubroutineVi
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(subroutineName.toUpperCase(Locale.US)).append(invocationLineNumber).append(subroutineLineNumber).toHashCode();
+        return new HashCodeBuilder().append(subroutineName.toUpperCase(Locale.US)).append(invocationLineNumber)
+                .append(subroutineLineNumber).toHashCode();
     }
 
     @Override

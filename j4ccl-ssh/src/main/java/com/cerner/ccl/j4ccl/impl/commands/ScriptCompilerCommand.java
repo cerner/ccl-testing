@@ -109,8 +109,7 @@ public class ScriptCompilerCommand extends AbstractCclCommand {
                     commands.add("SET COMPILE = NODEBUG go");
                 terminal.executeCommands(new JSchSshTerminal(), commands, false);
             } catch (final SshTimeoutException e) {
-                throw new CclCompilationTimeoutException(
-                        "Compilation of " + objectName + " timed out.", e);
+                throw new CclCompilationTimeoutException("Compilation of " + objectName + " timed out.", e);
             } catch (final SshException e) {
                 throw new CclCommandException("Compilation of " + objectName + " failed.", e);
             }

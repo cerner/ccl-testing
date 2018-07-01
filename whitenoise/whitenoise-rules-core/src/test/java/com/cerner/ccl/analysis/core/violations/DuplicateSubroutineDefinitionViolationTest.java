@@ -8,7 +8,8 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractSubroutineViolat
  * @author Joshua Hyde
  */
 
-public class DuplicateSubroutineDefinitionViolationTest extends AbstractSubroutineViolationTest<DuplicateSubroutineDefinitionViolation> {
+public class DuplicateSubroutineDefinitionViolationTest
+        extends AbstractSubroutineViolationTest<DuplicateSubroutineDefinitionViolation> {
 
     @Override
     protected DuplicateSubroutineDefinitionViolation createViolation(String subroutineName, Integer lineNumber) {

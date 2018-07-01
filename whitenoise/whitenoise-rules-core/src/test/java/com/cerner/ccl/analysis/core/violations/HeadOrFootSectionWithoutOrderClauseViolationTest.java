@@ -13,7 +13,8 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractViolationTest;
  * @author Joshua Hyde
  */
 
-public class HeadOrFootSectionWithoutOrderClauseViolationTest extends AbstractViolationTest<HeadOrFootSectionWithoutOrderClauseViolation> {
+public class HeadOrFootSectionWithoutOrderClauseViolationTest
+        extends AbstractViolationTest<HeadOrFootSectionWithoutOrderClauseViolation> {
     private final String fieldName = "o.order_id";
     private final Integer lineNumber = Integer.valueOf(23);
 
@@ -33,7 +34,8 @@ public class HeadOrFootSectionWithoutOrderClauseViolationTest extends AbstractVi
     @Test
     public void testEqualsCaseInsensitiveFieldName() {
         final HeadOrFootSectionWithoutOrderClauseViolation first = createViolation(lineNumber);
-        final HeadOrFootSectionWithoutOrderClauseViolation second = new HeadOrFootSectionWithoutOrderClauseViolation(StringUtils.swapCase(fieldName), lineNumber);
+        final HeadOrFootSectionWithoutOrderClauseViolation second = new HeadOrFootSectionWithoutOrderClauseViolation(
+                StringUtils.swapCase(fieldName), lineNumber);
         assertThat(first).isEqualTo(second);
         assertThat(second).isEqualTo(first);
         assertThat(first.hashCode()).isEqualTo(second.hashCode());
@@ -45,7 +47,8 @@ public class HeadOrFootSectionWithoutOrderClauseViolationTest extends AbstractVi
     @Test
     public void testEqualsDifferentFieldName() {
         final HeadOrFootSectionWithoutOrderClauseViolation first = createViolation(lineNumber);
-        final HeadOrFootSectionWithoutOrderClauseViolation second = new HeadOrFootSectionWithoutOrderClauseViolation(StringUtils.reverse(fieldName), lineNumber);
+        final HeadOrFootSectionWithoutOrderClauseViolation second = new HeadOrFootSectionWithoutOrderClauseViolation(
+                StringUtils.reverse(fieldName), lineNumber);
         assertThat(first).isNotEqualTo(second);
         assertThat(second).isNotEqualTo(first);
     }
@@ -55,7 +58,8 @@ public class HeadOrFootSectionWithoutOrderClauseViolationTest extends AbstractVi
      */
     @Test
     public void testGetHeaderOrFooterField() {
-        assertThat(new HeadOrFootSectionWithoutOrderClauseViolation(fieldName, lineNumber).getHeaderOrFooterField()).isEqualTo(fieldName);
+        assertThat(new HeadOrFootSectionWithoutOrderClauseViolation(fieldName, lineNumber).getHeaderOrFooterField())
+                .isEqualTo(fieldName);
     }
 
     @Override

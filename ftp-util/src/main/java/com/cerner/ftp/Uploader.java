@@ -31,8 +31,7 @@ public interface Uploader {
 
     /**
      * Set the permissions level to be set on each file uploaded to the remote server. By default, these will be god
-     * permissions (777), in which every user has read and write access to the file.
-     * <br>
+     * permissions (777), in which every user has read and write access to the file. <br>
      * Although you can generate your own bitwise representation of permissions, it is recommended you use
      * {@link PermissionsBuilder#build(int, int, int)} to generate your permissions.
      *

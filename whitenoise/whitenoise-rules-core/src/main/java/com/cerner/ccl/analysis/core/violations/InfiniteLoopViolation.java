@@ -7,8 +7,8 @@ import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link Violation} indicating that a while loop is detected where the conditional clause does not appear to be updated within the body
- * of the while loop and therefore could result in an infinite loop
+ * A {@link Violation} indicating that a while loop is detected where the conditional clause does not appear to be
+ * updated within the body of the while loop and therefore could result in an infinite loop
  *
  * @author Jeff Wiedemann
  */
@@ -21,7 +21,8 @@ public class InfiniteLoopViolation implements Violation {
      * Create a violation.
      *
      * @param lineNumber
-     *            An {@link Integer} representing the line of the beginning of the while loop with the violation, if applicable.
+     *            An {@link Integer} representing the line of the beginning of the while loop with the violation, if
+     *            applicable.
      */
     public InfiniteLoopViolation(final Integer lineNumber) {
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -57,11 +58,11 @@ public class InfiniteLoopViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "While loops must update the conditional variable(s) during each iteration of the loop; failure do so will result in an  " +
-        		"infinite loop. If the conditional variable(s) are being modified from a subroutine called from within the loop, this rule will " +
-        		"return a false positive result. In this case it is highly recommended, for the sake of code clairity, that the while loop " +
-        		"be refactored so that the conditional variable(s) are altered from within the loop body. If the conditional statement is the " +
-        		"boolean result of a subroutine call, this rule will return a false positive result.";
+        return "While loops must update the conditional variable(s) during each iteration of the loop; failure do so will result in an  "
+                + "infinite loop. If the conditional variable(s) are being modified from a subroutine called from within the loop, this rule will "
+                + "return a false positive result. In this case it is highly recommended, for the sake of code clairity, that the while loop "
+                + "be refactored so that the conditional variable(s) are altered from within the loop body. If the conditional statement is the "
+                + "boolean result of a subroutine call, this rule will return a false positive result.";
     }
 
     /**

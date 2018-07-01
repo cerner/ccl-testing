@@ -9,7 +9,8 @@ import com.cerner.ccl.analysis.data.ViolationId;
 /**
  * A {@link Violation} used to describe a situation of an improper use of the CCL {@code size()} function.
  * <p>
- * The uniqueness of this violation is a combination of the given option, and the line number - if any - at which it appears.
+ * The uniqueness of this violation is a combination of the given option, and the line number - if any - at which it
+ * appears.
  *
  * @author Joshua Hyde
  * @author Jeff Wiedemann
@@ -48,8 +49,7 @@ public class SizeOfRecordMemberViolation implements Violation {
             return false;
 
         final SizeOfRecordMemberViolation other = (SizeOfRecordMemberViolation) obj;
-        return getOption().equals(other.getOption())
-                && getLineNumber().equals(other.getLineNumber());
+        return getOption().equals(other.getOption()) && getLineNumber().equals(other.getLineNumber());
     }
 
     /**
@@ -63,16 +63,17 @@ public class SizeOfRecordMemberViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationDescription() {
-        return "Size function with record list member is most likely not intended to be used with size option " + getOption();
+        return "Size function with record list member is most likely not intended to be used with size option "
+                + getOption();
     }
 
     /**
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "When using the size() function on a record structure dynamic list, the second parameter to the " +
-        		"size function is almost always required to be 5. This ensures that you are testing for the number" +
-        		"of occurrences of items within the list.";
+        return "When using the size() function on a record structure dynamic list, the second parameter to the "
+                + "size function is almost always required to be 5. This ensures that you are testing for the number"
+                + "of occurrences of items within the list.";
     }
 
     /**

@@ -9,8 +9,8 @@ import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link Violation} used to describe a situation where a standard for loop iterator increment appears to be overwritten
- * by an increment statement (i = i + 1) within the for loop
+ * A {@link Violation} used to describe a situation where a standard for loop iterator increment appears to be
+ * overwritten by an increment statement (i = i + 1) within the for loop
  * <p>
  *
  * @author Jeff Wiedemann
@@ -19,14 +19,14 @@ import com.cerner.ccl.analysis.data.ViolationId;
 public class OverwrittenForLoopIteratorViolation implements Violation {
     private static final ViolationId VIOLATION_ID = new CoreViolationId("OVERWRITTEN_LOOP_ITERATOR");
 
-    private final String  iterator;
+    private final String iterator;
     private final Integer lineNumber;
 
     /**
      * Create a violation.
      *
      * @param iterator
-     * 	The name of the iterator variable in the for loop whose value is being overwritten
+     *            The name of the iterator variable in the for loop whose value is being overwritten
      * @param lineNumber
      *            An {@link Integer} representing the line number where the violation was encountered, if applicable.
      * @throws IllegalArgumentException
@@ -51,7 +51,6 @@ public class OverwrittenForLoopIteratorViolation implements Violation {
         final OverwrittenForLoopIteratorViolation other = (OverwrittenForLoopIteratorViolation) obj;
         return getIterator().equalsIgnoreCase(other.getIterator()) && getLineNumber().equals(other.getLineNumber());
     }
-
 
     /**
      * @return The name of the iterator variable used in the for loop
@@ -78,8 +77,8 @@ public class OverwrittenForLoopIteratorViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "The iterator variable of a for loop is automatically incremented with each iteration of the loop. It is usually only recommended" +
-        		" to modify the iterator variable to break from the loop, any other modification is usually not correct";
+        return "The iterator variable of a for loop is automatically incremented with each iteration of the loop. It is usually only recommended"
+                + " to modify the iterator variable to break from the loop, any other modification is usually not correct";
     }
 
     /**

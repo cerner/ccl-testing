@@ -101,8 +101,7 @@ public abstract class CclExecutor {
     public abstract void execute();
 
     /**
-     * Pipe the output to a given output stream.
-     * <br>
+     * Pipe the output to a given output stream. <br>
      * Only the last given stream is retained; invoking this multiple times will have no effect except to set the
      * last-given output stream as the used output stream.
      *
@@ -114,8 +113,7 @@ public abstract class CclExecutor {
     public abstract void setOutputStream(OutputStream stream, OutputType outputType);
 
     /**
-     * Sets the {@link TerminalProperties} that will be employed by the CclExecutor.
-     * <br>
+     * Sets the {@link TerminalProperties} that will be employed by the CclExecutor. <br>
      * Only the last given value is retained; invoking this multiple times will displace any previously set value.
      *
      * @param terminalProperties

@@ -1,0 +1,22 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>CCL Testing Framework XML Schemas Changes Report</title>
+    </properties>
+    <body>
+        <release version="2.0" date="2017-11-01">
+            <action dev="fe2417" issue="" type="add" system="">
+                Update test-results.xsd to use CONDITION preferentially in place of TEST.
+            </action>
+        </release>
+        <release version="1.0" date="2010-06-10">
+            <action dev="jh016266" issue="CCLTEST-51" type="add" system="JIRA">
+                Provide an XSD against which the response XML from the CCL Testing Framework can be validated.
+            </action>
+            <action dev="jh016266" issue="CCLTEST-153" type="add" system="JIRA">
+                Add snapshot repo deployment information to CCLTEST projects.
+            </action>
+        </release>
+    </body>
+</document>

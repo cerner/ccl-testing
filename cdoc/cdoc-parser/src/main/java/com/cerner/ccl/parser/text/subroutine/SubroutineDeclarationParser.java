@@ -91,9 +91,8 @@ public class SubroutineDeclarationParser {
      * @return A {@link Set} of {@link SubroutineArgument} objects representing the subroutine arguments.
      */
     private List<SubroutineArgumentDeclaration> parseArguments(final String declaration) {
-        final String argsString = declaration
-                .substring(declaration.indexOf('(') + 1, declaration.lastIndexOf(')')).trim()
-                .replaceAll("(\\([^\\)]*),([^\\)]*\\))", "$1|$2");
+        final String argsString = declaration.substring(declaration.indexOf('(') + 1, declaration.lastIndexOf(')'))
+                .trim().replaceAll("(\\([^\\)]*),([^\\)]*\\))", "$1|$2");
         if ("NULL".equalsIgnoreCase(argsString) || argsString.trim().isEmpty()) {
             return Collections.<SubroutineArgumentDeclaration> emptyList();
         }
@@ -164,8 +163,7 @@ public class SubroutineDeclarationParser {
         final int finalRightParenPos = reducedDeclaration.lastIndexOf(')');
         final int returnTypeEqualsPos = reducedDeclaration.indexOf('=', finalRightParenPos);
         if (returnTypeEqualsPos < 0) {
-            throw new InvalidSubroutineException(
-                    "No return data type found within declaration: " + declaration);
+            throw new InvalidSubroutineException("No return data type found within declaration: " + declaration);
         }
         final String normalized = reducedDeclaration.toUpperCase(Locale.US);
         final int withPos = normalized.indexOf("WITH", returnTypeEqualsPos + 1);

@@ -50,8 +50,8 @@ public class VariableDeclaredButNotUsedRules extends TimedDelegate {
         return violations;
     }
 
-    private boolean isUsed(final String variableName, final Element scope, final Set<Element> previouslyCheckedScopes, final boolean allowDeclaration)
-            throws JDOMException {
+    private boolean isUsed(final String variableName, final Element scope, final Set<Element> previouslyCheckedScopes,
+            final boolean allowDeclaration) throws JDOMException {
         if (!allowDeclaration) {
             List<Element> localDeclarations = selectNodes(scope, ".//Z_DECLARE./NAME[@text='" + variableName + "']");
             if (localDeclarations.size() > 0) {

@@ -8,7 +8,8 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractVariableViolatio
  * @author Joshua Hyde
  */
 
-public class VariableDeclaredButNotUsedViolationTest extends AbstractVariableViolationTest<VariableDeclaredButNotUsedViolation> {
+public class VariableDeclaredButNotUsedViolationTest
+        extends AbstractVariableViolationTest<VariableDeclaredButNotUsedViolation> {
 
     @Override
     protected VariableDeclaredButNotUsedViolation createViolation(String variableName, Integer lineNumber) {

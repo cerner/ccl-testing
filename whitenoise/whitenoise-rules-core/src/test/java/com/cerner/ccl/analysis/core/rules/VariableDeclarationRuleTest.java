@@ -11,7 +11,6 @@ import com.cerner.ccl.analysis.core.violations.MissingVariableDeclarationViolati
 import com.cerner.ccl.analysis.core.violations.UnknownDeclareOptionViolation;
 import com.cerner.ccl.analysis.data.Violation;
 
-
 /**
  * Integration tests for {@link VariableDeclarationRules}.
  *
@@ -50,9 +49,8 @@ public class VariableDeclarationRuleTest extends AbstractJDomTest {
     }
 
     /**
-     * Test the analysis of a a variable whose declaration is contained within the subroutine
-     * definition. Should recognize two variables set correctly from the subroutine declaration
-     * and one that is not
+     * Test the analysis of a a variable whose declaration is contained within the subroutine definition. Should
+     * recognize two variables set correctly from the subroutine declaration and one that is not
      *
      * @throws Exception
      *             If any errors occur during the test run.
@@ -80,9 +78,8 @@ public class VariableDeclarationRuleTest extends AbstractJDomTest {
     }
 
     /**
-     * Test the analysis of a a variable whose declaration is contained within the subroutine
-     * definition. Should recognize two variables set correctly from the subroutine declaration
-     * and one that is not
+     * Test the analysis of a a variable whose declaration is contained within the subroutine definition. Should
+     * recognize two variables set correctly from the subroutine declaration and one that is not
      *
      * @throws Exception
      *             If any errors occur during the test run.

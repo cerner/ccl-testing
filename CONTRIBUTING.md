@@ -31,6 +31,10 @@ To help ensure a smooth process for everyone, please read our [code of conduct][
 * Open a [pull request][7].
 * The pull request will be reviewed by the community and merged by the project committers.
 
+## Integration Tests
+* An HNAM domain is required for integration testing.
+* The integration tests for the Whitenoise pluign will only pass if the domain's profile is given first and it is activated by a system property named "maven-profile" with value equal to the profileId.
+
 [eclipse]: https://eclipse.org
 [eclipse_preferences]: ./ecosystem/eclipse/workspace_mechanic
 [workspace_mechanic]: https://code.google.com/archive/a/eclipselabs.org/p/workspacemechanic 

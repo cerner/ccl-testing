@@ -138,8 +138,8 @@ public class RecordDataExtractor {
      */
     private synchronized String createRandomFileName() {
         return String.format("j4ccl_dataout_%s_%d%d.json",
-                System.getProperty("user.name").toLowerCase(Locale.getDefault()).replace("$", ""),
-                ++objectCount, System.currentTimeMillis());
+                System.getProperty("user.name").toLowerCase(Locale.getDefault()).replace("$", ""), ++objectCount,
+                System.currentTimeMillis());
     }
 
     /**
@@ -176,8 +176,7 @@ public class RecordDataExtractor {
     }
 
     /**
-     * Read the text from a file.
-     * <br>
+     * Read the text from a file. <br>
      * This method primarily serves to reduce the scope of the {@link SuppressWarnings} annotation.
      *
      * @param file

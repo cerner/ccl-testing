@@ -14,7 +14,8 @@ import com.cerner.ccl.analysis.core.violations.internal.AbstractViolationTest;
  */
 
 @SuppressWarnings("unused")
-public class LargeSequenceStoredToNonFloatingPointNumberViolationTest extends AbstractViolationTest<LargeSequenceStoredToNonFloatingPointNumberViolation> {
+public class LargeSequenceStoredToNonFloatingPointNumberViolationTest
+        extends AbstractViolationTest<LargeSequenceStoredToNonFloatingPointNumberViolation> {
     private final String seqResultVariable = "seqResultVariable";
     private final String attemptedStoreVariable = "attemptedStoreVariable";
 
@@ -59,9 +60,10 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolationTest extends Ab
      */
     @Test
     public void testEqualsCaseInsensitiveSeqResultVariable() {
-        final LargeSequenceStoredToNonFloatingPointNumberViolation first = new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, attemptedStoreVariable, null);
-        final LargeSequenceStoredToNonFloatingPointNumberViolation second = new LargeSequenceStoredToNonFloatingPointNumberViolation(StringUtils.swapCase(seqResultVariable), attemptedStoreVariable,
-                null);
+        final LargeSequenceStoredToNonFloatingPointNumberViolation first = new LargeSequenceStoredToNonFloatingPointNumberViolation(
+                seqResultVariable, attemptedStoreVariable, null);
+        final LargeSequenceStoredToNonFloatingPointNumberViolation second = new LargeSequenceStoredToNonFloatingPointNumberViolation(
+                StringUtils.swapCase(seqResultVariable), attemptedStoreVariable, null);
         assertThat(first).isEqualTo(second);
         assertThat(second).isEqualTo(first);
         assertThat(first.hashCode()).isEqualTo(second.hashCode());
@@ -72,9 +74,10 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolationTest extends Ab
      */
     @Test
     public void testEqualsCaseInsensitiveStoreVariable() {
-        final LargeSequenceStoredToNonFloatingPointNumberViolation first = new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, attemptedStoreVariable, null);
-        final LargeSequenceStoredToNonFloatingPointNumberViolation second = new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, StringUtils.swapCase(attemptedStoreVariable),
-                null);
+        final LargeSequenceStoredToNonFloatingPointNumberViolation first = new LargeSequenceStoredToNonFloatingPointNumberViolation(
+                seqResultVariable, attemptedStoreVariable, null);
+        final LargeSequenceStoredToNonFloatingPointNumberViolation second = new LargeSequenceStoredToNonFloatingPointNumberViolation(
+                seqResultVariable, StringUtils.swapCase(attemptedStoreVariable), null);
         assertThat(first).isEqualTo(second);
         assertThat(second).isEqualTo(first);
         assertThat(first.hashCode()).isEqualTo(second.hashCode());
@@ -85,9 +88,10 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolationTest extends Ab
      */
     @Test
     public void testEqualsDifferentSeqResultVariable() {
-        final LargeSequenceStoredToNonFloatingPointNumberViolation first = new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, attemptedStoreVariable, null);
-        final LargeSequenceStoredToNonFloatingPointNumberViolation second = new LargeSequenceStoredToNonFloatingPointNumberViolation(StringUtils.reverse(seqResultVariable), attemptedStoreVariable,
-                null);
+        final LargeSequenceStoredToNonFloatingPointNumberViolation first = new LargeSequenceStoredToNonFloatingPointNumberViolation(
+                seqResultVariable, attemptedStoreVariable, null);
+        final LargeSequenceStoredToNonFloatingPointNumberViolation second = new LargeSequenceStoredToNonFloatingPointNumberViolation(
+                StringUtils.reverse(seqResultVariable), attemptedStoreVariable, null);
         assertThat(first).isNotEqualTo(second);
         assertThat(second).isNotEqualTo(first);
     }
@@ -97,16 +101,18 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolationTest extends Ab
      */
     @Test
     public void testEqualsDifferentStoreVariable() {
-        final LargeSequenceStoredToNonFloatingPointNumberViolation first = new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, attemptedStoreVariable, null);
-        final LargeSequenceStoredToNonFloatingPointNumberViolation second = new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, StringUtils.reverse(attemptedStoreVariable),
-                null);
+        final LargeSequenceStoredToNonFloatingPointNumberViolation first = new LargeSequenceStoredToNonFloatingPointNumberViolation(
+                seqResultVariable, attemptedStoreVariable, null);
+        final LargeSequenceStoredToNonFloatingPointNumberViolation second = new LargeSequenceStoredToNonFloatingPointNumberViolation(
+                seqResultVariable, StringUtils.reverse(attemptedStoreVariable), null);
         assertThat(first).isNotEqualTo(second);
         assertThat(second).isNotEqualTo(first);
     }
 
     @Override
     protected LargeSequenceStoredToNonFloatingPointNumberViolation createViolation(final Integer lineNumber) {
-        return new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, attemptedStoreVariable, lineNumber);
+        return new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, attemptedStoreVariable,
+                lineNumber);
     }
 
     @Override

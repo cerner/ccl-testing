@@ -17,7 +17,8 @@ import com.cerner.ccl.analysis.data.AnalysisRule;
 import com.cerner.ccl.analysis.exception.AnalysisRuleProvider;
 
 /**
- * These are simple tests aimed at ensuring that the rules can handle costly operations, such as analysis of large programs.
+ * These are simple tests aimed at ensuring that the rules can handle costly operations, such as analysis of large
+ * programs.
  *
  * @author Joshua Hyde
  *
@@ -29,7 +30,9 @@ public class StressTest extends AbstractJDomTest {
 
     /**
      * Read the indicator of whether or not to run tests from a properties file.
-     * @throws Exception If any errors occur during the test run.
+     * 
+     * @throws Exception
+     *             If any errors occur during the test run.
      */
     @BeforeClass
     public static void readStressTestIndicator() throws Exception {

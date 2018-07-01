@@ -771,8 +771,7 @@ public class RecordImplTest {
     }
 
     /**
-     * Test the toString() of a record when all it has are primitive fields.
-     * <br>
+     * Test the toString() of a record when all it has are primitive fields. <br>
      * The expected output of the method is:
      *
      * <pre>
@@ -834,8 +833,7 @@ public class RecordImplTest {
     }
 
     /**
-     * Test the toString() method for a record structure that has a nested record structure.
-     * <br>
+     * Test the toString() method for a record structure that has a nested record structure. <br>
      * The expected output is:
      *
      * <pre>

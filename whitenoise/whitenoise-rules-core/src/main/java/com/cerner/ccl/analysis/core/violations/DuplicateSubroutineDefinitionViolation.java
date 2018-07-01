@@ -71,7 +71,8 @@ public class DuplicateSubroutineDefinitionViolation implements SubroutineViolati
      */
     public String getViolationExplanation() {
         return "Unless you are carefully managing the scope of subroutine definitions, it is not recommended to have two different implementations "
-                + "of the same subroutine. Consider consolidating the logic to a single consistent routine or rename the subroutine to avoid " + "conflicting implementations";
+                + "of the same subroutine. Consider consolidating the logic to a single consistent routine or rename the subroutine to avoid "
+                + "conflicting implementations";
     }
 
     /**

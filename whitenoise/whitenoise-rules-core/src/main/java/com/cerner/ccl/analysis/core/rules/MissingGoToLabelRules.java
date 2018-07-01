@@ -46,7 +46,8 @@ public class MissingGoToLabelRules extends TimedDelegate {
             }
 
             if (!matchFound) {
-                violations.add(new MissingGoToLabelViolation(getCclName(candidateLabel), getLineNumber(candidateLabel)));
+                violations
+                        .add(new MissingGoToLabelViolation(getCclName(candidateLabel), getLineNumber(candidateLabel)));
             }
         }
 

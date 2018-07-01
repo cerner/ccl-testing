@@ -15,14 +15,9 @@ import com.cerner.ccl.analysis.data.AnalysisRule;
 import com.cerner.ccl.analysis.data.Violation;
 
 /**
- * A {@link AnalysisRule} that identifies the following issues with record structure declarations:
- *   1. A STRUCT or LIST structure where the subsequent field member is not a child of the structure but accidently a sibling.
- *   For example:
- *   record badStructure
- *   (
- *     1 struct
- *       1 value = i4
- *   )
+ * A {@link AnalysisRule} that identifies the following issues with record structure declarations: 1. A STRUCT or LIST
+ * structure where the subsequent field member is not a child of the structure but accidently a sibling. For example:
+ * record badStructure ( 1 struct 1 value = i4 )
  *
  * @author Jeff Wiedemann
  */
@@ -47,17 +42,18 @@ public class RecordStructureDeclarationRules extends TimedDelegate {
         for (final Element record : records) {
             final String recordName = getCclName(record.getChild("COMMA."));
 
-            //Identify all fields within the record that appear to be lists or structures
+            // Identify all fields within the record that appear to be lists or structures
             for (final Element listOrStruct : selectNodesByName(record, "FIELD.", "[OCCUR. or not(FORMAT.)]")) {
                 if (listOrStruct.getChildren("FIELD.").size() == 0)
-                    violations.add(new EmptyListOrStructureDefinitionViolation(recordName, getCclName(listOrStruct), getLineNumber(listOrStruct)));
+                    violations.add(new EmptyListOrStructureDefinitionViolation(recordName, getCclName(listOrStruct),
+                            getLineNumber(listOrStruct)));
             }
 
-            //If record structure is declared and not protected, then add the violation
+            // If record structure is declared and not protected, then add the violation
             if (recordStructureHasNoDefinedScoping(record))
                 violations.add(new UnprotectedRecordStructureDefinitionViolation(recordName, getLineNumber(record)));
 
-            //search for an instance where a defined record is freed and add the violation
+            // search for an instance where a defined record is freed and add the violation
             for (final Element free : frees) {
                 if (getCclName(free).equalsIgnoreCase(recordName)) {
                     violations.add(new FreedRecordStructureViolation(recordName, getLineNumber(free)));

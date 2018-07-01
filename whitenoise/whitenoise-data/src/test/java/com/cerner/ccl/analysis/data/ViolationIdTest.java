@@ -83,7 +83,8 @@ public class ViolationIdTest {
      */
     @Test
     public void testEqualsDifferentIdentifier() {
-        final ViolationId other = new ViolationId(violationId.getNamespace(), StringUtils.reverse(violationId.getNamespacedIdentifier()));
+        final ViolationId other = new ViolationId(violationId.getNamespace(),
+                StringUtils.reverse(violationId.getNamespacedIdentifier()));
         assertThat(other).isNotEqualTo(violationId);
         assertThat(violationId).isNotEqualTo(other);
     }
@@ -93,7 +94,8 @@ public class ViolationIdTest {
      */
     @Test
     public void testEqualsDifferentNamespace() {
-        final ViolationId other = new ViolationId(StringUtils.reverse(violationId.getNamespace()), violationId.getNamespacedIdentifier());
+        final ViolationId other = new ViolationId(StringUtils.reverse(violationId.getNamespace()),
+                violationId.getNamespacedIdentifier());
         assertThat(other).isNotEqualTo(violationId);
         assertThat(violationId).isNotEqualTo(other);
     }
@@ -103,7 +105,8 @@ public class ViolationIdTest {
      */
     @Test
     public void testEqualsIgnoreCase() {
-        final ViolationId other = new ViolationId(StringUtils.swapCase(violationId.getNamespace()), StringUtils.swapCase(violationId.getNamespacedIdentifier()));
+        final ViolationId other = new ViolationId(StringUtils.swapCase(violationId.getNamespace()),
+                StringUtils.swapCase(violationId.getNamespacedIdentifier()));
         assertThat(violationId).isEqualTo(other);
         assertThat(other).isEqualTo(violationId);
         assertThat(violationId.hashCode()).isEqualTo(other.hashCode());
@@ -122,7 +125,8 @@ public class ViolationIdTest {
      */
     @Test
     public void testGetIdentifier() {
-        assertThat(violationId.getIdentifier()).isEqualTo(namespace.toUpperCase(Locale.US) + "." + identifier.toUpperCase(Locale.US));
+        assertThat(violationId.getIdentifier())
+                .isEqualTo(namespace.toUpperCase(Locale.US) + "." + identifier.toUpperCase(Locale.US));
     }
 
     /**

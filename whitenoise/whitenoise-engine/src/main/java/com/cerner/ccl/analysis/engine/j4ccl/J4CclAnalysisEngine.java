@@ -16,7 +16,8 @@ import com.google.code.jetm.reporting.ext.PointFactory;
 import etm.core.monitor.EtmPoint;
 
 /**
- * An {@link AnalysisEngine} that uses j4ccl to communicate with CCL and get the program XML to perform the static analysis.
+ * An {@link AnalysisEngine} that uses j4ccl to communicate with CCL and get the program XML to perform the static
+ * analysis.
  * 
  * @author Joshua Hyde
  * 
@@ -53,7 +54,8 @@ public class J4CclAnalysisEngine implements AnalysisEngine {
     /**
      * {@inheritDoc}
      */
-    public Map<String, Set<Violation>> analyze(final Collection<String> programNames, final Collection<? extends AnalysisRule> rules) {
+    public Map<String, Set<Violation>> analyze(final Collection<String> programNames,
+            final Collection<? extends AnalysisRule> rules) {
         final EtmPoint point = PointFactory.getPoint(getClass(), "analyze");
         try {
             if (programNames == null)

@@ -91,8 +91,7 @@ public class ListingParser {
     }
 
     /**
-     * Read the lines from a file.
-     * <br>
+     * Read the lines from a file. <br>
      * This method exists primarily to reduce the scope of the {@link SuppressWarnings} annotation.
      *
      * @param file

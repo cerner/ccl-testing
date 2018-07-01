@@ -42,7 +42,7 @@ public class DynamicCompilerAdderImpl extends AbstractCompilerAdder
      * @throws IllegalArgumentException
      *             If the given source code location does not end in a ".inc" or ".sub" file extension.
      */
-    public DynamicCompilerAdderImpl(final File sourceFile, final CommandQueue queue) {
+    public DynamicCompilerAdderImpl(File sourceFile, final CommandQueue queue) {
         if (sourceFile == null)
             throw new NullPointerException("Source code cannot be null.");
 
@@ -125,8 +125,8 @@ public class DynamicCompilerAdderImpl extends AbstractCompilerAdder
      */
     private synchronized String createRandomObjectName() {
         final String name = String.format("j4ccl_%s_%d%d",
-                System.getProperty("user.name").toLowerCase(Locale.getDefault()).replace("$", ""),
-                ++objectCount, System.currentTimeMillis() % 10000000);
+                System.getProperty("user.name").toLowerCase(Locale.getDefault()).replace("$", ""), ++objectCount,
+                System.currentTimeMillis() % 10000000);
         return name.substring(0, Math.min(name.length(), MAX_SCRIPT_NAME_LENGTH));
     }
 
@@ -143,8 +143,7 @@ public class DynamicCompilerAdderImpl extends AbstractCompilerAdder
     }
 
     /**
-     * Get the name of the script to be created.
-     * <br>
+     * Get the name of the script to be created. <br>
      * This is purposefully kept at package-level visibility so that it is only visible to tests.
      *
      * @return The name of the script to be created.

@@ -6,7 +6,7 @@ the [downloading maven] instructions if you do not already have it installed.
 [apache-maven]:https://maven.apache.org/
 [downloading maven]:https://maven.apache.org/download.html
 
-The [cerner-maven-ccl-plugin][cerner-maven-ccl-plugin] must be provided credentials so it can transfer files to and from the back-end node and access CCL 
+The [ccl-maven-plugin][ccl-maven-plugin] must be provided credentials so it can transfer files to and from the back-end node and access CCL 
 in the target environment. This information can be provided in several ways, but we recommend using maven <b>profiles</b> and <b>servers</b> to specify it. 
 Moreover, we recommed specifying these items in a <b>settings.xml</b> file (opposed to putting it in the pom file of every single project). 
 A copy of settings.xml resides in the conf folder of your maven installation, however it is better to put the information in an abbreviated copy of 
@@ -64,5 +64,5 @@ settings-security.xml inaccessible to others.
 
 In addition, the expect4j component logs everythig that gets sent to the backend including passwords. [Look here][password-logging-prevention] to see how to prevent that.
 
-[cerner-maven-ccl-plugin]:../cerner-maven-ccl-plugin/README.md
-[password-logging-prevention]:../cerner-maven-ccl-plugin/doc/PASSWORDLOGGING.md
+[ccl-maven-plugin]:../ccl-maven-plugin/README.md
+[password-logging-prevention]:../ccl-maven-plugin/doc/PASSWORDLOGGING.md

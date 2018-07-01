@@ -51,7 +51,7 @@ public abstract class AbstractSubroutineViolationTest<T extends SubroutineViolat
         assertThat(first).isNotEqualTo(second);
         assertThat(second).isNotEqualTo(first);
     }
-    
+
     /**
      * Test the retrieval of the subroutine name.
      */

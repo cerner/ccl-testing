@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <element name="TESTCASE">
+        <complexType>
+            <sequence>
+                <element name="NAME" type="string">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The name of the CCL include file that was executed as a test.
+                        </documentation>
+                    </annotation>
+                </element>
+                <element name="TESTS">
+                    <annotation>
+                        <documentation xml:lang="en">
+                            The list individual test subroutines executed within the include file.
+                        </documentation>
+                    </annotation>
+                    <complexType>
+                        <sequence>
+                            <element name="TEST" minOccurs="0" maxOccurs="unbounded">
+                                <annotation>
+                                    <documentation xml:lang="en">
+                                        An individual test executed within the include file.
+                                    </documentation>
+                                </annotation>
+                                <complexType>
+                                    <sequence>
+                                        <element name="NAME" type="string">
+                                            <annotation>
+                                                <documentation xml:lang="en">
+                                                    The name of the test that was executed.
+                                                </documentation>
+                                            </annotation>
+                                        </element>
+                                        <element name="ASSERTS">
+                                            <annotation>
+                                                <documentation xml:lang="en">
+                                                    The list of assertions that were made within the test.
+                                                </documentation>
+                                            </annotation>
+                                            <complexType>
+                                                <sequence>
+                                                    <element name="ASSERT" minOccurs="0" maxOccurs="unbounded">
+                                                        <annotation>
+                                                            <documentation xml:lang="en">
+                                                                An assertion made within the test.
+                                                            </documentation>
+                                                        </annotation>
+                                                        <complexType>
+                                                            <sequence>
+                                                                <element name="LINENUMBER" type="long">
+                                                                    <annotation>
+                                                                        <documentation xml:lang="en">
+                                                                            The line number on which the assertion appears within the test include file.
+                                                                        </documentation>
+                                                                    </annotation>
+                                                                </element>
+                                                                <element name="CONTEXT" type="string">
+                                                                    <annotation>
+                                                                        <documentation>
+                                                                            The text describing the assertion.
+                                                                        </documentation>
+                                                                    </annotation>
+                                                                </element>
+                                                                <element name="RESULT">
+                                                                    <annotation>
+                                                                        <documentation xml:lang="en">
+                                                                            The result of the assertion.
+                                                                        </documentation>
+                                                                    </annotation>
+                                                                    <simpleType>
+                                                                        <restriction base="string">
+                                                                            <enumeration value="PASSED">
+                                                                                <annotation>
+                                                                                    <documentation xml:lang="en">
+                                                                                        The assertion succeeded.
+                                                                                    </documentation>
+                                                                                </annotation>
+                                                                            </enumeration>
+                                                                            <enumeration value="FAILED">
+                                                                                <annotation>
+                                                                                    <documentation xml:lang="en">
+                                                                                        The assertion failed.
+                                                                                    </documentation>
+                                                                                </annotation>
+                                                                            </enumeration>
+                                                                        </restriction>
+                                                                    </simpleType>
+                                                                </element>
+                                                                <choice>
+                                                                  <element name="TEST" type="string" minOccurs="0" maxOccurs="1">
+                                                                      <annotation>
+                                                                          <documentation xml:lang="en">
+                                                                              The condition that was verified. This element has been deprecated. Use the CONDITION element instead.
+                                                                          </documentation>
+                                                                      </annotation>
+                                                                  </element>
+                                                                  <element name="CONDITION" type="string" minOccurs="0" maxOccurs="1">
+                                                                      <annotation>
+                                                                          <documentation xml:lang="en">
+                                                                              The condition that was verified.
+                                                                          </documentation>
+                                                                      </annotation>
+                                                                  </element>
+                                                                </choice>
+                                                            </sequence>
+                                                        </complexType>
+                                                    </element> <!-- end ASSERT -->
+                                                </sequence>
+                                            </complexType>
+                                        </element> <!-- end ASSERTS -->
+                                        <element name="ERRORS">
+                                            <annotation>
+                                                <documentation xml:lang="en">
+                                                    A record of any errors that occurred during the execution of the test.
+                                                </documentation>
+                                            </annotation>
+                                            <complexType>
+                                                <sequence>
+                                                    <element name="ERROR" minOccurs="0" maxOccurs="unbounded">
+                                                        <annotation>
+                                                            <documentation xml:lang="en">
+                                                                An individual error that was recorded during the test execution.
+                                                            </documentation>
+                                                        </annotation>
+                                                        <complexType>
+                                                            <sequence>
+                                                                <element name="LINENUMBER" type="long">
+                                                                    <annotation>
+                                                                        <documentation xml:lang="en">
+                                                                            The line number of the include file on which the error occured.
+                                                                        </documentation>
+                                                                    </annotation>
+                                                                </element>
+                                                                <element name="ERRORTEXT" type="string">
+                                                                    <annotation>
+                                                                        <documentation xml:lang="en">
+                                                                            The actual text of the error message.
+                                                                        </documentation>
+                                                                    </annotation>
+                                                                </element>
+                                                            </sequence>
+                                                        </complexType>
+                                                    </element> <!-- end ERROR -->
+                                                </sequence>
+                                            </complexType>
+                                        </element> <!-- end ERRORS -->
+                                        <element name="RESULT">
+                                            <annotation>
+                                                <documentation xml:lang="en">
+                                                    The overall success or failure of the test.
+                                                </documentation>
+                                            </annotation>
+                                            <simpleType>
+                                                <restriction base="string">
+                                                    <enumeration value="PASSED">
+                                                        <annotation>
+                                                            <documentation xml:lang="en">
+                                                                The test succeeded.
+                                                            </documentation>
+                                                        </annotation>
+                                                    </enumeration>
+                                                    <enumeration value="FAILED">
+                                                        <annotation>
+                                                            <documentation xml:lang="en">
+                                                                The test failed.
+                                                            </documentation>
+                                                        </annotation>
+                                                    </enumeration>
+                                                    <enumeration value="ERRORED">
+                                                        <annotation>
+                                                            <documentation xml:lang="en">
+                                                                An error occurred during the test execution.
+                                                            </documentation>
+                                                        </annotation>
+                                                    </enumeration>
+                                                </restriction>
+                                            </simpleType>
+                                        </element> <!--  end RESULT -->
+                                    </sequence>
+                                </complexType>
+                            </element> <!-- end TEST -->
+                        </sequence>
+                    </complexType>
+                </element> <!-- end TESTS -->
+            </sequence>
+        </complexType>
+    </element>
+</schema>

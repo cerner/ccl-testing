@@ -63,8 +63,7 @@ public class SubroutineDeclarationRulesTest extends AbstractJDomTest {
     }
 
     /**
-     * Ensure that a properly declared subroutine within a validate statement is correctly identified as being
-     * declared
+     * Ensure that a properly declared subroutine within a validate statement is correctly identified as being declared
      *
      * @throws Exception
      *             If any errors occur during the test run.
@@ -101,7 +100,7 @@ public class SubroutineDeclarationRulesTest extends AbstractJDomTest {
                 toDocument("subroutine-with-mismatched-invocation.xml")).analyze();
         assertThat(violations).hasSize(3);
 
-        assertThat(violations).contains(new MismatchedSubroutineInvocationViolation("mismatchedParamCnt1",10));
+        assertThat(violations).contains(new MismatchedSubroutineInvocationViolation("mismatchedParamCnt1", 10));
         assertThat(violations).contains(new MismatchedSubroutineInvocationViolation("mismatchedParamCnt3", 30));
         assertThat(violations).contains(new MismatchedSubroutineInvocationViolation("mismatchedParamCnt5", 32));
     }

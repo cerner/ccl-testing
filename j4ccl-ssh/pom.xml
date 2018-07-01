@@ -7,7 +7,7 @@
         <version>2.0.0-SNAPSHOT</version>
         <relativePath>../parent-pom/</relativePath>
     </parent>
-    <groupId>com.cerner.ccl</groupId>
+    <groupId>com.cerner.ccl.comm</groupId>
     <artifactId>j4ccl-ssh</artifactId>
     <version>4.0-SNAPSHOT</version>
     <name>SSH for J4CCL</name>
@@ -195,7 +195,7 @@
             <version>2.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.cerner.ccl</groupId>
+            <groupId>com.cerner.ccl.comm</groupId>
             <artifactId>j4ccl</artifactId>
             <version>3.0-SNAPSHOT</version>
         </dependency>

@@ -22,15 +22,18 @@ public interface AnalysisEngine {
      * Perform static analysis.
      * 
      * @param programNames
-     *            A {@link Collection} of {@link String} objects that are the names of the CCL programs to be statically analyzed.
+     *            A {@link Collection} of {@link String} objects that are the names of the CCL programs to be statically
+     *            analyzed.
      * @param rules
      *            A {@link Collection} of {@link AnalysisRule} objects to be used to analyze the given source files.
-     * @return A {@link Map}; the keys are {@link File} references to the files that were analyzed; the values are {@link Set Sets} of {@link Violation} objects representing the violations incurred by
-     *         this script, if any.
+     * @return A {@link Map}; the keys are {@link File} references to the files that were analyzed; the values are
+     *         {@link Set Sets} of {@link Violation} objects representing the violations incurred by this script, if
+     *         any.
      * @throws AnalysisException
      *             If any errors occur during analysis of code.
      * @throws IllegalArgumentException
      *             If the given source file or rules collection are {@code null}.
      */
-    Map<String, Set<Violation>> analyze(final Collection<String> programNames, final Collection<? extends AnalysisRule> rules);
+    Map<String, Set<Violation>> analyze(final Collection<String> programNames,
+            final Collection<? extends AnalysisRule> rules);
 }

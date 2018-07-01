@@ -9,7 +9,8 @@ import com.cerner.ccl.analysis.data.ViolationId;
 /**
  * A {@link Violation} used to describe a situation of an improper use of the CCL {@code size()} function.
  * <p>
- * The uniqueness of this violation is a combination of the given option, and the line number - if any - at which it appears.
+ * The uniqueness of this violation is a combination of the given option, and the line number - if any - at which it
+ * appears.
  *
  * @author Albert Ponraj
  */
@@ -61,8 +62,8 @@ public class SizeOfRecordMissingTrimViolation implements Violation {
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "When using the size() function on a string variable, the variable should be wrapped " +
-        		"with trim(). This ensures that when value is empty size will return 0.";
+        return "When using the size() function on a string variable, the variable should be wrapped "
+                + "with trim(). This ensures that when value is empty size will return 0.";
     }
 
     /**

@@ -9,9 +9,11 @@ import com.cerner.ccl.analysis.data.VariableViolation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link VariableViolation} indicating that a variable has been referenced before it has been explicitly declared using a {@code declare} statement.
+ * A {@link VariableViolation} indicating that a variable has been referenced before it has been explicitly declared
+ * using a {@code declare} statement.
  * <p>
- * The uniqueness of this violation is dictated by the given variable name and, if available, the line number; the comparison of variable names is case-insensitive.
+ * The uniqueness of this violation is dictated by the given variable name and, if available, the line number; the
+ * comparison of variable names is case-insensitive.
  *
  * @author Joshua Hyde
  *
@@ -90,7 +92,8 @@ public class MissingVariableDeclarationViolation implements VariableViolation {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(getVariableName().toLowerCase(Locale.US)).append(getLineNumber()).toHashCode();
+        return new HashCodeBuilder().append(getVariableName().toLowerCase(Locale.US)).append(getLineNumber())
+                .toHashCode();
     }
 
     @Override

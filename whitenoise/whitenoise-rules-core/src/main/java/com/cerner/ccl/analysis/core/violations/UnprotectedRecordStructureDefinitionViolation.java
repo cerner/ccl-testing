@@ -10,8 +10,8 @@ import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
 
 /**
- * A {@link Violation} used to describe a situation where a record structure is not explicitly declared with
- * private or protect.
+ * A {@link Violation} used to describe a situation where a record structure is not explicitly declared with private or
+ * protect.
  * <p>
  *
  * @author Jeff Wiedemann
@@ -20,18 +20,18 @@ import com.cerner.ccl.analysis.data.ViolationId;
 public class UnprotectedRecordStructureDefinitionViolation implements RecordStructureViolation {
     private static final ViolationId VIOLATION_ID = new CoreViolationId("UNPROTECTED_RECORD_DEFINITION");
 
-    private final String  recordStructureName;
+    private final String recordStructureName;
     private final Integer lineNumber;
 
     /**
      * Create a violation.
      *
      * @param recordStructureName
-     * 		A {@link String} representing the name of the record structure with the violation
+     *            A {@link String} representing the name of the record structure with the violation
      * @param lineNumber
-     *      An {@link Integer} representing the line at which the violation was encountered, if applicable.
+     *            An {@link Integer} representing the line at which the violation was encountered, if applicable.
      * @throws IllegalArgumentException
-     *      If any of the given objects, except for the line number, are {@code null}.
+     *             If any of the given objects, except for the line number, are {@code null}.
      */
     public UnprotectedRecordStructureDefinitionViolation(final String recordStructureName, final Integer lineNumber) {
         if (recordStructureName == null)
@@ -76,11 +76,11 @@ public class UnprotectedRecordStructureDefinitionViolation implements RecordStru
      * {@inheritDoc}
      */
     public String getViolationExplanation() {
-        return "Much like variables, record structure declarations are almost always required to be protected or private so that instances " +
-                "where multiple structures of the same name containing different data are appropriately protected by their defined scope. Structures " +
-                "defined in scripts which are recursively called as well as commonly named record structures are expecially prone to this scoping " +
-                "problem. If you truely desire a globally scoped record structure, explicitly declare it with public, persist, or persistscript " +
-                "and do so with caution.";
+        return "Much like variables, record structure declarations are almost always required to be protected or private so that instances "
+                + "where multiple structures of the same name containing different data are appropriately protected by their defined scope. Structures "
+                + "defined in scripts which are recursively called as well as commonly named record structures are expecially prone to this scoping "
+                + "problem. If you truely desire a globally scoped record structure, explicitly declare it with public, persist, or persistscript "
+                + "and do so with caution.";
     }
 
     /**
@@ -99,6 +99,5 @@ public class UnprotectedRecordStructureDefinitionViolation implements RecordStru
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }
-
 
 }

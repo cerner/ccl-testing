@@ -12,8 +12,7 @@ import com.cerner.ccl.analysis.data.AnalysisRule;
 import com.cerner.ccl.analysis.data.Violation;
 
 /**
- * An {@link AnalysisRule} that flags any instance where the nullterm() is not used while
- * using uar_srvsetstring
+ * An {@link AnalysisRule} that flags any instance where the nullterm() is not used while using uar_srvsetstring
  *
  * @author Albert Ponraj
  *

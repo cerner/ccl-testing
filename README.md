@@ -6,31 +6,32 @@ is a unit test framework for CCL.
 and to generate code documentation. It also houses dependencies for those maven plugins. Specifically, ccl-testing houses the components listed below. 
 Please visit individual components for details and usage instructions. 
 
-* [cerner-maven-ccl-plugin](cerner-maven-ccl-plugin/README.md) - Maven plugin for transferring resources, compiling CCL code and tests, executing the 
+* [ccl-maven-plugin](ccl-maven-plugin/README.md) - Maven plugin for transferring resources, compiling CCL code and tests, executing the 
 tests, and retrieving the test and coverage results.
-* [cerner-maven-cerreal-plugin](cerner-maven-cerreal-plugin#cerner-maven-cerreal-plugin) - Maven reporting plugin to report test and coverage results.
-* [cerner-maven-whitenoise-plugin](cerner-maven-whitenoise-plugin#cerner-maven-whitenoise-plugin) - Maven reporting plugin that identifies common CCL coding errors.
-* [cerner-maven-cdoc-plugin](cerner-maven-cdoc-plugin#cerner-maven-cdoc-plugin) - Maven reporting plugin that generates code documentation from code comments.
+* [cerreal-maven-plugin](cerreal-maven-plugin#cerreal-maven-plugin) - Maven reporting plugin to report test and coverage results.
+* [whitenoise-maven-plugin](whitenoise-maven-plugin#whitenoise-maven-plugin) - Maven reporting plugin that identifies common CCL coding errors.
+* [cdoc-maven-plugin](cdoc-maven-plugin#cdoc-maven-plugin) - Maven reporting plugin that generates code documentation from code comments.
 * [ecosystem](ecosystem#ecosystem) - Eclipse preferences to ensure consistent formating and compiler settings. Imported using Workspace Mechanic.
-* [ftp-util](ftp-util/README.md) - cerner-maven-ccl-plugin dependency used to ftp resource to/from the Cerner Millennium back end.
-* [j4ccl](j4ccl#j4ccl) - cerner-maven-ccl-plugin dependency defining common classes and interfaces for accessing a Cerner Millennium back end.
-* [j4ccl-ssh](j4ccl-ssh#j4ccl-ssh) - cerner-maven-ccl-plugin dependency leveraging JCraft to define ssh implemetations for j4ccl interfaces.
-* [jsch-util](jsch-util#jsch-util) - cerner-maven-ccl-plugin dependency leverating JCraft to provide back-end connections for j4ccl-ssh.
+* [ftp-util](ftp-util/README.md) - ccl-maven-plugin dependency used to ftp resource to/from the Cerner Millennium back end.
+* [j4ccl](j4ccl#j4ccl) - ccl-maven-plugin dependency defining common classes and interfaces for accessing a Cerner Millennium back end.
+* [j4ccl-ssh](j4ccl-ssh#j4ccl-ssh) - ccl-maven-plugin dependency leveraging JCraft to define ssh implemetations for j4ccl interfaces.
+* [jsch-util](jsch-util#jsch-util) - ccl-maven-plugin dependency leverating JCraft to provide back-end connections for j4ccl-ssh.
 
 
 Some significant differences from legacy versions to note 
-* The prefix ***cerner-*** in the artifactId of the maven plugins. 
-* The [specifyDebugCcl](cerner-maven-ccl-plugin/doc/CONFIGURATIONOPTIONS.md#specifyDebugCcl) flag in the cerner-maven-ccl-plugin.
+* The artifactId for plugins is now `X-maven-plugin` rather than `maven-X-plugin` to satisfy [maven3 restrictions on plugin naming][plugin-naming].
+* Several groupId changes. All components now live below com.cerner.ccl or com.cerner.ftp.
+* The [specifyDebugCcl](ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md#specifyDebugCcl) flag in the ccl-maven-plugin.
 
 ## Quick Start Guide
 If you are new to CCL Unit testing and want to get started quickly, [look here][cclunit_quickstart].
 
 For recommendations on setting up maven, [look here](doc/CONFIGUREMAVEN.md). 
 
-Take a look at the [sample pom configuration](cerner-maven-ccl-plugin/README.md) and 
-[configuration options](cerner-maven-ccl-plugin/doc/CONFIGURATIONOPTIONS.md) for the unit testing plugin.
+Take a look at the [sample pom configuration](ccl-maven-plugin/README.md) and 
+[configuration options](ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md) for the unit testing plugin.
 
-Don't want your password showing up in log files? [Look here](cerner-maven-ccl-plugin/doc/PASSWORDLOGGING.md).
+Don't want your password showing up in log files? [Look here](ccl-maven-plugin/doc/PASSWORDLOGGING.md).
 
 ## Release Schedule
 
@@ -68,3 +69,4 @@ limitations under the License.
 [release_guidelines]: RELEASING.md#releasing-ccl-testing
 [ccl_unit]: https://github.com/cerner/cclunit-framework
 [cclunit_quickstart]: https://github.com/cerner/cclunit-framework/blob/master/cclunit-framework-source/doc/QUICKSTART.md
+[plugin-naming]:https://maven.apache.org/guides/introduction/introduction-to-plugin-prefix-mapping.html

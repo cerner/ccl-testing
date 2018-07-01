@@ -1,0 +1,58 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>cerreal-maven-plugin Changes Report</title>
+    </properties>
+    <body>
+        <release version="2.0.0" date="2017-07-07">
+            <action dev="fred eckertson">
+                Fix the code coverage report to show 0.0% and red rather than NaN and green when there is no coverage data.
+            </action>
+            <action dev="fred eckertson" issue="CCLTEST-60" type="fix" system="JIRA">
+                Fix the cerreal report details to display the entire assert statement when coded on multiple lines.
+            </action>
+        </release>
+        <release version="1.0.2" date="2011-08-02">
+            <action dev="joshua hyde" issue="CCLTEST-159" type="add" system="JIRA">
+                Enforce Maven 2 usage.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-168" type="fix" system="JIRA">
+                Cerreal Report has "hover" highlighting of test details.
+            </action>
+        </release>
+        <release version="1.0.1" date="2011-07-13">
+            <action dev="joshua hyde" issue="CCLTEST-40" type="update" system="JIRA">
+                Refactor Java projects to deploy using automated tools.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-66" type="update" system="JIRA">
+                Add unit tests to maven-cerreal-plugin.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-105" type="update" system="JIRA">
+                Retrofit projects to use the maven-changes-plugin to track changes.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-129" type="add" system="JIRA">
+                Add Java and Maven version enforcements to CCL Testing projects.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-133" type="add" system="JIRA">
+                Deploy "source" and "javadoc" jars alongside primary jar.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-153" type="add" system="JIRA">
+                Add snapshot repo deployment information to CCLTEST projects.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-156" type="fix" system="JIRA">
+                maven-cerreal-plugin uses incorrect encoding.
+            </action>
+        </release>
+        <release version="1.0" date="2010-08-12" description="Initial GA release">
+            <action dev="jeff wiedemann" issue="CCLTEST-20" type="fix" system="JIRA">
+                Stylesheet references are incorrect causing styles not to be applied.
+            </action>
+            <action dev="joshua hyde" issue="CCLTEST-49" type="update" system="JIRA">
+                Release v1.0 of maven-cerreal-plugin.
+            </action>
+        </release>
+        <release version="1.0-alpha-1" date="2010-04-30" description="Initial alpha release">
+        </release>
+    </body>
+</document>

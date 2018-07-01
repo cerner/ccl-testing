@@ -48,8 +48,8 @@ public abstract class AbstractViolationTest<T extends Violation> extends Abstrac
         assertThat(withNull).isNotEqualTo(withoutNull);
         assertThat(withoutNull).isNotEqualTo(withNull);
         /*
-         * This is necessarily guaranteed by the hash code contract, but is more
-         * to ensure the proper handling of null line numbers
+         * This is necessarily guaranteed by the hash code contract, but is more to ensure the proper handling of null
+         * line numbers
          */
         assertThat(withNull.hashCode()).isNotEqualTo(withoutNull.hashCode());
     }
@@ -113,7 +113,8 @@ public abstract class AbstractViolationTest<T extends Violation> extends Abstrac
      */
     @Test
     public void testGetViolationIdNamespacedIdentifier() {
-        assertThat(createViolation(lineNumber).getViolationId().getNamespacedIdentifier()).isEqualTo(getNamespacedIdentifier());
+        assertThat(createViolation(lineNumber).getViolationId().getNamespacedIdentifier())
+                .isEqualTo(getNamespacedIdentifier());
     }
 
     /**
