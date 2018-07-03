@@ -23,6 +23,8 @@
     <developers>
         <developer>
             <name>Fred Eckertson</name>
+            <organization>Cerner Corporation</organization>
+            <organizationUrl>https://github.com/cerner</organizationUrl>
             <roles>
                 <role>developer</role>
             </roles>
@@ -153,7 +155,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.2</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>copy-xsd</id>

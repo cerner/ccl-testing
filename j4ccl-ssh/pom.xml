@@ -23,6 +23,8 @@
     <developers>
         <developer>
             <name>Fred Eckertson</name>
+            <organization>Cerner Corporation</organization>
+            <organizationUrl>https://github.com/cerner</organizationUrl>
             <roles>
                 <role>developer</role>
             </roles>

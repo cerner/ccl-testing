@@ -6,6 +6,7 @@
     <packaging>maven-plugin</packaging>
     <name>Maven Whitenoise Plugin</name>
     <description>A plugin to perform static analysis of CCL code</description>
+    <url>https://github.com/cerner/ccl-testing</url>
     <scm>
         <connection>scm:git:https://github.com/cerner/ccl-testing.git</connection>
         <developerConnection>scm:git:https://github.com/cerner/ccl-testing.git</developerConnection>
@@ -18,6 +19,32 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    <developers>
+        <developer>
+            <name>Joshua Hyde</name>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Fred Eckertson</name>
+            <organization>Cerner Corporation</organization>
+            <organizationUrl>https://github.com/cerner</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -27,14 +54,6 @@
         <mavenVersion>3.5.3</mavenVersion>
         <surefire.version>2.20.1</surefire.version>
     </properties>
-    <developers>
-        <developer>
-            <name>Joshua Hyde</name>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
     <build>
         <extensions>
             <extension>
@@ -584,7 +603,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>3.1.1</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -669,14 +688,4 @@
             </build>
         </profile>
     </profiles>
-    <distributionManagement>
-      <!--
-        <repository>
-        </repository>
-        <site> 
-        </site>
-        <snapshotRepository>
-        </snapshotRepository>
-      -->        
-    </distributionManagement>
 </project>

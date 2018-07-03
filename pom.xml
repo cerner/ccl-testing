@@ -67,14 +67,4 @@
             </plugin>
         </plugins>
     </reporting>
-    <distributionManagement>
-      <!--
-        <repository>
-        </repository>
-        <site> 
-        </site>
-        <snapshotRepository>
-        </snapshotRepository>
-      -->        
-    </distributionManagement>
 </project>
