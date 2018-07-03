@@ -3,12 +3,12 @@
     <parent>
         <groupId>com.cerner.ccl.cdoc</groupId>
         <artifactId>cdoc-maven-plugin-itests-parent-pom</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
         <relativePath>../</relativePath>
     </parent>
     <groupId>com.cerner.ccl.cdoc</groupId>
     <artifactId>excluded-script</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <name>CCL Parent POM Example</name>
     <description>POM for cdoc-maven-plugin integration tests excluding files</description>
     <packaging>ccl</packaging>

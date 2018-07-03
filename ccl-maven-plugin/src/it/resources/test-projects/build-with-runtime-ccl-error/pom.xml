@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.cerner.ccl.testing</groupId>
 		<artifactId>ccl-maven-plugin-itests-parent-pom</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>build-with-runtime-ccl-error</artifactId>

@@ -2,14 +2,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cerner.ccl.testing</groupId>
     <artifactId>ccl-maven-plugin-itests-parent-pom</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>CCL Parent POM Example</name>
     <description>Parent POM for ccl-maven-plugin integration tests</description>
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <pluginVersion>3.0-SNAPSHOT</pluginVersion>
+        <pluginVersion>${project.version}</pluginVersion>
     </properties>
     <build>
         <plugins>
