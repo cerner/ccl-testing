@@ -3,7 +3,7 @@
         <title>maven-ccl-plugin Changes Report</title>
     </properties>
     <body>
-        <release version="2.0.0" date="2018-06-30">
+        <release version="2.0.0" date="2018-07-04">
             <action dev="fred eckertson" issue="" type="add" system="JIRA">
                 Require Java 7.
             </action>

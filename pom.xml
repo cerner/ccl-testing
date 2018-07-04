@@ -9,6 +9,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <scm>
+        <connection>scm:git:https://github.com/cerner/ccl-testing.git</connection>
+        <developerConnection>scm:git:https://github.com/cerner/ccl-testing.git</developerConnection>
+        <url>https://github.com/cerner/ccl-testing/tree/master/ccltesting-parent-pom</url>
+    </scm>
     <modules>
         <module>parent-pom</module>
         <module>ftp-util</module>
@@ -67,14 +72,4 @@
             </plugin>
         </plugins>
     </reporting>
-    <distributionManagement>
-      <!--
-        <repository>
-        </repository>
-        <site> 
-        </site>
-        <snapshotRepository>
-        </snapshotRepository>
-      -->        
-    </distributionManagement>
 </project>

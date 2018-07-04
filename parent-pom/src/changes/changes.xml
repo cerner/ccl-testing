@@ -3,7 +3,7 @@
         <title>ccltesting-parent-pom Changes Report</title>
     </properties>
     <body>
-        <release version="2.0.0" date="2018-06-30" description="Factor parent pom out of the reactor">
+        <release version="2.0.0" date="2018-07-04" description="Factor parent pom out of the reactor">
             <action dev="fred eckertson" issue="" type="add">
                 Factor parent pom out of the reactor pom and upgrage all plugins and dependencies.
             </action>

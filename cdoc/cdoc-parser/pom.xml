@@ -5,15 +5,6 @@
     <version>2.0-SNAPSHOT</version>
     <name>CDoc Parser</name>
     <description>A parser utility for parsing CDoc CCL documentation</description>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <changes.plugin.version>2.12.1</changes.plugin.version>
-        <powermock.version>2.0.0-beta.5</powermock.version>
-        <jdk.version>1.7</jdk.version>
-        <surefire.version>2.20.1</surefire.version>
-    </properties>
     <url>https://github.com/cerner/ccl-testing</url>
     <scm>
         <connection>scm:git:https://github.com/cerner/ccl-testing.git</connection>
@@ -27,17 +18,38 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
     <developers>
         <developer>
             <name>Joshua Hyde</name>
         </developer>
         <developer>
             <name>Fred Eckertson</name>
+            <organization>Cerner Corporation</organization>
+            <organizationUrl>https://github.com/cerner</organizationUrl>
             <roles>
                 <role>owner</role>
             </roles>
         </developer>
     </developers>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <changes.plugin.version>2.12.1</changes.plugin.version>
+        <powermock.version>2.0.0-beta.5</powermock.version>
+        <jdk.version>1.7</jdk.version>
+        <surefire.version>2.20.1</surefire.version>
+    </properties>
     <build>
         <extensions>
             <extension>
@@ -238,6 +250,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>2.5.2</version>
                 </plugin>
@@ -300,6 +317,11 @@
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
                     <version>1.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.8</version>
                 </plugin>
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
@@ -605,15 +627,35 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+          <id>ossrh</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
-    <distributionManagement>
-      <!--
-        <repository>
-        </repository>
-        <site> 
-        </site>
-        <snapshotRepository>
-        </snapshotRepository>
-      -->        
-    </distributionManagement>
 </project>

@@ -19,6 +19,32 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    <developers>
+        <developer>
+            <name>Fred Eckertson</name>
+            <organization>Cerner Corporation</organization>
+            <organizationUrl>https://github.com/cerner</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Joshua Hyde</name>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -37,31 +63,6 @@
         <site.path>${project.groupId}/${project.artifactId}/${project.version}</site.path>
         <cobertura.maxmem>1024m</cobertura.maxmem>
     </properties>
-
-    <distributionManagement>
-      <!--
-        <repository>
-        </repository>
-        <site> 
-        </site>
-        <snapshotRepository>
-        </snapshotRepository>
-      -->        
-    </distributionManagement>
-    <developers>
-        <developer>
-            <name>Fred Eckertson</name>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Joshua Hyde</name>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
     <build>
         <extensions>
             <extension>
@@ -136,7 +137,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -185,7 +186,7 @@
                         <include>**/*ITest.java</include>
                     </includes>
                     <systemPropertyVariables>
-                        <maven.home>${maven.home}</maven.home>                      
+                        <maven.home>${maven.home}</maven.home>
                         <!-- these are only necessary to build ccl-maven-plugin, but why duplicate the entire plugin spec in that one project? -->
                         <ccl-host>${ccl-host}</ccl-host>
                         <ccl-environment>${ccl-environment}</ccl-environment>
@@ -231,7 +232,7 @@
                     </instrumentation>
                 </configuration>
                 <goals>
-                  <goal>clean</goal>
+                    <goal>clean</goal>
                 </goals>
             </plugin>
         </plugins>
@@ -276,6 +277,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>1.4.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -341,6 +347,11 @@
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
                     <version>1.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.8</version>
                 </plugin>
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
@@ -452,8 +463,8 @@
                     <show>protected</show>
                 </configuration>
             </plugin>
-             <!-- Must be executed after surefire and javadoc -->
-           <plugin>
+            <!-- Must be executed after surefire and javadoc -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
                 <version>2.5</version>
@@ -587,7 +598,7 @@
                 <artifactId>hamcrest-all</artifactId>
                 <version>1.3</version>
                 <scope>test</scope>
-             </dependency>
+            </dependency>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -760,7 +771,37 @@
                                 <exclude>**/jaxb/*.java</exclude>
                             </excludes>
                         </configuration>
-                    </plugin> 
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+          <id>ossrh</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>

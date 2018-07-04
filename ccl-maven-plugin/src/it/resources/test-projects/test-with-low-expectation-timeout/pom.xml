@@ -3,10 +3,10 @@
     <parent>
         <groupId>com.cerner.ccl.testing</groupId>
         <artifactId>ccl-maven-plugin-itests-parent-pom</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <artifactId>test-with-low-expectation-timeout</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>Test expectationTimeout</name>
     <packaging>ccl</packaging>
     <description>A project to test the expectationTimout option</description>

@@ -4,11 +4,11 @@
 	<parent>
 		<groupId>com.cerner.ccl.testing</groupId>
 		<artifactId>ccl-maven-plugin-itests-parent-pom</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>compilation-error-build-failure</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>Compilation Error Build Failure Demo</name>
 	<description>Example mavenized CCL Project where a compilation error in the main PRG causes a build failure</description>
 	<packaging>ccl</packaging>

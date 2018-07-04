@@ -6,14 +6,6 @@
     <packaging>maven-plugin</packaging>
     <name>Maven CDoc Plugin</name>
     <description>A plugin used to generate documentation reports about CCL source code</description>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <jdk.version>1.7</jdk.version>
-        <powermock.version>2.0.0-beta.5</powermock.version>
-        <maven.version>3.5.3</maven.version>
-    </properties>
     <url>https://github.com/cerner/ccl-testing</url>
     <scm>
         <connection>scm:git:https://github.com/cerner/ccl-testing.git</connection>
@@ -27,6 +19,38 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    <developers>
+        <developer>
+            <name>Joshua Hyde</name>
+        </developer>
+        <developer>
+            <name>Fred Eckertson</name>
+            <organization>Cerner Corporation</organization>
+            <organizationUrl>https://github.com/cerner</organizationUrl>
+            <roles>
+                <role>owner</role>
+            </roles>
+        </developer>
+    </developers>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <jdk.version>1.7</jdk.version>
+        <powermock.version>2.0.0-beta.5</powermock.version>
+        <maven.version>3.5.3</maven.version>
+        <ccl.maven.plugin.version>3.0-SNAPSHOT</ccl.maven.plugin.version>
+    </properties>
     <build>
         <extensions>
             <extension>
@@ -234,8 +258,6 @@
             <version>${maven.version}</version>
             <scope>provided</scope>
         </dependency>
-
-
 
         <dependency>
             <groupId>junit</groupId>
@@ -561,15 +583,37 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+          <id>ossrh</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.8</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
-    <distributionManagement>
-        <!--
-        <repository>
-        </repository>
-        <site>
-        </site>
-        <snapshotRepository>
-        </snapshotRepository>
-        -->
-    </distributionManagement>
 </project>
