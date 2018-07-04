@@ -3,7 +3,7 @@
         <title>SSH 4 J4CCL Changes Report</title>
     </properties>
     <body>
-        <release version="4.0" date="2018-06-30">
+        <release version="4.0" date="2018-07-04">
             <action dev="fred eckertson" issue="" type="add" system="JIRA">
                 Support Linux devices.
             </action>

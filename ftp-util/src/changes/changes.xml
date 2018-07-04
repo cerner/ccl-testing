@@ -3,7 +3,7 @@
         <title>ftp-util Changes Report</title>
     </properties>
     <body>
-        <release version="2.0" date="TDB">
+        <release version="2.0" date="2018-07-04">
             <action dev="fred eckertson" issue="" type="add" system="JIRA">
                 Remove pom data duplicated in the parent pom.
             </action>
@@ -11,7 +11,7 @@
                 Upgrade to jsch-util .
             </action>
         </release>
-        <release version="1.2-SNAPSHOT" date="TDB">
+        <release version="1.2-SNAPSHOT" date="TBD">
             <action dev="joshua hyde" issue="CCLTEST-153" type="add" system="JIRA">
                 Add snapshot repo deployment information to CCLTEST projects.
             </action>

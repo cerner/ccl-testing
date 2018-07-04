@@ -3,7 +3,7 @@
         <title>cclunit-archetype Changes Report</title>
     </properties>
     <body>
-        <release version="2.0.0" date="2018-06-30" description="Initial Release">
+        <release version="2.0.0" date="2018-07-04" description="Initial Release">
             <action dev="fred eckertson" issue="" type="add">
                 Initial Release.
             </action>
