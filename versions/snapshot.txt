@@ -1,0 +1,24 @@
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl -DartifactId=ccltesting-parent-pom -DnewVersion=2.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl -DartifactId=cclunit-framework-schema-xml -DnewVersion=2.1-SNAPSHOT
+
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.testing -DartifactId=ccl-maven-plugin -DnewVersion=3.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.testing -DartifactId=cerreal-maven-plugin -DnewVersion=2.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-maven-plugin -DnewVersion=2.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.cdoc -DartifactId=cdoc-maven-plugin -DnewVersion=1.2-SNAPSHOT
+
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.cdoc -DartifactId=cdoc-parser -DnewVersion=2.1-SNAPSHOT
+
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ftp -DartifactId=ftp-util -DnewVersion=2.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ftp -DartifactId=jsch-util -DnewVersion=2.1-SNAPSHOT
+
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.comm -DartifactId=j4ccl -DnewVersion=3.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.comm -DartifactId=j4ccl-ssh -DnewVersion=4.1-SNAPSHOT
+
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-parent-pom -DnewVersion=2.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-data -DnewVersion=2.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-data-jdom-ext -DnewVersion=2.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-engine -DnewVersion=2.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-rules-core -DnewVersion=2.1-SNAPSHOT
+
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.archetype -DartifactId=cclunit-archetype -DnewVersion=1.1-SNAPSHOT
+mvn versions:set -DupdateMatchingVersions=false -DgroupId=com.cerner.ccl.archetype -DartifactId=cclunit-maven-settings-check-archetype -DnewVersion=1.1-SNAPSHOT

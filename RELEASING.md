@@ -2,20 +2,25 @@
 
 ## Release Process
 
-* Update the [changelog][changelog] with a description of all updates indicating the new version number for each released component.
-* Update the `<modules>` tag of the reactor pom to only include components that need to be released.
-    * Comment unneeded components.
-* Make a copy of the repository to diff with in a later step and run 'mvn release:update-versions' on this copy.
-* Remove `-SNAPSHOT` from all pom files to be released.
+* If a maven plugin will be released 
+    * Update the version in `src/main/resources/archetype-resource/pom.xml` in the archetype projects. 
+    * Include the updated archtypes in the release.
+* Update the [changelog][changelog] with a description of all updates indicating the new version number for each released artifact.
+* Update the `<modules>` tag of all reactor poms to only include artifacts that will be released.
+    * comment rather than remove the unneeded components.
+* Update versions/release.txt with the new versions for artifacts being released.
+* Update versions/snapshot.txt with the next snapshot versions for artifacts being released.
+* Execute the commands in versions/release.txt 
 * Commit the changes to a new branch.
-* Perform `mvn clean install site -P<profileId>` on the branch
-    * Travis cannot execute the integration tests because they required an HNAM domain.
+* Perform `mvn clean install site -P<profileId>` on this branch as a final continuous integration test.
+    * travis-ci does not execute the integration tests because they required an HNAM domain.
 * Merge the branch to master and create a tag for the release.
 * Perform `mvn clean install deploy` on the tag.
-    * Use a jenkins job clearing com.cerner.ccl and com.cerner.ftp from the local maven repo.
+    * Use a jenkins job for this. 
+    * Clear com.cerner.ccl and com.cerner.ftp from the local maven repo.
 * Perform `mvn site site:deploy` on the tag. 
     * Use a jenkins job.
-* Diff to the copy made earlier and update all released poms to the next development version and merge to master.
+* Merge the version tags from the copy of the working directory made earlier and merge to master. They are the next development version and merge to master.
 
        
 * The maven deploy pushes the artifact to the [sonatype staging repo](https://oss.sonatype.org/#stagingpositories).
