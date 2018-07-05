@@ -1,19 +1,20 @@
 # ccl-testing Change Log
 
-## yyyy-mm-dd
+## 2018-07-04
 
 * ccl-maven-plugin **3.0**
 * cerreal-maven-plugin **2.0.0**
 * whitenoise-maven-plugin **2.0**
 * cdoc-maven-plugin **1.1**
-* cclunit-archetype **1.0**
-* cclunit-maven-settings-check-archetype **1.0**
-* ccltesting-reactor-pom **2.0.0**
-* ccltesting-parent-pom **2.0.0**
 * ftp-util **2.0**
 * jsch-util **2.0.0**
 * j4ccl **3.0**
 * j4ccl-ssh **4.0**
+* ccltesting-parent-pom **2.0.0**
+* cclunit-framework-schema-xml **2.0**
+* cclunit-archetype **1.0**
+* cclunit-maven-settings-check-archetype **1.0**
+
 
 ### Enhancements
 * Updated j4ccl-ssh (hence ccl-maven-plugin) to work correctly with a linux VM as the remote host. This was accomplished by using expect4j to determine that 
@@ -35,7 +36,7 @@ ccl-maven-plugin now limits the allowed response time for each line of instructi
 * Fixed an issue constructing output files on the remote host when the user name ends in "$" leading to a file name containing "$_" 
 which then got expanded to the last argument of the last command.
 * Fixed cerreal code coverage report to show 0% and red rather tha NaN and green when there is no coverage. 
-* Fixed cerreal report details to show the entire assert statement for assert statements spli over multiple lines.
+* Fixed cerreal report details to show the entire assert statement for assert statements split over multiple lines.
 * Fixed the whitenoise report to recognize namespaces.
 * Fixed cdoc to not force stringent formatting rules on the declaration of record structures.
 * Fixed javadoc issues causing java 8 builds to fail. 
@@ -47,8 +48,8 @@ which then got expanded to the last argument of the last command.
 * Added additional ccl-maven-plugin output to help identify the source of the problem when it has build failures.
 * Changed the names of some ccl-maven-plugin settings and adopted a uniform naming convention for the associated property.
 * Simplified the name of the property associated to several ccl-maven-plugin settings to make it easier to enter them at the command line.
-* Upgraded the plugins and dependencies of all projects using and started leveraging pitest to grade the unit testing.
-* Leveraged parent poms to reduce duplications accross pom files.
+* Upgraded the plugins and dependencies of all projects and started leveraging pitest to grade the unit testing quality.
+* Started leveraging parent poms to reduce duplications accross pom files.
 
 -------
 Earlier versions are not available via Maven Central. Changelog entries are provided [here][historical-changelog] for historical purposes.
