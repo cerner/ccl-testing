@@ -629,6 +629,31 @@
     </reporting>
     <profiles>
         <profile>
+            <id>fmt-validate</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>net.revelc.code.formatter</groupId>
+                        <artifactId>formatter-maven-plugin</artifactId>
+                        <version>2.6.0</version>
+                        <executions>
+                            <execution>
+                                <id>fmt-validate</id>
+                                <goals>
+                                    <goal>validate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/jaxb/*.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>attach-artifacts</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -663,25 +688,30 @@
             </build>
         </profile>
         <profile>
-            <id>fmt-validate</id>
+          <id>sign</id>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>net.revelc.code.formatter</groupId>
-                        <artifactId>formatter-maven-plugin</artifactId>
-                        <version>2.6.0</version>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>fmt-validate</id>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
                                 <goals>
-                                    <goal>validate</goal>
+                                    <goal>sign</goal>
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
                         <configuration>
-                            <excludes>
-                                <exclude>**/jaxb/*.java</exclude>
-                            </excludes>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
                 </plugins>

@@ -19,7 +19,7 @@
 * Perform `mvn clean install site -P<profileId>` on this branch as a final continuous integration test.
     * travis-ci does not execute the integration tests because they required an HNAM domain.
 * Merge the branch to master and create a tag for the release.
-* Perform `mvn clean install deploy` on the tag.
+* Perform `mvn clean install deploy -P<profileId>,attach-artifacts,sign` on the tag.
     * Use a jenkins job for this. 
     * Be sure to clear com.cerner.ccl and com.cerner.ftp from the local maven repo beforehand.
 * Perform `mvn site site:deploy` on the tag. 
