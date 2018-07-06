@@ -99,9 +99,9 @@
                         <configuration>
                             <target>
                                 <replace dir = "${project.build.sourceDirectory}/com/cerner/ccl/analysis/mojo/exclusions/jaxb">
-                                  <include name="**/*.java"/>
-                                  <replaceToken>public class</replaceToken>
-                                  <replaceValue>@SuppressWarnings("javadoc") public class</replaceValue>
+                                    <include name="**/*.java"/>
+                                    <replaceToken>public class</replaceToken>
+                                    <replaceValue>@SuppressWarnings("javadoc") public class</replaceValue>
                                 </replace>
                             </target>
                         </configuration>
@@ -191,8 +191,8 @@
                 <version>2.6.0</version>
                 <executions>
                     <execution>
-                       <id>fmt-format</id>
-                       <goals>
+                        <id>fmt-format</id>
+                        <goals>
                             <goal>format</goal>
                         </goals>
                     </execution>
@@ -275,7 +275,7 @@
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-core</artifactId>
             <version>${mavenVersion}</version>
-        </dependency>    
+        </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
@@ -359,7 +359,7 @@
             <artifactId>doxia-site-renderer</artifactId>
             <version>${doxiaSitetoolsVersion}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.sonatype.plexus</groupId>
             <artifactId>plexus-sec-dispatcher</artifactId>
@@ -444,13 +444,13 @@
             <artifactId>hamcrest-all</artifactId>
             <version>1.3</version>
             <scope>test</scope>
-         </dependency>
-        <dependency>  
+        </dependency>
+        <dependency>
             <groupId>io.takari.maven.plugins</groupId>
             <artifactId>takari-plugin-testing</artifactId>
             <version>2.9.2</version>
             <scope>test</scope>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-artifact</artifactId>
@@ -458,10 +458,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.apache.maven</groupId>
-          <artifactId>maven-model</artifactId>
-          <version>${mavenVersion}</version>
-          <scope>test</scope>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>${mavenVersion}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -655,9 +655,6 @@
         </profile>
         <profile>
             <id>attach-artifacts</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -688,7 +685,7 @@
             </build>
         </profile>
         <profile>
-          <id>sign</id>
+            <id>stage</id>
             <build>
                 <plugins>
                     <plugin>

@@ -184,6 +184,51 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>shitty-maven-plugin</artifactId>
+                <version>1.0-alpha-3</version>
+                <executions>
+                    <execution>
+                        <id>install-maven-plugin</id>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                        <configuration>
+                            <version>${project.version}</version>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.20.1</version>
+                <configuration>
+                    <argLine>-Xmx1024m</argLine>
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <includes>
+                        <include>**/*ITest.java</include>
+                    </includes>
+                    <systemPropertyVariables>
+                        <maven.home>${maven.home}</maven.home>
+                        <!-- these are only necessary to build ccl-maven-plugin, but why duplicate the entire plugin spec in that one project? -->
+                        <ccl-host>${ccl-host}</ccl-host>
+                        <ccl-environment>${ccl-environment}</ccl-environment>
+                        <ccl-domain>${ccl-domain}</ccl-domain>
+                        <ccl-hostCredentialsId>${ccl-hostCredentialsId}</ccl-hostCredentialsId>
+                        <ccl-frontendCredentialsId>${ccl-frontendCredentialsId}</ccl-frontendCredentialsId>
+                    </systemPropertyVariables>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -472,63 +517,6 @@
         </plugins>
     </reporting>
     <profiles>
-        <!-- Separated into its own profile since EC doesn't like the shitty-maven-plugin -->
-        <!-- TODO: once we no longer build with EC, remove this and move the plugins back into <build />, above -->
-        <profile>
-            <id>do-integration-tests</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>shitty-maven-plugin</artifactId>
-                        <version>1.0-alpha-3</version>
-                        <executions>
-                            <execution>
-                                <id>install-maven-plugin</id>
-                                <goals>
-                                    <goal>install</goal>
-                                </goals>
-                                <configuration>
-                                    <version>${project.version}</version>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.20.1</version>
-                        <configuration>
-                            <argLine>-Xmx1024m</argLine>
-                            <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
-                            <includes>
-                                <include>**/*ITest.java</include>
-                            </includes>
-                            <systemPropertyVariables>
-                                <maven.home>${maven.home}</maven.home>
-                                <!-- these are only necessary to build ccl-maven-plugin, but why duplicate the entire plugin spec in that one project? -->
-                                <ccl-host>${ccl-host}</ccl-host>
-                                <ccl-environment>${ccl-environment}</ccl-environment>
-                                <ccl-domain>${ccl-domain}</ccl-domain>
-                                <ccl-hostCredentialsId>${ccl-hostCredentialsId}</ccl-hostCredentialsId>
-                                <ccl-frontendCredentialsId>${ccl-frontendCredentialsId}</ccl-frontendCredentialsId>
-                            </systemPropertyVariables>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>fmt-validate</id>
             <build>
@@ -551,9 +539,6 @@
         </profile>
         <profile>
             <id>attach-artifacts</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -584,7 +569,7 @@
             </build>
         </profile>
         <profile>
-          <id>sign</id>
+            <id>stage</id>
             <build>
                 <plugins>
                     <plugin>
