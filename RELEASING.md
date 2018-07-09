@@ -3,8 +3,9 @@
 ## Release Process
 
 * If any of the maven plugins will be released 
+    * Update theri version in the [sample pom][sample-pom]
     * Update their versions in `src/main/resources/archetype-resource/pom.xml` of the impacted archetype projects.
-    * Include the impacted archtypes in the release.
+    * Include the impacted archtypes in the release.    
 * Update the `<modules>` tag of the reactor pom.
   * Add any new artifacts, comment out artifacts not being released, uncomment artifacts being released.
   * Be sure to update and release any artifact having a dependency that is being released.
@@ -27,8 +28,8 @@
 * Commit the changes to a new branch and merge to master.
 
 * Perform `mvn nexus-staging:release -Pstage -DstagingRepositoryId=REPO` on the tag.
-    * The deploy command only staged the release in [sonotype][sonotype]. This command pushes them to maven central.
-    * Determine REPO by finding the components on [sonotype][sonotype]. Most recently it was `Releases`.
+    * The deploy command only staged the release in [sonatype][sonatype]. This command pushes them to maven central.
+    * Determine REPO by finding the components on [sonatype][sonatype]. Most recently it was `Releases`.
     * NOTE: This command currently fails on the reactor pom, but all of the components do get released.
 
 * Generate the maven site for the release tag and deploy it. 
@@ -50,4 +51,5 @@
 [generating-ssh-keys]:https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#generating-a-new-ssh-key
 [versions.release.txt]:versions/release.txt
 [versions.snapshot.txt]:versions/snapshot.txt
-[sonotype]:https://oss.sonatype.org
+[sonatype]:https://oss.sonatype.org
+[sample-pom]:ccl-maven-plugin/doc/SAMPLEPOM.md
