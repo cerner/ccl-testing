@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cerner.ccl.whitenoise</groupId>
     <artifactId>whitenoise-maven-plugin</artifactId>
-    <version>2.0-SNAPSHOT</version>
+    <version>2.0</version>
     <packaging>maven-plugin</packaging>
     <name>Maven Whitenoise Plugin</name>
     <description>A plugin to perform static analysis of CCL code</description>
@@ -99,9 +99,9 @@
                         <configuration>
                             <target>
                                 <replace dir = "${project.build.sourceDirectory}/com/cerner/ccl/analysis/mojo/exclusions/jaxb">
-                                  <include name="**/*.java"/>
-                                  <replaceToken>public class</replaceToken>
-                                  <replaceValue>@SuppressWarnings("javadoc") public class</replaceValue>
+                                    <include name="**/*.java"/>
+                                    <replaceToken>public class</replaceToken>
+                                    <replaceValue>@SuppressWarnings("javadoc") public class</replaceValue>
                                 </replace>
                             </target>
                         </configuration>
@@ -191,8 +191,8 @@
                 <version>2.6.0</version>
                 <executions>
                     <execution>
-                       <id>fmt-format</id>
-                       <goals>
+                        <id>fmt-format</id>
+                        <goals>
                             <goal>format</goal>
                         </goals>
                     </execution>
@@ -275,7 +275,7 @@
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-core</artifactId>
             <version>${mavenVersion}</version>
-        </dependency>    
+        </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
@@ -312,27 +312,27 @@
         <dependency>
             <groupId>com.cerner.ccl.comm</groupId>
             <artifactId>j4ccl-ssh</artifactId>
-            <version>4.0-SNAPSHOT</version>
+            <version>4.0</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-data</artifactId>
-            <version>2.0-SNAPSHOT</version>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-data-jdom-ext</artifactId>
-            <version>2.0-SNAPSHOT</version>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-engine</artifactId>
-            <version>2.0-SNAPSHOT</version>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-rules-core</artifactId>
-            <version>2.0-SNAPSHOT</version>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
@@ -359,7 +359,7 @@
             <artifactId>doxia-site-renderer</artifactId>
             <version>${doxiaSitetoolsVersion}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.sonatype.plexus</groupId>
             <artifactId>plexus-sec-dispatcher</artifactId>
@@ -444,13 +444,13 @@
             <artifactId>hamcrest-all</artifactId>
             <version>1.3</version>
             <scope>test</scope>
-         </dependency>
-        <dependency>  
+        </dependency>
+        <dependency>
             <groupId>io.takari.maven.plugins</groupId>
             <artifactId>takari-plugin-testing</artifactId>
             <version>2.9.2</version>
             <scope>test</scope>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-artifact</artifactId>
@@ -458,10 +458,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.apache.maven</groupId>
-          <artifactId>maven-model</artifactId>
-          <version>${mavenVersion}</version>
-          <scope>test</scope>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>${mavenVersion}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -629,10 +629,32 @@
     </reporting>
     <profiles>
         <profile>
+            <id>fmt-validate</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>net.revelc.code.formatter</groupId>
+                        <artifactId>formatter-maven-plugin</artifactId>
+                        <version>2.6.0</version>
+                        <executions>
+                            <execution>
+                                <id>fmt-validate</id>
+                                <goals>
+                                    <goal>validate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/jaxb/*.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>attach-artifacts</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -663,25 +685,30 @@
             </build>
         </profile>
         <profile>
-            <id>fmt-validate</id>
+            <id>stage</id>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>net.revelc.code.formatter</groupId>
-                        <artifactId>formatter-maven-plugin</artifactId>
-                        <version>2.6.0</version>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>fmt-validate</id>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
                                 <goals>
-                                    <goal>validate</goal>
+                                    <goal>sign</goal>
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
                         <configuration>
-                            <excludes>
-                                <exclude>**/jaxb/*.java</exclude>
-                            </excludes>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
                 </plugins>
