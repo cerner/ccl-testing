@@ -28,6 +28,10 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
+        <site>
+            <id>github</id>
+            <url>https://github.com/cerner/ccl-testing/blob/maven-site/${release.number}</url>
+        </site>
     </distributionManagement>
     <developers>
         <developer>
@@ -233,6 +237,23 @@
                 <goals>
                     <goal>clean</goal>
                 </goals>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7</version>
+                <configuration>
+                    <skipDeploy>true</skipDeploy>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <skip>true</skip>
+                    <message>none</message>
+                </configuration>
             </plugin>
         </plugins>
         <pluginManagement>

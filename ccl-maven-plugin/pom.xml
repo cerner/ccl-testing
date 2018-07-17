@@ -60,7 +60,7 @@
               <artifactId>maven-dependency-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+                <groupId>org.apache.maven.plugin-tools</groupId>
                 <artifactId>maven-plugin-tools-api</artifactId>
                 <version>${plugin.api-tools.version}</version>
             </plugin>
