@@ -18,9 +18,9 @@ tests, and retrieving the test and coverage results.
 * [jsch-util](jsch-util#jsch-util) - ccl-maven-plugin dependency leverating JCraft to provide back-end connections for j4ccl-ssh.
 
 
-Some significant differences from legacy versions to note 
+Some significant differences from legacy versions to note:
 * The artifactId for plugins is now `X-maven-plugin` rather than `maven-X-plugin` to satisfy [maven3 restrictions on plugin naming][plugin-naming].
-* Several groupId changes. All components now live below com.cerner.ccl or com.cerner.ftp.
+* Several groupId values changed. All components now live below com.cerner.ccl or com.cerner.ftp. In particular use com.cerner.ccl.testing not com.cerner.ccltesting.
 * The [specifyDebugCcl](ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md#specifyDebugCcl) flag in the ccl-maven-plugin.
 
 ## Quick Start Guide
@@ -32,6 +32,8 @@ Take a look at the [sample pom configuration](ccl-maven-plugin/README.md) and
 [configuration options](ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md) for the unit testing plugin.
 
 Don't want your password showing up in log files? [Look here](ccl-maven-plugin/doc/PASSWORDLOGGING.md).
+
+Having build issues? [Look here](ccl-maven-plugin/doc/BUILDISSUES.md) for some common problems and troubleshooting tips.
 
 ## Release Schedule
 

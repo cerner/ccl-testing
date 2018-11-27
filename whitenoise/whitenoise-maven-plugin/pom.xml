@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cerner.ccl.whitenoise</groupId>
     <artifactId>whitenoise-maven-plugin</artifactId>
-    <version>2.0</version>
+    <version>2.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>Maven Whitenoise Plugin</name>
     <description>A plugin to perform static analysis of CCL code</description>
@@ -28,6 +28,10 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
+        <site>
+            <id>github</id>
+            <url>https://github.com/cerner/ccl-testing/blob/maven-site/${release.number}</url>
+        </site>
     </distributionManagement>
     <developers>
         <developer>
@@ -268,6 +272,23 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7</version>
+                <configuration>
+                    <skipDeploy>true</skipDeploy>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <skip>true</skip>
+                    <message>none</message>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -312,27 +333,27 @@
         <dependency>
             <groupId>com.cerner.ccl.comm</groupId>
             <artifactId>j4ccl-ssh</artifactId>
-            <version>4.0</version>
+            <version>4.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-data</artifactId>
-            <version>2.0</version>
+            <version>2.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-data-jdom-ext</artifactId>
-            <version>2.0</version>
+            <version>2.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-engine</artifactId>
-            <version>2.0</version>
+            <version>2.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-rules-core</artifactId>
-            <version>2.0</version>
+            <version>2.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>

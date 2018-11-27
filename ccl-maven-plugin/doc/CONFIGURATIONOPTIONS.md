@@ -24,7 +24,7 @@ by setting system properties at the command line
  
 The property name is generally the same as the name of the configuration option with 'ccl-' prepended. Any excpetions will be noted. Both are case sensitive.
 
-**logFile** 
+**[logFile](#ccl-log-file)**
 - (file path) Specifies the log file location. 
  - since 1.0.1, default="", renamed with 3.0.
 
@@ -71,8 +71,7 @@ fail indicating there was an expect4j timeout for the command $cer_exe/cclora_db
 to do this using the settings.xml file. 
  - since 3.0, default=true.
 
-<a name='osPromptPattern'>
-**osPromptPattern**
+**[osPromptPattern](#os-prompt-pattern)**
 - (regex for host prompt) The plugin uses this to determine when the host is ready to receive a command. If none is specified the plugin will default to
 'username:environment@host:[^>]*>\\s*' or 'username:\w*@host:[^>]*>\\s*' if an environement is not provided.
  - since 3.0, default=""
@@ -98,7 +97,7 @@ each of
 `V500 SECURITY LOGIN FAILURE`, `V500 SECURITY LOGIN WARNING`, `Retry \\(Y/N\\)`, and `Repeat New Password:`
  - since 3.0, default=""
 
-**expectationTimeout**
+**[expectationTimeout](#expectation-timeout)**
 (milliseconds) The maximum time the plugin will wait for the host system to to finish processing a command and indicate it is ready for the next command by displaying 
 something that mathces the osPromptPattern or cclPromptPattern as appropriate 
 (except an "exit" CCL command is permitted to take twice as long and CCL commands that end with " go" are permitted to take forever). 
@@ -183,28 +182,31 @@ See [maven version range] for more details.
 - (string) Specifies the target HNAM domain.
  - optional (see [caveat]).
  
- **hostCredentialsId**
+**hostCredentialsId**
 - (string) Specifies a server id defining credentials for the remote host.
- - required unless hostUsername and hostPassword are provided.
+ - The preferred method for specifying host credentials
+ - required unless both hostUsername and hostPassword are provided.
  
- **frontendCredentialsId**
+**frontendCredentialsId**
 - (string) Specifies a maven server id defining credentials for the target HNAM domain. 
+ - The preferred method for specifying domain credentials
  - optional (see [caveat]).
 
- **hostUsername**
+**hostUsername**
 - (string) Alternate way to specify the remote host user. Ignored if hostCredentialsId is provided.
 
- **hostPassword**
-- (string) Alternate way to specify the remote host password. Ignored if hostCredentialsId is provided.
+**hostPassword**
+- (string) Alternate way to specify the remote host password. Does not support encryption. Ignored if hostCredentialsId is provided.
 
- **domainUsername**
+**domainUsername**
 - (string) Alternate way to specify the HNAM domain user. Ignored if hostCredentialsId is provided.
 
- **domainPassword**
-- (string) Alternate way to specify the HNAM domain password. Ignored if hostCredentialsId is provided.
+**domainPassword**
+- (string) Alternate way to specify the HNAM domain password. Does not support encryption. Ignored if hostCredentialsId is provided.
 
 Domain Credentials Caveat
 ===
+<a name="domain-credentials-caveat"></a>
 Domain credentials are not required by the plugin, but they are necessary if any unit test executes CCL code that requires authentication, 
 code that accesses uar functions or makes server calls, for example.
  
