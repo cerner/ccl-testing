@@ -43,8 +43,8 @@ public class CCLCoverageReportGenerator {
      * @param errorLogger
      *            A {@link ReportErrorLogger} used to report errors.
      */
-    public CCLCoverageReportGenerator(File outputDirectory, Collection<CCLCoverageProgram> testPrograms,
-            Collection<CCLCoverageProgram> sourcePrograms, ReportErrorLogger errorLogger) {
+    public CCLCoverageReportGenerator(final File outputDirectory, final Collection<CCLCoverageProgram> testPrograms,
+            final Collection<CCLCoverageProgram> sourcePrograms, final ReportErrorLogger errorLogger) {
         this.outputDirectory = outputDirectory;
         this.sourcePrograms = sourcePrograms;
         this.testPrograms = testPrograms;
@@ -77,7 +77,7 @@ public class CCLCoverageReportGenerator {
      * @throws MavenReportException
      *             If any errors occur during the dashboard generation.
      */
-    private void createDashboardFile(File dashboardFile) throws MavenReportException {
+    private void createDashboardFile(final File dashboardFile) throws MavenReportException {
         String summaryXML;
         String dashboardXSLT;
         String dashboardHTML;
@@ -136,15 +136,16 @@ public class CCLCoverageReportGenerator {
      *            file source.
      * @return The name of a report for the given inputs.
      */
-    private String createCoverageProgramFileName(CCLCoverageProgram program, CCLCoverageProgram testProgram,
-            boolean withIncludes) {
+    private String createCoverageProgramFileName(final CCLCoverageProgram program, final CCLCoverageProgram testProgram,
+            final boolean withIncludes) {
         String fileName = "ccl-coverage-reports/" + program.getName().toLowerCase(Locale.getDefault())
                 + (withIncludes == true ? "-wi-" : "-woi-");
 
-        if (testProgram == null)
+        if (testProgram == null) {
             fileName += "aggregate.html";
-        else
+        } else {
             fileName += testProgram.getName().toLowerCase(Locale.getDefault()) + ".html";
+        }
 
         return fileName;
     }
@@ -163,8 +164,8 @@ public class CCLCoverageReportGenerator {
      * @throws MavenReportException
      *             If any errors occur in the report generation.
      */
-    private void createProgramReport(CCLCoverageProgram program, CCLCoverageProgram testProgram, boolean withIncludes)
-            throws MavenReportException {
+    private void createProgramReport(final CCLCoverageProgram program, final CCLCoverageProgram testProgram,
+            final boolean withIncludes) throws MavenReportException {
         File programFile = new File(outputDirectory.getAbsolutePath() + "/"
                 + createCoverageProgramFileName(program, testProgram, withIncludes));
 
@@ -203,17 +204,13 @@ public class CCLCoverageReportGenerator {
      *            %i include, otherwise when false, %i code is omitted from the coverage XML
      * @return The coverage XML for the program given the context of the testProgram and withIncludes parameters
      */
-    private String createProgramCoverageXML(CCLCoverageProgram program, CCLCoverageProgram testProgram,
-            boolean withIncludes) {
-        boolean writeIncludeLine = true;
+    private String createProgramCoverageXML(final CCLCoverageProgram program, final CCLCoverageProgram testProgram,
+            final boolean withIncludes) {
 
-        StringBuilder xml = new StringBuilder();
-
-        xml.append("<program>");
+        StringBuilder xml = new StringBuilder("<program><lines>");
 
         writeElement(xml, "name", program.getName());
-
-        xml.append("<lines>");
+        String lastOrigin = "PROGRAM";
         for (CoverageLine l : program.getCoverageLines()) {
             if (withIncludes || l.getSourceCodeOrigin().equals("PROGRAM")) {
                 xml.append("<line>");
@@ -221,10 +218,8 @@ public class CCLCoverageReportGenerator {
                 writeCDataElement(xml, "text", l.getSourceCode());
                 writeElement(xml, "coveredStatus", l.getCoveredStatusByTestCase(testProgram).toString());
                 xml.append("</line>");
-
-                writeIncludeLine = true;
             } else {
-                if (writeIncludeLine) {
+                if (!l.getSourceCodeOrigin().equals(lastOrigin)) {
                     // Include a bogus program line for the %i include and give it a status of not covered. After
                     // that, all lines from that include will be skipped until the origin is reverted back to the main
                     // source program
@@ -234,7 +229,7 @@ public class CCLCoverageReportGenerator {
                     writeElement(xml, "coveredStatus", CoveredStatus.NOT_EXECUTABLE.toString());
                     xml.append("</line>");
                 }
-                writeIncludeLine = false;
+                lastOrigin = l.getSourceCodeOrigin();
             }
         }
         xml.append("</lines>");
@@ -336,7 +331,7 @@ public class CCLCoverageReportGenerator {
      * @param value
      *            The value to be written.
      */
-    private void writeElement(StringBuilder xml, String name, int value) {
+    private void writeElement(final StringBuilder xml, final String name, final int value) {
         writeElement(xml, name, String.valueOf(value));
     }
 
@@ -350,7 +345,7 @@ public class CCLCoverageReportGenerator {
      * @param value
      *            The value to be written.
      */
-    private void writeElement(StringBuilder xml, String name, String value) {
+    private void writeElement(final StringBuilder xml, final String name, final String value) {
         xml.append("<");
         xml.append(name);
         xml.append(">");
@@ -372,7 +367,7 @@ public class CCLCoverageReportGenerator {
      * @param value
      *            The value to be written.
      */
-    private void writeCDataElement(StringBuilder xml, String name, String value) {
+    private void writeCDataElement(final StringBuilder xml, final String name, final String value) {
         xml.append("<");
         xml.append(name);
         xml.append(">");
@@ -397,7 +392,7 @@ public class CCLCoverageReportGenerator {
      * @throws MavenReportException
      *             If any errors occur during the reading of the resource.
      */
-    private String getResourceAsString(String name) throws MavenReportException {
+    private String getResourceAsString(final String name) throws MavenReportException {
         try {
             InputStream resourceStream = getClass().getResourceAsStream("/" + name);
             return IOUtils.toString(resourceStream, "utf-8");
