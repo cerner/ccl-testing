@@ -87,8 +87,9 @@ public class JdomAnalysisRule implements AnalysisRule {
         classLoaders.put(Document.class.getClassLoader());
         final Enumeration<Delegate> delegates = Service.providers(new SPInterface(Delegate.class, classes, objects),
                 classLoaders);
-        while (delegates.hasMoreElements())
+        while (delegates.hasMoreElements()) {
             violations.addAll(delegates.nextElement().getCheckedViolations());
+        }
 
         return violations;
     }
@@ -166,7 +167,7 @@ public class JdomAnalysisRule implements AnalysisRule {
 
         /**
          * Returns the list of all {@code SUBROUTINE.} elements in the program.
-         * 
+         *
          * @return A {@link List} of {@link Element} objects representing all subroutine implementations defined in the
          *         program
          * @throws JDOMException
@@ -293,9 +294,10 @@ public class JdomAnalysisRule implements AnalysisRule {
             return this.inverseNameCallGraph;
         }
 
-        private Set<String> getInvokedElementNames(Element invokingElement, String predicate) throws JDOMException {
+        private Set<String> getInvokedElementNames(final Element invokingElement, final String predicate)
+                throws JDOMException {
             List<Element> invokedElements = selectNodes(invokingElement,
-                    "(.//OPTION.|.//Z_SET.|.//Z_CALL.|.//CALL.|.//RETURN.)/CALL." + predicate);
+                    "descendant::CALL.[not(parent::Z_DECLARE.)]" + predicate);
             Set<String> invokedElementNames = new HashSet<String>();
             for (Element invokedElement : invokedElements) {
                 String cclName = getCclName(invokedElement);
@@ -310,7 +312,7 @@ public class JdomAnalysisRule implements AnalysisRule {
                 throws JDOMException {
             getSubroutineMap();
             List<Element> callElements = selectNodes(invokingElement,
-                    "(.//OPTION.|.//Z_SET.|.//Z_CALL.|.//CALL.|.//RETURN.)/CALL." + predicate);
+                    "descendant::CALL.[not(parent::Z_DECLARE.)]" + predicate);
             Set<Element> invokedElements = new HashSet<Element>();
             Iterator<Element> it = callElements.iterator();
             while (it.hasNext()) {
@@ -334,13 +336,15 @@ public class JdomAnalysisRule implements AnalysisRule {
          */
         protected Integer getLineNumber(final Element element) {
             final Attribute attribute = element.getAttribute("loc");
-            if (attribute == null)
+            if (attribute == null) {
                 return null;
+            }
 
             final String attributeText = attribute.getValue();
             // If debug mode is enabled, then loc will be something like "0.0"
-            if (attributeText.startsWith("0"))
+            if (attributeText.startsWith("0")) {
                 return null;
+            }
 
             return Integer.parseInt(attributeText.substring(0, attributeText.lastIndexOf('.')));
         }
@@ -348,7 +352,7 @@ public class JdomAnalysisRule implements AnalysisRule {
         /**
          * Returns the list of all {@code Z_DECLARE.} elements in the program which are declaring variables (as opposed
          * to subroutines).
-         * 
+         *
          * @return A {@link List} of {@link Element} objects representing all variable declarations in the program
          * @throws JDOMException
          *             If any errors occur during the analysis.
@@ -484,7 +488,7 @@ public class JdomAnalysisRule implements AnalysisRule {
          *            The element.
          * @return The scope element for the specified element.
          */
-        protected Element getScope(Element element) {
+        protected Element getScope(final Element element) {
             Element ancestor = element.getParentElement();
             while (ancestor != null) {
                 String ancestorName = ancestor.getName();
@@ -503,7 +507,7 @@ public class JdomAnalysisRule implements AnalysisRule {
          *            The element.
          * @return A list of elements which contain the specified element in their scope.
          */
-        protected Set<Element> getScopes(Element element) {
+        protected Set<Element> getScopes(final Element element) {
             Set<Element> scopes = new HashSet<Element>();
             Element ancestor = element.getParentElement();
             while (ancestor != null) {
@@ -528,7 +532,7 @@ public class JdomAnalysisRule implements AnalysisRule {
          *             The exception thrown if errors occur analyzing the document.
          */
         // TODO: finish this and make use of it or get rid of it.
-        protected List<Set<Element>> getScopeTree(Element element) throws JDOMException {
+        protected List<Set<Element>> getScopeTree(final Element element) throws JDOMException {
             Element nearestScope = element;
             getDefinedSubroutines();
             if (!definedSubroutines.contains(nearestScope)) {

@@ -55,4 +55,17 @@ public class VariableDeclaredButNotUsedRuleTest extends AbstractJDomTest {
         assertThat(violations).contains(new VariableDeclaredButNotUsedViolation("UNUSED_ONE", 8));
         assertThat(violations).contains(new VariableDeclaredButNotUsedViolation("UNUSED_ONE", 25));
     }
+
+    /**
+     * Confirms that a variables is not inappropriately flagged as unused when the usage is made in function and the
+     * call to that function is wrapped.
+     * 
+     * @throws Exception
+     *             Sometimes bad things happen
+     */
+    @Test
+    public void testWrappedFunctionCalls() throws Exception {
+        final Set<Violation> violations = new VariableDeclaredButNotUsedRules(toDocument("translate2.xml")).analyze();
+        assertThat(violations).hasSize(0);
+    }
 }
