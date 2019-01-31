@@ -142,7 +142,6 @@ public class JdomAnalysisRuleTest {
         assertThat(inverseCallGraph.get("NS0000::SUB2")).containsOnly("ZC_PROGRAM.");
     }
 
-
     /**
      * Confirms that getCallGraph and getInverseCallGraph work as expected when there are function calls wrapped in
      * various types of other statements such as if, case and while.
@@ -208,7 +207,6 @@ public class JdomAnalysisRuleTest {
 
         assertThat(callGraph.size()).isEqualTo(10);
     }
-
 
     private String loadResource(final String resourceName) throws IOException {
         final InputStream is = JdomAnalysisRuleTest.class.getResourceAsStream(resourceName);
