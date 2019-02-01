@@ -5,6 +5,7 @@
 * cclunit-archetype **1.1**
 
 ### Corrections
+* Fixed [#8](https://github.com/cerner/ccl-testing/issues/8) cerreal 'without includes' report doesn't work correctly when there are consecutive include files.
 * Fixed [#9](https://github.com/cerner/ccl-testing/issues/9) whitenoise fails to recognize `if(some_sub(null))` as a call to some_sub.
 * Fixed [#10](https://github.com/cerner/ccl-testing/issues/10) whitenoise wrongly treats var = value in a report writer section as a usage of var.
 

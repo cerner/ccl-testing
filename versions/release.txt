@@ -2,7 +2,7 @@ mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -Dgro
 mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl -DartifactId=ccltesting-parent-pom -DoldVersion=2.1-SNAPSHOT -DnewVersion=2.0.0
 
 mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.testing -DartifactId=ccl-maven-plugin -DoldVersion=3.1-SNAPSHOT -DnewVersion=3.0
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.testing -DartifactId=cerreal-maven-plugin -DoldVersion=2.1-SNAPSHOT -DnewVersion=2.0.0
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.testing -DartifactId=cerreal-maven-plugin -DoldVersion=2.1-SNAPSHOT -DnewVersion=2.1
 mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-maven-plugin -DoldVersion=2.1-SNAPSHOT -DnewVersion=2.1
 mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.cdoc -DartifactId=cdoc-maven-plugin -DoldVersion=1.2-SNAPSHOT -DnewVersion=1.1
 

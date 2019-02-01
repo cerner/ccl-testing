@@ -21,6 +21,7 @@
         </site>
     </distributionManagement>
     <modules>
+        <module>cerreal-maven-plugin</module>
         <module>whitenoise/whitenoise-data-jdom-ext</module>
         <module>whitenoise/whitenoise-rules-core</module>
         <module>whitenoise/whitenoise-maven-plugin</module>
@@ -34,7 +35,6 @@
         <module>jsch-util</module>
         <module>cclunit-framework-schema-xml</module>
         <module>ccl-maven-plugin</module>
-        <module>cerreal-maven-plugin</module>
         <module>whitenoise/whitenoise-parent-pom</module>
         <module>whitenoise/whitenoise-data</module>
         <module>whitenoise/whitenoise-engine</module>
