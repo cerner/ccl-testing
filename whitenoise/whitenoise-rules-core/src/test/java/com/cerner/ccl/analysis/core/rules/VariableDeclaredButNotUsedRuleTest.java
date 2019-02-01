@@ -59,7 +59,7 @@ public class VariableDeclaredButNotUsedRuleTest extends AbstractJDomTest {
     /**
      * Confirms that a variables is not inappropriately flagged as unused when the usage is made in function and the
      * call to that function is wrapped.
-     * 
+     *
      * @throws Exception
      *             Sometimes bad things happen
      */
@@ -67,5 +67,20 @@ public class VariableDeclaredButNotUsedRuleTest extends AbstractJDomTest {
     public void testWrappedFunctionCalls() throws Exception {
         final Set<Violation> violations = new VariableDeclaredButNotUsedRules(toDocument("translate2.xml")).analyze();
         assertThat(violations).hasSize(0);
+    }
+
+    /**
+     * Confirms that an unused variable violation occurs if the only use of the variable is to set its value inside or
+     * outside of a report writer section.
+     *
+     * @throws Exception
+     *             Sometimes bad things happen
+     */
+    @Test
+    public void testReportWriter() throws Exception {
+        final Set<Violation> violations = new VariableDeclaredButNotUsedRules(toDocument("report-writer.xml"))
+                .analyze();
+        assertThat(violations).hasSize(1);
+        assertThat(violations).contains(new VariableDeclaredButNotUsedViolation("SOMESTR2", 9));
     }
 }

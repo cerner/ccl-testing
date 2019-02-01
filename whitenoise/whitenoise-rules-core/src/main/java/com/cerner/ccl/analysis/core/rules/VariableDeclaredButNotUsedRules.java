@@ -36,8 +36,9 @@ public class VariableDeclaredButNotUsedRules extends TimedDelegate {
         for (final Element variableDeclaration : getVariableDeclarations()) {
             // Allow constant variables to be declared and never used...
             // this is somewhat typical for large INC files that serve multiple purposes
-            if (isConstantVariable(variableDeclaration))
+            if (isConstantVariable(variableDeclaration)) {
                 continue;
+            }
 
             String variableName = getCclName(variableDeclaration);
             Element scope = getScope(variableDeclaration);
@@ -58,10 +59,9 @@ public class VariableDeclaredButNotUsedRules extends TimedDelegate {
                 return false;
             }
         }
-        List<Element> uses = selectNodes(scope,
-                ".//NAME[@text='" + variableName
-                        + "' and not(parent::Z_DECLARE.) and not(ancestor::Z_SET.[NAME[position()=1 and @text='"
-                        + variableName + "']])]");
+        List<Element> uses = selectNodes(scope, ".//NAME[@text='" + variableName
+                + "' and not(parent::Z_DECLARE.) and not(ancestor::Z_SET.[NAME[position()=1 and @text='" + variableName
+                + "']]) and not(ancestor::IS.[NAME[position()=1 and @text='" + variableName + "']])]");
         for (Element use : uses) {
             if (getScope(use).equals(scope)) {
                 return true;
@@ -83,11 +83,13 @@ public class VariableDeclaredButNotUsedRules extends TimedDelegate {
 
     private boolean isConstantVariable(final Element declare) throws JDOMException {
         for (final Element option : selectNodesByName(declare, "OPTION.")) {
-            if (!option.getParentElement().getName().equalsIgnoreCase("OPTIONS."))
+            if (!option.getParentElement().getName().equalsIgnoreCase("OPTIONS.")) {
                 continue;
+            }
 
-            if (option.getChild("CALL.") != null && getCclName(option.getChild("CALL.")).equalsIgnoreCase("CONSTANT"))
+            if (option.getChild("CALL.") != null && getCclName(option.getChild("CALL.")).equalsIgnoreCase("CONSTANT")) {
                 return true;
+            }
         }
         return false;
     }
