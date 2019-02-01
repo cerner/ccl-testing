@@ -176,7 +176,6 @@ public class JdomAnalysisRule implements AnalysisRule {
         protected List<Element> getDefinedSubroutines() throws JDOMException {
             if (this.definedSubroutines == null) {
                 List<Element> definedSubroutines = new ArrayList<Element>();
-                definedSubroutines = new ArrayList<Element>();
                 for (final Element e : selectNodesByName("SUBROUTINE.")) {
                     definedSubroutines.add(e);
                 }
@@ -518,30 +517,6 @@ public class JdomAnalysisRule implements AnalysisRule {
                 ancestor = ancestor.getParentElement();
             }
             return scopes;
-        }
-
-        /**
-         * Retrieves the tree of ancestral scopes for a given element, i.e., the set of subroutine definition elements
-         * which invoke the subroutine definition element that contains or is equal to or the given element and the set
-         * of subroutine definition elements which invoke any of those and so on until the program is reached.
-         *
-         * @param element
-         *            The element whose ancestral scope tree is to be found.
-         * @return The ancestral scope tree for the element.
-         * @throws JDOMException
-         *             The exception thrown if errors occur analyzing the document.
-         */
-        // TODO: finish this and make use of it or get rid of it.
-        protected List<Set<Element>> getScopeTree(final Element element) throws JDOMException {
-            Element nearestScope = element;
-            getDefinedSubroutines();
-            if (!definedSubroutines.contains(nearestScope)) {
-                nearestScope = getScope(element);
-            }
-            if (!scopes.containsKey(nearestScope)) {
-
-            }
-            return null;
         }
 
         /**

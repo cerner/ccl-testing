@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cerner.ccl.whitenoise</groupId>
     <artifactId>whitenoise-parent-pom</artifactId>
-    <version>2.1-SNAPSHOT</version>
+    <version>2.0</version>
     <packaging>pom</packaging>
     <name>Whitenoise Parent POM</name>
     <description>A POM that provides general-use artifacts for all whitenoise components</description>
@@ -430,7 +430,7 @@
                     <dateFormat>yyyy-MM-dd</dateFormat>
                     <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
                     <dates>
-                        <date implementation="java.lang.String">2016-04-25</date>
+                        <date implementation="java.lang.String">2018-07-04</date>
                     </dates>
                 </configuration>
             </plugin>

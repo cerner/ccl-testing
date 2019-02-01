@@ -6,17 +6,21 @@
     * Update their version in the [sample pom][sample-pom]
     * Update their versions in `src/main/resources/archetype-resource/pom.xml` of the impacted archetype projects.
     * Include the impacted archtypes in the release.    
-* Update the `<modules>` tag of the reactor pom.
-  * Add any new artifacts, comment out artifacts not being released, uncomment artifacts being released. 
-  * Be sure to update and release any artifact having a dependency that is being released.
+* Update the `<modules>` tag of the reactor pom files.
+  * Add any new artifacts and uncomment any commented artifacts.
   * Add any new artifacts to the `site` profile.
 * Ensure [changelog][changelog] is updated with the description of all changes being released and the date and versions are correct.
-* Update [versions/release.txt][versions.release.txt] with the snapshot version and release version for each artifact being released.
-  * Add commands for any new artifacts.
-* Update [versions/snapshot.txt][versions.snapshot.txt] with the new version and next snapshot version for each artifact being released.
-  * Add commands for any new artifacts.
+* Update [versions/release.txt][versions.release.txt] with
+  * the snapshot version and release version for each artifact being released.
+  * the snapshot version and previous release version for each artifact not being released.
+  * commands for any new artifacts.
+* Update [versions/snapshot.txt][versions.snapshot.txt] with
+  * the new version and next snapshot version for each artifact being released.
+  * commands for any new artifacts.
 * Execute all the commands in [versions/release.txt][versions.release.txt].
   * Double check the version changes.
+* Update the `<modules>` tag of the reactor pom files.
+  * Comment any artifacts not being released.
 * Commit the changes to a new branch.
 * Determine the `release.number` (yyyy.mm.dd.N).
 * Perform `mvn clean install site site:stage -P<profileId>,site -Drelease.number=<release.number>` on this branch. 
@@ -33,6 +37,8 @@
 
 * Generate and deploy the maven site for the release.
     * `mvn clean site site:stage site-deploy -P<profileId>,site -Drelease.number=<release.number>`
+* Update the `<modules>` tag of the reactor pom files.
+  * Uncomment any artifacts not being released.
 * Execute all the commands in [versions/snapshot.txt][versions.snapshot.txt]. 
   * Double check the version changes.
 * Commit the changes to a new branch and merge to master.

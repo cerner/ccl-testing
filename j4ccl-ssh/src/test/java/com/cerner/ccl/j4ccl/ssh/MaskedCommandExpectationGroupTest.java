@@ -98,12 +98,10 @@ public class MaskedCommandExpectationGroupTest {
         commandExpectationGroup.addCommand("solo command 2");
         commandExpectationGroup
                 .addExpectations(Arrays.asList(new String[] { "grouped expectation 2", "grouped expectation 3" }));
-        assertThat(commandExpectationGroup.toString())
-                .isEqualTo(Arrays.asList(new String[] { "********", "********", "********", "********", "********" })
-                        .toString() + Arrays
-                                .asList(new String[] { "solo expectation 1", "grouped expectation 1",
-                                        "solo expectation 2", "grouped expectation 2", "grouped expectation 3" })
-                                .toString());
+        assertThat(commandExpectationGroup.toString()).isEqualTo(
+                Arrays.asList(new String[] { "********", "********", "********", "********", "********" }).toString()
+                        + Arrays.asList(new String[] { "solo expectation 1", "grouped expectation 1",
+                                "solo expectation 2", "grouped expectation 2", "grouped expectation 3" }).toString());
 
         commandExpectationGroup = new MaskedCommandExpectationGroup();
         commandExpectationGroup.addCommands(Arrays.asList(new String[] { "grouped command 1", "grouped command 2" }));

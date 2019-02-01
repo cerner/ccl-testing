@@ -36,11 +36,12 @@
         </contributor>
     </contributors>
     <modules>
-        <module>whitenoise-parent-pom</module>        
         <module>whitenoise-data-jdom-ext</module>
         <module>whitenoise-rules-core</module>
         <module>whitenoise-maven-plugin</module>
+
 <!--
+        <module>whitenoise-parent-pom</module>
         <module>whitenoise-data</module>
         <module>whitenoise-engine</module>
 -->        
