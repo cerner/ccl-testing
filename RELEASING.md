@@ -5,6 +5,7 @@
 * If any of the maven plugins will be released 
     * Update their version in the [sample pom][sample-pom]
     * Update their versions in `src/main/resources/archetype-resource/pom.xml` of the impacted archetype projects.
+    * Update their versions in their individual project readme files.
     * Include the impacted archtypes in the release.    
 * Update the `<modules>` tag of the reactor pom files.
   * Add any new artifacts and uncomment any commented artifacts.
