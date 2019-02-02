@@ -1,6 +1,7 @@
 # ccl-testing Change Log
 
 ## 2019-02-01
+* cerreal-maven-plugin **2.1**
 * whitenoise-maven-plugin **2.1**
 * cclunit-archetype **1.1**
 
