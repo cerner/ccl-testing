@@ -27,9 +27,10 @@
     * A final continuous integration test; `travis-ci` doesn't run the integration tests.
     * inspect the maven site to ensure there are no issues.
 * Use `release.number` to create a tag for the release and merge the branch to master.
-* Perform `mvn clean install deploy -P<profileId>,attach-artifacts,stage` on the tag.
+* Perform `mvn clean install deploy -P<profileId>,attach-artifacts,stage,ossrh -Dgpg.keyname=<keyname>` on the tag.
     * Use a jenkins job for this. 
     * Be sure to clear com.cerner.ccl and com.cerner.ftp from the local maven repo beforehand.
+    * This assumes there is a profile with id ossrh specifying the gpg.passphrase
 * Perform `mvn nexus-staging:release -Pstage -DstagingRepositoryId=<REPO>` on the tag.
     * The previous deploy command only staged the release in [sonatype][sonatype]. This command pushes them to maven central.
     * Determine REPO by finding the components on [sonatype][sonatype]. Most recently it was `Releases`.
