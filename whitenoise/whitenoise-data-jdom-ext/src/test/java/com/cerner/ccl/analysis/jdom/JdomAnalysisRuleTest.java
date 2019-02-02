@@ -20,6 +20,7 @@ import org.apache.commons.discovery.resource.ClassLoaders;
 import org.apache.commons.discovery.tools.SPInterface;
 import org.apache.commons.discovery.tools.Service;
 import org.jdom2.Document;
+import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +45,7 @@ public class JdomAnalysisRuleTest {
     /**
      *
      * A JdomAnalysisDelegeate to be used for testing JdomAnalysisRule.Delegate methods based on translate1.xml.
-     * 
+     *
      * @author Fred Eckertson
      *
      */
@@ -141,7 +142,73 @@ public class JdomAnalysisRuleTest {
         assertThat(inverseCallGraph.get("NS0000::SUB2")).containsOnly("ZC_PROGRAM.");
     }
 
-    private String loadResource(String resourceName) throws IOException {
+    /**
+     * Confirms that getCallGraph and getInverseCallGraph work as expected when there are function calls wrapped in
+     * various types of other statements such as if, case and while.
+     *
+     * @throws Exception
+     *             Sometimes bad things happen.
+     */
+    @Test
+    public void testGetNameCallGraph2() throws Exception {
+        String xml = loadResource("/xml/translate2.xml");
+        Document document = new SAXBuilder().build(new StringReader(xml));
+        MyDelegate myDelegate = new MyDelegate(document);
+        Map<String, Set<String>> inverseCallGraph = myDelegate.getInverseNameCallGraph();
+        assertThat(inverseCallGraph).isEqualTo(myDelegate.getInverseNameCallGraph());
+        Map<String, Set<String>> nameCallGraph = myDelegate.getNameCallGraph();
+
+        assertThat(nameCallGraph.keySet()).containsOnly("ZC_PROGRAM.", "SUB0", "SUB1", "SUB2", "SUB3", "SUB4", "SUB5",
+                "SUB6", "SUB7", "SUB8");
+        assertThat(nameCallGraph.get("ZC_PROGRAM.")).containsOnly("ECHO", "SUB0", "SUB1", "SUB2", "SUB3", "SUB4",
+                "SUB5", "SUB6");
+        assertThat(nameCallGraph.get("SUB0")).containsOnly("ECHO", "BUILD2");
+        assertThat(nameCallGraph.get("SUB1")).containsOnly("ECHO", "BUILD2");
+        assertThat(nameCallGraph.get("SUB2")).containsOnly("ECHO", "BUILD2");
+        assertThat(nameCallGraph.get("SUB3")).containsOnly("ECHO", "BUILD2");
+        assertThat(nameCallGraph.get("SUB4")).containsOnly("ECHO", "BUILD2");
+        assertThat(nameCallGraph.get("SUB5")).containsOnly("ECHO", "BUILD2", "SUB8");
+        assertThat(nameCallGraph.get("SUB6")).containsOnly("ECHO", "BUILD2");
+        assertThat(nameCallGraph.get("SUB7")).containsOnly("ECHO", "BUILD2");
+        assertThat(nameCallGraph.get("SUB8")).containsOnly("ECHO", "BUILD2", "SUB7");
+    }
+
+    /**
+     * Performs cursory checks of the getCallGraph method.
+     *
+     * @throws Exception
+     *             Sometimes bad things happen.
+     */
+    @Test
+    public void testGetCallGraph() throws Exception {
+        String xml = loadResource("/xml/translate1.xml");
+        Document document = new SAXBuilder().build(new StringReader(xml));
+
+        MyDelegate myDelegate = new MyDelegate(document);
+        Map<Element, Set<Element>> callGraph = myDelegate.getCallGraph();
+
+        assertThat(callGraph.size()).isEqualTo(8);
+    }
+
+    /**
+     * Performs cursory checks of the getCallGraph method when there are subroutine calls wrapped in various types of
+     * other statements such as if, case and while.
+     *
+     * @throws Exception
+     *             Sometimes bad things happen.
+     */
+    @Test
+    public void testGetCallGraph2() throws Exception {
+        String xml = loadResource("/xml/translate2.xml");
+        Document document = new SAXBuilder().build(new StringReader(xml));
+
+        MyDelegate myDelegate = new MyDelegate(document);
+        Map<Element, Set<Element>> callGraph = myDelegate.getCallGraph();
+
+        assertThat(callGraph.size()).isEqualTo(10);
+    }
+
+    private String loadResource(final String resourceName) throws IOException {
         final InputStream is = JdomAnalysisRuleTest.class.getResourceAsStream(resourceName);
         final BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line = null;

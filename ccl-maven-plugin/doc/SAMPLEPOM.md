@@ -81,12 +81,12 @@
       <plugin>
         <groupId>com.cerner.ccl.testing</groupId>
         <artifactId>cerreal-maven-plugin</artifactId>
-        <version>2.0.0</version>
+        <version>2.1</version>
       </plugin>
       <plugin>
         <groupId>com.cerner.ccl.whitenoise</groupId>
         <artifactId>whitenoise-maven-plugin</artifactId>
-        <version>2.0</version>
+        <version>2.1</version>
       </plugin>
       <plugin>
         <groupId>com.cerner.ccl.cdoc</groupId>

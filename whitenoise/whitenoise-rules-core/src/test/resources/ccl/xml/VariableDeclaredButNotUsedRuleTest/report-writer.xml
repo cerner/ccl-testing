@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+set compile = debug go
+drop program sample_program go
+create program sample_program
+    
+    subroutine (sub0(null) = null)
+        declare someStr0 = vc
+        select into 'nl:' from dual detail col 40 someStr0 with nocounter
+    end
+    
+    declare someStr1 = vc
+    declare someStr2 = vc
+
+    select into 'nl:' from dual detail 
+        col 40 someStr1 
+        someStr2 = 'WH'
+    with nocounter
+    set someStr2 = 'HW'
+end go
+translate sample_program with xml go
+-->
+ <ZC_PROGRAM. class="223" lev="0" kid="7" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <SUBROUTINE. class="189" lev="1" kid="4" loc="3.16">
+   <NAME class="5" text="SUB0" lev="2" loc="3.16"/>
+   <COMMA. class="127" lev="2" kid="1" loc="3.21">
+    <NAME class="5" text="NULL" lev="3" loc="3.21"/>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="2" loc="4.16">
+    <Z_DECLARE. class="216" lev="3" kid="2" loc="4.16">
+     <NAME class="5" text="SOMESTR0" lev="4" loc="4.16"/>
+     <NAME class="5" text="VC" lev="4" loc="4.27"/>
+    </Z_DECLARE.>
+    <Z_SELECT. class="210" lev="3" kid="8" loc="5.15">
+     <COMMA. class="127" lev="4" loc="5.15"/>
+     <INTO. class="148" lev="4" kid="1" loc="5.20">
+      <STRING class="7" text="nl:" lev="5" loc="5.20"/>
+     </INTO.>
+     <COMMA. class="127" lev="4" loc="5.26"/>
+     <COMMA. class="127" lev="4" kid="1" loc="5.31">
+      <TABLE. class="177" lev="5" kid="1" loc="5.31">
+       <NAME class="5" text="DUAL" lev="6" loc="5.31"/>
+      </TABLE.>
+     </COMMA.>
+     <QUAL. class="173" lev="4" loc="5.36"/>
+     <ORDERLIST. class="166" lev="4" loc="5.36"/>
+     <COMMA. class="127" lev="4" kid="1" loc="5.43">
+      <DETAIL. class="129" lev="5" kid="2" loc="5.43">
+       <MOVEABS. class="156" lev="6" kid="2" loc="5.43">
+        <NAME class="5" text="COL" lev="7" loc="5.43"/>
+        <INT class="4" text="40" lev="7" loc="5.47"/>
+       </MOVEABS.>
+       <NAME class="5" text="SOMESTR0" lev="6" loc="5.50"/>
+      </DETAIL.>
+     </COMMA.>
+     <OPTIONS. class="163" lev="4" kid="1" loc="5.64">
+      <OPTION. class="162" lev="5" kid="1" loc="5.64">
+       <NAME class="5" text="NOCOUNTER" lev="6" loc="5.64"/>
+      </OPTION.>
+     </OPTIONS.>
+    </Z_SELECT.>
+   </COMMA.>
+   <NAME class="5" text="NULL" lev="2" loc="3.29"/>
+  </SUBROUTINE.>
+  <Z_DECLARE. class="216" lev="1" kid="2" loc="8.12">
+   <NAME class="5" text="SOMESTR1" lev="2" loc="8.12"/>
+   <NAME class="5" text="VC" lev="2" loc="8.23"/>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="2" loc="9.12">
+   <NAME class="5" text="SOMESTR2" lev="2" loc="9.12"/>
+   <NAME class="5" text="VC" lev="2" loc="9.23"/>
+  </Z_DECLARE.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="11.11">
+   <COMMA. class="127" lev="2" loc="11.11"/>
+   <INTO. class="148" lev="2" kid="1" loc="11.16">
+    <STRING class="7" text="nl:" lev="3" loc="11.16"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="11.22"/>
+   <COMMA. class="127" lev="2" kid="1" loc="11.27">
+    <TABLE. class="177" lev="3" kid="1" loc="11.27">
+     <NAME class="5" text="DUAL" lev="4" loc="11.27"/>
+    </TABLE.>
+   </COMMA.>
+   <QUAL. class="173" lev="2" loc="11.32"/>
+   <ORDERLIST. class="166" lev="2" loc="11.32"/>
+   <COMMA. class="127" lev="2" kid="1" loc="12.8">
+    <DETAIL. class="129" lev="3" kid="3" loc="12.8">
+     <MOVEABS. class="156" lev="4" kid="2" loc="12.8">
+      <NAME class="5" text="COL" lev="5" loc="12.8"/>
+      <INT class="4" text="40" lev="5" loc="12.12"/>
+     </MOVEABS.>
+     <NAME class="5" text="SOMESTR1" lev="4" loc="12.15"/>
+     <IS. class="149" lev="4" kid="2" loc="13.8">
+      <NAME class="5" text="SOMESTR2" lev="5" loc="13.8"/>
+      <STRING class="7" text="WH" lev="5" loc="13.19"/>
+     </IS.>
+    </DETAIL.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="14.9">
+    <OPTION. class="162" lev="3" kid="1" loc="14.9">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="14.9"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <Z_SET. class="211" lev="1" kid="2" loc="15.8">
+   <NAME class="5" text="SOMESTR2" lev="2" loc="15.8"/>
+   <STRING class="7" text="HW" lev="2" loc="15.19"/>
+  </Z_SET.>
+  <LABEL. class="182" lev="1" kid="1" loc="16.0">
+   <NAME class="5" text="END" lev="2" loc="16.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>
