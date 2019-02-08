@@ -21,6 +21,7 @@
         </site>
     </distributionManagement>
     <modules>
+        <module>parent-pom</module>
         <module>ccl-maven-plugin</module>
         <module>j4ccl</module>
         <module>j4ccl-ssh</module>
@@ -32,7 +33,6 @@
         <module>archetype/cclunit-maven-settings-check-archetype</module>
 <!--
         <module>cerreal-maven-plugin</module>
-        <module>parent-pom</module>
         <module>ftp-util</module>
         <module>jsch-util</module>
         <module>cclunit-framework-schema-xml</module>
