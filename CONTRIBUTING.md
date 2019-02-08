@@ -33,7 +33,10 @@ To help ensure a smooth process for everyone, please read our [code of conduct][
 
 ## Integration Tests
 * An HNAM domain is required for integration testing.
-* The integration tests for the Whitenoise pluign will only pass if the domain's profile is given first and it is activated by a system property named "maven-profile" with value equal to the profileId.
+* The integration tests for the CCL and Whitenoise pluigns require a profile providing the domain-specific settings and a system property named `maven-profile` 
+with its value equal to the id of that profile.
+The Whitenoise plugin further requires that profile to be activated by that system property. It is convenient to have the profile set the system property.
+See [ccl-maven-plugin][10] and [whitenoise-maven-plugin][11] for details.
 
 [eclipse]: https://eclipse.org
 [eclipse_preferences]: ./ecosystem/eclipse/workspace_mechanic
@@ -47,3 +50,5 @@ To help ensure a smooth process for everyone, please read our [code of conduct][
 [7]: https://help.github.com/articles/using-pull-requests
 [8]: ./CONTRIBUTORS.md
 [9]: ./CODE_OF_CONDUCT.md
+[10]: ./ccl-maven-plugin/README.md
+[11]: ./whitenoise/whitenoise-maven-plugin/README.md

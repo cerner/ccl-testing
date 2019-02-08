@@ -276,8 +276,9 @@ public abstract class BaseCclMojo extends AbstractMojo {
      *             If the given subject is {@code null}.
      */
     protected void addBackendInformation(final Subject subject) throws MojoExecutionException {
-        if (subject == null)
+        if (subject == null) {
             throw new NullPointerException("Subject cannot be null.");
+        }
 
         if (isEmpty(hostCredentialsId)) {
             if (isEmpty(hostUsername)) {
@@ -317,21 +318,25 @@ public abstract class BaseCclMojo extends AbstractMojo {
      *             If the given subject is {@code null}.
      */
     protected void addDomainLoginInformation(final Subject subject) throws MojoExecutionException {
-        if (subject == null)
+        if (subject == null) {
             throw new NullPointerException("Subject cannot be null.");
+        }
 
-        if (isEmpty(domain))
+        if (isEmpty(domain)) {
             return;
+        }
 
         if (!isEmpty(frontendCredentialsId)) {
-            if (!isEmpty(domainUsername) || !isEmpty(domainPassword))
+            if (!isEmpty(domainUsername) || !isEmpty(domainPassword)) {
                 getLog().warn(
                         "A frontend username or password was provided as well as a credentials ID; the ID will be used over the username and password.");
+            }
 
             final Server server = settings.getServer(frontendCredentialsId);
-            if (server == null)
+            if (server == null) {
                 throw new MojoExecutionException(
                         "No frontend <server /> found by the given ID: " + frontendCredentialsId);
+            }
 
             try {
                 subject.getPrincipals().add(new MillenniumDomainPrincipal(server.getUsername(), domain));
@@ -341,9 +346,10 @@ public abstract class BaseCclMojo extends AbstractMojo {
                 throw new MojoExecutionException("Failed to decrypt Millennium domain password.", e);
             }
         } else {
-            if (isEmpty(domainUsername))
+            if (isEmpty(domainUsername)) {
                 throw new MojoExecutionException(
                         "A valid frontend username must be provided when domain is specified.");
+            }
 
             subject.getPrincipals().add(new MillenniumDomainPrincipal(domainUsername, domain));
             subject.getPrivateCredentials().add(new MillenniumDomainPasswordCredential(domainPassword));
@@ -414,8 +420,9 @@ public abstract class BaseCclMojo extends AbstractMojo {
             String[] directoryFiles = directory.list();
             if (directoryFiles != null) {
                 for (final String file : directoryFiles) {
-                    if (pattern.matcher(file.toUpperCase(Locale.getDefault())).matches())
+                    if (pattern.matcher(file.toUpperCase(Locale.getDefault())).matches()) {
                         files.add(new File(directory, file));
+                    }
                 }
             }
             return files;
@@ -501,14 +508,15 @@ public abstract class BaseCclMojo extends AbstractMojo {
      * @return A {@link Pattern} object representing the given regular expression.
      */
     private Pattern getPattern(final String regex) {
-        if (CCL_SCRIPTS.equals(regex))
+        if (CCL_SCRIPTS.equals(regex)) {
             return CCL_SCRIPTS_PATTERN;
-        else if (CCL_INCLUDES.equals(regex))
+        } else if (CCL_INCLUDES.equals(regex)) {
             return CCL_INCLUDES_PATTERN;
-        else if (CCL_SUBS.equals(regex))
+        } else if (CCL_SUBS.equals(regex)) {
             return CCL_SUBS_PATTERN;
-        else
+        } else {
             return Pattern.compile(regex);
+        }
     }
 
     /**

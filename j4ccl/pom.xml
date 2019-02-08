@@ -8,7 +8,7 @@
     </parent>
     <groupId>com.cerner.ccl.comm</groupId>
     <artifactId>j4ccl</artifactId>
-    <version>3.0</version>
+    <version>3.1-SNAPSHOT</version>
     <name>J4CCL</name>
     <description>A Java API for executing commands in a CCL prompt on a remote server.</description>
     <properties>

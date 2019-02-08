@@ -42,7 +42,8 @@ public class VariableDeclaredButNotUsedRules extends TimedDelegate {
 
             String variableName = getCclName(variableDeclaration);
             Element scope = getScope(variableDeclaration);
-            if (isUsed(variableName, scope, new HashSet<Element>(), true)) {
+
+            if (isUsed(variableName, scope)) {
                 continue;
             }
             violations.add(new VariableDeclaredButNotUsedViolation(variableName, getLineNumber(variableDeclaration)));
@@ -51,34 +52,78 @@ public class VariableDeclaredButNotUsedRules extends TimedDelegate {
         return violations;
     }
 
-    private boolean isUsed(final String variableName, final Element scope, final Set<Element> previouslyCheckedScopes,
-            final boolean allowDeclaration) throws JDOMException {
-        if (!allowDeclaration) {
-            List<Element> localDeclarations = selectNodes(scope, ".//Z_DECLARE./NAME[@text='" + variableName + "']");
-            if (localDeclarations.size() > 0) {
-                return false;
-            }
-        }
-        List<Element> uses = selectNodes(scope, ".//NAME[@text='" + variableName
+    /**
+     * Checks if a variable name declared is used at or below a given subroutine scope. The intended use is for the
+     * variable to be declared within the provided subroutine.
+     *
+     * @param variableName
+     *            The name of the variable to check.
+     * @param scope
+     *            The target subroutine scope.
+     * @return A boolean flag indicating whether the variable gets used.
+     * @throws JDOMException
+     */
+    private boolean isUsed(final String variableName, final Element scope) throws JDOMException {
+        List<Element> usages = selectNodes(".//NAME[@text='" + variableName
                 + "' and not(parent::Z_DECLARE.) and not(ancestor::Z_SET.[NAME[position()=1 and @text='" + variableName
                 + "']]) and not(ancestor::IS.[NAME[position()=1 and @text='" + variableName + "']])]");
-        for (Element use : uses) {
-            if (getScope(use).equals(scope)) {
-                return true;
+        Set<Element> usageScopes = new HashSet<Element>();
+        for (Element usage : usages) {
+            usageScopes.add(getScope(usage));
+        }
+        return isUsedByScope(variableName, scope, usageScopes, new HashSet<Element>());
+    }
+
+    /**
+     * A recursive function that checks if a given target subroutine uses a specified variable by checking if the target
+     * subroutine belongs to a set of subroutines whose downward closure in the call graph contains all uses of the
+     * variable which have not been show to be outside of the calling scope of the target subroutine by a given set of
+     * complimentary scopes owning or leading to the declaration of any other variable with the same name. <br/>
+     * In practice this method should be passed the name of a variable, the scope for a subroutine which declares a
+     * variable of that name, the set scopes for subroutines which use a variable of that name and an empty exclusion
+     * list. The method will invoke itself recursively looking upward in the call graph till it finds the target scope
+     * or runs out of options decreasing the usage scopes and exclusion scopes as it goes along.
+     *
+     * @param variableName
+     *            The name of the variable.
+     * @param scope
+     *            The scope of the target subroutine.
+     * @param usageScopes
+     *            The set of subroutine scopes containing or leading to uses of a variable with the given name whose
+     *            declaring scope is not yet known.
+     * @param previousScopes
+     *            A list of subroutine scopes known to contain or lead to the declaration for any usage of the given
+     *            variable name that is not in the closure of the usage scopes.
+     * @return A boolean flag indicating whether the variable gets used by the subroutine.
+     * @throws JDOMException
+     */
+    private boolean isUsedByScope(final String variableName, final Element scope, final Set<Element> usageScopes,
+            final Set<Element> previousScopes) throws JDOMException {
+        if (usageScopes.isEmpty()) {
+            return false;
+        }
+        if (usageScopes.contains(scope)) {
+            return true;
+        }
+        for (Element usageScope : usageScopes) {
+            List<Element> localDeclarations = selectNodes(usageScope,
+                    ".//Z_DECLARE./NAME[@text='" + variableName + "']");
+            if (localDeclarations.size() > 0) {
+                // don't look upwards from this scope since it declares its own version and it is not the target scope.
+                previousScopes.add(usageScope);
             }
         }
-        Set<Element> calledScopes = getCallGraph().get(scope);
-        if (calledScopes != null) {
-            for (Element calledScope : calledScopes) {
-                if (!previouslyCheckedScopes.contains(calledScope)) {
-                    previouslyCheckedScopes.add(calledScope);
-                    if (isUsed(variableName, calledScope, previouslyCheckedScopes, false)) {
-                        return true;
-                    }
-                }
+        usageScopes.removeAll(previousScopes);
+        Set<Element> callingScopes = new HashSet<Element>();
+        for (Element usageScope : usageScopes) {
+            Set<Element> scopeCallers = getInverseCallGraph().get(usageScope);
+            if (scopeCallers != null) {
+                callingScopes.addAll(scopeCallers);
             }
         }
-        return false;
+        previousScopes.addAll(usageScopes);
+        callingScopes.removeAll(previousScopes);
+        return isUsedByScope(variableName, scope, callingScopes, previousScopes);
     }
 
     private boolean isConstantVariable(final Element declare) throws JDOMException {

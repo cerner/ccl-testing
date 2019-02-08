@@ -11,11 +11,12 @@ import io.takari.maven.testing.TestResources;
 /**
  * Unit Tests for WhitenoiseMojo.
  *
+ * TODO - finish this test case.
+ *
  * @author Fred Eckertson
  *
  */
 // TODO - use this or get rid of it.
-// TODO - finish this test case.
 // @RunWith(PowerMockRunner.class)
 // @PrepareForTest(value = { WhitenoiseMojo.class, FileUtils.class, BackendNodePasswordCredential.class,
 // BackendNodePrincipal.class, CclExecutor.class, MillenniumDomainPrincipal.class,

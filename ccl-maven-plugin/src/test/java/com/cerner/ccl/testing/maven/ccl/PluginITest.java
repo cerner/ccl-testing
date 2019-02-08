@@ -2,42 +2,49 @@ package com.cerner.ccl.testing.maven.ccl;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.maven.settings.Profile;
+import org.apache.maven.settings.Settings;
+import org.apache.maven.settings.io.xpp3.SettingsXpp3Reader;
+import org.apache.maven.settings.io.xpp3.SettingsXpp3Writer;
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
 import org.apache.maven.shared.invoker.DefaultInvoker;
 import org.apache.maven.shared.invoker.InvocationRequest;
 import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.MavenInvocationException;
 import org.apache.maven.shared.invoker.PrintStreamHandler;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestName;
-
-import com.cerner.ccl.j4ccl.TerminalProperties;
 
 /**
  * Integration tests for {@code ccl-maven-plugin}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 public class PluginITest {
     /**
@@ -46,6 +53,12 @@ public class PluginITest {
     @Rule
     public TestName testName = new TestName();
 
+    /**
+     * A {@link Rule} used to obtain a temporary folder.
+     */
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
+
     private Properties originalSystemProperties = null;
     private final List<String> compileGoal = Collections.singletonList("compile");
     private final List<String> validateGoal = Collections.singletonList("validate");
@@ -53,9 +66,14 @@ public class PluginITest {
 
     /**
      * One time initialization.
+     *
+     * @throws Exception
+     *             Not expected.
      */
     @BeforeClass
-    public static void setUpBeforeClass() {
+    public static void setUpBeforeClass() throws Exception {
+        // TODO: is this necessary?
+        // TODO: does it need to be cleaned up?
         final ResourceBundle systemPropsBundle = ResourceBundle.getBundle("system");
         System.setProperty("maven.home", systemPropsBundle.getString("maven.home"));
     }
@@ -65,6 +83,7 @@ public class PluginITest {
      */
     @Before
     public void setUp() {
+        // TODO: this seems pointless.
         originalSystemProperties = System.getProperties();
     }
 
@@ -86,9 +105,8 @@ public class PluginITest {
     }
 
     /**
-     * Test a build failure caused by an if with no endif compilation error using the
-     * {@code compilation-error-build-failure} project.
-     * 
+     * Test a compile failure caused by an if with no endif in the {@code compilation-error-build-failure} project.
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -105,7 +123,7 @@ public class PluginITest {
     /**
      * Test a build failure caused by a partial record structure definition out of place using the
      * {@code incomplete-include-file} project.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -122,7 +140,7 @@ public class PluginITest {
     /**
      * If the {@code enforcePredeclare} property is active when a test executes code that does not declare its
      * variables, then the test build should fail.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -161,7 +179,7 @@ public class PluginITest {
     /**
      * If the {@code expectationTimeout} property is set extremely low then all operations will fail because of a
      * timeout and the log will show the specified timeout value being applied.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -171,10 +189,12 @@ public class PluginITest {
         final InvocationRequest request = getInvocationRequest("test-with-low-expectation-timeout", compileGoal,
                 logFile);
         request.setDebug(true);
-        request.getProperties().put("ccl-expectationTimeout", "3");
-        final InvocationResult result2 = new DefaultInvoker().execute(request);
-        assertThat(result2.getExecutionException()).isNull();
-        assertThat(result2.getExitCode()).isGreaterThan(0);
+        final Properties properties = request.getProperties();
+        properties.put("ccl-skipEnvset", "false");
+        properties.put("ccl-expectationTimeout", "3");
+        final InvocationResult result = new DefaultInvoker().execute(request);
+        assertThat(result.getExecutionException()).isNull();
+        assertThat(result.getExitCode()).isGreaterThan(0);
         assertThat(containsText(logFile, "Setting default timeout to 3"))
                 .as("exected to see the exectationTimeout set to 3.").isTrue();
         assertThat(containsText(logFile, "sending command (envset")).as("exected to see an envset command.").isTrue();
@@ -184,7 +204,7 @@ public class PluginITest {
 
     /**
      * If the {@code ccl-skipEnvset} property is set, then there should be no envset command issued.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -192,6 +212,7 @@ public class PluginITest {
     public void testSkipEnvset() throws Exception {
         final File logFile = getLogFile();
         final InvocationRequest request = getInvocationRequest("test-skip-envset", testGoal, logFile);
+
         request.setDebug(true);
         request.getProperties().put("ccl-skipEnvset", "true");
         final InvocationResult result = new DefaultInvoker().execute(request);
@@ -203,7 +224,7 @@ public class PluginITest {
 
     /**
      * If the {@code ccl-specifyDebugCcl} property is false, then there should be no $cer_exe/cclora_dbg command issued.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -225,7 +246,7 @@ public class PluginITest {
     /**
      * Test a maven build failure occurs if a runtime error occurs by builing the {@code build-with-runtime-ccl-error}
      * project.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -242,7 +263,7 @@ public class PluginITest {
 
     /**
      * Test the enabling of full debug mode produces debug info.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -252,6 +273,7 @@ public class PluginITest {
 
         final InvocationRequest request = getInvocationRequest("enable-full-debug", testGoal, logFile);
         final Properties properties = request.getProperties();
+        properties.put("ccl-skipEnvset", "false");
         properties.put("ccl-enableFullDebug", "true");
 
         final InvocationResult result = new DefaultInvoker().execute(request);
@@ -271,7 +293,7 @@ public class PluginITest {
     /**
      * If the framework version is outside of the range specified in the project POM, then the framework validation
      * should fail.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -290,7 +312,7 @@ public class PluginITest {
     /**
      * If the framework version is outside of the range specified in the project POM <i>and</i> validation is skipped,
      * then the build should not fail.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -304,7 +326,7 @@ public class PluginITest {
 
     /**
      * If the framework version is within the range specified in the POM, then the framework validation should pass.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -319,21 +341,19 @@ public class PluginITest {
     /**
      * The presence of domain credentials should be wholly optional; thus, their absence should be of no problem
      * (assuming no test code requires CCL authentication AND and an osPromptPattern is provided or the constructed
-     * default value works okay with out the domain name).
-     * 
+     * default value works okay without the domain name).
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
     @Test
     public void testNoDomainCredentials() throws Exception {
         final File logFile = getLogFile();
-        final InvocationRequest request = getInvocationRequest("no-domain-credentials", testGoal, logFile);
+        File settingsFile = removeSettings(Arrays.asList(new String[] { "ccl-domainUsername", "ccl-domainPassword",
+                "ccl-domain", "ccl-frontendCredentialsId" }));
 
-        final Properties properties = request.getProperties();
-        properties.remove("ccl-domainUsername");
-        properties.remove("ccl-domainPassword");
-        properties.remove("ccl-domain");
-        properties.remove("ccl-frontendCredentialsId");
+        final InvocationRequest request = getInvocationRequest("no-domain-credentials", testGoal, logFile,
+                settingsFile);
 
         final InvocationResult result = new DefaultInvoker().execute(request);
         assertThat(result.getExecutionException()).isNull();
@@ -342,18 +362,21 @@ public class PluginITest {
 
     /**
      * Test that a build will fail if no host username or credentialsId is provided.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
     @Test
     public void testNoHostUsername() throws Exception {
         final File logFile = getLogFile();
-        final InvocationRequest request = getInvocationRequest("no-host-credentials", compileGoal, logFile);
+        File settingsFile = removeSettings(Arrays.asList(new String[] { "ccl-hostUsername", "ccl-hostCredentialsId" }));
+
+        final InvocationRequest request = getInvocationRequest("no-host-credentials", compileGoal, logFile,
+                settingsFile);
 
         final Properties properties = request.getProperties();
-        properties.remove("ccl-hostUsername");
-        properties.remove("ccl-hostCredentialsId");
+        properties.put("ccl-hostUsername", "");
+        properties.put("ccl-hostCredentialsId", "");
 
         final InvocationResult result = new DefaultInvoker().execute(request);
 
@@ -365,19 +388,19 @@ public class PluginITest {
 
     /**
      * Test that a build will fail if no host password or credentialsId is provided.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
     @Test
     public void testNoHostPassword() throws Exception {
         final File logFile = getLogFile();
-        final InvocationRequest request = getInvocationRequest("no-host-credentials", compileGoal, logFile);
+        File settingsFile = removeSettings(Arrays.asList(new String[] { "hostPassword", "ccl-hostCredentialsId" }));
 
-        final Properties properties = request.getProperties();
-        properties.setProperty("ccl-hostUsername", "some-user-name");
-        properties.remove("ccl-hostPassword");
-        properties.remove("ccl-hostCredentialsId");
+        final InvocationRequest request = getInvocationRequest("no-host-credentials", compileGoal, logFile,
+                settingsFile);
+
+        request.getProperties().put("ccl-hostUsername", "some-user-name");
 
         final InvocationResult result = new DefaultInvoker().execute(request);
 
@@ -389,7 +412,7 @@ public class PluginITest {
 
     /**
      * Test a build failure when the provided frontend credentials ID does not correspond to a known server.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -413,7 +436,7 @@ public class PluginITest {
 
     /**
      * Test a build failure when the provided host credentials ID does not correspond to a known server.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -434,7 +457,7 @@ public class PluginITest {
 
     /**
      * Test the execution of a test under CBO.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -442,6 +465,7 @@ public class PluginITest {
     public void testSetCboOptimizerMode() throws Exception {
         final File logFile = getLogFile();
         final InvocationRequest request = getInvocationRequest("set-optimizer-mode-cbo", testGoal, logFile);
+        request.setDebug(true);
 
         final Properties properties = request.getProperties();
         properties.setProperty("optimizerMode", "CBO");
@@ -453,7 +477,7 @@ public class PluginITest {
 
     /**
      * Test the execution of a test under RBO.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -472,7 +496,7 @@ public class PluginITest {
 
     /**
      * Test that specifying a testCase only runs the specified test case.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -495,7 +519,7 @@ public class PluginITest {
         assertThat(childrenDirectory).hasSize(2);
         for (int index = 0; index < 2; index++) {
             String name = childrenDirectory[index].getName();
-            boolean isDirectory = childrenDirectory[index].isDirectory();            
+            boolean isDirectory = childrenDirectory[index].isDirectory();
             assertThat(name).isEqualTo(isDirectory ? "cclplugin_do_run" : "environment.xml");
         }
     }
@@ -503,7 +527,7 @@ public class PluginITest {
     /**
      * Test a successful build using the {@code successful-build} project. Verifiies that cclora_dbg gets invoked rather
      * than ccl.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -525,7 +549,7 @@ public class PluginITest {
 
     /**
      * Test a successful build using a server ID to provide the domain username and password.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -539,7 +563,7 @@ public class PluginITest {
 
     /**
      * Test a successful build using a server ID to provide the username and password used to connect to the backend.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -553,7 +577,7 @@ public class PluginITest {
 
     /**
      * Determine whether or not a file contains a given line of text.
-     * 
+     *
      * @param file
      *            The file to be read.
      * @param text
@@ -573,24 +597,25 @@ public class PluginITest {
 
     /**
      * Create a log file to which a Maven invocation can write its output.
-     * 
+     *
      * @return A {@link File} representing a location to which the Maven invocation can write its output.
      */
     private File getLogFile() {
         final File logDirectory = new File("target/logs/" + getClass().getSimpleName());
-        if (!logDirectory.exists())
+        if (!logDirectory.exists()) {
             try {
                 FileUtils.forceMkdir(logDirectory);
             } catch (final IOException e) {
                 throw new RuntimeException("Failed to create log directory.", e);
             }
+        }
 
         return new File(logDirectory, testName.getMethodName() + ".log");
     }
 
     /**
-     * Facade for building an InvocationRequest for a test maven project
-     * 
+     * Facade for building an InvocationRequest for a test maven project using the default local setttings.xml file.
+     *
      * @param projectId
      *            The id (directory branch) for the test project.
      * @param goals
@@ -603,15 +628,44 @@ public class PluginITest {
      * @throws FileNotFoundException
      *             Bad things might happen
      */
-    private InvocationRequest getInvocationRequest(String projectId, List<String> goals, File logFile)
+    private InvocationRequest getInvocationRequest(final String projectId, final List<String> goals, final File logFile)
             throws FileNotFoundException, URISyntaxException {
-        return new DefaultInvocationRequest().setPomFile(getPom(projectId)).setProperties(getProperties())
-                .setGoals(goals).setOutputHandler(new PrintStreamHandler(new PrintStream(logFile), true));
+        return getInvocationRequest(projectId, goals, logFile, null);
     }
 
     /**
-     * Facade for executing a test maven project
-     * 
+     * Facade for building an InvocationRequest for a maven project using a specified local settings.xml file or, if not
+     * provided, the default local settings.xml file
+     *
+     * @param projectId
+     *            The id (directory branch) for the test project.
+     * @param goals
+     *            The maven goals to execute.
+     * @param logFile
+     *            The file to which the build output should be written.
+     * @return An InvocationRequest for the specified test project.
+     * @throws URISyntaxException
+     *             Bad things might happen
+     * @throws FileNotFoundException
+     *             Bad things might happen
+     */
+    private InvocationRequest getInvocationRequest(final String projectId, final List<String> goals, final File logFile,
+            final File settingsFile) throws FileNotFoundException, URISyntaxException {
+        File userConfigurationFile = settingsFile != null ? settingsFile
+                : FileUtils.getFile(new File(System.getProperty("user.home")), ".m2", "settings.xml");
+
+        InvocationRequest invocationRequest = new DefaultInvocationRequest().setPomFile(getPom(projectId))
+                .setUserSettingsFile(userConfigurationFile)
+                .setProfiles(Arrays.asList(new String[] { System.getProperty("maven-profile") }))
+                .setProperties(new Properties()).setGoals(goals)
+                .setOutputHandler(new PrintStreamHandler(new PrintStream(logFile), true));
+        System.out.println("invocationRequest profiles: " + invocationRequest.getProfiles());
+        return invocationRequest;
+    }
+
+    /**
+     * Facade for executing a maven project
+     *
      * @param projectId
      *            The id (directory branch) for the test project.
      * @param goals
@@ -626,7 +680,7 @@ public class PluginITest {
      * @throws MavenInvocationException
      *             Bad things might happen
      */
-    private InvocationResult executeMaven(String projectId, List<String> goals, File logFile)
+    private InvocationResult executeMaven(final String projectId, final List<String> goals, final File logFile)
             throws FileNotFoundException, URISyntaxException, MavenInvocationException {
         InvocationRequest request = getInvocationRequest(projectId, goals, logFile);
         return new DefaultInvoker().execute(request);
@@ -634,7 +688,7 @@ public class PluginITest {
 
     /**
      * Get a project's POM. It is assumed that the file is located beneath {@code /test-projects} on the classpath.
-     * 
+     *
      * @param path
      *            The path, relative to {@code /test-projects}, at which the file can be located.
      * @return A {@link File} reference representing the desired POM file.
@@ -646,14 +700,15 @@ public class PluginITest {
      */
     private File getPom(final String path) throws FileNotFoundException, URISyntaxException {
         final URL resourceUrl = getClass().getResource("/test-projects/" + path);
-        if (resourceUrl == null)
+        if (resourceUrl == null) {
             throw new FileNotFoundException("Resource not found: " + path);
+        }
         return FileUtils.toFile(resourceUrl);
     }
 
     /**
      * Get a project's project directory.
-     * 
+     *
      * @param projectName
      *            The name of the project for which the project is to be retrieved.
      * @return A {@link File} representing the given project's project directory.
@@ -662,23 +717,54 @@ public class PluginITest {
      */
     private File getProjectDirectory(final String projectName) throws FileNotFoundException {
         final URL projectUrl = getClass().getResource("/test-projects/" + projectName);
-        if (projectUrl == null)
+        if (projectUrl == null) {
             throw new FileNotFoundException("Project not found: " + projectName);
+        }
         return FileUtils.toFile(projectUrl);
     }
 
     /**
-     * Build the configured properties for CCL credentials.
-     * 
-     * @return A {@link Properties} of the passed-in system credentials.
+     * Constructs a temporary settings.xml file by removing a specified list of settings from the default local
+     * settings.xml file.
+     *
+     * @param keys
+     *            The names of the settings to be removed.
+     * @return The generated settings file
+     * @throws Exception
+     *             Not expected but an exception is raised if anything goes wrong.
      */
-    private Properties getProperties() {
-        final Properties mavenProperties = new Properties();
-        final Properties systemProperties = System.getProperties();
-        for (final Entry<Object, Object> systemProperty : systemProperties.entrySet())
-            if (systemProperty.getKey() instanceof String && ((String) systemProperty.getKey()).startsWith("ccl-"))
-                mavenProperties.put(systemProperty.getKey(), systemProperty.getValue());
-
-        return mavenProperties;
+    private File removeSettings(final List<String> keys) throws Exception {
+        File userConfigurationFile = FileUtils.getFile(new File(System.getProperty("user.home")), ".m2",
+                "settings.xml");
+        SettingsXpp3Reader settingsReader = new SettingsXpp3Reader();
+        Settings settings = null;
+        try (BufferedReader br = new BufferedReader(new FileReader(userConfigurationFile))) {
+            settings = settingsReader.read(br);
+        } catch (IOException | XmlPullParserException e) {
+            e.printStackTrace();
+            throw new Exception(e);
+        }
+        Profile activeProfile = null;
+        for (Profile profile : settings.getProfiles()) {
+            if (profile.getId().equals(System.getProperty("maven-profile"))) {
+                activeProfile = profile;
+                break;
+            }
+        }
+        Properties properties = activeProfile.getProperties();
+        for (String key : keys) {
+            if (properties.containsKey(key)) {
+                properties.remove(key);
+            }
+        }
+        SettingsXpp3Writer settingsWriter = new SettingsXpp3Writer();
+        File settingsFile = temporaryFolder.newFile("testSettings.xml");
+        System.out.println("test settingsFile : " + settingsFile.getAbsolutePath());
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(settingsFile))) {
+            settingsWriter.write(bw, settings);
+        } catch (IOException e) {
+            throw new Exception(e);
+        }
+        return settingsFile;
     }
 }

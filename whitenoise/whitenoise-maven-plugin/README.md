@@ -1,6 +1,6 @@
 # whitenoise-maven-plugin
 
-A maven reporting plugin for displaying the unit test and code coverage results obtained using [ccl-maven-plugin](../ccl-maven-plugin/README.md).
+A maven reporting plugin for displaying the unit test and code coverage results obtained using [ccl-maven-plugin](../../ccl-maven-plugin/README.md).
 
 Usage
 ===
@@ -18,3 +18,28 @@ Usage
 ```
 
 Execute `mvn help:describe -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-maven-plugin -Ddetail=true` for a description of the available parameters.
+
+
+Developer Notes
+===
+The integration tests require the domain specific profile to be activated by a system property named `maven-profile` with value equal to the profile id.
+For convenience, the profile should set that property.
+```xml
+        <profile>
+            <id>p-id</id>
+            <properties>
+                <ccl-host>p-host</ccl-host>
+                <ccl-environment>p-env</ccl-environment>
+                <ccl-domain>p-domain</ccl-domain>
+                <ccl-hostCredentialsId>p-host</ccl-hostCredentialsId>
+                <ccl-frontendCredentialsId>p-domain</ccl-frontendCredentialsId>
+                <maven-profile>p-id</maven-profile>
+            </properties>
+            <activation>
+                <property>
+                    <name>maven-profile</name>
+                    <value>p-id</value>
+                </property>
+            </activation>
+        </profile>
+```

@@ -4,6 +4,7 @@ import static org.codehaus.plexus.util.StringUtils.isEmpty;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -173,6 +174,23 @@ public class WhitenoiseMojo extends AbstractMavenReport {
     protected boolean doCompile;
 
     /**
+     * A boolean indicator to control whether or not the raw violation data is written to disk. Currently the format is
+     * fixed.
+     *
+     * @since 2.2
+     */
+    @Parameter(defaultValue = "false", property = "outputRawData", required = true)
+    protected boolean outputRawData;
+
+    /**
+     * The directory where the raw data will be written..
+     *
+     * @since 2.2
+     */
+    @Parameter(defaultValue = "${project.build.directory}/whitenoise/", property = "whitenoiseDataDirectory", required = true)
+    protected File dataDirectory;
+
+    /**
      * The location of the file of filters that can be optionally excluded from the report.
      */
     @Parameter()
@@ -199,8 +217,9 @@ public class WhitenoiseMojo extends AbstractMavenReport {
      *             If the given provider is {@code null}.
      */
     public WhitenoiseMojo(final FtpProductProvider productProvider) {
-        if (productProvider == null)
+        if (productProvider == null) {
             throw new IllegalArgumentException("FTP product provider cannot be null.");
+        }
 
         this.productProvider = productProvider;
     }
@@ -272,8 +291,9 @@ public class WhitenoiseMojo extends AbstractMavenReport {
                 getLog().info(
                         "Mojo has been configured to compile scripts prior to analysis; preparing to compile scripts.");
                 doCompile(subject, files);
-            } else
+            } else {
                 getLog().debug("Mojo has been configured to not compile code prior to analysis.");
+            }
 
             final AnalysisEngine engine = new J4CclAnalysisEngine(productProvider);
             final Map<String, List<Violation>> violations = Subject.doAs(subject,
@@ -284,8 +304,9 @@ public class WhitenoiseMojo extends AbstractMavenReport {
                                     getRules());
                             final Map<String, List<Violation>> listViolations = new HashMap<String, List<Violation>>(
                                     rootViolations.size());
-                            for (final Entry<String, Set<Violation>> entry : rootViolations.entrySet())
+                            for (final Entry<String, Set<Violation>> entry : rootViolations.entrySet()) {
                                 listViolations.put(entry.getKey(), new ArrayList<Violation>(entry.getValue()));
+                            }
                             return listViolations;
                         }
                     });
@@ -305,10 +326,13 @@ public class WhitenoiseMojo extends AbstractMavenReport {
                 // If any of the scripts were completely filtered, then remove the script from being mentioned at all
                 final Set<String> scriptNames = new HashSet<String>(violations.keySet());
                 for (final String scriptName : scriptNames) {
-                    if (violations.get(scriptName).isEmpty())
+                    if (violations.get(scriptName).isEmpty()) {
                         violations.remove(scriptName);
+                    }
                 }
             }
+
+            writeViolations(violations);
 
             for (final Entry<String, List<Violation>> entry : violations.entrySet()) {
                 writeResultTable(sink, entry.getKey(), entry.getValue());
@@ -333,8 +357,27 @@ public class WhitenoiseMojo extends AbstractMavenReport {
         }
     }
 
-    private void writeResultTable(final Sink sink, final String programName, final List<Violation> violations) {
+    private void writeViolations(final Map<String, List<Violation>> violations) {
+        if (!outputRawData) {
+            return;
+        }
+        File dataFile = org.apache.commons.io.FileUtils.getFile(dataDirectory, "violations.txt");
+        try {
+            StringBuilder sb = new StringBuilder();
+            for (Entry<String, List<Violation>> entry : violations.entrySet()) {
+                for (Violation violation : entry.getValue()) {
+                    sb.append("<").append(entry.getKey()).append(",").append(violation.getViolationId().getIdentifier())
+                            .append(",").append(violation.getViolationDescription()).append(",")
+                            .append(violation.getLineNumber()).append(">").append("\n");
+                }
+            }
+            org.apache.commons.io.FileUtils.write(dataFile, sb.toString(), Charset.forName("utf-8"));
+        } catch (IOException e) {
+            getLog().error(e.getMessage());
+        }
+    }
 
+    private void writeResultTable(final Sink sink, final String programName, final List<Violation> violations) {
         sink.sectionTitle2();
         sink.text(programName);
         sink.sectionTitle2_();
@@ -361,8 +404,9 @@ public class WhitenoiseMojo extends AbstractMavenReport {
         // Sort the list of violations by line number, then violation type, then hash code
         final TreeSet<Violation> sortedViolations = new TreeSet<Violation>(new Comparator<Violation>() {
             public int compare(final Violation o1, final Violation o2) {
-                if (!o1.getLineNumber().equals(o2.getLineNumber()))
+                if (!o1.getLineNumber().equals(o2.getLineNumber())) {
                     return o1.getLineNumber() - o2.getLineNumber();
+                }
 
                 return o1.getViolationId().toString().equalsIgnoreCase(o2.getViolationId().toString())
                         ? o1.hashCode() - o2.hashCode()
@@ -474,8 +518,9 @@ public class WhitenoiseMojo extends AbstractMavenReport {
     private void doCompile(final Subject subject, final Collection<File> files) {
         final CclExecutor executor = CclExecutor.getExecutor();
         executor.setTerminalProperties(TerminalProperties.getGlobalTerminalProperties());
-        for (final File file : files)
+        for (final File file : files) {
             executor.addScriptCompiler(file).withDebugModeEnabled(true).commit();
+        }
 
         Subject.doAs(subject, new PrivilegedAction<Void>() {
             public Void run() {
@@ -505,8 +550,9 @@ public class WhitenoiseMojo extends AbstractMavenReport {
                         "A host username or password was provided as well as a credentials ID; the ID will be used over the username and password.");
             }
             final Server server = settings.getServer(hostCredentialsId);
-            if (server == null)
+            if (server == null) {
                 throw new MavenReportException("No backend <server /> found by the given ID: " + hostCredentialsId);
+            }
 
             defaultOSPromptUsername = server.getUsername();
             subject.getPrincipals().add(new BackendNodePrincipal(server.getUsername(), hostAddress, environmentName));

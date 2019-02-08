@@ -107,11 +107,9 @@ public class JdomAnalysisRule implements AnalysisRule {
         private List<Element> definedSubroutines = null;
         private Map<String, Element> definedSubroutineMap = null;
         private Map<Element, Set<Element>> callGraph = null;
-        // TODO:use this or get rid of it
-        // private final Map<Element, Set<Element>> inverseCallGraph = null;
+        private Map<Element, Set<Element>> inverseCallGraph = null;
         private Map<String, Set<String>> nameCallGraph = null;
         private Map<String, Set<String>> inverseNameCallGraph = null;
-        private final Map<Element, List<List<Element>>> scopes = null;
 
         /**
          * @param document
@@ -244,6 +242,32 @@ public class JdomAnalysisRule implements AnalysisRule {
         }
 
         /**
+         * Returns the inverse call graph for a program, that is a map from each defined subroutines in the program to
+         * the set of subroutines that invoke that element.
+         *
+         * @return The {@link Map} of {@link Element} representing all subroutine implementations defined in the program
+         *         to the subroutine elements that invoke that element.
+         * @throws JDOMException
+         *             If any errors occur during the analysis.
+         */
+        protected Map<Element, Set<Element>> getInverseCallGraph() throws JDOMException {
+            if (this.inverseCallGraph == null) {
+                Map<Element, Set<Element>> inverseCallGraph = new HashMap<Element, Set<Element>>();
+                Map<Element, Set<Element>> callGraph = getCallGraph();
+                for (Entry<Element, Set<Element>> entry : callGraph.entrySet()) {
+                    for (Element invokee : entry.getValue()) {
+                        if (!inverseCallGraph.containsKey(invokee)) {
+                            inverseCallGraph.put(invokee, new HashSet<Element>());
+                        }
+                        inverseCallGraph.get(invokee).add(entry.getKey());
+                    }
+                }
+                this.inverseCallGraph = Collections.unmodifiableMap(inverseCallGraph);
+            }
+            return this.inverseCallGraph;
+        }
+
+        /**
          * Returns the call graph for a program, that is a map from the program and all defined subroutines in the
          * program to the set of subroutine names invoked by that element.
          *
@@ -296,7 +320,7 @@ public class JdomAnalysisRule implements AnalysisRule {
         private Set<String> getInvokedElementNames(final Element invokingElement, final String predicate)
                 throws JDOMException {
             List<Element> invokedElements = selectNodes(invokingElement,
-                    "descendant::CALL.[not(parent::Z_DECLARE.)]" + predicate);
+                    "descendant::Z_CALL.[NAME]|descendant::CALL.[not(parent::Z_DECLARE.)]" + predicate);
             Set<String> invokedElementNames = new HashSet<String>();
             for (Element invokedElement : invokedElements) {
                 String cclName = getCclName(invokedElement);
@@ -311,7 +335,7 @@ public class JdomAnalysisRule implements AnalysisRule {
                 throws JDOMException {
             getSubroutineMap();
             List<Element> callElements = selectNodes(invokingElement,
-                    "descendant::CALL.[not(parent::Z_DECLARE.)]" + predicate);
+                    "descendant::Z_CALL.[NAME]|descendant::CALL.[not(parent::Z_DECLARE.)]" + predicate);
             Set<Element> invokedElements = new HashSet<Element>();
             Iterator<Element> it = callElements.iterator();
             while (it.hasNext()) {

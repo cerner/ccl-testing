@@ -105,9 +105,12 @@ public class CclResourceUploaderITest {
             String cclHost = prop.getProperty("ccl-host");
             String cclDomain = prop.getProperty("ccl-domain");
             String hostUsername = System.getProperty("ccl-hostUsername");
+            String osPromptPattern = prop.getProperty("ccl-osPromptPattern");
+            if (osPromptPattern == null || osPromptPattern.isEmpty()) {
+                osPromptPattern = TerminalProperties.constructDefaultOsPromptPattern(cclHost, cclDomain, hostUsername);
+            }
             TerminalProperties.setGlobalTerminalProperties(TerminalProperties.getNewBuilder()
-                    .setOsPromptPattern(
-                            TerminalProperties.constructDefaultOsPromptPattern(cclHost, cclDomain, hostUsername))
+                    .setOsPromptPattern(osPromptPattern)
                     .setSpecifyDebugCcl(true).setLogfileLocation("target/ccl-log/ITest.log").build());
         }
     }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exclusions xmlns="urn:cerner:ccl:whitenoise-exclusions">
+  <exclusion>
+    <scriptName>export_br_dm_value_fe</scriptName>
+    <variableName>cpos</variableName>
+    <violationId>CORE.UNUSED_VARIABLE_DECLARATION</violationId>
+    <lineNumber>630</lineNumber>
+  </exclusion>
+</exclusions>

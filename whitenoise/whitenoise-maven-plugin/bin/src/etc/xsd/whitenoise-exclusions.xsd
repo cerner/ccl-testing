@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cerner:ccl:whitenoise-exclusions" xmlns:tns="urn:cerner:ccl:whitenoise-exclusions" elementFormDefault="qualified">
+	<complexType name="exclusions">
+		<sequence>
+			<element name="exclusion" minOccurs="1" maxOccurs="unbounded" type="tns:exclusion" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="exclusion">
+		<sequence>
+			<element name="scriptName" type="string" maxOccurs="1" minOccurs="0" />
+			<element name="violationId" type="string" maxOccurs="1" minOccurs="0" />
+			<element name="subroutineName" type="string" maxOccurs="1" minOccurs="0" />
+			<element name="variableName" type="string" maxOccurs="1" minOccurs="0" />
+			<element name="lineNumber" type="nonNegativeInteger" maxOccurs="1" minOccurs="0" />
+			<element name="explanation" type="string" maxOccurs="1" minOccurs="0" />
+		</sequence>
+	</complexType>
+	
+	<element name="exclusions" type="tns:exclusions" />
+</schema>
