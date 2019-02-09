@@ -219,7 +219,7 @@ public class CclResourceUploaderITest {
      */
     @Test
     public void testUploadIncFile() throws Exception {
-        uploader.queueUpload(getLocalFile("j4ccl_testInclude.inc"));
+        uploader.queueUpload(getLocalFile("j4ccl_testinclude.inc"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
             public Void run() {
                 uploader.upload();
@@ -276,7 +276,7 @@ public class CclResourceUploaderITest {
      */
     @Test
     public void testUploadSubFile() throws Exception {
-        uploader.queueUpload(getLocalFile("j4ccl_testSub.sub"));
+        uploader.queueUpload(getLocalFile("j4ccl_testsub.sub"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
             public Void run() {
                 uploader.upload();
