@@ -257,7 +257,7 @@ public class CclResourceUploaderITest {
      */
     @Test
     public void testUploadPrgFile() throws Exception {
-        uploader.queueUpload(getLocalFile("j4ccl_testCompile.prg"));
+        uploader.queueUpload(getLocalFile("j4ccl_testcompile.prg"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
             public Void run() {
                 uploader.upload();
