@@ -290,7 +290,7 @@ public class CclExecutorITest {
         final String scriptName = "j4ccl_testIncludeWrapperScript";
         final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-        executor.addDynamicCompiler(getLocalFile("j4ccl_testInclude.inc")).withScriptName(scriptName).commit();
+        executor.addDynamicCompiler(getLocalFile("j4ccl_testinclude.inc")).withScriptName(scriptName).commit();
         executor.addScriptExecution(scriptName).commit();
         executor.addScriptDropper(scriptName).commit();
         executor.setOutputStream(outStream, OutputType.CCL_SESSION);
