@@ -65,7 +65,7 @@ public class StructureParser extends AbstractIndexedParser<Structure> {
          * @param endingPosition
          *            The position where the item ends within the source
          */
-        public NextItemResponse(int level, String name, String type, int endingPosition) {
+        public NextItemResponse(final int level, final String name, final String type, final int endingPosition) {
             super();
             this.level = level;
             this.name = name;
@@ -91,7 +91,7 @@ public class StructureParser extends AbstractIndexedParser<Structure> {
 
     }
 
-    NextItemResponse getNextItem(String source, int startingPosition) {
+    NextItemResponse getNextItem(final String source, final int startingPosition) {
         Matcher matcher = ITEM_PATTERN.matcher(source);
         if (startingPosition < source.length() && matcher.find(startingPosition)) {
             return new NextItemResponse(matcher.group(2) != null ? Integer.parseInt(matcher.group(2)) : 0,
@@ -157,7 +157,11 @@ public class StructureParser extends AbstractIndexedParser<Structure> {
                     if (nextItemLevel == 1) {
                         rootMembers.add(structure);
                     } else {
-                        parentLists.get(parentLists.size() - 1).addChildMember(structure);
+                        if (parentLists.size() > 0) {
+                            parentLists.get(parentLists.size() - 1).addChildMember(structure);
+                        } else {
+                            logger.warn("cdoc unable to add field {} to record {}", structure.getName(), name);
+                        }
                     }
                     parentLists.add(structure);
                 } else {
@@ -169,7 +173,11 @@ public class StructureParser extends AbstractIndexedParser<Structure> {
                     if (nextItemLevel == 1) {
                         rootMembers.add(structureField);
                     } else {
-                        parentLists.get(parentLists.size() - 1).addChildMember(structureField);
+                        if (parentLists.size() > 0) {
+                            parentLists.get(parentLists.size() - 1).addChildMember(structureField);
+                        } else {
+                            logger.warn("cdoc unable to add field {} to record {}", structureField.getName(), name);
+                        }
                     }
                 }
                 nextItemResponse = getNextItem(definition, 1 + nextItemResponse.getEndingPosition());

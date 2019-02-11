@@ -44,14 +44,16 @@ public class RecordStructureDeclarationRules extends TimedDelegate {
 
             // Identify all fields within the record that appear to be lists or structures
             for (final Element listOrStruct : selectNodesByName(record, "FIELD.", "[OCCUR. or not(FORMAT.)]")) {
-                if (listOrStruct.getChildren("FIELD.").size() == 0)
+                if (listOrStruct.getChildren("FIELD.").size() == 0) {
                     violations.add(new EmptyListOrStructureDefinitionViolation(recordName, getCclName(listOrStruct),
                             getLineNumber(listOrStruct)));
+                }
             }
 
             // If record structure is declared and not protected, then add the violation
-            if (recordStructureHasNoDefinedScoping(record))
+            if (recordStructureHasNoDefinedScoping(record)) {
                 violations.add(new UnprotectedRecordStructureDefinitionViolation(recordName, getLineNumber(record)));
+            }
 
             // search for an instance where a defined record is freed and add the violation
             for (final Element free : frees) {
@@ -66,20 +68,29 @@ public class RecordStructureDeclarationRules extends TimedDelegate {
     }
 
     private boolean recordStructureHasNoDefinedScoping(final Element record) {
-        if (record.getChild("OPTIONS.") == null)
+        if (record.getChild("OPTIONS.") == null) {
             return true;
+        }
 
         for (final Element option : record.getChild("OPTIONS.").getChildren("OPTION.")) {
-            if (getCclName(option).equalsIgnoreCase("PROTECT"))
+            if (getCclName(option).equalsIgnoreCase("PROTECT")) {
                 return false;
-            if (getCclName(option).equalsIgnoreCase("PRIVATE"))
+            }
+            if (getCclName(option).equalsIgnoreCase("PRIVATE")) {
                 return false;
-            if (getCclName(option).equalsIgnoreCase("PUBLIC"))
+            }
+            if (getCclName(option).equalsIgnoreCase("PRIVATEPROTECT")) {
                 return false;
-            if (getCclName(option).equalsIgnoreCase("PERSIST"))
+            }
+            if (getCclName(option).equalsIgnoreCase("PUBLIC")) {
                 return false;
-            if (getCclName(option).equalsIgnoreCase("PERSISTSCRIPT"))
+            }
+            if (getCclName(option).equalsIgnoreCase("PERSIST")) {
                 return false;
+            }
+            if (getCclName(option).equalsIgnoreCase("PERSISTSCRIPT")) {
+                return false;
+            }
         }
 
         return true;

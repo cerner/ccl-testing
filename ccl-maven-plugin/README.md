@@ -24,7 +24,7 @@ Here is the plugin specification.
   <plugin>
     <groupId>com.cerner.ccl.testing</groupId>
     <artifactId>ccl-maven-plugin</artifactId>
-    <version>3.0</version>
+    <version>3.1</version>
     <extensions>true</extensions>
   </plugin>
 ```
@@ -113,6 +113,29 @@ required to use the plugin including identification of a target node, environmen
 
 - The integration tests will not compile properly with m2eclipse. To work around this, manually invoke the "test-compile" lifecycle (with an appropriate profile)
 from a command prompt. The desired version of the plugin must reside in the local maven repo as that is what the integration tests will run against when executed within the IDE.
+
+- The integration tests require a system property named `maven-profile` with value equal to the id of the domain specific profile. 
+For convenience, the profile should set that property.
+```xml
+        <profile>
+            <id>p-id</id>
+            <properties>
+                <ccl-host>p-host</ccl-host>
+                <ccl-environment>p-env</ccl-environment>
+                <ccl-domain>p-domain</ccl-domain>
+                <ccl-hostCredentialsId>p-host</ccl-hostCredentialsId>
+                <ccl-frontendCredentialsId>p-domain</ccl-frontendCredentialsId>
+                <maven-profile>p-id</maven-profile>
+            </properties>
+            <activation>
+                <property>
+                    <name>maven-profile</name>
+                    <value>p-id</value>
+                </property>
+            </activation>
+        </profile>
+```
+
 
 [configure-maven]:../doc/CONFIGUREMAVEN.md
 [configuration options]:doc/CONFIGURATIONOPTIONS.md

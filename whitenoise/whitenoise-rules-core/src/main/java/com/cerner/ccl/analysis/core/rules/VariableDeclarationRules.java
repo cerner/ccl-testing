@@ -87,9 +87,11 @@ public class VariableDeclarationRules extends TimedDelegate {
         return violations;
     }
 
-    private void checkHasUnknownDeclaredOption(final Element record, String variableName, Set<Violation> violations) {
-        if (record.getChild("OPTIONS.") == null)
+    private void checkHasUnknownDeclaredOption(final Element record, final String variableName,
+            final Set<Violation> violations) {
+        if (record.getChild("OPTIONS.") == null) {
             return;
+        }
 
         List<Element> optionvalues = record.getChild("OPTIONS.").getChildren("OPTION.");
 
@@ -107,12 +109,14 @@ public class VariableDeclarationRules extends TimedDelegate {
         }
     }
 
-    private boolean evaluateDecalredOption(String value) {
-        if (value.equalsIgnoreCase("PRIVATE") || value.equalsIgnoreCase("PROTECT")
-                || value.equalsIgnoreCase("PROTECTED") || value.equalsIgnoreCase("PUBLIC")
-                || value.equalsIgnoreCase("PERSIST") || value.equalsIgnoreCase("NOCONSTANT")
-                || value.equalsIgnoreCase("CONSTANT"))
+    private boolean evaluateDecalredOption(final String value) {
+        if (value.equalsIgnoreCase("PROTECT") || value.equalsIgnoreCase("NOCONSTANT")
+                || value.equalsIgnoreCase("CONSTANT") || value.equalsIgnoreCase("PUBLIC")
+                || value.equalsIgnoreCase("PERSISTSCRIPT") || value.equalsIgnoreCase("PERSIST")
+                || value.equalsIgnoreCase("PRIVATE") || value.equalsIgnoreCase("PRIVATEPROTECT")
+                || value.equalsIgnoreCase("NOPERSIST")) {
             return false;
+        }
 
         return true;
     }

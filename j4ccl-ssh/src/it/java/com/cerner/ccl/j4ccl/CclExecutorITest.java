@@ -21,7 +21,6 @@ import javax.security.auth.Subject;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.junit.Ignore;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -120,9 +119,12 @@ public class CclExecutorITest {
             String cclHost = prop.getProperty("ccl-host");
             String cclDomain = prop.getProperty("ccl-domain");
             String hostUsername = System.getProperty("ccl-hostUsername");
+            String osPromptPattern = prop.getProperty("ccl-osPromptPattern");
+            if (osPromptPattern == null || osPromptPattern.isEmpty()) {
+                osPromptPattern = TerminalProperties.constructDefaultOsPromptPattern(cclHost, cclDomain, hostUsername);
+            }
             TerminalProperties.setGlobalTerminalProperties(TerminalProperties.getNewBuilder()
-                    .setOsPromptPattern(
-                            TerminalProperties.constructDefaultOsPromptPattern(cclHost, cclDomain, hostUsername))
+                    .setOsPromptPattern(osPromptPattern)
                     .setSpecifyDebugCcl(true).setLogfileLocation("target/ccl-log/ITest.log").build());
         }
     }
@@ -167,7 +169,7 @@ public class CclExecutorITest {
     public void testCompileAndExecute() throws Exception {
         // First, compile the script
         final CclExecutor compileExecutor = CclExecutor.getExecutor();
-        compileExecutor.addScriptCompiler(getLocalFile("j4ccl_testCompile.prg")).commit();
+        compileExecutor.addScriptCompiler(getLocalFile("j4ccl_testcompile.prg")).commit();
         Subject.doAs(subject, new ExecutorRunner(compileExecutor));
 
         // Now, run the script and verify that its echo was in the output
@@ -194,7 +196,7 @@ public class CclExecutorITest {
     public void testSelectWithoutNL() throws Exception {
 
         final CclExecutor executor = CclExecutor.getExecutor();
-        executor.addScriptCompiler(getLocalFile("j4ccl_selectWithoutNL.prg")).commit();
+        executor.addScriptCompiler(getLocalFile("j4ccl_selectwithoutnl.prg")).commit();
 
         expected.expect(CclCommandException.class);
         expected.expectMessage("Execution of script j4ccl_selectWithoutNL failed.");
@@ -202,7 +204,7 @@ public class CclExecutorITest {
 
         // First, compile the script
         final CclExecutor compileExecutor = CclExecutor.getExecutor();
-        compileExecutor.addScriptCompiler(getLocalFile("j4ccl_selectWithoutNL.prg")).commit();
+        compileExecutor.addScriptCompiler(getLocalFile("j4ccl_selectwithoutnl.prg")).commit();
         Subject.doAs(subject, new ExecutorRunner(compileExecutor));
 
         try {
@@ -261,7 +263,7 @@ public class CclExecutorITest {
     public void testDropScript() throws Exception {
         final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         final CclExecutor executor = CclExecutor.getExecutor();
-        executor.addScriptCompiler(getLocalFile("j4ccl_testCompile.prg")).commit();
+        executor.addScriptCompiler(getLocalFile("j4ccl_testcompile.prg")).commit();
         executor.addScriptDropper("j4ccl_testCompile").commit();
         Subject.doAs(subject, new ExecutorRunner(executor));
 
@@ -288,7 +290,7 @@ public class CclExecutorITest {
         final String scriptName = "j4ccl_testIncludeWrapperScript";
         final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-        executor.addDynamicCompiler(getLocalFile("j4ccl_testInclude.inc")).withScriptName(scriptName).commit();
+        executor.addDynamicCompiler(getLocalFile("j4ccl_testinclude.inc")).withScriptName(scriptName).commit();
         executor.addScriptExecution(scriptName).commit();
         executor.addScriptDropper(scriptName).commit();
         executor.setOutputStream(outStream, OutputType.CCL_SESSION);
@@ -311,7 +313,7 @@ public class CclExecutorITest {
         final Record replyRec = RecordFactory.create("reply_test", recordStruct);
 
         final CclExecutor executor = CclExecutor.getExecutor();
-        executor.addScriptCompiler(getLocalFile("j4ccl_testRequestReply.prg")).commit();
+        executor.addScriptCompiler(getLocalFile("j4ccl_testrequestreply.prg")).commit();
         executor.addScriptExecution("j4ccl_testRequestReply").withReplace("request", requestRec)
                 .withReplace("reply", replyRec).commit();
         executor.addScriptDropper("j4ccl_testRequestReply").commit();
@@ -342,7 +344,7 @@ public class CclExecutorITest {
 
         final CclExecutor executor = CclExecutor.getExecutor();
 
-        executor.addScriptCompiler(getLocalFile("j4ccl_cclLikeOutput.prg")).commit();
+        executor.addScriptCompiler(getLocalFile("j4ccl_ccllikeoutput.prg")).commit();
         executor.addScriptExecution("j4ccl_cclLikeOutput").withReplace("request", requestRec)
                 .withReplace("reply", replyRec).commit();
         executor.addScriptDropper("j4ccl_cclLikeOutput").commit();
@@ -380,7 +382,7 @@ public class CclExecutorITest {
         final int integerValue = 32;
 
         final CclExecutor executor = CclExecutor.getExecutor();
-        executor.addScriptCompiler(getLocalFile("j4ccl_testArgumentCall.prg")).commit();
+        executor.addScriptCompiler(getLocalFile("j4ccl_testargumentcall.prg")).commit();
         executor.addScriptExecution("j4ccl_testArgumentCall")
                 .withArguments(new FloatArgument(1, 25), new CharacterArgument(singleQuoteValue),
                         new CharacterArgument(doubleQuoteValue), new IntegerArgument(integerValue))
@@ -413,7 +415,7 @@ public class CclExecutorITest {
         final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
         final CclExecutor executor = CclExecutor.getExecutor();
-        executor.addScriptCompiler(getLocalFile("j4ccl_testRequestReply.prg")).commit();
+        executor.addScriptCompiler(getLocalFile("j4ccl_testrequestreply.prg")).commit();
         executor.addScriptDropper("j4ccl_testRequestReply").commit();
         executor.setOutputStream(outStream, OutputType.FULL_DEBUG);
         Subject.doAs(subject, new ExecutorRunner(executor));
@@ -441,7 +443,7 @@ public class CclExecutorITest {
         final Record reply = RecordFactory.create("reply_test", StructureBuilder.getBuilder().addVC("target").build());
 
         final CclExecutor executor = CclExecutor.getExecutor();
-        executor.addScriptCompiler(getLocalFile("j4ccl_copyToReply.prg")).commit();
+        executor.addScriptCompiler(getLocalFile("j4ccl_copytoreply.prg")).commit();
         executor.addScriptExecution("j4ccl_copyToReply").withReplace("request", request).withReplace("reply", reply)
                 .commit();
         executor.addScriptDropper("j4ccl_copyToReply").commit();
@@ -470,7 +472,7 @@ public class CclExecutorITest {
         final Record reply = RecordFactory.create("reply_test", StructureBuilder.getBuilder().addVC("target").build());
 
         final CclExecutor executor = CclExecutor.getExecutor();
-        executor.addScriptCompiler(getLocalFile("j4ccl_copyToReply.prg")).commit();
+        executor.addScriptCompiler(getLocalFile("j4ccl_copytoreply.prg")).commit();
         executor.addScriptExecution("j4ccl_copyToReply").withReplace("request", request).withReplace("reply", reply)
                 .commit();
         executor.addScriptDropper("j4ccl_copyToReply").commit();

@@ -17,4 +17,6 @@ Usage
   </reporting>
 ```
 
-Execute `mvn help:describe -DgroupId=com.cerner.ccl.testing -DartifactId=cerreal-maven-plugin -Ddetail=true` for a description of the available parameters.
+Configuration Options
+===
+Execute `mvn help:describe -DgroupId=com.cerner.ccl.testing -DartifactId=cerreal-maven-plugin -Ddetail=true` for a description of all available parameters.

@@ -105,9 +105,12 @@ public class CclResourceUploaderITest {
             String cclHost = prop.getProperty("ccl-host");
             String cclDomain = prop.getProperty("ccl-domain");
             String hostUsername = System.getProperty("ccl-hostUsername");
+            String osPromptPattern = prop.getProperty("ccl-osPromptPattern");
+            if (osPromptPattern == null || osPromptPattern.isEmpty()) {
+                osPromptPattern = TerminalProperties.constructDefaultOsPromptPattern(cclHost, cclDomain, hostUsername);
+            }
             TerminalProperties.setGlobalTerminalProperties(TerminalProperties.getNewBuilder()
-                    .setOsPromptPattern(
-                            TerminalProperties.constructDefaultOsPromptPattern(cclHost, cclDomain, hostUsername))
+                    .setOsPromptPattern(osPromptPattern)
                     .setSpecifyDebugCcl(true).setLogfileLocation("target/ccl-log/ITest.log").build());
         }
     }
@@ -216,7 +219,7 @@ public class CclResourceUploaderITest {
      */
     @Test
     public void testUploadIncFile() throws Exception {
-        uploader.queueUpload(getLocalFile("j4ccl_testInclude.inc"));
+        uploader.queueUpload(getLocalFile("j4ccl_testinclude.inc"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
             public Void run() {
                 uploader.upload();
@@ -254,7 +257,7 @@ public class CclResourceUploaderITest {
      */
     @Test
     public void testUploadPrgFile() throws Exception {
-        uploader.queueUpload(getLocalFile("j4ccl_testCompile.prg"));
+        uploader.queueUpload(getLocalFile("j4ccl_testcompile.prg"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
             public Void run() {
                 uploader.upload();
@@ -273,7 +276,7 @@ public class CclResourceUploaderITest {
      */
     @Test
     public void testUploadSubFile() throws Exception {
-        uploader.queueUpload(getLocalFile("j4ccl_testSub.sub"));
+        uploader.queueUpload(getLocalFile("j4ccl_testsub.sub"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
             public Void run() {
                 uploader.upload();

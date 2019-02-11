@@ -9,7 +9,7 @@
     </parent>
     <artifactId>test-no-specify-debug-ccl</artifactId>
     <version>1.0</version>
-    <name>skipEnvset demo</name>
+    <name>no-specify-debug-ccl</name>
     <description>Example mavenized CCL Project which set specifyDebugCcl to false</description>
     <packaging>ccl</packaging>
 </project>

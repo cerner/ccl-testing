@@ -6,15 +6,15 @@ is a unit test framework for CCL.
 and to generate code documentation. It also houses some dependencies for those maven plugins. Specifically, ccl-testing houses the components listed below. 
 Please visit individual components for details and usage instructions. 
 
-* [**ccl-maven-plugin (3.0)**](ccl-maven-plugin/README.md) - Maven plugin for transferring resources, compiling CCL code and tests, executing the 
+* [**ccl-maven-plugin (3.1)**](ccl-maven-plugin/README.md) - Maven plugin for transferring resources, compiling CCL code and tests, executing the
 tests, and retrieving the test and coverage results.
 * [**cerreal-maven-plugin (2.1)**](cerreal-maven-plugin/README.md) - Maven reporting plugin to report test and coverage results.
-* [**whitenoise-maven-plugin (2.1)**](whitenoise/whitenoise-maven-plugin/README.md) - Maven reporting plugin that identifies common CCL coding errors.
-* [**cdoc-maven-plugin (1.1)**](cdoc/cdoc-maven-plugin/README.md) - Maven reporting plugin that generates code documentation from code comments.
+* [**whitenoise-maven-plugin (2.2)**](whitenoise/whitenoise-maven-plugin/README.md) - Maven reporting plugin that identifies common CCL coding errors.
+* [**cdoc-maven-plugin (1.2)**](cdoc/cdoc-maven-plugin/README.md) - Maven reporting plugin that generates code documentation from code comments.
 * [**ecosystem**](ecosystem/README.md) - Eclipse preferences to ensure consistent formating and compiler settings. Imported using Workspace Mechanic.
 * [**ftp-util (2.0)**](ftp-util/README.md) - ccl-maven-plugin dependency used to ftp resource to/from the Cerner Millennium back end.
-* [**j4ccl (3.0)**](j4ccl/README.md) - ccl-maven-plugin dependency defining common classes and interfaces for accessing a Cerner Millennium back end.
-* [**j4ccl-ssh (4.0)**](j4ccl-ssh/README.md) - ccl-maven-plugin dependency leveraging JCraft SSH to implement the j4ccl interfaces.
+* [**j4ccl (3.1)**](j4ccl/README.md) - ccl-maven-plugin dependency defining common classes and interfaces for accessing a Cerner Millennium back end.
+* [**j4ccl-ssh (4.1)**](j4ccl-ssh/README.md) - ccl-maven-plugin dependency leveraging JCraft SSH to implement the j4ccl interfaces.
 * [**jsch-util (2.0.0)**](jsch-util/README.md) - ccl-maven-plugin dependency leveraging JCraft to provide back-end connections for j4ccl-ssh.
 
 

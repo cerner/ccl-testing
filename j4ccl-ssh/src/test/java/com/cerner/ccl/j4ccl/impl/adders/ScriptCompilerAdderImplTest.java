@@ -3,11 +3,15 @@ package com.cerner.ccl.j4ccl.impl.adders;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Collections;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,34 +31,36 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value = { ScriptCompilerAdderImpl.class, ScriptCompilerCommand.class })
+@PrepareForTest(value = { ScriptCompilerAdderImpl.class, ScriptCompilerCommand.class, FileUtils.class })
 public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
     @Mock
-    private File sourceCodeFile;
-    @Mock
     private CommandQueue queue;
-    private ScriptCompilerAdderImpl adder;
 
     /**
      * Set up the compiler adder for each test.
+     *
+     * @throws IOException
+     *             Not expected.
      */
     @Before
-    public void setUp() {
-        when(sourceCodeFile.getName()).thenReturn("a_script.prg");
-        adder = new ScriptCompilerAdderImpl(sourceCodeFile, queue);
+    public void setUp() throws IOException {
     }
 
     /**
      * Construction with a non-PRG should fail.
+     *
+     * @throws Exception
+     *             Sometimes bad things happen.
      */
     @SuppressWarnings("unused")
     @Test
-    public void testConstructNotPrg() {
+    public void testConstructNotPrg() throws Exception {
         final File notPrg = mock(File.class);
         when(notPrg.getName()).thenReturn("not_prg.inc");
+        StringBuilder sbProgramCode = new StringBuilder();
 
         expect(IllegalArgumentException.class);
-        expect("Source code file must be a .PRG file.");
+        expect("Source code file must have a .prg extension: not_prg.inc");
         new ScriptCompilerAdderImpl(notPrg, queue);
     }
 
@@ -66,6 +72,7 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
     public void testConstructNullCommandQueue() {
         expect(NullPointerException.class);
         expect("Command queue cannot be null.");
+        File sourceCodeFile = mock(File.class);
         new ScriptCompilerAdderImpl(sourceCodeFile, null);
     }
 
@@ -92,9 +99,16 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
         final File listingFile = mock(File.class);
 
         final ScriptCompilerCommand command = mock(ScriptCompilerCommand.class);
+        final File sourceCodeFile = mock(File.class);
+        when(sourceCodeFile.getName()).thenReturn("a_script.prg");
+        mockStatic(FileUtils.class);
+        when(FileUtils.readFileToString(sourceCodeFile, Charset.forName("utf-8")))
+                .thenReturn("create program a_script");
+
         whenNew(ScriptCompilerCommand.class)
                 .withArguments(sourceCodeFile, Collections.singleton(dependencyFile), listingFile, Boolean.FALSE)
                 .thenReturn(command);
+        ScriptCompilerAdderImpl adder = new ScriptCompilerAdderImpl(sourceCodeFile, queue);
         adder.withDependency(dependencyFile).withListingOutput(listingFile).commit();
         verify(queue).addInCclSessionCommand(command);
     }
@@ -111,10 +125,103 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
         final File listingFile = mock(File.class);
 
         final ScriptCompilerCommand command = mock(ScriptCompilerCommand.class);
+        final File sourceCodeFile = mock(File.class);
+        when(sourceCodeFile.getName()).thenReturn("a_script.prg");
+        mockStatic(FileUtils.class);
+        when(FileUtils.readFileToString(sourceCodeFile, Charset.forName("utf-8")))
+                .thenReturn("create program a_script");
+
         whenNew(ScriptCompilerCommand.class)
                 .withArguments(sourceCodeFile, Collections.singleton(dependencyFile), listingFile, Boolean.TRUE)
                 .thenReturn(command);
+        ScriptCompilerAdderImpl adder = new ScriptCompilerAdderImpl(sourceCodeFile, queue);
         adder.withListingOutput(listingFile).withDebugModeEnabled(true).withDependency(dependencyFile).commit();
+        verify(queue).addInCclSessionCommand(command);
+    }
+
+    /**
+     * Confirms that an IllegalArgumentException is thrown if the script's file name is not lower case.
+     *
+     * @throws Exception
+     *             Not expected
+     */
+    @SuppressWarnings("unused")
+    @Test
+    public void testFileNameNotLowerCase() throws Exception {
+        final File file = mock(File.class);
+        when(file.getName()).thenReturn("NotLowerCase.prg");
+
+        expect(IllegalArgumentException.class);
+        expect("Source code file name must be all lower case: NotLowerCase.prg");
+        new ScriptCompilerAdderImpl(file, queue);
+    }
+
+    /**
+     * Confirms that an IllegalArgumentException is thrown if the script's file name does not match the script name.
+     *
+     * @throws Exception
+     *             Not expected
+     */
+    @SuppressWarnings("unused")
+    @Test
+    public void testFileNameDoesNotMatchScriptName() throws Exception {
+        final File file = mock(File.class);
+        when(file.getName()).thenReturn("some_script.prg");
+        mockStatic(FileUtils.class);
+        when(FileUtils.readFileToString(file, Charset.forName("utf-8"))).thenReturn("create program a_script");
+
+        expect(IllegalArgumentException.class);
+        expect("Source code file name must match generated program name: some_script.prg");
+        new ScriptCompilerAdderImpl(file, queue);
+    }
+
+    /**
+     * Confirms that an IllegalArgumentException is thrown if the file name does not create a script.
+     *
+     * @throws Exception
+     *             Not expected
+     */
+    @SuppressWarnings("unused")
+    @Test
+    public void testFileDoesCreateAScript() throws Exception {
+        final File file = mock(File.class);
+        when(file.getName()).thenReturn("some_script.prg");
+        mockStatic(FileUtils.class);
+        when(FileUtils.readFileToString(file, Charset.forName("utf-8")))
+                .thenReturn("this is not really a script file.");
+
+        expect(IllegalArgumentException.class);
+        expect("Source code must create a program: some_script.prg");
+        new ScriptCompilerAdderImpl(file, queue);
+    }
+
+    /**
+     * Confirms it is okay to have lost of whitespace and a group name in the script name.
+     *
+     * @throws Exception
+     *             Not expected
+     */
+    @Test
+    public void testFormattingAndGroup() throws Exception {
+        final File dependencyFile = mock(File.class);
+        final File listingFile = mock(File.class);
+
+        StringBuilder sbCode = new StringBuilder();
+        sbCode.append("drop program a_script:dba go").append("\n")
+                .append(" \t create \t program \t\t  a_script  \t  :  \t\t \t  dba").append("\n").append("code body")
+                .append("\n").append("end go");
+
+        final ScriptCompilerCommand command = mock(ScriptCompilerCommand.class);
+        final File sourceCodeFile = mock(File.class);
+        when(sourceCodeFile.getName()).thenReturn("a_script.prg");
+        mockStatic(FileUtils.class);
+        when(FileUtils.readFileToString(sourceCodeFile, Charset.forName("utf-8"))).thenReturn(sbCode.toString());
+
+        whenNew(ScriptCompilerCommand.class)
+                .withArguments(sourceCodeFile, Collections.singleton(dependencyFile), listingFile, Boolean.FALSE)
+                .thenReturn(command);
+        ScriptCompilerAdderImpl adder = new ScriptCompilerAdderImpl(sourceCodeFile, queue);
+        adder.withDependency(dependencyFile).withListingOutput(listingFile).commit();
         verify(queue).addInCclSessionCommand(command);
     }
 }

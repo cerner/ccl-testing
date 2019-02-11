@@ -10,11 +10,13 @@ Usage
       <plugin>
         <groupId>com.cerner.ccl.cdoc</groupId>
         <artifactId>cdoc-maven-plugin</artifactId>
-        <version>1.1</version>
+        <version>1.2</version>
         <extensions>true</extensions>
       </plugin>
     </plugins>
   </reporting>
 ```
 
-Execute `mvn help:describe -DgroupId=com.cerner.ccl.cdoc -DartifactId=cdoc-maven-plugin -Ddetail=true` for a description of the available parameters.
+Configuration Options
+===
+Execute `mvn help:describe -DgroupId=com.cerner.ccl.cdoc -DartifactId=cdoc-maven-plugin -Ddetail=true` for a description of all available parameters.

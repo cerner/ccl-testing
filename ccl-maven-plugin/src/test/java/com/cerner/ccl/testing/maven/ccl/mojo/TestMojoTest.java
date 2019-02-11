@@ -39,7 +39,6 @@ import com.cerner.ccl.j4ccl.record.Record;
 import com.cerner.ccl.j4ccl.record.RecordList;
 import com.cerner.ccl.testing.maven.ccl.data.UnitTest;
 import com.cerner.ccl.testing.maven.ccl.exception.TestFailureException;
-import com.cerner.ccl.testing.maven.ccl.mojo.TestMojo;
 import com.cerner.ccl.testing.maven.ccl.util.DelegatingOutputStream;
 import com.cerner.ccl.testing.maven.ccl.util.ProgramListingWriter;
 import com.cerner.ccl.testing.maven.ccl.util.TestResultScanner;
@@ -503,12 +502,9 @@ public class TestMojoTest {
         }
 
         public Object answer(final InvocationOnMock invocation) throws Throwable {
-            if ("commit".equals(invocation.getMethod().getName())) {
-                System.out.println("ExecutionAdderReplyWriter commit called.");
-            }
-            if (!"withReplace".equals(invocation.getMethod().getName()))
+            if (!"withReplace".equals(invocation.getMethod().getName())) {
                 return adder;
-
+            }
             final String recordName = (String) invocation.getArguments()[0];
             final Record record = (Record) invocation.getArguments()[1];
 
@@ -553,8 +549,9 @@ public class TestMojoTest {
         }
 
         public Object answer(final InvocationOnMock invocation) throws Throwable {
-            if (!"withReplace".equals(invocation.getMethod().getName()))
+            if (!"withReplace".equals(invocation.getMethod().getName())) {
                 return adder;
+            }
 
             final String recordName = (String) invocation.getArguments()[0];
             final Record record = (Record) invocation.getArguments()[1];

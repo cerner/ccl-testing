@@ -83,4 +83,19 @@ public class VariableDeclaredButNotUsedRuleTest extends AbstractJDomTest {
         assertThat(violations).hasSize(1);
         assertThat(violations).contains(new VariableDeclaredButNotUsedViolation("SOMESTR2", 9));
     }
+
+    /**
+     * Confirms that variable usage is recognized through transcending scopes but hidden by an intervening definition
+     * and that subroutine calls made from report writer sections are recognized.
+     *
+     * @throws Exception
+     *             Sometimes bad things happen
+     */
+    @Test
+    public void testTranscendingScopes() throws Exception {
+        final Set<Violation> violations = new VariableDeclaredButNotUsedRules(toDocument("transcending-scopes.xml"))
+                .analyze();
+        assertThat(violations).hasSize(1);
+        assertThat(violations).contains(new VariableDeclaredButNotUsedViolation("VAR2", 12));
+    }
 }

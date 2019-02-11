@@ -3,6 +3,7 @@
 ## Release Process
 
 * If any of the maven plugins will be released 
+    * Update their version in the [main readme][main readme].
     * Update their version in the [sample pom][sample-pom]
     * Update their versions in `src/main/resources/archetype-resource/pom.xml` of the impacted archetype projects.
     * Update their versions in their individual project readme files.
@@ -62,4 +63,5 @@
 [versions.release.txt]:versions/release.txt
 [versions.snapshot.txt]:versions/snapshot.txt
 [sonatype]:https://oss.sonatype.org
+[main readme]:./README.md
 [sample-pom]:ccl-maven-plugin/doc/SAMPLEPOM.md
