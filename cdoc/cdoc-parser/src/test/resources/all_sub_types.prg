@@ -36,6 +36,9 @@ record test (
     1 field = f8
 %i cclsource:status_block.inc
 %i cclsource:test.inc
+    3 more_stuff[*]  ;;;cdoc should not bomb on this (unless it actuall parses test.inc to see it does not end at level 3.
+        4 name = vc
+        4 id = i4
 )
 
     

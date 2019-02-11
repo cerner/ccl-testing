@@ -25,6 +25,8 @@
         <module>ccl-maven-plugin</module>
         <module>j4ccl</module>
         <module>j4ccl-ssh</module>
+        <module>cdoc/cdoc-parser</module>
+        <module>cdoc/cdoc-maven-plugin</module>
         <module>whitenoise/whitenoise-data-jdom-ext</module>
         <module>whitenoise/whitenoise-rules-core</module>
         <module>whitenoise/whitenoise-engine</module>
@@ -38,8 +40,6 @@
         <module>cclunit-framework-schema-xml</module>
         <module>whitenoise/whitenoise-parent-pom</module>
         <module>whitenoise/whitenoise-data</module>
-        <module>cdoc/cdoc-parser</module>
-        <module>cdoc/cdoc-maven-plugin</module>
 -->
     </modules>
     <build>

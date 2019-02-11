@@ -1,5 +1,29 @@
 # ccl-testing Change Log
 
+## 2019-02-11
+* ccl-maven-plugin **3.1**
+* cdoc-maven-plugin **1.2**
+* whitenoise-maven-plugin **2.1**
+* j4ccl **3.1**
+* j4ccl-ssh **4.1**
+* ccltesting-parent-pom **2.1**
+* cclunit-archetype **1.2**
+* cclunit-maven-settings-check-archetype **1.1**
+
+### Corrections
+* Fixed [#12](https://github.com/cerner/ccl-testing/issues/12) whitenoise fails to recognize `call some_sub(null)` in a report writer section as a call to some_sub.
+* Fix whitnoise to recognize the previously unrecgonized declaration scopes privateprotect and persistscript. 
+* Fixed the integration tests to honor the configured osPromptPattern.
+* Fixed cdoc to not bomb on record structure definions which continue at the same level where an include file left off.
+
+### Miscelaneous
+* Fail a script file upload if the file name is not lower case or the created object name does not match the file name.
+  - The whitenoise and cerreal reports are inaccurate in those situations.
+* Changed the default osPromptPattern to `user:enviroment@host:[^\r\n]*(\r|\n)+#\s*`
+  - This matches the conventions now being applied by CWx and IP Domains.
+  - Previously, it was `user:enviroment@host:[^>]*>\s*`
+
+
 ## 2019-02-01
 * cerreal-maven-plugin **2.1**
 * whitenoise-maven-plugin **2.1**
