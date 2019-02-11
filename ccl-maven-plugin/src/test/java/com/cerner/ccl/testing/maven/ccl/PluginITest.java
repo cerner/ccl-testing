@@ -60,9 +60,9 @@ public class PluginITest {
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     private Properties originalSystemProperties = null;
-    private final List<String> compileGoal = Collections.singletonList("compile");
+    private final List<String> compileGoal = Arrays.asList(new String[] { "clean", "compile" });
     private final List<String> validateGoal = Collections.singletonList("validate");
-    private final List<String> testGoal = Collections.singletonList("test");
+    private final List<String> testGoal = Arrays.asList(new String[] { "clean", "compile", "test" });
 
     /**
      * One time initialization.
@@ -244,7 +244,7 @@ public class PluginITest {
     }
 
     /**
-     * Test a maven build failure occurs if a runtime error occurs by builing the {@code build-with-runtime-ccl-error}
+     * Test a maven build failure occurs if a runtime error occurs by building the {@code build-with-runtime-ccl-error}
      * project.
      *
      * @throws Exception
@@ -254,6 +254,7 @@ public class PluginITest {
     public void testBuildWithRuntimeCclError() throws Exception {
         final File logFile = getLogFile();
         final InvocationRequest request = getInvocationRequest("build-with-runtime-ccl-error", testGoal, logFile);
+        request.setDebug(true);
         final InvocationResult result = new DefaultInvoker().execute(request);
 
         assertThat(result.getExecutionException()).isNull();
@@ -659,7 +660,6 @@ public class PluginITest {
                 .setProfiles(Arrays.asList(new String[] { System.getProperty("maven-profile") }))
                 .setProperties(new Properties()).setGoals(goals)
                 .setOutputHandler(new PrintStreamHandler(new PrintStream(logFile), true));
-        System.out.println("invocationRequest profiles: " + invocationRequest.getProfiles());
         return invocationRequest;
     }
 
@@ -759,7 +759,6 @@ public class PluginITest {
         }
         SettingsXpp3Writer settingsWriter = new SettingsXpp3Writer();
         File settingsFile = temporaryFolder.newFile("testSettings.xml");
-        System.out.println("test settingsFile : " + settingsFile.getAbsolutePath());
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(settingsFile))) {
             settingsWriter.write(bw, settings);
         } catch (IOException e) {
