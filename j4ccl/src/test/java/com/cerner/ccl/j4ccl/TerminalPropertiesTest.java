@@ -66,7 +66,7 @@ public class TerminalPropertiesTest {
     public void testDefaultPatterns() throws Exception {
         Pattern pattern1 = Pattern.compile(
                 TerminalProperties.constructDefaultOsPromptPattern("noops", "hillside", "aa111111"), Pattern.MULTILINE);
-        assertThat(pattern1.matcher("aa111111:hillside@noops:/home/aa111111>").matches()).isEqualTo(true);
+        assertThat(pattern1.matcher("aa111111:hillside@noops:/home/aa111111\r\n#").matches()).isEqualTo(true);
 
         Pattern pattern2 = Pattern.compile((String) DEFAULT_CCL_PROMPT_PATTERN.get(TerminalProperties.class),
                 Pattern.MULTILINE);
@@ -703,12 +703,12 @@ public class TerminalPropertiesTest {
     @Test
     public void testConstructDefaultOsPromptPattern() {
         String prompt = TerminalProperties.constructDefaultOsPromptPattern("host", "environment", "user");
-        assertThat(prompt).isEqualTo("user\\:environment@host\\:[^>]*>\\s*");
+        assertThat(prompt).isEqualTo("user:environment@host:[^\\r\\n]*(\\r|\\n)+#\\s*");
 
         prompt = TerminalProperties.constructDefaultOsPromptPattern("host", null, "user");
-        assertThat(prompt).isEqualTo("user\\:\\w*@host\\:[^>]*>\\s*");
+        assertThat(prompt).isEqualTo("user:\\w*@host:[^\\r\\n]*(\\r|\\n)+#\\s*");
 
         prompt = TerminalProperties.constructDefaultOsPromptPattern("host", "", "user");
-        assertThat(prompt).isEqualTo("user\\:\\w*@host\\:[^>]*>\\s*");
+        assertThat(prompt).isEqualTo("user:\\w*@host:[^\\r\\n]*(\\r|\\n)+#\\s*");
     }
 }
