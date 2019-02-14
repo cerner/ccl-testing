@@ -86,7 +86,7 @@
       <plugin>
         <groupId>com.cerner.ccl.whitenoise</groupId>
         <artifactId>whitenoise-maven-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.3</version>
       </plugin>
       <plugin>
         <groupId>com.cerner.ccl.cdoc</groupId>

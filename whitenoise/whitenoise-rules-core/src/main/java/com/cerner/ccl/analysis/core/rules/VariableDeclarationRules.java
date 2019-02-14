@@ -50,8 +50,16 @@ public class VariableDeclarationRules extends TimedDelegate {
             variableDeclarationScopes.get(variableName).add(getScope(e));
             checkHasUnknownDeclaredOption(e, variableName, violations);
         }
+        for (final Element e : getSubroutineParameterDeclarations()) {
+            String variableName = e.getAttributeValue("text");
+            if (!variableDeclarationScopes.containsKey(variableName)) {
+                variableDeclarationScopes.put(variableName, new HashSet<Element>());
+            }
+            variableDeclarationScopes.get(variableName).add(getScope(e));
+        }
 
         // Locate instances where variables are set within the program
+        // Other uses of used but not declared variables will result in CCL runtime errors when the line is executed.
         for (final Element setVariable : selectNodesByName("Z_SET.",
                 "[name(*[1]) != 'MEMBER.' and NAME[1]/@text != 'TRACE' and NAME[1]/@text != 'MODIFY' and "
                         + "NAME[1]/@text != 'MESSAGE' and NAME[1]/@text != 'STAT' and NAME[1]/@text != 'COMPILE'"
@@ -67,11 +75,6 @@ public class VariableDeclarationRules extends TimedDelegate {
         for (final Entry<String, List<Element>> usedVariableInstances : variableUsages.entrySet()) {
             String variableName = usedVariableInstances.getKey();
             for (Element usage : usedVariableInstances.getValue()) {
-                // isSubroutineParameter seems to work, but would it be better (faster) to consider a parameter
-                // of a subroutine to be a "declared variable" with the subroutine being the scope that declared it?
-                if (isSubroutineParameter(variableName, usage)) {
-                    continue;
-                }
                 if (!variableDeclarationScopes.containsKey(variableName)) {
                     violations.add(new MissingVariableDeclarationViolation(variableName, getLineNumber(usage)));
                 } else {
@@ -119,18 +122,6 @@ public class VariableDeclarationRules extends TimedDelegate {
         }
 
         return true;
-    }
-
-    // If the variable name being used is a parameter of the subroutine in which that variables
-    // reference occurs, then we will allow the reference to the variable since it's is declared
-    // in the subroutine declaration
-    private boolean isSubroutineParameter(final String variableName, final Element variableElement) {
-        try {
-            return !selectNodes(variableElement,
-                    "./ancestor::*[name(.) = 'SUBROUTINE.']/COMMA./NAME[@text = '" + variableName + "']").isEmpty();
-        } catch (final JDOMException e) {
-            return false;
-        }
     }
 
     @Override
