@@ -21,12 +21,12 @@
         </site>
     </distributionManagement>
     <modules>
-        <module>parent-pom</module>
         <module>whitenoise/whitenoise-data-jdom-ext</module>
         <module>whitenoise/whitenoise-rules-core</module>
         <module>whitenoise/whitenoise-maven-plugin</module>
         <module>archetype/cclunit-archetype</module>
 <!--
+        <module>parent-pom</module>
         <module>ccl-maven-plugin</module>
         <module>cerreal-maven-plugin</module>
         <module>j4ccl</module>
