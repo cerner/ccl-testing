@@ -95,4 +95,10 @@ public class VariableDeclarationRuleTest extends AbstractJDomTest {
         assertThat(violations).contains(new UnknownDeclareOptionViolation("VARIABLETHREE", 5));
         assertThat(violations).contains(new UnknownDeclareOptionViolation("VARIABLEFOUR", 12));
     }
+
+    @Test
+    public void testInLineByReference() throws Exception {
+        final Set<Violation> violations = new VariableDeclarationRules(toDocument("in-line-ref.xml")).analyze();
+        assertThat(violations).hasSize(0);
+    }
 }

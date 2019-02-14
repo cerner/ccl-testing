@@ -104,6 +104,7 @@ public class JdomAnalysisRule implements AnalysisRule {
     public static abstract class Delegate {
         private final Document document;
         private List<Element> declaredVariables = null;
+        private List<Element> subroutineParameters = null;
         private List<Element> definedSubroutines = null;
         private Map<String, Element> definedSubroutineMap = null;
         private Map<Element, Set<Element>> callGraph = null;
@@ -382,7 +383,7 @@ public class JdomAnalysisRule implements AnalysisRule {
          */
         protected List<Element> getVariableDeclarations() throws JDOMException {
             if (this.declaredVariables == null) {
-                declaredVariables = new ArrayList<Element>();
+                List<Element> declaredVariables = new ArrayList<Element>();
                 for (final Element e : selectNodesByName("Z_DECLARE.", "[NAME and not(CALL.)]")) {
                     declaredVariables.add(e);
                 }
@@ -390,6 +391,24 @@ public class JdomAnalysisRule implements AnalysisRule {
             }
 
             return this.declaredVariables;
+        }
+
+        /**
+         * Returns the list of all SUBROUITNE./COMMA./NAME and SUBROUITNE./COMMA./EQL./NAME elements in the program.
+         *
+         * @return A {@link List} of {@link Element} objects representing all subroutine parameter declarations.
+         * @throws JDOMException
+         *             If any errors occur during the analysis.
+         */
+        protected List<Element> getSubroutineParameterDeclarations() throws JDOMException {
+            if (this.subroutineParameters == null) {
+                List<Element> subroutineParameters = new ArrayList<Element>();
+                subroutineParameters.addAll(selectNodesByName("SUBROUTINE./COMMA./NAME"));
+                subroutineParameters.addAll(selectNodesByName("SUBROUTINE./COMMA./EQL./NAME[position()=1]"));
+                this.subroutineParameters = Collections.unmodifiableList(subroutineParameters);
+            }
+
+            return this.subroutineParameters;
         }
 
         /**

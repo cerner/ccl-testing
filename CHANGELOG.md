@@ -1,9 +1,17 @@
 # ccl-testing Change Log
 
+## 2019-02-14
+* whitenoise-maven-plugin **2.3**
+* cclunit-archetype **1.3**
+
+### Corrections
+* Fixed [#15](https://github.com/cerner/ccl-testing/issues/15) whitenoise fails to recognize parameters of subroutines declared in-line.
+
+
 ## 2019-02-11
 * ccl-maven-plugin **3.1**
 * cdoc-maven-plugin **1.2**
-* whitenoise-maven-plugin **2.1**
+* whitenoise-maven-plugin **2.2**
 * j4ccl **3.1**
 * j4ccl-ssh **4.1**
 * ccltesting-parent-pom **2.1**

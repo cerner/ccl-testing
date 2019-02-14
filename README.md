@@ -9,7 +9,7 @@ Please visit individual components for details and usage instructions.
 * [**ccl-maven-plugin (3.1)**](ccl-maven-plugin/README.md) - Maven plugin for transferring resources, compiling CCL code and tests, executing the
 tests, and retrieving the test and coverage results.
 * [**cerreal-maven-plugin (2.1)**](cerreal-maven-plugin/README.md) - Maven reporting plugin to report test and coverage results.
-* [**whitenoise-maven-plugin (2.2)**](whitenoise/whitenoise-maven-plugin/README.md) - Maven reporting plugin that identifies common CCL coding errors.
+* [**whitenoise-maven-plugin (2.3)**](whitenoise/whitenoise-maven-plugin/README.md) - Maven reporting plugin that identifies common CCL coding errors.
 * [**cdoc-maven-plugin (1.2)**](cdoc/cdoc-maven-plugin/README.md) - Maven reporting plugin that generates code documentation from code comments.
 * [**ecosystem**](ecosystem/README.md) - Eclipse preferences to ensure consistent formating and compiler settings. Imported using Workspace Mechanic.
 * [**ftp-util (2.0)**](ftp-util/README.md) - ccl-maven-plugin dependency used to ftp resource to/from the Cerner Millennium back end.
