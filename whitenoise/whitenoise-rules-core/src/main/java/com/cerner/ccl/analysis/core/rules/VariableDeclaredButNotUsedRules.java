@@ -64,9 +64,20 @@ public class VariableDeclaredButNotUsedRules extends TimedDelegate {
      * @throws JDOMException
      */
     private boolean isUsed(final String variableName, final Element scope) throws JDOMException {
-        List<Element> usages = selectNodes(".//NAME[@text='" + variableName
-                + "' and not(parent::Z_DECLARE.) and not(ancestor::Z_SET.[NAME[position()=1 and @text='" + variableName
-                + "']]) and not(ancestor::IS.[NAME[position()=1 and @text='" + variableName + "']])]");
+        String namespace = variableName.contains("::") ? variableName.substring(0, variableName.indexOf("::")) : "";
+        String simpleName = variableName.replaceAll("\\w+::", "");
+        Set<Element> usages = new HashSet<Element>();
+        if (namespace.equals("PUBLIC") || namespace.isEmpty()) {
+            usages.addAll(selectNodes("//NAME[@text='" + simpleName
+                    + "' and not(parent::Z_DECLARE.) and not(parent::NAMESPACE.) "
+                    + "and (preceding-sibling::NAME or preceding-sibling::MEMBER. or preceding-sibling::NAMESPACE. or (not(parent::Z_SET.) and not (parent::IS.)))]"));
+        }
+        if (!namespace.isEmpty()) {
+            usages.addAll(selectNodes("//NAME[@text='" + simpleName
+                    + "' and parent::NAMESPACE.[NAME[position()=1 and @text='" + namespace
+                    + "'] and NAME[position()=2 and @text='" + simpleName + "']] and not(../parent::Z_DECLARE.)"
+                    + " and (../preceding-sibling::NAME or ../preceding-sibling::MEMBER. or ../preceding-sibling::NAMESPACE. or (not(../parent::Z_SET.) and not (../parent::IS.)))]"));
+        }
         Set<Element> usageScopes = new HashSet<Element>();
         for (Element usage : usages) {
             usageScopes.add(getScope(usage));

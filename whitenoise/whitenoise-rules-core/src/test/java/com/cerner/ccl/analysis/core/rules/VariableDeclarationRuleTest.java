@@ -96,6 +96,12 @@ public class VariableDeclarationRuleTest extends AbstractJDomTest {
         assertThat(violations).contains(new UnknownDeclareOptionViolation("VARIABLEFOUR", 12));
     }
 
+    /**
+     * Verifies that subroutine variables of in-line declared subroutines do not get flagged as being undeclared.
+     *
+     * @throws Exception
+     *             Not expected.
+     */
     @Test
     public void testInLineByReference() throws Exception {
         final Set<Violation> violations = new VariableDeclarationRules(toDocument("in-line-ref.xml")).analyze();

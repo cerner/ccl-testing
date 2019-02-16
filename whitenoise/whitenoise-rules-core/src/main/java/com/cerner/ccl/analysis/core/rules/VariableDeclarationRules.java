@@ -61,9 +61,9 @@ public class VariableDeclarationRules extends TimedDelegate {
         // Locate instances where variables are set within the program
         // Other uses of used but not declared variables will result in CCL runtime errors when the line is executed.
         for (final Element setVariable : selectNodesByName("Z_SET.",
-                "[name(*[1]) != 'MEMBER.' and NAME[1]/@text != 'TRACE' and NAME[1]/@text != 'MODIFY' and "
-                        + "NAME[1]/@text != 'MESSAGE' and NAME[1]/@text != 'STAT' and NAME[1]/@text != 'COMPILE'"
-                        + "and NAME[1]/@text != 'CURALIAS']")) {
+                "[name(*[1]) != 'MEMBER.' " + "and NAME[1]/@text != 'TRACE' " + "and NAME[1]/@text != 'MODIFY' "
+                        + "and NAME[1]/@text != 'MESSAGE' " + "and NAME[1]/@text != 'STAT' "
+                        + "and NAME[1]/@text != 'COMPILE'" + "and NAME[1]/@text != 'CURALIAS']")) {
             String variableName = getCclName(setVariable);
 
             if (!variableUsages.containsKey(variableName)) {
