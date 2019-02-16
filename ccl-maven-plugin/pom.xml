@@ -10,7 +10,7 @@
     <groupId>com.cerner.ccl.testing</groupId>
     <artifactId>ccl-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>3.1</version>
+    <version>3.2-SNAPSHOT</version>
     <name>ccl-maven-plugin Maven Mojo</name>
     <description>A Maven plugin used to compile and test CCL code.</description>
     <properties>
@@ -139,7 +139,7 @@
         <dependency>
             <groupId>com.cerner.ccl.comm</groupId>
             <artifactId>j4ccl-ssh</artifactId>
-            <version>4.1</version>
+            <version>4.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>

@@ -176,6 +176,24 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
     }
 
     /**
+     * Confirms that an IllegalArgumentException is not thrown when the script's file name does match the script name.
+     *
+     * @throws Exception
+     *             Not expected
+     */
+    @SuppressWarnings("unused")
+    @Test
+    public void testFileNameDoesMatchScriptName() throws Exception {
+        final File fileA = new File(
+                ScriptCompilerAdderImplTest.class.getResource("/program/sample_script_with_competition.prg").getFile());
+        new ScriptCompilerAdderImpl(fileA, queue);
+
+        final File fileB = new File(
+                ScriptCompilerAdderImplTest.class.getResource("/program/sample_script.prg").getFile());
+        new ScriptCompilerAdderImpl(fileB, queue);
+    }
+
+    /**
      * Confirms that an IllegalArgumentException is thrown if the file name does not create a script.
      *
      * @throws Exception
