@@ -54,10 +54,10 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
 
         try {
             String sourceCode = FileUtils.readFileToString(sourceCodeFile, Charset.forName("utf-8"));
-            Pattern p = Pattern.compile(".*create\\s+program\\s+(\\w+).*",
+            Pattern p = Pattern.compile("(?:^|\\s+)create\\s+program\\s+(\\w+)",
                     Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
             Matcher m = p.matcher(sourceCode);
-            if (m.matches()) {
+            if (m.find()) {
                 String programName = m.group(1);
                 if (!programName.toLowerCase().equals(sourceCodeFile.getName().replaceAll("\\.prg", ""))) {
                     throw new IllegalArgumentException(

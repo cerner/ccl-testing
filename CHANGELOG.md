@@ -1,5 +1,14 @@
 # ccl-testing Change Log
 
+## 2019-02-16
+* ccl-maven-plugin **3.2**
+* whitenoise-maven-plugin **2.4**
+* cclunit-archetype **1.4**
+* cclunit-maven-settings-check-archetype **1.2**
+
+### Corrections
+* Fix issue in regex used to decide if a .prg file name matches the created object name.
+
 ## 2019-02-14
 * whitenoise-maven-plugin **2.3**
 * cclunit-archetype **1.3**

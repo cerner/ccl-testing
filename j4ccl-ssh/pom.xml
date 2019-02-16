@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.cerner.ccl.comm</groupId>
     <artifactId>j4ccl-ssh</artifactId>
-    <version>4.1</version>
+    <version>4.2</version>
     <name>SSH for J4CCL</name>
     <description>An implementation of J4CCL that uses SSH to execute its commands in a CCL session</description>
     <properties>
