@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.cerner.ccl.archetype</groupId>
   <artifactId>cclunit-archetype</artifactId>
-  <version>1.4-SNAPSHOT</version>
+  <version>1.4</version>
   <packaging>maven-archetype</packaging>
 
   <scm>
