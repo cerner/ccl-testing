@@ -23,6 +23,7 @@
     <modules>
         <module>ccl-maven-plugin</module>
         <module>whitenoise/whitenoise-maven-plugin</module>
+        <module>j4ccl-ssh</module>
         <module>archetype/cclunit-archetype</module>
         <module>archetype/cclunit-maven-settings-check-archetype</module>
 <!--
