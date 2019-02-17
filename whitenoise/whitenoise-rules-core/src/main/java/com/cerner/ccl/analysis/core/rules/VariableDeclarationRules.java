@@ -63,7 +63,8 @@ public class VariableDeclarationRules extends TimedDelegate {
         for (final Element setVariable : selectNodesByName("Z_SET.",
                 "[name(*[1]) != 'MEMBER.' " + "and NAME[1]/@text != 'TRACE' " + "and NAME[1]/@text != 'MODIFY' "
                         + "and NAME[1]/@text != 'MESSAGE' " + "and NAME[1]/@text != 'STAT' "
-                        + "and NAME[1]/@text != 'COMPILE'" + "and NAME[1]/@text != 'CURALIAS']")) {
+                        + "and NAME[1]/@text != 'COMPILE'" + "and NAME[1]/@text != 'LOGICAL'"
+                        + "and NAME[1]/@text != 'CURALIAS']")) {
             String variableName = getCclName(setVariable);
 
             if (!variableUsages.containsKey(variableName)) {

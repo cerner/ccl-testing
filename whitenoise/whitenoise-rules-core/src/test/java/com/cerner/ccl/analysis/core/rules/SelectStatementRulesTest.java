@@ -46,12 +46,10 @@ public class SelectStatementRulesTest extends AbstractJDomTest {
     public void testHeadAndFootWithNoOrderByClause() throws Exception {
         final Set<Violation> violations = new SelectStatementRules(toDocument("head-foot-and-no-order-by.xml"))
                 .analyze();
-        assertThat(violations).hasSize(4);
+        assertThat(violations).hasSize(2);
 
         assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("P.PERSON_ID", 21));
         assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("A.ADDRESS_ID", 32));
-        assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("PERSONID", 44));
-        assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("PERSONID", 53));
     }
 
     /**
@@ -87,5 +85,21 @@ public class SelectStatementRulesTest extends AbstractJDomTest {
         assertThat(violations).contains(new InvalidCnvtOnOracleFieldViolation(6));
         assertThat(violations).contains(new InvalidCnvtOnOracleFieldViolation(14));
         assertThat(violations).contains(new InvalidCnvtOnOracleFieldViolation(22));
+    }
+
+    /**
+     * Test a case where an inner select has an order by clause
+     *
+     * @throws Exception
+     *             Not expected.
+     */
+    @Test
+    public void testInnerSelect() throws Exception {
+        final Set<Violation> violations = new SelectStatementRules(toDocument("inner-select.xml")).analyze();
+
+        assertThat(violations).hasSize(3);
+        assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("END_", 9));
+        assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("END_", 11));
+        assertThat(violations).contains(new HeadOrFootSectionWithoutOrderClauseViolation("CV.CDF_MEANING", 24));
     }
 }

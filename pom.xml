@@ -21,12 +21,11 @@
         </site>
     </distributionManagement>
     <modules>
-        <module>ccl-maven-plugin</module>
         <module>whitenoise/whitenoise-maven-plugin</module>
-        <module>j4ccl-ssh</module>
+        <module>whitenoise/whitenoise-rules-core</module>
         <module>archetype/cclunit-archetype</module>
-        <module>archetype/cclunit-maven-settings-check-archetype</module>
 <!--
+        <module>ccl-maven-plugin</module>
         <module>parent-pom</module>
         <module>cerreal-maven-plugin</module>
         <module>j4ccl</module>
@@ -40,7 +39,7 @@
         <module>whitenoise/whitenoise-data</module>
         <module>whitenoise/whitenoise-engine</module>
         <module>whitenoise/whitenoise-data-jdom-ext</module>
-        <module>whitenoise/whitenoise-rules-core</module>
+        <module>archetype/cclunit-maven-settings-check-archetype</module>
 -->
     </modules>
     <build>

@@ -69,8 +69,9 @@ public class ViolationFilterChain {
          *             If the given script name is {@code null}.
          */
         public Builder withScriptName(final String scriptName) {
-            if (scriptName == null)
+            if (scriptName == null) {
                 throw new IllegalArgumentException("Script name cannot be null.");
+            }
 
             this.scriptName = scriptName;
             return this;
@@ -86,8 +87,9 @@ public class ViolationFilterChain {
          *             If the given subroutine name is {@code null}.
          */
         public Builder withSubroutineName(final String subroutineName) {
-            if (subroutineName == null)
+            if (subroutineName == null) {
                 throw new IllegalArgumentException("Subroutine name cannot be null.");
+            }
 
             this.subroutineName = subroutineName;
             return this;
@@ -103,8 +105,9 @@ public class ViolationFilterChain {
          *             If the given variable name is {@code null}.
          */
         public Builder withVariableName(final String variableName) {
-            if (variableName == null)
+            if (variableName == null) {
                 throw new IllegalArgumentException("Variable name cannot be null.");
+            }
 
             this.variableName = variableName;
             return this;
@@ -121,11 +124,13 @@ public class ViolationFilterChain {
          *             {@code <namespace>.<namespace identifier>}).
          */
         public Builder withViolationId(final String violationId) {
-            if (violationId == null)
+            if (violationId == null) {
                 throw new IllegalArgumentException("Violation ID cannot be null.");
+            }
 
-            if (violationId.indexOf('.') < 0)
+            if (violationId.indexOf('.') < 0) {
                 throw new IllegalArgumentException("Violation ID must be fully qualified name: " + violationId);
+            }
 
             this.violationId = violationId;
             return this;
@@ -183,8 +188,9 @@ public class ViolationFilterChain {
      */
     private ViolationFilterChain(final String scriptName, final String violationId, final String variableName,
             final String subroutineName, final Integer lineNumber) {
-        if (scriptName != null)
+        if (scriptName != null) {
             filters.add(new ScriptNameFilter(scriptName));
+        }
 
         if (violationId != null) {
             final int periodPos = violationId.indexOf('.');
@@ -192,14 +198,17 @@ public class ViolationFilterChain {
                     new ViolationId(violationId.substring(0, periodPos), violationId.substring(periodPos + 1))));
         }
 
-        if (variableName != null)
+        if (variableName != null) {
             filters.add(new VariableNameFilter(variableName));
+        }
 
-        if (subroutineName != null)
+        if (subroutineName != null) {
             filters.add(new SubroutineNameFilter(subroutineName));
+        }
 
-        if (lineNumber != null)
+        if (lineNumber != null) {
             filters.add(new LineNumberFilter(lineNumber));
+        }
     }
 
     /**
@@ -214,20 +223,21 @@ public class ViolationFilterChain {
      *             If the given script name or violation are {@code null}.
      */
     public boolean exclude(final String scriptName, final Violation violation) {
-        if (violation == null)
+        if (violation == null) {
             throw new IllegalArgumentException("Violation cannot be null.");
-
-        if (scriptName == null)
+        }
+        if (scriptName == null) {
             throw new IllegalArgumentException("Script name cannot be null.");
-
-        if (filters.isEmpty())
+        }
+        if (filters.isEmpty()) {
             return false;
+        }
 
         boolean exclude = true;
         final Iterator<ViolationFilter> filterIt = filters.iterator();
-        while (exclude && filterIt.hasNext())
+        while (exclude && filterIt.hasNext()) {
             exclude &= filterIt.next().exclude(scriptName, violation);
-
+        }
         return exclude;
     }
 

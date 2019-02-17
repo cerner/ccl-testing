@@ -35,6 +35,9 @@ public class WhileLoopRules extends TimedDelegate {
         final Set<Violation> violations = new HashSet<Violation>();
 
         final List<Element> whileLoops = selectNodesByName("WHILE.");
+        // Potential false positives:
+        // condition value is passed by reference into a function or subroutine in the condition or the body.
+        // condition calls a subroutine that references higher scope variables that are set in the body.
 
         for (final Element whileLoop : whileLoops) {
             // The way I am going to do this check is pretty good but not perfect. Basically I will look at the

@@ -29,12 +29,13 @@ Options of note include
 <?xml version="1.0" encoding="UTF-8"?>
 <exclusions xmlns="urn:cerner:ccl:whitenoise-exclusions">
     <exclusion>
+        <violationId>CORE.UNUSED_VARIABLE_DECLARATION</violationId>
         <scriptName>some_script_name</scriptName>
         <subroutineName>some_subroutine_name</subroutineName>
         <variableName>some_variable_name</variableName>
+        <iterator>some_iterator</iterator>
         <lineNumber>321</lineNumber>
         <explanation>some explanation</explanation>
-        <violationId>CORE.UNUSED_VARIABLE_DECLARATION</violationId>
     </exclusion>
 </exclusions>
 ```

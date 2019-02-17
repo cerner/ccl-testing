@@ -107,12 +107,8 @@ public class VariableDeclaredButNotUsedRuleTest extends AbstractJDomTest {
      */
     @Test
     public void testSetAnotherValue() throws Exception {
-        final Set<Violation> violations = new VariableDeclaredButNotUsedRules(
-                toDocument("set-another-value.xml"))
+        final Set<Violation> violations = new VariableDeclaredButNotUsedRules(toDocument("set-another-value.xml"))
                 .analyze();
-        for (Violation violation : violations) {
-            System.out.println(violation);
-        }
         assertThat(violations).hasSize(4);
         assertThat(violations).contains(new VariableDeclaredButNotUsedViolation("NONPUBLIC::USEDVARVAL1", 13));
         assertThat(violations).contains(new VariableDeclaredButNotUsedViolation("OTHERVAR", 16));

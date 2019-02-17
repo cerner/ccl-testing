@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -314,11 +315,13 @@ public class WhitenoiseMojo extends AbstractMavenReport {
             if (filterFile != null) {
                 final ViolationFilterEngine filterEngine = new ViolationFilterEngine(getExclusions());
                 for (final Entry<String, List<Violation>> entry : violations.entrySet()) {
+                    System.out.println(entry);
                     final List<Violation> list = entry.getValue();
-                    for (int i = 0; i < list.size(); i++) {
-                        if (filterEngine.remove(entry.getKey(), list.get(i))) {
-                            list.remove(i);
-                            i--;
+                    Iterator<Violation> it = list.iterator();
+                    while (it.hasNext()) {
+                        Violation violation = it.next();
+                        if (filterEngine.remove(entry.getKey(), violation)) {
+                            it.remove();
                         }
                     }
                 }
