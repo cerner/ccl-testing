@@ -107,4 +107,16 @@ public class VariableDeclarationRuleTest extends AbstractJDomTest {
         final Set<Violation> violations = new VariableDeclarationRules(toDocument("in-line-ref.xml")).analyze();
         assertThat(violations).hasSize(0);
     }
+
+    /**
+     * Verifies that a reserved word usage resembling a variable set does not get flagged.
+     *
+     * @throws Exception
+     *             Not expected.
+     */
+    @Test
+    public void testKnownReservedWords() throws Exception {
+        final Set<Violation> violations = new VariableDeclarationRules(toDocument("reserved-word-usage.xml")).analyze();
+        assertThat(violations).hasSize(0);
+    }
 }
