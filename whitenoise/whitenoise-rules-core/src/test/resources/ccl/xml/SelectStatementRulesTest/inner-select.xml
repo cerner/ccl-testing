@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<!--
+set compile = debug go
+drop program sample_program go
+create program sample_program
+    select into noforms 
+        start_ = stuff->item[d.seq].start, end_ = stuff->item[d.seq].end
+    from (dummyt d with seq = size(stuff->item, 5)) order by d.seq, start_ + end_, start_, cnvtupper(end_)
+    head d.seq
+        call echo(d.seq)
+    head start_
+        call echo(start_)
+    head end_
+        call echo(end_)
+    foot end_
+        call echo(end_)
+    foot start_
+        call echo(start_)
+        
+        
+    select into noforms from code_value cv where cv.code_value in 
+    (
+        select cv1.code_value from code_value cv1 where 
+            cv1.code_set in (8, 25) and cv1.cdf_meanin in ("ONE", "TWO")
+            order by cv1.cdf_meaning
+    )
+    order by cv.code_set, cv.display
+    head cv.cdf_meaning
+        call echo(cv.cdf_meaning)
+    head cv.display
+        call echo(cv.display)
+    with nocounter
+end go
+translate fe2417 with xml go
+-->
+ <ZC_PROGRAM. class="223" lev="0" kid="4" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_SELECT. class="210" lev="1" kid="7" loc="2.11">
+   <COMMA. class="127" lev="2" loc="2.11"/>
+   <INTO. class="148" lev="2" kid="1" loc="2.16">
+    <NAME class="5" text="NOFORMS" lev="3" loc="2.16"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" kid="2" loc="3.8">
+    <IS. class="149" lev="3" kid="2" loc="3.8">
+     <NAME class="5" text="START_" lev="4" loc="3.8"/>
+     <MEMBER. class="187" lev="4" kid="3" loc="3.17">
+      <NAME class="5" text="STUFF" lev="5" loc="3.17"/>
+      <ARRAY. class="122" lev="5" kid="2" loc="3.24">
+       <NAME class="5" text="ITEM" lev="6" loc="3.24"/>
+       <ATTR. class="123" lev="6" kid="2" loc="3.29">
+        <NAME class="5" text="D" lev="7" loc="3.29"/>
+        <NAME class="5" text="SEQ" lev="7" loc="3.31"/>
+       </ATTR.>
+      </ARRAY.>
+      <NAME class="5" text="START" lev="5" loc="3.36"/>
+     </MEMBER.>
+    </IS.>
+    <IS. class="149" lev="3" kid="2" loc="3.43">
+     <NAME class="5" text="END_" lev="4" loc="3.43"/>
+     <MEMBER. class="187" lev="4" kid="3" loc="3.50">
+      <NAME class="5" text="STUFF" lev="5" loc="3.50"/>
+      <ARRAY. class="122" lev="5" kid="2" loc="3.57">
+       <NAME class="5" text="ITEM" lev="6" loc="3.57"/>
+       <ATTR. class="123" lev="6" kid="2" loc="3.62">
+        <NAME class="5" text="D" lev="7" loc="3.62"/>
+        <NAME class="5" text="SEQ" lev="7" loc="3.64"/>
+       </ATTR.>
+      </ARRAY.>
+      <NAME class="5" text="END" lev="5" loc="3.69"/>
+     </MEMBER.>
+    </IS.>
+   </COMMA.>
+   <COMMA. class="127" lev="2" kid="1" loc="4.10">
+    <TABLE. class="177" lev="3" kid="3" loc="4.10">
+     <NAME class="5" text="DUMMYT" lev="4" loc="4.10"/>
+     <NAME class="5" text="D" lev="4" loc="4.17"/>
+     <OPTIONS. class="163" lev="4" kid="1" loc="4.24">
+      <OPTION. class="162" lev="5" kid="1" loc="4.24">
+       <IS. class="149" lev="6" kid="2" loc="4.24">
+        <NAME class="5" text="SEQ" lev="7" loc="4.24"/>
+        <CALL. class="125" lev="7" kid="3" loc="4.30">
+         <NAME class="5" text="SIZE" lev="8" loc="4.30"/>
+         <MEMBER. class="187" lev="8" kid="2" loc="4.35">
+          <NAME class="5" text="STUFF" lev="9" loc="4.35"/>
+          <NAME class="5" text="ITEM" lev="9" loc="4.42"/>
+         </MEMBER.>
+         <INT class="4" text="5" lev="8" loc="4.48"/>
+        </CALL.>
+       </IS.>
+      </OPTION.>
+     </OPTIONS.>
+    </TABLE.>
+   </COMMA.>
+   <QUAL. class="173" lev="2" loc="4.52"/>
+   <ORDERLIST. class="166" lev="2" kid="4" loc="4.61">
+    <ORDER. class="165" lev="3" kid="1" loc="4.61">
+     <ATTR. class="123" lev="4" kid="2" loc="4.61">
+      <NAME class="5" text="D" lev="5" loc="4.61"/>
+      <NAME class="5" text="SEQ" lev="5" loc="4.63"/>
+     </ATTR.>
+    </ORDER.>
+    <ORDER. class="165" lev="3" kid="1" loc="4.68">
+     <PLUS. class="170" lev="4" kid="2" loc="4.68">
+      <NAME class="5" text="START_" lev="5" loc="4.68"/>
+      <NAME class="5" text="END_" lev="5" loc="4.77"/>
+     </PLUS.>
+    </ORDER.>
+    <ORDER. class="165" lev="3" kid="1" loc="4.83">
+     <NAME class="5" text="START_" lev="4" loc="4.83"/>
+    </ORDER.>
+    <ORDER. class="165" lev="3" kid="1" loc="4.91">
+     <CALL. class="125" lev="4" kid="2" loc="4.91">
+      <NAME class="5" text="CNVTUPPER" lev="5" loc="4.91"/>
+      <NAME class="5" text="END_" lev="5" loc="4.101"/>
+     </CALL.>
+    </ORDER.>
+   </ORDERLIST.>
+   <COMMA. class="127" lev="2" kid="5" loc="5.9">
+    <HEADBREAK. class="143" lev="3" kid="2" loc="5.9">
+     <ATTR. class="123" lev="4" kid="2" loc="5.9">
+      <NAME class="5" text="D" lev="5" loc="5.9"/>
+      <NAME class="5" text="SEQ" lev="5" loc="5.11"/>
+     </ATTR.>
+     <Z_CALL. class="197" lev="4" kid="2" loc="6.13">
+      <NAME class="5" text="ECHO" lev="5" loc="6.13"/>
+      <ATTR. class="123" lev="5" kid="2" loc="6.18">
+       <NAME class="5" text="D" lev="6" loc="6.18"/>
+       <NAME class="5" text="SEQ" lev="6" loc="6.20"/>
+      </ATTR.>
+     </Z_CALL.>
+    </HEADBREAK.>
+    <HEADBREAK. class="143" lev="3" kid="2" loc="7.9">
+     <NAME class="5" text="START_" lev="4" loc="7.9"/>
+     <Z_CALL. class="197" lev="4" kid="2" loc="8.13">
+      <NAME class="5" text="ECHO" lev="5" loc="8.13"/>
+      <NAME class="5" text="START_" lev="5" loc="8.18"/>
+     </Z_CALL.>
+    </HEADBREAK.>
+    <HEADBREAK. class="143" lev="3" kid="2" loc="9.9">
+     <NAME class="5" text="END_" lev="4" loc="9.9"/>
+     <Z_CALL. class="197" lev="4" kid="2" loc="10.13">
+      <NAME class="5" text="ECHO" lev="5" loc="10.13"/>
+      <NAME class="5" text="END_" lev="5" loc="10.18"/>
+     </Z_CALL.>
+    </HEADBREAK.>
+    <FOOTBREAK. class="135" lev="3" kid="2" loc="11.9">
+     <NAME class="5" text="END_" lev="4" loc="11.9"/>
+     <Z_CALL. class="197" lev="4" kid="2" loc="12.13">
+      <NAME class="5" text="ECHO" lev="5" loc="12.13"/>
+      <NAME class="5" text="START_" lev="5" loc="12.18"/>
+     </Z_CALL.>
+    </FOOTBREAK.>
+    <FOOTBREAK. class="135" lev="3" kid="2" loc="13.9">
+     <NAME class="5" text="START_" lev="4" loc="13.9"/>
+     <Z_CALL. class="197" lev="4" kid="2" loc="14.13">
+      <NAME class="5" text="ECHO" lev="5" loc="14.13"/>
+      <NAME class="5" text="START_" lev="5" loc="14.18"/>
+     </Z_CALL.>
+    </FOOTBREAK.>
+   </COMMA.>
+  </Z_SELECT.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="17.11">
+   <COMMA. class="127" lev="2" loc="17.11"/>
+   <INTO. class="148" lev="2" kid="1" loc="17.16">
+    <NAME class="5" text="NOFORMS" lev="3" loc="17.16"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="17.24"/>
+   <COMMA. class="127" lev="2" kid="1" loc="17.29">
+    <TABLE. class="177" lev="3" kid="2" loc="17.29">
+     <NAME class="5" text="CODE_VALUE" lev="4" loc="17.29"/>
+     <NAME class="5" text="CV" lev="4" loc="17.40"/>
+    </TABLE.>
+   </COMMA.>
+   <QUAL. class="173" lev="2" kid="1" loc="17.49">
+    <EQL. class="132" lev="3" kid="2" loc="17.49">
+     <ATTR. class="123" lev="4" kid="2" loc="17.49">
+      <NAME class="5" text="CV" lev="5" loc="17.49"/>
+      <NAME class="5" text="CODE_VALUE" lev="5" loc="17.52"/>
+     </ATTR.>
+     <ITEMLIST. class="150" lev="4" kid="1" loc="19.15">
+      <Z_SELECT. class="210" lev="5" kid="6" loc="19.15">
+       <COMMA. class="127" lev="6" loc="19.15"/>
+       <INTO. class="148" lev="6" loc="19.15"/>
+       <COMMA. class="127" lev="6" kid="1" loc="19.15">
+        <ATTR. class="123" lev="7" kid="2" loc="19.15">
+         <NAME class="5" text="CV1" lev="8" loc="19.15"/>
+         <NAME class="5" text="CODE_VALUE" lev="8" loc="19.19"/>
+        </ATTR.>
+       </COMMA.>
+       <COMMA. class="127" lev="6" kid="1" loc="19.35">
+        <TABLE. class="177" lev="7" kid="2" loc="19.35">
+         <NAME class="5" text="CODE_VALUE" lev="8" loc="19.35"/>
+         <NAME class="5" text="CV1" lev="8" loc="19.46"/>
+        </TABLE.>
+       </COMMA.>
+       <QUAL. class="173" lev="6" kid="1" loc="20.12">
+        <AND. class="121" lev="7" kid="2" loc="20.12">
+         <EQL. class="132" lev="8" kid="2" loc="20.12">
+          <ATTR. class="123" lev="9" kid="2" loc="20.12">
+           <NAME class="5" text="CV1" lev="10" loc="20.12"/>
+           <NAME class="5" text="CODE_SET" lev="10" loc="20.16"/>
+          </ATTR.>
+          <ITEMLIST. class="150" lev="9" kid="2" loc="20.29">
+           <INT class="4" text="8" lev="10" loc="20.29"/>
+           <INT class="4" text="25" lev="10" loc="20.32"/>
+          </ITEMLIST.>
+         </EQL.>
+         <EQL. class="132" lev="8" kid="2" loc="20.40">
+          <ATTR. class="123" lev="9" kid="2" loc="20.40">
+           <NAME class="5" text="CV1" lev="10" loc="20.40"/>
+           <NAME class="5" text="CDF_MEANIN" lev="10" loc="20.44"/>
+          </ATTR.>
+          <ITEMLIST. class="150" lev="9" kid="2" loc="20.59">
+           <STRING class="7" text="ONE" lev="10" loc="20.59"/>
+           <STRING class="7" text="TWO" lev="10" loc="20.66"/>
+          </ITEMLIST.>
+         </EQL.>
+        </AND.>
+       </QUAL.>
+       <ORDERLIST. class="166" lev="6" kid="1" loc="21.21">
+        <ORDER. class="165" lev="7" kid="1" loc="21.21">
+         <ATTR. class="123" lev="8" kid="2" loc="21.21">
+          <NAME class="5" text="CV1" lev="9" loc="21.21"/>
+          <NAME class="5" text="CDF_MEANING" lev="9" loc="21.25"/>
+         </ATTR.>
+        </ORDER.>
+       </ORDERLIST.>
+      </Z_SELECT.>
+     </ITEMLIST.>
+    </EQL.>
+   </QUAL.>
+   <ORDERLIST. class="166" lev="2" kid="2" loc="23.13">
+    <ORDER. class="165" lev="3" kid="1" loc="23.13">
+     <ATTR. class="123" lev="4" kid="2" loc="23.13">
+      <NAME class="5" text="CV" lev="5" loc="23.13"/>
+      <NAME class="5" text="CODE_SET" lev="5" loc="23.16"/>
+     </ATTR.>
+    </ORDER.>
+    <ORDER. class="165" lev="3" kid="1" loc="23.26">
+     <ATTR. class="123" lev="4" kid="2" loc="23.26">
+      <NAME class="5" text="CV" lev="5" loc="23.26"/>
+      <NAME class="5" text="DISPLAY" lev="5" loc="23.29"/>
+     </ATTR.>
+    </ORDER.>
+   </ORDERLIST.>
+   <COMMA. class="127" lev="2" kid="2" loc="24.9">
+    <HEADBREAK. class="143" lev="3" kid="2" loc="24.9">
+     <ATTR. class="123" lev="4" kid="2" loc="24.9">
+      <NAME class="5" text="CV" lev="5" loc="24.9"/>
+      <NAME class="5" text="CDF_MEANING" lev="5" loc="24.12"/>
+     </ATTR.>
+     <Z_CALL. class="197" lev="4" kid="2" loc="25.13">
+      <NAME class="5" text="ECHO" lev="5" loc="25.13"/>
+      <ATTR. class="123" lev="5" kid="2" loc="25.18">
+       <NAME class="5" text="CV" lev="6" loc="25.18"/>
+       <NAME class="5" text="CDF_MEANING" lev="6" loc="25.21"/>
+      </ATTR.>
+     </Z_CALL.>
+    </HEADBREAK.>
+    <HEADBREAK. class="143" lev="3" kid="2" loc="26.9">
+     <ATTR. class="123" lev="4" kid="2" loc="26.9">
+      <NAME class="5" text="CV" lev="5" loc="26.9"/>
+      <NAME class="5" text="DISPLAY" lev="5" loc="26.12"/>
+     </ATTR.>
+     <Z_CALL. class="197" lev="4" kid="2" loc="27.13">
+      <NAME class="5" text="ECHO" lev="5" loc="27.13"/>
+      <ATTR. class="123" lev="5" kid="2" loc="27.18">
+       <NAME class="5" text="CV" lev="6" loc="27.18"/>
+       <NAME class="5" text="DISPLAY" lev="6" loc="27.21"/>
+      </ATTR.>
+     </Z_CALL.>
+    </HEADBREAK.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="28.9">
+    <OPTION. class="162" lev="3" kid="1" loc="28.9">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="28.9"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <LABEL. class="182" lev="1" kid="1" loc="29.0">
+   <NAME class="5" text="END" lev="2" loc="29.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>

@@ -8,10 +8,11 @@
 	
 	<complexType name="exclusion">
 		<sequence>
-			<element name="scriptName" type="string" maxOccurs="1" minOccurs="0" />
 			<element name="violationId" type="string" maxOccurs="1" minOccurs="0" />
+			<element name="scriptName" type="string" maxOccurs="1" minOccurs="0" />
 			<element name="subroutineName" type="string" maxOccurs="1" minOccurs="0" />
 			<element name="variableName" type="string" maxOccurs="1" minOccurs="0" />
+			<element name="iterator" type="string" maxOccurs="1" minOccurs="0" />
 			<element name="lineNumber" type="nonNegativeInteger" maxOccurs="1" minOccurs="0" />
 			<element name="explanation" type="string" maxOccurs="1" minOccurs="0" />
 		</sequence>

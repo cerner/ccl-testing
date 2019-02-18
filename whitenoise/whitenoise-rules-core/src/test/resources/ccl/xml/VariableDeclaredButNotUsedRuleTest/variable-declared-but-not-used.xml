@@ -6,11 +6,11 @@ create program sample_program
  
 declare ALLOW_UNUSED_CONSTANT = i4 with protect, constant(123)
  
-declare myUnusedVariable1 = i4 with protect, noconstant(0)
+declare myUnusedVariable1 = i4 with protect, noconstant(0); only gets set, bever read
 declare myUnusedVariable2 = i4
 declare myUnusedVariable3 = i4 with protect
 
-set myUnusedVariable1 = myUnusedVariable1*myUnusedVariable1
+set myUnusedVariable1 = myUnusedVariable1*myUnusedVariable1 ;it is read here, but only to set itself.
  
 declare myUsedVariable = i4 with protect, noconstant(0)
 set myUnusedVariable1 = myUsedVariable
@@ -58,10 +58,15 @@ declare declared2 = i4 with protect, noconstant(0) ;;used in sub7
 declare declared3 = i4 with protect, noconstant(0)
 call sub6(declared3)
 
+declare myUsedConditionVariable1 = i4 with protect, noconstant(2)
+while (myUsedConditionVariable1 < 2000)
+    ;this is different than myUnusedVariable1. it is read in the while condition.
+    set myUsedConditionVariable1 = myUsedConditionVariable1*myUsedConditionVariable1
+endwhile
 end go
 translate sample_program with xml go
 -->
- <ZC_PROGRAM. class="223" lev="0" kid="20" loc="1.15">
+ <ZC_PROGRAM. class="223" lev="0" kid="22" loc="1.15">
   <USER. class="179" lev="1" kid="1" loc="1.15">
    <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
   </USER.>
@@ -497,7 +502,37 @@ translate sample_program with xml go
     <NAME class="5" text="DECLARED3" lev="3" loc="55.10"/>
    </CALL.>
   </Z_CALL.>
-  <LABEL. class="182" lev="1" kid="1" loc="57.0">
-   <NAME class="5" text="END" lev="2" loc="57.0"/>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="57.8">
+   <NAME class="5" text="MYUSEDCONDITIONVARIABLE1" lev="2" loc="57.8"/>
+   <NAME class="5" text="I4" lev="2" loc="57.35"/>
+   <OPTIONS. class="163" lev="2" kid="2" loc="57.43">
+    <OPTION. class="162" lev="3" kid="1" loc="57.43">
+     <NAME class="5" text="PROTECT" lev="4" loc="57.43"/>
+    </OPTION.>
+    <OPTION. class="162" lev="3" kid="1" loc="57.52">
+     <CALL. class="125" lev="4" kid="2" loc="57.52">
+      <NAME class="5" text="NOCONSTANT" lev="5" loc="57.52"/>
+      <INT class="4" text="2" lev="5" loc="57.63"/>
+     </CALL.>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <WHILE. class="180" lev="1" kid="2" loc="58.7">
+   <LSS. class="153" lev="2" kid="2" loc="58.7">
+    <NAME class="5" text="MYUSEDCONDITIONVARIABLE1" lev="3" loc="58.7"/>
+    <INT class="4" text="2000" lev="3" loc="58.34"/>
+   </LSS.>
+   <COMMA. class="127" lev="2" kid="1" loc="60.8">
+    <Z_SET. class="211" lev="3" kid="2" loc="60.8">
+     <NAME class="5" text="MYUSEDCONDITIONVARIABLE1" lev="4" loc="60.8"/>
+     <MUL. class="158" lev="4" kid="2" loc="60.35">
+      <NAME class="5" text="MYUSEDCONDITIONVARIABLE1" lev="5" loc="60.35"/>
+      <NAME class="5" text="MYUSEDCONDITIONVARIABLE1" lev="5" loc="60.60"/>
+     </MUL.>
+    </Z_SET.>
+   </COMMA.>
+  </WHILE.>
+  <LABEL. class="182" lev="1" kid="1" loc="62.0">
+   <NAME class="5" text="END" lev="2" loc="62.0"/>
   </LABEL.>
  </ZC_PROGRAM.>

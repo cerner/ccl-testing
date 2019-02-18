@@ -1,0 +1,759 @@
+<?xml version="1.0"?>
+<!--
+set compile = debug go
+drop program sample_program go
+create program sample_program
+    declare usedVarVal0 = i4 with protect
+    declare public::usedVarVal1 = i4 with protect
+    declare public::usedVarVal2 = i4 with protect
+
+    declare usedVarRec0 = i4 with protect
+    declare usedVarRec1 = i4 with protect
+    declare public::usedVarRec2 = i4 with protect
+    declare public::usedVarRec3 = i4 with protect
+    declare public::usedVarRec4 = i4 with protect
+    declare public::usedVarRec5 = i4 with protect
+
+    declare nonpublic::usedVarVal1 = i4 with protect
+    declare nonpublic::usedVarVal2 = i4 with protect
+
+    declare otherVar = i4 with protect
+    declare public::unused = i4 with protect
+    
+    record thing(1 itemCount = i4 1 item[*] 2 name = vc 2 id = i4) with protect
+    set stat = alterlist(thing->item, 1)
+    
+    set otherVar = usedVarVal0
+    set otherVar = usedVarVal1
+    set otherVar = public::usedVarVal2
+    set otherVar = nonpublic::usedVarVal2
+    
+    set thing->itemCount = usedVarRec0
+    set thing->item[1].id = usedVarRec1
+    set thing->itemCount = usedVarRec2
+    set thing->item[1].id = usedVarRec3
+    set thing->itemCount = public::usedVarRec4
+    set thing->item[1].id = public::usedVarRec5
+
+
+    declare usedVarVal0A = i4 with protect
+    declare public::usedVarVal1A = i4 with protect
+    declare public::usedVarVal2A = i4 with protect
+
+    declare usedVarRec0A = i4 with protect
+    declare usedVarRec1A = i4 with protect
+    declare public::usedVarRec2A = i4 with protect
+    declare public::usedVarRec3A = i4 with protect
+    declare public::usedVarRec4A = i4 with protect
+    declare public::usedVarRec5A = i4 with protect
+
+    declare nonpublic::usedVarVal1A = i4 with protect
+    declare nonpublic::usedVarVal2A = i4 with protect
+    
+    select into noforms from dual detail
+        otherVar = usedVarVal0A
+        otherVar = usedVarVal1A
+        otherVar = public::usedVarVal2A
+        otherVar = nonpublic::usedVarVal2A
+        
+        thing->itemCount = usedVarRec0A
+        thing->item[1].id = usedVarRec1A
+        thing->itemCount = usedVarRec2A
+        thing->item[1].id = usedVarRec3A
+        thing->itemCount = public::usedVarRec4A
+        thing->item[1].id = public::usedVarRec5A
+    with nocounter
+
+    set unused = unused*unused
+    set public::unused = public::unused*public::unused
+    set public::unused = unused*unused
+    set unused = public::unused*public::unused
+    set unused = unused*public::unused
+    set unused = public::unused*unused
+
+    select into nodforms from dual detail
+        unused = unused*unused
+        public::unused = public::unused*public::unused
+        public::unused = unused*unused
+        unused = public::unused*public::unused
+        unused = unused*public::unused
+        unused = public::unused*unused
+    with nocounter
+
+end go
+translate sample_program with xml go
+-->
+ <ZC_PROGRAM. class="223" lev="0" kid="46" loc="1.15">
+  <USER. class="179" lev="1" kid="1" loc="1.15">
+   <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
+  </USER.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="2.12">
+   <NAME class="5" text="USEDVARVAL0" lev="2" loc="2.12"/>
+   <NAME class="5" text="I4" lev="2" loc="2.26"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="2.34">
+    <OPTION. class="162" lev="3" kid="1" loc="2.34">
+     <NAME class="5" text="PROTECT" lev="4" loc="2.34"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="3.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="3.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="3.12"/>
+    <NAME class="5" text="USEDVARVAL1" lev="3" loc="3.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="3.34"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="3.42">
+    <OPTION. class="162" lev="3" kid="1" loc="3.42">
+     <NAME class="5" text="PROTECT" lev="4" loc="3.42"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="4.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="4.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="4.12"/>
+    <NAME class="5" text="USEDVARVAL2" lev="3" loc="4.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="4.34"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="4.42">
+    <OPTION. class="162" lev="3" kid="1" loc="4.42">
+     <NAME class="5" text="PROTECT" lev="4" loc="4.42"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="6.12">
+   <NAME class="5" text="USEDVARREC0" lev="2" loc="6.12"/>
+   <NAME class="5" text="I4" lev="2" loc="6.26"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="6.34">
+    <OPTION. class="162" lev="3" kid="1" loc="6.34">
+     <NAME class="5" text="PROTECT" lev="4" loc="6.34"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="7.12">
+   <NAME class="5" text="USEDVARREC1" lev="2" loc="7.12"/>
+   <NAME class="5" text="I4" lev="2" loc="7.26"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="7.34">
+    <OPTION. class="162" lev="3" kid="1" loc="7.34">
+     <NAME class="5" text="PROTECT" lev="4" loc="7.34"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="8.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="8.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="8.12"/>
+    <NAME class="5" text="USEDVARREC2" lev="3" loc="8.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="8.34"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="8.42">
+    <OPTION. class="162" lev="3" kid="1" loc="8.42">
+     <NAME class="5" text="PROTECT" lev="4" loc="8.42"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="9.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="9.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="9.12"/>
+    <NAME class="5" text="USEDVARREC3" lev="3" loc="9.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="9.34"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="9.42">
+    <OPTION. class="162" lev="3" kid="1" loc="9.42">
+     <NAME class="5" text="PROTECT" lev="4" loc="9.42"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="10.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="10.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="10.12"/>
+    <NAME class="5" text="USEDVARREC4" lev="3" loc="10.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="10.34"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="10.42">
+    <OPTION. class="162" lev="3" kid="1" loc="10.42">
+     <NAME class="5" text="PROTECT" lev="4" loc="10.42"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="11.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="11.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="11.12"/>
+    <NAME class="5" text="USEDVARREC5" lev="3" loc="11.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="11.34"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="11.42">
+    <OPTION. class="162" lev="3" kid="1" loc="11.42">
+     <NAME class="5" text="PROTECT" lev="4" loc="11.42"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="13.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="13.12">
+    <NAME class="5" text="NONPUBLIC" lev="3" loc="13.12"/>
+    <NAME class="5" text="USEDVARVAL1" lev="3" loc="13.23"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="13.37"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="13.45">
+    <OPTION. class="162" lev="3" kid="1" loc="13.45">
+     <NAME class="5" text="PROTECT" lev="4" loc="13.45"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="14.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="14.12">
+    <NAME class="5" text="NONPUBLIC" lev="3" loc="14.12"/>
+    <NAME class="5" text="USEDVARVAL2" lev="3" loc="14.23"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="14.37"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="14.45">
+    <OPTION. class="162" lev="3" kid="1" loc="14.45">
+     <NAME class="5" text="PROTECT" lev="4" loc="14.45"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="16.12">
+   <NAME class="5" text="OTHERVAR" lev="2" loc="16.12"/>
+   <NAME class="5" text="I4" lev="2" loc="16.23"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="16.31">
+    <OPTION. class="162" lev="3" kid="1" loc="16.31">
+     <NAME class="5" text="PROTECT" lev="4" loc="16.31"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="17.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="17.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="17.12"/>
+    <NAME class="5" text="UNUSED" lev="3" loc="17.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="17.29"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="17.37">
+    <OPTION. class="162" lev="3" kid="1" loc="17.37">
+     <NAME class="5" text="PROTECT" lev="4" loc="17.37"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <RECORD. class="174" lev="1" kid="3" loc="19.11">
+   <COMMA. class="127" lev="2" kid="1" loc="19.11">
+    <NAME class="5" text="THING" lev="3" loc="19.11"/>
+   </COMMA.>
+   <INDENT. class="147" lev="2" kid="2" loc="19.17">
+    <FIELD. class="133" lev="3" kid="3" loc="19.17">
+     <INT class="4" text="1" lev="4" loc="19.17"/>
+     <NAME class="5" text="ITEMCOUNT" lev="4" loc="19.19"/>
+     <FORMAT. class="138" lev="4" kid="3" loc="19.31">
+      <NAME class="5" text="I4" lev="5" loc="19.31"/>
+      <COMMA. class="127" lev="5" loc="19.34"/>
+      <COMMA. class="127" lev="5" loc="19.34"/>
+     </FORMAT.>
+    </FIELD.>
+    <FIELD. class="133" lev="3" kid="5" loc="19.34">
+     <INT class="4" text="1" lev="4" loc="19.34"/>
+     <NAME class="5" text="ITEM" lev="4" loc="19.36"/>
+     <OCCUR. class="161" lev="4" kid="1" loc="19.41">
+      <C_AST class="9" lev="5" loc="19.41"/>
+     </OCCUR.>
+     <FIELD. class="133" lev="4" kid="3" loc="19.44">
+      <INT class="4" text="2" lev="5" loc="19.44"/>
+      <NAME class="5" text="NAME" lev="5" loc="19.46"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="19.53">
+       <NAME class="5" text="VC" lev="6" loc="19.53"/>
+       <COMMA. class="127" lev="6" loc="19.56"/>
+       <COMMA. class="127" lev="6" loc="19.56"/>
+      </FORMAT.>
+     </FIELD.>
+     <FIELD. class="133" lev="4" kid="3" loc="19.56">
+      <INT class="4" text="2" lev="5" loc="19.56"/>
+      <NAME class="5" text="ID" lev="5" loc="19.58"/>
+      <FORMAT. class="138" lev="5" kid="3" loc="19.63">
+       <NAME class="5" text="I4" lev="6" loc="19.63"/>
+       <COMMA. class="127" lev="6" loc="19.65"/>
+       <COMMA. class="127" lev="6" loc="19.65"/>
+      </FORMAT.>
+     </FIELD.>
+    </FIELD.>
+   </INDENT.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="19.72">
+    <OPTION. class="162" lev="3" kid="1" loc="19.72">
+     <NAME class="5" text="PROTECT" lev="4" loc="19.72"/>
+    </OPTION.>
+   </OPTIONS.>
+  </RECORD.>
+  <Z_SET. class="211" lev="1" kid="2" loc="20.8">
+   <NAME class="5" text="STAT" lev="2" loc="20.8"/>
+   <CALL. class="125" lev="2" kid="3" loc="20.15">
+    <NAME class="5" text="ALTERLIST" lev="3" loc="20.15"/>
+    <MEMBER. class="187" lev="3" kid="2" loc="20.25">
+     <NAME class="5" text="THING" lev="4" loc="20.25"/>
+     <NAME class="5" text="ITEM" lev="4" loc="20.32"/>
+    </MEMBER.>
+    <INT class="4" text="1" lev="3" loc="20.38"/>
+   </CALL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="22.8">
+   <NAME class="5" text="OTHERVAR" lev="2" loc="22.8"/>
+   <NAME class="5" text="USEDVARVAL0" lev="2" loc="22.19"/>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="23.8">
+   <NAME class="5" text="OTHERVAR" lev="2" loc="23.8"/>
+   <NAME class="5" text="USEDVARVAL1" lev="2" loc="23.19"/>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="24.8">
+   <NAME class="5" text="OTHERVAR" lev="2" loc="24.8"/>
+   <NAMESPACE. class="194" lev="2" kid="2" loc="24.19">
+    <NAME class="5" text="PUBLIC" lev="3" loc="24.19"/>
+    <NAME class="5" text="USEDVARVAL2" lev="3" loc="24.27"/>
+   </NAMESPACE.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="25.8">
+   <NAME class="5" text="OTHERVAR" lev="2" loc="25.8"/>
+   <NAMESPACE. class="194" lev="2" kid="2" loc="25.19">
+    <NAME class="5" text="NONPUBLIC" lev="3" loc="25.19"/>
+    <NAME class="5" text="USEDVARVAL2" lev="3" loc="25.30"/>
+   </NAMESPACE.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="27.8">
+   <MEMBER. class="187" lev="2" kid="2" loc="27.8">
+    <NAME class="5" text="THING" lev="3" loc="27.8"/>
+    <NAME class="5" text="ITEMCOUNT" lev="3" loc="27.15"/>
+   </MEMBER.>
+   <NAME class="5" text="USEDVARREC0" lev="2" loc="27.27"/>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="28.8">
+   <MEMBER. class="187" lev="2" kid="3" loc="28.8">
+    <NAME class="5" text="THING" lev="3" loc="28.8"/>
+    <ARRAY. class="122" lev="3" kid="2" loc="28.15">
+     <NAME class="5" text="ITEM" lev="4" loc="28.15"/>
+     <INT class="4" text="1" lev="4" loc="28.20"/>
+    </ARRAY.>
+    <NAME class="5" text="ID" lev="3" loc="28.23"/>
+   </MEMBER.>
+   <NAME class="5" text="USEDVARREC1" lev="2" loc="28.28"/>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="29.8">
+   <MEMBER. class="187" lev="2" kid="2" loc="29.8">
+    <NAME class="5" text="THING" lev="3" loc="29.8"/>
+    <NAME class="5" text="ITEMCOUNT" lev="3" loc="29.15"/>
+   </MEMBER.>
+   <NAME class="5" text="USEDVARREC2" lev="2" loc="29.27"/>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="30.8">
+   <MEMBER. class="187" lev="2" kid="3" loc="30.8">
+    <NAME class="5" text="THING" lev="3" loc="30.8"/>
+    <ARRAY. class="122" lev="3" kid="2" loc="30.15">
+     <NAME class="5" text="ITEM" lev="4" loc="30.15"/>
+     <INT class="4" text="1" lev="4" loc="30.20"/>
+    </ARRAY.>
+    <NAME class="5" text="ID" lev="3" loc="30.23"/>
+   </MEMBER.>
+   <NAME class="5" text="USEDVARREC3" lev="2" loc="30.28"/>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="31.8">
+   <MEMBER. class="187" lev="2" kid="2" loc="31.8">
+    <NAME class="5" text="THING" lev="3" loc="31.8"/>
+    <NAME class="5" text="ITEMCOUNT" lev="3" loc="31.15"/>
+   </MEMBER.>
+   <NAMESPACE. class="194" lev="2" kid="2" loc="31.27">
+    <NAME class="5" text="PUBLIC" lev="3" loc="31.27"/>
+    <NAME class="5" text="USEDVARREC4" lev="3" loc="31.35"/>
+   </NAMESPACE.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="32.8">
+   <MEMBER. class="187" lev="2" kid="3" loc="32.8">
+    <NAME class="5" text="THING" lev="3" loc="32.8"/>
+    <ARRAY. class="122" lev="3" kid="2" loc="32.15">
+     <NAME class="5" text="ITEM" lev="4" loc="32.15"/>
+     <INT class="4" text="1" lev="4" loc="32.20"/>
+    </ARRAY.>
+    <NAME class="5" text="ID" lev="3" loc="32.23"/>
+   </MEMBER.>
+   <NAMESPACE. class="194" lev="2" kid="2" loc="32.28">
+    <NAME class="5" text="PUBLIC" lev="3" loc="32.28"/>
+    <NAME class="5" text="USEDVARREC5" lev="3" loc="32.36"/>
+   </NAMESPACE.>
+  </Z_SET.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="35.12">
+   <NAME class="5" text="USEDVARVAL0A" lev="2" loc="35.12"/>
+   <NAME class="5" text="I4" lev="2" loc="35.27"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="35.35">
+    <OPTION. class="162" lev="3" kid="1" loc="35.35">
+     <NAME class="5" text="PROTECT" lev="4" loc="35.35"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="36.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="36.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="36.12"/>
+    <NAME class="5" text="USEDVARVAL1A" lev="3" loc="36.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="36.35"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="36.43">
+    <OPTION. class="162" lev="3" kid="1" loc="36.43">
+     <NAME class="5" text="PROTECT" lev="4" loc="36.43"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="37.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="37.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="37.12"/>
+    <NAME class="5" text="USEDVARVAL2A" lev="3" loc="37.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="37.35"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="37.43">
+    <OPTION. class="162" lev="3" kid="1" loc="37.43">
+     <NAME class="5" text="PROTECT" lev="4" loc="37.43"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="39.12">
+   <NAME class="5" text="USEDVARREC0A" lev="2" loc="39.12"/>
+   <NAME class="5" text="I4" lev="2" loc="39.27"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="39.35">
+    <OPTION. class="162" lev="3" kid="1" loc="39.35">
+     <NAME class="5" text="PROTECT" lev="4" loc="39.35"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="40.12">
+   <NAME class="5" text="USEDVARREC1A" lev="2" loc="40.12"/>
+   <NAME class="5" text="I4" lev="2" loc="40.27"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="40.35">
+    <OPTION. class="162" lev="3" kid="1" loc="40.35">
+     <NAME class="5" text="PROTECT" lev="4" loc="40.35"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="41.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="41.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="41.12"/>
+    <NAME class="5" text="USEDVARREC2A" lev="3" loc="41.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="41.35"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="41.43">
+    <OPTION. class="162" lev="3" kid="1" loc="41.43">
+     <NAME class="5" text="PROTECT" lev="4" loc="41.43"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="42.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="42.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="42.12"/>
+    <NAME class="5" text="USEDVARREC3A" lev="3" loc="42.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="42.35"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="42.43">
+    <OPTION. class="162" lev="3" kid="1" loc="42.43">
+     <NAME class="5" text="PROTECT" lev="4" loc="42.43"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="43.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="43.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="43.12"/>
+    <NAME class="5" text="USEDVARREC4A" lev="3" loc="43.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="43.35"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="43.43">
+    <OPTION. class="162" lev="3" kid="1" loc="43.43">
+     <NAME class="5" text="PROTECT" lev="4" loc="43.43"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="44.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="44.12">
+    <NAME class="5" text="PUBLIC" lev="3" loc="44.12"/>
+    <NAME class="5" text="USEDVARREC5A" lev="3" loc="44.20"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="44.35"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="44.43">
+    <OPTION. class="162" lev="3" kid="1" loc="44.43">
+     <NAME class="5" text="PROTECT" lev="4" loc="44.43"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="46.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="46.12">
+    <NAME class="5" text="NONPUBLIC" lev="3" loc="46.12"/>
+    <NAME class="5" text="USEDVARVAL1A" lev="3" loc="46.23"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="46.38"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="46.46">
+    <OPTION. class="162" lev="3" kid="1" loc="46.46">
+     <NAME class="5" text="PROTECT" lev="4" loc="46.46"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_DECLARE. class="216" lev="1" kid="3" loc="47.12">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="47.12">
+    <NAME class="5" text="NONPUBLIC" lev="3" loc="47.12"/>
+    <NAME class="5" text="USEDVARVAL2A" lev="3" loc="47.23"/>
+   </NAMESPACE.>
+   <NAME class="5" text="I4" lev="2" loc="47.38"/>
+   <OPTIONS. class="163" lev="2" kid="1" loc="47.46">
+    <OPTION. class="162" lev="3" kid="1" loc="47.46">
+     <NAME class="5" text="PROTECT" lev="4" loc="47.46"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_DECLARE.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="49.11">
+   <COMMA. class="127" lev="2" loc="49.11"/>
+   <INTO. class="148" lev="2" kid="1" loc="49.16">
+    <NAME class="5" text="NOFORMS" lev="3" loc="49.16"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="49.24"/>
+   <COMMA. class="127" lev="2" kid="1" loc="49.29">
+    <TABLE. class="177" lev="3" kid="1" loc="49.29">
+     <NAME class="5" text="DUAL" lev="4" loc="49.29"/>
+    </TABLE.>
+   </COMMA.>
+   <QUAL. class="173" lev="2" loc="49.34"/>
+   <ORDERLIST. class="166" lev="2" loc="49.34"/>
+   <COMMA. class="127" lev="2" kid="1" loc="50.8">
+    <DETAIL. class="129" lev="3" kid="10" loc="50.8">
+     <IS. class="149" lev="4" kid="2" loc="50.8">
+      <NAME class="5" text="OTHERVAR" lev="5" loc="50.8"/>
+      <NAME class="5" text="USEDVARVAL0A" lev="5" loc="50.19"/>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="51.8">
+      <NAME class="5" text="OTHERVAR" lev="5" loc="51.8"/>
+      <NAME class="5" text="USEDVARVAL1A" lev="5" loc="51.19"/>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="52.8">
+      <NAME class="5" text="OTHERVAR" lev="5" loc="52.8"/>
+      <NAMESPACE. class="194" lev="5" kid="2" loc="52.19">
+       <NAME class="5" text="PUBLIC" lev="6" loc="52.19"/>
+       <NAME class="5" text="USEDVARVAL2A" lev="6" loc="52.27"/>
+      </NAMESPACE.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="53.8">
+      <NAME class="5" text="OTHERVAR" lev="5" loc="53.8"/>
+      <NAMESPACE. class="194" lev="5" kid="2" loc="53.19">
+       <NAME class="5" text="NONPUBLIC" lev="6" loc="53.19"/>
+       <NAME class="5" text="USEDVARVAL2A" lev="6" loc="53.30"/>
+      </NAMESPACE.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="55.8">
+      <MEMBER. class="187" lev="5" kid="2" loc="55.8">
+       <NAME class="5" text="THING" lev="6" loc="55.8"/>
+       <NAME class="5" text="ITEMCOUNT" lev="6" loc="55.15"/>
+      </MEMBER.>
+      <NAME class="5" text="USEDVARREC0A" lev="5" loc="55.27"/>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="56.8">
+      <MEMBER. class="187" lev="5" kid="3" loc="56.8">
+       <NAME class="5" text="THING" lev="6" loc="56.8"/>
+       <ARRAY. class="122" lev="6" kid="2" loc="56.15">
+        <NAME class="5" text="ITEM" lev="7" loc="56.15"/>
+        <INT class="4" text="1" lev="7" loc="56.20"/>
+       </ARRAY.>
+       <NAME class="5" text="ID" lev="6" loc="56.23"/>
+      </MEMBER.>
+      <NAME class="5" text="USEDVARREC1A" lev="5" loc="56.28"/>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="57.8">
+      <MEMBER. class="187" lev="5" kid="2" loc="57.8">
+       <NAME class="5" text="THING" lev="6" loc="57.8"/>
+       <NAME class="5" text="ITEMCOUNT" lev="6" loc="57.15"/>
+      </MEMBER.>
+      <NAME class="5" text="USEDVARREC2A" lev="5" loc="57.27"/>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="58.8">
+      <MEMBER. class="187" lev="5" kid="3" loc="58.8">
+       <NAME class="5" text="THING" lev="6" loc="58.8"/>
+       <ARRAY. class="122" lev="6" kid="2" loc="58.15">
+        <NAME class="5" text="ITEM" lev="7" loc="58.15"/>
+        <INT class="4" text="1" lev="7" loc="58.20"/>
+       </ARRAY.>
+       <NAME class="5" text="ID" lev="6" loc="58.23"/>
+      </MEMBER.>
+      <NAME class="5" text="USEDVARREC3A" lev="5" loc="58.28"/>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="59.8">
+      <MEMBER. class="187" lev="5" kid="2" loc="59.8">
+       <NAME class="5" text="THING" lev="6" loc="59.8"/>
+       <NAME class="5" text="ITEMCOUNT" lev="6" loc="59.15"/>
+      </MEMBER.>
+      <NAMESPACE. class="194" lev="5" kid="2" loc="59.27">
+       <NAME class="5" text="PUBLIC" lev="6" loc="59.27"/>
+       <NAME class="5" text="USEDVARREC4A" lev="6" loc="59.35"/>
+      </NAMESPACE.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="60.8">
+      <MEMBER. class="187" lev="5" kid="3" loc="60.8">
+       <NAME class="5" text="THING" lev="6" loc="60.8"/>
+       <ARRAY. class="122" lev="6" kid="2" loc="60.15">
+        <NAME class="5" text="ITEM" lev="7" loc="60.15"/>
+        <INT class="4" text="1" lev="7" loc="60.20"/>
+       </ARRAY.>
+       <NAME class="5" text="ID" lev="6" loc="60.23"/>
+      </MEMBER.>
+      <NAMESPACE. class="194" lev="5" kid="2" loc="60.28">
+       <NAME class="5" text="PUBLIC" lev="6" loc="60.28"/>
+       <NAME class="5" text="USEDVARREC5A" lev="6" loc="60.36"/>
+      </NAMESPACE.>
+     </IS.>
+    </DETAIL.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="61.9">
+    <OPTION. class="162" lev="3" kid="1" loc="61.9">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="61.9"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <Z_SET. class="211" lev="1" kid="2" loc="63.8">
+   <NAME class="5" text="UNUSED" lev="2" loc="63.8"/>
+   <MUL. class="158" lev="2" kid="2" loc="63.17">
+    <NAME class="5" text="UNUSED" lev="3" loc="63.17"/>
+    <NAME class="5" text="UNUSED" lev="3" loc="63.24"/>
+   </MUL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="64.8">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="64.8">
+    <NAME class="5" text="PUBLIC" lev="3" loc="64.8"/>
+    <NAME class="5" text="UNUSED" lev="3" loc="64.16"/>
+   </NAMESPACE.>
+   <MUL. class="158" lev="2" kid="2" loc="64.25">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="64.25">
+     <NAME class="5" text="PUBLIC" lev="4" loc="64.25"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="64.33"/>
+    </NAMESPACE.>
+    <NAMESPACE. class="194" lev="3" kid="2" loc="64.40">
+     <NAME class="5" text="PUBLIC" lev="4" loc="64.40"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="64.48"/>
+    </NAMESPACE.>
+   </MUL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="65.8">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="65.8">
+    <NAME class="5" text="PUBLIC" lev="3" loc="65.8"/>
+    <NAME class="5" text="UNUSED" lev="3" loc="65.16"/>
+   </NAMESPACE.>
+   <MUL. class="158" lev="2" kid="2" loc="65.25">
+    <NAME class="5" text="UNUSED" lev="3" loc="65.25"/>
+    <NAME class="5" text="UNUSED" lev="3" loc="65.32"/>
+   </MUL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="66.8">
+   <NAME class="5" text="UNUSED" lev="2" loc="66.8"/>
+   <MUL. class="158" lev="2" kid="2" loc="66.17">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="66.17">
+     <NAME class="5" text="PUBLIC" lev="4" loc="66.17"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="66.25"/>
+    </NAMESPACE.>
+    <NAMESPACE. class="194" lev="3" kid="2" loc="66.32">
+     <NAME class="5" text="PUBLIC" lev="4" loc="66.32"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="66.40"/>
+    </NAMESPACE.>
+   </MUL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="67.8">
+   <NAME class="5" text="UNUSED" lev="2" loc="67.8"/>
+   <MUL. class="158" lev="2" kid="2" loc="67.17">
+    <NAME class="5" text="UNUSED" lev="3" loc="67.17"/>
+    <NAMESPACE. class="194" lev="3" kid="2" loc="67.24">
+     <NAME class="5" text="PUBLIC" lev="4" loc="67.24"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="67.32"/>
+    </NAMESPACE.>
+   </MUL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="68.8">
+   <NAME class="5" text="UNUSED" lev="2" loc="68.8"/>
+   <MUL. class="158" lev="2" kid="2" loc="68.17">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="68.17">
+     <NAME class="5" text="PUBLIC" lev="4" loc="68.17"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="68.25"/>
+    </NAMESPACE.>
+    <NAME class="5" text="UNUSED" lev="3" loc="68.32"/>
+   </MUL.>
+  </Z_SET.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="70.11">
+   <COMMA. class="127" lev="2" loc="70.11"/>
+   <INTO. class="148" lev="2" kid="1" loc="70.16">
+    <NAME class="5" text="NODFORMS" lev="3" loc="70.16"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="70.25"/>
+   <COMMA. class="127" lev="2" kid="1" loc="70.30">
+    <TABLE. class="177" lev="3" kid="1" loc="70.30">
+     <NAME class="5" text="DUAL" lev="4" loc="70.30"/>
+    </TABLE.>
+   </COMMA.>
+   <QUAL. class="173" lev="2" loc="70.35"/>
+   <ORDERLIST. class="166" lev="2" loc="70.35"/>
+   <COMMA. class="127" lev="2" kid="1" loc="71.8">
+    <DETAIL. class="129" lev="3" kid="6" loc="71.8">
+     <IS. class="149" lev="4" kid="2" loc="71.8">
+      <NAME class="5" text="UNUSED" lev="5" loc="71.8"/>
+      <MUL. class="158" lev="5" kid="2" loc="71.17">
+       <NAME class="5" text="UNUSED" lev="6" loc="71.17"/>
+       <NAME class="5" text="UNUSED" lev="6" loc="71.24"/>
+      </MUL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="72.8">
+      <NAMESPACE. class="194" lev="5" kid="2" loc="72.8">
+       <NAME class="5" text="PUBLIC" lev="6" loc="72.8"/>
+       <NAME class="5" text="UNUSED" lev="6" loc="72.16"/>
+      </NAMESPACE.>
+      <MUL. class="158" lev="5" kid="2" loc="72.25">
+       <NAMESPACE. class="194" lev="6" kid="2" loc="72.25">
+        <NAME class="5" text="PUBLIC" lev="7" loc="72.25"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="72.33"/>
+       </NAMESPACE.>
+       <NAMESPACE. class="194" lev="6" kid="2" loc="72.40">
+        <NAME class="5" text="PUBLIC" lev="7" loc="72.40"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="72.48"/>
+       </NAMESPACE.>
+      </MUL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="73.8">
+      <NAMESPACE. class="194" lev="5" kid="2" loc="73.8">
+       <NAME class="5" text="PUBLIC" lev="6" loc="73.8"/>
+       <NAME class="5" text="UNUSED" lev="6" loc="73.16"/>
+      </NAMESPACE.>
+      <MUL. class="158" lev="5" kid="2" loc="73.25">
+       <NAME class="5" text="UNUSED" lev="6" loc="73.25"/>
+       <NAME class="5" text="UNUSED" lev="6" loc="73.32"/>
+      </MUL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="74.8">
+      <NAME class="5" text="UNUSED" lev="5" loc="74.8"/>
+      <MUL. class="158" lev="5" kid="2" loc="74.17">
+       <NAMESPACE. class="194" lev="6" kid="2" loc="74.17">
+        <NAME class="5" text="PUBLIC" lev="7" loc="74.17"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="74.25"/>
+       </NAMESPACE.>
+       <NAMESPACE. class="194" lev="6" kid="2" loc="74.32">
+        <NAME class="5" text="PUBLIC" lev="7" loc="74.32"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="74.40"/>
+       </NAMESPACE.>
+      </MUL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="75.8">
+      <NAME class="5" text="UNUSED" lev="5" loc="75.8"/>
+      <MUL. class="158" lev="5" kid="2" loc="75.17">
+       <NAME class="5" text="UNUSED" lev="6" loc="75.17"/>
+       <NAMESPACE. class="194" lev="6" kid="2" loc="75.24">
+        <NAME class="5" text="PUBLIC" lev="7" loc="75.24"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="75.32"/>
+       </NAMESPACE.>
+      </MUL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="76.8">
+      <NAME class="5" text="UNUSED" lev="5" loc="76.8"/>
+      <MUL. class="158" lev="5" kid="2" loc="76.17">
+       <NAMESPACE. class="194" lev="6" kid="2" loc="76.17">
+        <NAME class="5" text="PUBLIC" lev="7" loc="76.17"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="76.25"/>
+       </NAMESPACE.>
+       <NAME class="5" text="UNUSED" lev="6" loc="76.32"/>
+      </MUL.>
+     </IS.>
+    </DETAIL.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="77.9">
+    <OPTION. class="162" lev="3" kid="1" loc="77.9">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="77.9"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <LABEL. class="182" lev="1" kid="1" loc="79.0">
+   <NAME class="5" text="END" lev="2" loc="79.0"/>
+  </LABEL.>
+ </ZC_PROGRAM.>
