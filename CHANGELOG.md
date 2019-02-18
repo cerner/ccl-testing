@@ -1,5 +1,14 @@
 # ccl-testing Change Log
 
+## 2019-02-18
+* whitenoise-maven-plugin **2.5**
+* cclunit-archetype **1.5**
+
+### Corrections
+* Fix [#18](https://github.com/cerner/ccl-testing/issues/18) whitenoise flags setting a logical as using an undeclared variable.
+* Improve the whitenoise unused variable check to handle things like ns::var = var.
+
+
 ## 2019-02-16
 * ccl-maven-plugin **3.2**
 * whitenoise-maven-plugin **2.4**

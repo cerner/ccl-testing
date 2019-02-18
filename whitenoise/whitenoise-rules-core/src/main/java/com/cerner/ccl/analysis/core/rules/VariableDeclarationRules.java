@@ -58,6 +58,10 @@ public class VariableDeclarationRules extends TimedDelegate {
             variableDeclarationScopes.get(variableName).add(getScope(e));
         }
 
+        // Locate instances where variables are set within the program
+        // Other uses of used but not declared variables will result in CCL runtime errors when the line is executed.
+        // TODO: is it copacetic to rely on perfect code coverage to catch the others?
+        // Could be hard to fix with out a list of built-in function names and reserved words/variables.
         List<Element> setVariables = selectNodesByName(
                 "Z_SET./NAME[" + "not(preceding-sibling::*) and not(@text='TRACE') and not(@text='MODIFY')"
                         + " and not(@text='MESSAGE') and not(@text='STAT') and not(@text='COMPILE')"
