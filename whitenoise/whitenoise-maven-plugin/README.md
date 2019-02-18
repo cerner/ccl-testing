@@ -10,7 +10,7 @@ Usage
       <plugin>
         <groupId>com.cerner.ccl.whitenoise</groupId>
         <artifactId>whitenoise-maven-plugin</artifactId>
-        <version>2.4</version>
+        <version>2.5</version>
         <extensions>true</extensions>
       </plugin>
     </plugins>
