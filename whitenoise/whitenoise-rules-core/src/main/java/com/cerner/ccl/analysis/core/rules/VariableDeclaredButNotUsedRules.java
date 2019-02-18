@@ -68,15 +68,45 @@ public class VariableDeclaredButNotUsedRules extends TimedDelegate {
         String simpleName = variableName.replaceAll("\\w+::", "");
         Set<Element> usages = new HashSet<Element>();
         if (namespace.equals("PUBLIC") || namespace.isEmpty()) {
-            usages.addAll(selectNodes("//NAME[@text='" + simpleName
-                    + "' and not(parent::Z_DECLARE.) and not(parent::NAMESPACE.) "
-                    + "and (preceding-sibling::NAME or preceding-sibling::MEMBER. or preceding-sibling::NAMESPACE. or (not(parent::Z_SET.) and not (parent::IS.)))]"));
+//  //NAME[
+//      @text='THE_NAME'
+//      and not(parent::Z_DECLARE.)
+//      and not(parent::NAMESPACE.)
+//      and not(ancestor::Z_SET.[NAME[@text='THE_NAME' and not(preceding-sibling::*)]])
+//      and not(ancestor::IS.[NAME[@text='THE_NAME' and not(preceding-sibling::*)]])
+//      and not(ancestor::Z_SET.[NAMESPACE.[NAME[position()=1 and @text='PUBLIC'] and NAME[position()=2 and @text='THE_NAME'] and not(preceding-sibling::*)]])
+//      and not(ancestor::IS.[NAMESPACE.[NAME[position()=1 and @text='PUBLIC'] and NAME[position()=2 and @text='THE_NAME'] and not(preceding-sibling::*)]])
+//  ]
+            usages.addAll(selectNodes("//NAME[@text='" + simpleName + "' and not(parent::Z_DECLARE.)"
+                    + " and not(parent::NAMESPACE.)" + " and not(ancestor::Z_SET.[NAME[@text='" + simpleName
+                    + "' and not(preceding-sibling::*)]]) and not(ancestor::IS.[NAME[@text='" + simpleName
+                    + "' and not(preceding-sibling::*)]])"
+                    + " and not(ancestor::Z_SET.[NAMESPACE.[NAME[position()=1 and @text='PUBLIC'] and NAME[position()=2 and @text='"
+                    + simpleName + "'] and not(preceding-sibling::*)]])"
+                    + " and not(ancestor::IS.[NAMESPACE.[NAME[position()=1 and @text='PUBLIC'] and NAME[position()=2 and @text='"
+                    + simpleName + "'] and not(preceding-sibling::*)]])]"));
         }
         if (!namespace.isEmpty()) {
-            usages.addAll(selectNodes("//NAME[@text='" + simpleName
-                    + "' and parent::NAMESPACE.[NAME[position()=1 and @text='" + namespace
-                    + "'] and NAME[position()=2 and @text='" + simpleName + "']] and not(../parent::Z_DECLARE.)"
-                    + " and (../preceding-sibling::NAME or ../preceding-sibling::MEMBER. or ../preceding-sibling::NAMESPACE. or (not(../parent::Z_SET.) and not (../parent::IS.)))]"));
+//  //NAME[
+//      @text='THE_NAME'
+//      and parent::NAMESPACE.[NAME[position()=1 and @text='THE_NAMESPACE'] and NAME[position()=2 and @text='THE_NAME']]
+//      and not(../parent::Z_DECLARE.)
+//      and not(ancestor::Z_SET.[NAMESPACE.[NAME[position()=1 and @text='THE_NAMESPACE'] and NAME[position()=2 and @text='THE_NAME'] and not(preceding-sibling::*)]])
+//      and not(ancestor::IS.[NAMESPACE.[NAME[position()=1 and @text='THE_NAMESPACE'] and NAME[position()=2 and @text='THE_NAME'] and not(preceding-sibling::*)]])
+//      and not(ancestor::Z_SET.[NAME[@text='THE_NAME' and not(preceding-sibling::*)]])     //only for PUBLIC namespace
+//      and not(ancestor::IS.[NAME[@text='THE_NAME' and not(preceding-sibling::*)]])        //only for PUBLIC namespace
+//  ]
+            String nakedCheck = namespace.equals("PUBLIC") ? " and not(ancestor::Z_SET.[NAME[@text='" + simpleName
+                    + "' and not(preceding-sibling::*)]]) and not(ancestor::IS.[NAME[@text='" + simpleName
+                    + "' and not(preceding-sibling::*)]])" : "";
+            usages.addAll(
+                    selectNodes("//NAME[@text='" + simpleName + "' and parent::NAMESPACE.[NAME[position()=1 and @text='"
+                            + namespace + "'] and NAME[position()=2 and @text='" + simpleName
+                            + "']] and not(../parent::Z_DECLARE.) and not(ancestor::Z_SET.[NAMESPACE.[NAME[position()=1 and @text='"
+                            + namespace + "'] and NAME[position()=2 and @text='" + simpleName
+                            + "'] and not(preceding-sibling::*)]]) and not(ancestor::IS.[NAMESPACE.[NAME[position()=1 and @text='"
+                            + namespace + "'] and NAME[position()=2 and @text='" + simpleName
+                            + "'] and not(preceding-sibling::*)]])" + nakedCheck + "]"));
         }
         Set<Element> usageScopes = new HashSet<Element>();
         for (Element usage : usages) {

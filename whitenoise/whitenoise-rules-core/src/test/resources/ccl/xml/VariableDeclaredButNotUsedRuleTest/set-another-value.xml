@@ -64,10 +64,26 @@ create program sample_program
         thing->item[1].id = public::usedVarRec5A
     with nocounter
 
+    set unused = unused*unused
+    set public::unused = public::unused*public::unused
+    set public::unused = unused*unused
+    set unused = public::unused*public::unused
+    set unused = unused*public::unused
+    set unused = public::unused*unused
+
+    select into nodforms from dual detail
+        unused = unused*unused
+        public::unused = public::unused*public::unused
+        public::unused = unused*unused
+        unused = public::unused*public::unused
+        unused = unused*public::unused
+        unused = public::unused*unused
+    with nocounter
+
 end go
 translate sample_program with xml go
 -->
- <ZC_PROGRAM. class="223" lev="0" kid="39" loc="1.15">
+ <ZC_PROGRAM. class="223" lev="0" kid="46" loc="1.15">
   <USER. class="179" lev="1" kid="1" loc="1.15">
    <NAME class="5" text="SAMPLE_PROGRAM" lev="2" loc="1.15"/>
   </USER.>
@@ -582,7 +598,162 @@ translate sample_program with xml go
     </OPTION.>
    </OPTIONS.>
   </Z_SELECT.>
-  <LABEL. class="182" lev="1" kid="1" loc="63.0">
-   <NAME class="5" text="END" lev="2" loc="63.0"/>
+  <Z_SET. class="211" lev="1" kid="2" loc="63.8">
+   <NAME class="5" text="UNUSED" lev="2" loc="63.8"/>
+   <MUL. class="158" lev="2" kid="2" loc="63.17">
+    <NAME class="5" text="UNUSED" lev="3" loc="63.17"/>
+    <NAME class="5" text="UNUSED" lev="3" loc="63.24"/>
+   </MUL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="64.8">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="64.8">
+    <NAME class="5" text="PUBLIC" lev="3" loc="64.8"/>
+    <NAME class="5" text="UNUSED" lev="3" loc="64.16"/>
+   </NAMESPACE.>
+   <MUL. class="158" lev="2" kid="2" loc="64.25">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="64.25">
+     <NAME class="5" text="PUBLIC" lev="4" loc="64.25"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="64.33"/>
+    </NAMESPACE.>
+    <NAMESPACE. class="194" lev="3" kid="2" loc="64.40">
+     <NAME class="5" text="PUBLIC" lev="4" loc="64.40"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="64.48"/>
+    </NAMESPACE.>
+   </MUL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="65.8">
+   <NAMESPACE. class="194" lev="2" kid="2" loc="65.8">
+    <NAME class="5" text="PUBLIC" lev="3" loc="65.8"/>
+    <NAME class="5" text="UNUSED" lev="3" loc="65.16"/>
+   </NAMESPACE.>
+   <MUL. class="158" lev="2" kid="2" loc="65.25">
+    <NAME class="5" text="UNUSED" lev="3" loc="65.25"/>
+    <NAME class="5" text="UNUSED" lev="3" loc="65.32"/>
+   </MUL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="66.8">
+   <NAME class="5" text="UNUSED" lev="2" loc="66.8"/>
+   <MUL. class="158" lev="2" kid="2" loc="66.17">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="66.17">
+     <NAME class="5" text="PUBLIC" lev="4" loc="66.17"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="66.25"/>
+    </NAMESPACE.>
+    <NAMESPACE. class="194" lev="3" kid="2" loc="66.32">
+     <NAME class="5" text="PUBLIC" lev="4" loc="66.32"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="66.40"/>
+    </NAMESPACE.>
+   </MUL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="67.8">
+   <NAME class="5" text="UNUSED" lev="2" loc="67.8"/>
+   <MUL. class="158" lev="2" kid="2" loc="67.17">
+    <NAME class="5" text="UNUSED" lev="3" loc="67.17"/>
+    <NAMESPACE. class="194" lev="3" kid="2" loc="67.24">
+     <NAME class="5" text="PUBLIC" lev="4" loc="67.24"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="67.32"/>
+    </NAMESPACE.>
+   </MUL.>
+  </Z_SET.>
+  <Z_SET. class="211" lev="1" kid="2" loc="68.8">
+   <NAME class="5" text="UNUSED" lev="2" loc="68.8"/>
+   <MUL. class="158" lev="2" kid="2" loc="68.17">
+    <NAMESPACE. class="194" lev="3" kid="2" loc="68.17">
+     <NAME class="5" text="PUBLIC" lev="4" loc="68.17"/>
+     <NAME class="5" text="UNUSED" lev="4" loc="68.25"/>
+    </NAMESPACE.>
+    <NAME class="5" text="UNUSED" lev="3" loc="68.32"/>
+   </MUL.>
+  </Z_SET.>
+  <Z_SELECT. class="210" lev="1" kid="8" loc="70.11">
+   <COMMA. class="127" lev="2" loc="70.11"/>
+   <INTO. class="148" lev="2" kid="1" loc="70.16">
+    <NAME class="5" text="NODFORMS" lev="3" loc="70.16"/>
+   </INTO.>
+   <COMMA. class="127" lev="2" loc="70.25"/>
+   <COMMA. class="127" lev="2" kid="1" loc="70.30">
+    <TABLE. class="177" lev="3" kid="1" loc="70.30">
+     <NAME class="5" text="DUAL" lev="4" loc="70.30"/>
+    </TABLE.>
+   </COMMA.>
+   <QUAL. class="173" lev="2" loc="70.35"/>
+   <ORDERLIST. class="166" lev="2" loc="70.35"/>
+   <COMMA. class="127" lev="2" kid="1" loc="71.8">
+    <DETAIL. class="129" lev="3" kid="6" loc="71.8">
+     <IS. class="149" lev="4" kid="2" loc="71.8">
+      <NAME class="5" text="UNUSED" lev="5" loc="71.8"/>
+      <MUL. class="158" lev="5" kid="2" loc="71.17">
+       <NAME class="5" text="UNUSED" lev="6" loc="71.17"/>
+       <NAME class="5" text="UNUSED" lev="6" loc="71.24"/>
+      </MUL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="72.8">
+      <NAMESPACE. class="194" lev="5" kid="2" loc="72.8">
+       <NAME class="5" text="PUBLIC" lev="6" loc="72.8"/>
+       <NAME class="5" text="UNUSED" lev="6" loc="72.16"/>
+      </NAMESPACE.>
+      <MUL. class="158" lev="5" kid="2" loc="72.25">
+       <NAMESPACE. class="194" lev="6" kid="2" loc="72.25">
+        <NAME class="5" text="PUBLIC" lev="7" loc="72.25"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="72.33"/>
+       </NAMESPACE.>
+       <NAMESPACE. class="194" lev="6" kid="2" loc="72.40">
+        <NAME class="5" text="PUBLIC" lev="7" loc="72.40"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="72.48"/>
+       </NAMESPACE.>
+      </MUL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="73.8">
+      <NAMESPACE. class="194" lev="5" kid="2" loc="73.8">
+       <NAME class="5" text="PUBLIC" lev="6" loc="73.8"/>
+       <NAME class="5" text="UNUSED" lev="6" loc="73.16"/>
+      </NAMESPACE.>
+      <MUL. class="158" lev="5" kid="2" loc="73.25">
+       <NAME class="5" text="UNUSED" lev="6" loc="73.25"/>
+       <NAME class="5" text="UNUSED" lev="6" loc="73.32"/>
+      </MUL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="74.8">
+      <NAME class="5" text="UNUSED" lev="5" loc="74.8"/>
+      <MUL. class="158" lev="5" kid="2" loc="74.17">
+       <NAMESPACE. class="194" lev="6" kid="2" loc="74.17">
+        <NAME class="5" text="PUBLIC" lev="7" loc="74.17"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="74.25"/>
+       </NAMESPACE.>
+       <NAMESPACE. class="194" lev="6" kid="2" loc="74.32">
+        <NAME class="5" text="PUBLIC" lev="7" loc="74.32"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="74.40"/>
+       </NAMESPACE.>
+      </MUL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="75.8">
+      <NAME class="5" text="UNUSED" lev="5" loc="75.8"/>
+      <MUL. class="158" lev="5" kid="2" loc="75.17">
+       <NAME class="5" text="UNUSED" lev="6" loc="75.17"/>
+       <NAMESPACE. class="194" lev="6" kid="2" loc="75.24">
+        <NAME class="5" text="PUBLIC" lev="7" loc="75.24"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="75.32"/>
+       </NAMESPACE.>
+      </MUL.>
+     </IS.>
+     <IS. class="149" lev="4" kid="2" loc="76.8">
+      <NAME class="5" text="UNUSED" lev="5" loc="76.8"/>
+      <MUL. class="158" lev="5" kid="2" loc="76.17">
+       <NAMESPACE. class="194" lev="6" kid="2" loc="76.17">
+        <NAME class="5" text="PUBLIC" lev="7" loc="76.17"/>
+        <NAME class="5" text="UNUSED" lev="7" loc="76.25"/>
+       </NAMESPACE.>
+       <NAME class="5" text="UNUSED" lev="6" loc="76.32"/>
+      </MUL.>
+     </IS.>
+    </DETAIL.>
+   </COMMA.>
+   <OPTIONS. class="163" lev="2" kid="1" loc="77.9">
+    <OPTION. class="162" lev="3" kid="1" loc="77.9">
+     <NAME class="5" text="NOCOUNTER" lev="4" loc="77.9"/>
+    </OPTION.>
+   </OPTIONS.>
+  </Z_SELECT.>
+  <LABEL. class="182" lev="1" kid="1" loc="79.0">
+   <NAME class="5" text="END" lev="2" loc="79.0"/>
   </LABEL.>
  </ZC_PROGRAM.>
