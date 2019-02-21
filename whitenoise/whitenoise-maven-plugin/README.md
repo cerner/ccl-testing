@@ -1,6 +1,7 @@
 # whitenoise-maven-plugin
 
-A maven reporting plugin for displaying the unit test and code coverage results obtained using [ccl-maven-plugin](../../ccl-maven-plugin/README.md).
+A maven reporting plugin for performing a static analysis of CCL code and displaying the results. Normally it is used in conjunction with [ccl-maven-plugin],
+but it can be used standalone. It has the same prerequisite [maven configuration][maven-configuration].
 
 Usage
 ===
@@ -45,7 +46,7 @@ storage for a comment to explain why the exclusion has been applied.
 
 **doCompile**
 - (true/false) Controls whether the source code is compiled with debug before attempting to analyze it. Defaults to false because the common use case is to run the 
-whitenoise report in tandem with or shortly after running the unit tests which will already compile the code with debug.
+whitenoise report in tandem with or shortly after running the unit tests using [ccl-maven-plugin][ccl-maven-plugin] which will already compile the code with debug.
  - default:
     - `false`
 
@@ -64,6 +65,29 @@ whitenoise report in tandem with or shortly after running the unit tests which w
 
 Developer Notes
 ===
+**Architecture**  
+The underlying design is to execute `translate the_script with xml` and apply [XPATH][x-path] queries to identify patterns that must or must not occur in the generated xml.
+
+**Creating new Violations**
+- Create a new java class implementing [com.cerner.ccl.analysis.data.Violation][violation-class] or one of its [subclasses][violation-subclasses].
+- Create a new java class extending [com.cerner.ccl.analysis.core.rule.TimedDelegate][timed-delegate-class] or modify an existing one to check for the new violation. 
+- If a brand new Rule is created, it must be added to the services resource file  
+`src/main/resources/META-INF/services/com.cerner.ccl.analysis.jdom.JdomAnalysisRule$Delegate`
+
+Use any [existing Rule][existing-rules] as an example.
+
+**Custom Rules**  
+- whitenoise supports "custom rules", a plugin-type capability for adding new rules without changing whitenoise itself.  
+- custom rules provide an avenue to define rules not having broad use, such as enforcing team-specific standards.  
+- custom rules are no different than standard rules. They just live outside of [whitenoise-core-rules][whitenoise-core-rules]
+in a separate jar which closely resembles [whitenoise-core-rules][whitenoise-core-rules]. 
+- A custom rules jar file must contain a services resource file listing the rules that are exported by the jar.
+  - viz., `src/main/resources/META-INF/services/com.cerner.ccl.analysis.jdom.JdomAnalysisRule$Delegate`
+- A custom rules jar file must be added to the whitenoise classpath to be recognized/applied.
+ - (as a dependency of the whitenoise plugin specification in the project's pom file)  
+
+
+**Integration Tests**  
 The integration tests require the domain specific profile to be activated by a system property named `maven-profile` with value equal to the profile id.
 For convenience, the profile should set that property.
 ```xml
@@ -85,3 +109,12 @@ For convenience, the profile should set that property.
             </activation>
         </profile>
 ```
+
+[ccl-maven-plugin]: ../../ccl-maven-plugin/README.md
+[maven-configuration]: ../../doc/CONFIGUREMAVEN.md
+[x-path]: https://developer.mozilla.org/en-US/docs/Web/XPath
+[violation-class]: ../whitenoise-data/src/main/java/com/cerner/ccl/analysis/data/Violation.java
+[violation-subclasses]: ../whitenoise-data/src/main/java/com/cerner/ccl/analysis/data
+[timed-delegate-class]: ../whitenoise-rules-core/src/main/java/com/cerner/ccl/analysis/core/rules/TimedDelegate.java
+[existing-rules]: ../whitenoise-rules-core/src/main/java/com/cerner/ccl/analysis/core/rules
+[whitenoise-core-rules]: ../whitenoise-rules-core
