@@ -7,7 +7,12 @@ the [downloading maven] instructions if you do not already have it installed.
 [downloading maven]:https://maven.apache.org/download.html
 
 The [ccl-maven-plugin][ccl-maven-plugin] must be provided credentials so it can transfer files to and from the back-end node and access CCL 
-in the target environment. This information can be provided in several ways, but we recommend using maven <b>profiles</b> and <b>servers</b> to specify it. 
+in the target environment.  
+It must also be provided a [reqular expression][regular-expression] describing the input prompt for the back-end 
+operating system if the default value does not work (`username:environment@host:[^\r\n]*(\r|\n)+#\s*` 
+since ccl-maven-plugin version 3.1, `username:environment@host:[^>]*>\s*`  before that). 
+
+This information can be provided in several ways, but we recommend using maven <b>profiles</b> and <b>servers</b> to specify it. 
 Moreover, we recommed specifying these items in a <b>settings.xml</b> file (opposed to putting it in the pom file of every single project). 
 A copy of settings.xml resides in the conf folder of your maven installation, however it is better to put the information in an abbreviated copy of 
 settings.xml in your <b>${user.home}/.m2</b> folder. That way the information will persist when maven is upgraded without having to copy it 
@@ -41,6 +46,7 @@ Otherwise just merge the new values into your existing file.
             <ccl-domain>domain-name</ccl-domain>
             <ccl-hostCredentialsId>the-backend-server-id</ccl-hostCredentialsId>
             <ccl-frontendCredentialsId>the-frontend-server-id</ccl-frontendCredentialsId>
+            <ccl-osPromptPattern>whatever-works--can-be-omitted-if-the default-value-works</ccl-osPromptPattern>
         </properties>
     </profile>  
   </profiles>
@@ -66,3 +72,4 @@ In addition, the expect4j component logs everythig that gets sent to the backend
 
 [ccl-maven-plugin]:../ccl-maven-plugin/README.md
 [password-logging-prevention]:../ccl-maven-plugin/doc/PASSWORDLOGGING.md
+[regular-expression]: https://en.wikipedia.org/wiki/Regular_expression
