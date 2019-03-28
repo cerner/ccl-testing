@@ -86,7 +86,7 @@ in a separate jar which closely resembles [whitenoise-core-rules][whitenoise-cor
 - A custom rules jar file must contain a services resource file listing the rules that are exported by the jar.
   - viz., `src/main/resources/META-INF/services/com.cerner.ccl.analysis.jdom.JdomAnalysisRule$Delegate`
 - A custom rules jar file must be added to the whitenoise classpath to be recognized/applied.
- - (as a dependency of the whitenoise plugin specification in the project's pom file)  
+     - ...as a dependency of a whitenoise plugin specification included in the &lt;build&gt; section of the project's pom file.  
 
 
 **Integration Tests**  
