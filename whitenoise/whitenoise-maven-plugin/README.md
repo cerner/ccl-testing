@@ -120,8 +120,5 @@ For convenience, the profile should set that property.
 [timed-delegate-class]: ../whitenoise-rules-core/src/main/java/com/cerner/ccl/analysis/core/rules/TimedDelegate.java
 [existing-rules]: ../whitenoise-rules-core/src/main/java/com/cerner/ccl/analysis/core/rules
 [whitenoise-core-rules]: ../whitenoise-rules-core
-<<<<<<< Updated upstream
 [troubleshooting-steps]: ../../ccl-maven-plugin/doc/BUILDISSUES.md
-=======
 [sample-output-0]: ./doc/image/sample-output-0.png
->>>>>>> Stashed changes
