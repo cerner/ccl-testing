@@ -1,5 +1,9 @@
 # ccl-testing Change Log
 
+### Corrections
+* Fix [#23](https://github.com/cerner/ccl-testing/issues/23) skip processing configurations not working.
+
+
 ## 2019-02-18
 * whitenoise-maven-plugin **2.5**
 * cclunit-archetype **1.5**

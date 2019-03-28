@@ -43,10 +43,12 @@ public class TestCompileMojo extends BaseCclCompilationMojo {
             return;
         }
 
+        // TODO: Add integration tests that fail if not done this way.
+        Subject subject = getSubject();
         final CclExecutor executor = createCclExecutor();
         queueIncludeCompilation(executor, cclTestSourceDirectory);
         queueScriptCompilation(executor, cclTestSourceDirectory);
-        Subject.doAs(getSubject(), new PrivilegedAction<Void>() {
+        Subject.doAs(subject, new PrivilegedAction<Void>() {
             public Void run() {
                 executor.execute();
                 return null;
