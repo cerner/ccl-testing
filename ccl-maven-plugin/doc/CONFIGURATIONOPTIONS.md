@@ -187,7 +187,7 @@ See [maven resources][maven resources] for configuration details. There is no co
    - `false`
 
 **testFrameworkVersion**
-- (version range) Causes the validate goal to check the installed version of the [CCL Unit framework][ccl-unit-framework-source] and fail the 
+- (version range) Causes the validate goal to check the installed version of the [CCL Unit framework][cclunit-framework] and fail the 
 build if it is not in the specified range. Specify by adding a validationRule configuration to a validate goal for the plugin.
 ```xml
         <executions>
@@ -248,6 +248,6 @@ Domain credentials are not required by the plugin, but they are necessary if any
 code that accesses uar functions or makes server calls, for example.
  
 [maven resources]:https://maven.apache.org/pom.html#Resources
-[ccl-unit-framework-source]:https://github.com/cerner/cclunit-framework/cclunit-framework-source/README.md
+[cclunit-framework]:https://github.com/cerner/cclunit-framework/README.md
 [maven version range]:http://maven.apache.org/enforcer/enforcer-rules/versionRanges.html
 [caveat]:#domain-credentials-caveat
