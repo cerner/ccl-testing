@@ -72,5 +72,5 @@ limitations under the License.
 [contibution_guidelines]: CONTRIBUTING.md#contributing
 [release_guidelines]: RELEASING.md#releasing-ccl-testing
 [ccl_unit]: https://github.com/cerner/cclunit-framework
-[cclunit_quickstart]: https://github.com/cerner/cclunit-framework/blob/master/cclunit-framework-source/doc/QUICKSTART.md
+[cclunit_quickstart]: https://github.com/cerner/cclunit-framework/blob/master/doc/QUICKSTART.md
 [plugin-naming]:https://maven.apache.org/guides/introduction/introduction-to-plugin-prefix-mapping.html
