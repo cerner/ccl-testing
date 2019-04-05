@@ -689,19 +689,6 @@ public class CerrealReportGenerator {
         sink.figure_();
     }
 
-    private void hideTestDetails(final Sink sink) {
-        sink.unknown("script", new Object[] { Integer.valueOf(HtmlMarkup.TAG_TYPE_START) }, null);
-        sink.rawText("function hideThem() {");
-        for (final ResultsTestCase testCase : suite.getTestCases()) {
-            for (final ResultsTest test : testCase.getTests()) {
-                sink.rawText(new StringBuilder("cerreal_toggleClassDisplay('tr', '")
-                        .append(testCase.getName() + test.getName()).append("');").toString());
-            }
-        }
-        sink.rawText("}");
-        sink.unknown("script", new Object[] { Integer.valueOf(HtmlMarkup.TAG_TYPE_END) }, null);
-    }
-
     /**
      * Copy the stylesheets to the hard disk.
      *
