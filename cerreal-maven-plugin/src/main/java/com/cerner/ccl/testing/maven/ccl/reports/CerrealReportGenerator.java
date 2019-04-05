@@ -259,7 +259,7 @@ public class CerrealReportGenerator {
         boolean isToggleNeeded = false;
         for (final ResultsTest test : testCase.getTests()) {
             evenRow = !evenRow;
-            String classname = new StringBuilder().append(evenRow ? "a" : "b").append(" ")
+            String classname = new StringBuilder().append(evenRow ? "a " : "b ")
                     .append(isToggleNeeded ? "unitTestPassedToggle " : "")
                     .append(test.getResult().equals(TestResult.PASSED) ? "unitTestPassed" : "unitTestNotPassed")
                     .toString();
@@ -376,7 +376,7 @@ public class CerrealReportGenerator {
             boolean isToggleNeeded = false;
             for (int idx = 1; idx <= test.getAssertCount(); idx++) {
                 SinkEventAttributes assertRowAttributes = new SinkEventAttributeSet();
-                String classname = new StringBuilder().append(idx % 2 == 0 ? "b" : "a").append(" ")
+                String classname = new StringBuilder().append(idx % 2 == 0 ? "b " : "a ")
                         .append(testCase.getName() + test.getName()).append(" ")
                         .append(test.getResult().equals(TestResult.PASSED) ? "unitTestPassed " : "")
                         .append(isToggleNeeded ? "assertPassedToggle " : "")

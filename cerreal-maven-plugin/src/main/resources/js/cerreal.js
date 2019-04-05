@@ -3,7 +3,7 @@ cerreal_toggleDisplay = function(elementId) {
     if (el.style.display != 'none') {
         el.style.display = 'none';
     } else {
-        el.style.display = '';        
+        el.style.display = '';
     }
 }
 cerreal_getStyle = function(eType) {
