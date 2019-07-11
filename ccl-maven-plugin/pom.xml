@@ -139,7 +139,7 @@
         <dependency>
             <groupId>com.cerner.ccl.comm</groupId>
             <artifactId>j4ccl-ssh</artifactId>
-            <version>4.2</version>
+            <version>4.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>

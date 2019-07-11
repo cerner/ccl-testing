@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cerner.ccl.whitenoise</groupId>
     <artifactId>whitenoise-maven-plugin</artifactId>
-    <version>2.5</version>
+    <version>2.6-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>Maven Whitenoise Plugin</name>
     <description>A plugin to perform static analysis of CCL code</description>
@@ -333,7 +333,7 @@
         <dependency>
             <groupId>com.cerner.ccl.comm</groupId>
             <artifactId>j4ccl-ssh</artifactId>
-            <version>4.2</version>
+            <version>4.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>

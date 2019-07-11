@@ -1,8 +1,11 @@
 # ccl-testing Change Log
 
 ### Corrections
+* Fix [#30](https://github.com/cerner/ccl-testing/issues/30) credentials prompt displayed if gss-api-authentication enabled.
 * Fix [#23](https://github.com/cerner/ccl-testing/issues/23) skip processing configurations not working.
 
+### Enhancements
+* Allow passed test cases, tests and/or asserts to be hidden in the cerreal report.
 
 ## 2019-02-18
 * whitenoise-maven-plugin **2.5**
