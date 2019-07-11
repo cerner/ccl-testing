@@ -32,6 +32,7 @@ import com.cerner.ccl.testing.xsl.XslAPIException;
  * Class to convert the files stored target into the Cerreal report. This report shows unit test results.
  *
  * @author Jeff Wiedemann
+ * @author Fred Eckertson
  */
 
 public class CerrealReportGenerator {
@@ -70,13 +71,34 @@ public class CerrealReportGenerator {
     public void generateReport(final Sink sink) throws MavenReportException {
         constructPageHeadSection(sink);
 
+        SinkEventAttributeSet topSectionAttributes = new SinkEventAttributeSet();
+        topSectionAttributes.addAttribute(SinkEventAttributes.ID, "topSection");
+
+        sink.section(1, topSectionAttributes);
+        sink.sectionTitle(1, null);
+        sink.text("Cerreal Report");
+        sink.sectionTitle_(1);
+
         constructSummarySection(sink, suite);
 
-        sink.sectionTitle2();
+        SinkEventAttributeSet testCasesSectionAttributes = new SinkEventAttributeSet();
+        testCasesSectionAttributes.addAttribute(SinkEventAttributes.ID, "testCasesSection");
+        sink.section(2, testCasesSectionAttributes);
+        sink.sectionTitle(1, null);
         sink.text("Test Cases");
-        sink.sectionTitle2_();
-        sink.anchor("Test_Cases");
-        sink.anchor_();
+        sink.sectionTitle_(1);
+
+        sink.rawText(
+                "<input type=\"checkbox\" onclick=\"cerreal_toggleClassDisplay('div', 'testCasePassed')\" checked />");
+        sink.text("Passed Cases ");
+
+        sink.rawText(
+                "<input type=\"checkbox\" onclick=\"cerreal_toggleClassDisplay('tr', 'unitTestPassed')\" checked />");
+        sink.text("Passed Tests ");
+
+        sink.rawText(
+                "<input type=\"checkbox\" onclick=\"cerreal_toggleClassDisplay('tr', 'assertPassed')\" checked />");
+        sink.text("Passed Asserts ");
 
         for (final ResultsTestCase tc : suite.getTestCases()) {
             constructTestCaseSection(sink, tc);
@@ -85,6 +107,9 @@ public class CerrealReportGenerator {
 
         deployStylesheets();
         deployJavascript();
+
+        sink.section_(2);
+        sink.section_(1);
     }
 
     /**
@@ -117,74 +142,69 @@ public class CerrealReportGenerator {
      *            A {@link ResultsTestSuite} representing the data to be summarized.
      */
     private void constructSummarySection(final Sink sink, final ResultsTestSuite suite) {
-        sink.section1();
-        sink.sectionTitle1();
-        sink.text("Cerreal Report");
-        sink.sectionTitle1_();
+        SinkEventAttributeSet summarySectionAttributes = new SinkEventAttributeSet();
+        summarySectionAttributes.addAttribute(SinkEventAttributes.ID, "summarySection");
 
-        sink.sectionTitle2();
+        sink.section(2, summarySectionAttributes);
+        sink.sectionTitle(2, null);
         sink.text("Summary");
-        sink.sectionTitle2_();
-        sink.anchor("Summary");
-        sink.anchor_();
+        sink.sectionTitle_(2);
 
         sink.table();
 
         sink.tableRow();
-        sinkHeader(sink, "Tests");
-        sinkHeader(sink, "Failures");
-        sinkHeader(sink, "Errors");
-        sinkHeader(sink, "Passed");
-        sinkHeader(sink, "Passed Percentage");
+        tableHeader(sink, "Tests");
+        tableHeader(sink, "Failures");
+        tableHeader(sink, "Errors");
+        tableHeader(sink, "Passed");
+        tableHeader(sink, "Passed Percentage");
         sink.tableRow_();
 
         sink.tableRow();
-        sinkCell(sink, String.valueOf(suite.getTestCount()));
-        sinkCell(sink, String.valueOf(suite.getFailedCount()));
-        sinkCell(sink, String.valueOf(suite.getErroredCount()));
-        sinkCell(sink, String.valueOf(suite.getPassedCount()));
-        sinkCell(sink,
+        textCell(sink, String.valueOf(suite.getTestCount()));
+        textCell(sink, String.valueOf(suite.getFailedCount()));
+        textCell(sink, String.valueOf(suite.getErroredCount()));
+        textCell(sink, String.valueOf(suite.getPassedCount()));
+        textCell(sink,
                 NumberFormat.getPercentInstance().format(suite.getPassedCount() / (double) suite.getTestCount()));
         sink.tableRow_();
 
         sink.table_();
+        sink.section2_();
 
         if (suite.getCclEnvironment().isDataAvailable()) {
-            sink.sectionTitle2();
+            SinkEventAttributeSet environmentSectionAttributes = new SinkEventAttributeSet();
+            environmentSectionAttributes.addAttribute(SinkEventAttributes.ID, "environmentSection");
+            sink.section(2, environmentSectionAttributes);
+            sink.sectionTitle(2, null);
             sink.text("Environment");
-            sink.sectionTitle2_();
-            sink.anchor("Environment");
-            sink.anchor_();
+            sink.sectionTitle_(2);
 
             sink.table();
 
             sink.tableRow();
-            sinkHeader(sink, "Host");
-            sinkHeader(sink, "Host User");
-            sinkHeader(sink, "Domain");
-            sinkHeader(sink, "Domain User");
-            sinkHeader(sink, "CCL Group");
-            sinkHeader(sink, "CCL Version");
-            sinkHeader(sink, "Framework Version");
+            tableHeader(sink, "Host");
+            tableHeader(sink, "Host User");
+            tableHeader(sink, "Domain");
+            tableHeader(sink, "Domain User");
+            tableHeader(sink, "CCL Group");
+            tableHeader(sink, "CCL Version");
+            tableHeader(sink, "Framework Version");
             sink.tableRow_();
 
             sink.tableRow();
-            sinkCell(sink, String.valueOf(suite.getCclEnvironment().getNodeName()));
-            sinkCell(sink, String.valueOf(suite.getCclEnvironment().getOsUser()));
-            sinkCell(sink, String.valueOf(suite.getCclEnvironment().getDomainName()));
-            sinkCell(sink, String.valueOf(suite.getCclEnvironment().getCclUser()));
-            sinkCell(sink, String.valueOf(suite.getCclEnvironment().getCclGroup()));
-            sinkCell(sink, String.valueOf(suite.getCclEnvironment().getCclVersion()));
-            sinkCell(sink, String.valueOf(suite.getCclEnvironment().getFrameworkVersion()));
+            textCell(sink, String.valueOf(suite.getCclEnvironment().getNodeName()));
+            textCell(sink, String.valueOf(suite.getCclEnvironment().getOsUser()));
+            textCell(sink, String.valueOf(suite.getCclEnvironment().getDomainName()));
+            textCell(sink, String.valueOf(suite.getCclEnvironment().getCclUser()));
+            textCell(sink, String.valueOf(suite.getCclEnvironment().getCclGroup()));
+            textCell(sink, String.valueOf(suite.getCclEnvironment().getCclVersion()));
+            textCell(sink, String.valueOf(suite.getCclEnvironment().getFrameworkVersion()));
             sink.tableRow_();
 
             sink.table_();
+            sink.section_(2);
         }
-
-        sink.lineBreak();
-        sink.lineBreak();
-
-        sink.section1_();
     }
 
     /**
@@ -196,64 +216,84 @@ public class CerrealReportGenerator {
      *            A {@link ResultsTestCase} representing the test case for which the report is to be generated.
      */
     private void constructTestCaseSection(final Sink sink, final ResultsTestCase testCase) {
-        sink.sectionTitle3();
+        SinkEventAttributes testCaseAttributes = new SinkEventAttributeSet();
+        if (testCase.getPassedTestCount() == testCase.getTestCount()) {
+            testCaseAttributes.addAttribute(SinkEventAttributes.CLASS, "testCasePassed");
+        } else {
+            testCaseAttributes.addAttribute(SinkEventAttributes.CLASS, "testCaseNotPassed");
+        }
+        sink.section(3, testCaseAttributes);
+        sink.sectionTitle(2, null);
         sink.text(testCase.getName());
         sink.link("./cerreal-reports/" + testCase.getName() + ".html");
         sink.text(" [Code] ");
         sink.link_();
-        sink.sectionTitle3_();
-        sink.anchor(testCase.getName());
-        sink.anchor_();
+        sink.sectionTitle_(2);
 
         sink.table();
 
         sink.tableRow();
-        sinkHeader(sink, "Tests");
-        sinkHeader(sink, "Failures");
-        sinkHeader(sink, "Errors");
-        sinkHeader(sink, "Passed");
-        sinkHeader(sink, "Passed Percentage");
+        tableHeader(sink, "Tests");
+        tableHeader(sink, "Failures");
+        tableHeader(sink, "Errors");
+        tableHeader(sink, "Passed");
+        tableHeader(sink, "Passed Percentage");
         sink.tableRow_();
 
         sink.tableRow();
-        sinkCell(sink, String.valueOf(testCase.getTestCount()));
-        sinkCell(sink, String.valueOf(testCase.getFailedTestCount()));
-        sinkCell(sink, String.valueOf(testCase.getErroredTestCount()));
-        sinkCell(sink, String.valueOf(testCase.getPassedTestCount()));
-        sinkCell(sink, NumberFormat.getPercentInstance()
+        textCell(sink, String.valueOf(testCase.getTestCount()));
+        textCell(sink, String.valueOf(testCase.getFailedTestCount()));
+        textCell(sink, String.valueOf(testCase.getErroredTestCount()));
+        textCell(sink, String.valueOf(testCase.getPassedTestCount()));
+        textCell(sink, NumberFormat.getPercentInstance()
                 .format(testCase.getPassedTestCount() / (double) testCase.getTestCount()));
         sink.tableRow_();
 
         sink.table_();
 
-        sink.lineBreak();
-
-        sink.table();
+        if (testCase.getTests().size() > 0) {
+            sink.table();
+            sink.tableRows(null, false);
+        }
+        boolean evenRow = false;
+        boolean isToggleNeeded = false;
         for (final ResultsTest test : testCase.getTests()) {
-            sink.tableRow();
+            evenRow = !evenRow;
+            String classname = new StringBuilder().append(evenRow ? "a " : "b ")
+                    .append(isToggleNeeded ? "unitTestPassedToggle " : "")
+                    .append(test.getResult().equals(TestResult.PASSED) ? "unitTestPassed" : "unitTestNotPassed")
+                    .toString();
+            if (test.getResult().equals(TestResult.PASSED)) {
+                isToggleNeeded = !isToggleNeeded;
+            }
+            SinkEventAttributes testAttributes = new SinkEventAttributeSet();
+            testAttributes.addAttribute(SinkEventAttributes.CLASS, classname);
+            sink.tableRow(testAttributes);
 
             SinkEventAttributeSet attrs = new SinkEventAttributeSet();
             attrs.addAttribute(SinkEventAttributes.WIDTH, "20px");
             sink.tableCell(attrs);
-            sinkTestResultIcon(sink, test.getResult());
+            resultIcon(sink, test.getResult());
             sink.tableCell_();
 
-            sink.tableCell();
+            SinkEventAttributes tableCellAttributes = new SinkEventAttributeSet();
+            tableCellAttributes.addAttribute(SinkEventAttributes.COLSPAN, 4);
+            sink.tableCell(tableCellAttributes);
+
             sink.link("javascript:cerreal_toggleDisplay('" + testCase.getName() + test.getName() + "');");
             sink.text(test.getName());
             sink.link_();
+
             sink.tableCell_();
-
-            constructRawResultsTable(sink, testCase, test);
-
             sink.tableRow_();
+
+            addTestDetails(sink, testCase, test);
         }
-        sink.table_();
-
-        sink.lineBreak();
-        sink.lineBreak();
-
-        sink.section1_();
+        if (testCase.getTests().size() > 0) {
+            sink.tableRows_();
+            sink.table_();
+        }
+        sink.section_(3);
     }
 
     /**
@@ -298,53 +338,77 @@ public class CerrealReportGenerator {
      * @param test
      *            A {@link ResultsTest} representing the individual test for which a report is to be generated.
      */
-    private void constructRawResultsTable(final Sink sink, final ResultsTestCase testCase, final ResultsTest test) {
-        sink.tableRow();
-        sink.rawText("<td colspan=2>");
+    private void addTestDetails(final Sink sink, final ResultsTestCase testCase, final ResultsTest test) {
+        SinkEventAttributes detailRowAttributes = new SinkEventAttributeSet();
+        detailRowAttributes.addAttribute(SinkEventAttributes.ID, testCase.getName() + test.getName());
+        detailRowAttributes.addAttribute(SinkEventAttributes.STYLE, "display: none");
+        sink.tableRow(detailRowAttributes);
 
-        sink.rawText("<span id=\"" + testCase.getName() + test.getName() + "\" style=\"display:none\">");
+        SinkEventAttributes tableCellAttributes = new SinkEventAttributeSet();
+        tableCellAttributes.addAttribute(SinkEventAttributes.COLSPAN, 4);
+        sink.tableCell(tableCellAttributes);
 
-        sink.table();
+        if (test.getErrorCount() > 0 || test.getAssertCount() > 0) {
+            sink.table();
+            sink.tableRows(null, false);
+        }
 
-        SinkEventAttributeSet attrs = new SinkEventAttributeSet();
-        attrs.addAttribute(SinkEventAttributes.WIDTH, "15px");
+        SinkEventAttributeSet iconCellAttributes = new SinkEventAttributeSet();
+        iconCellAttributes.addAttribute(SinkEventAttributes.WIDTH, "15px");
         if (test.getResult() == TestResult.ERRORED) {
-            for (int i = 1; i <= test.getErrorCount(); i++) {
-                // Output the results of the individual assert statement
+            for (int idx = 1; idx <= test.getErrorCount(); idx++) {
                 sink.tableRow();
 
-                // Output the assert result icon
-                sink.tableCell(attrs);
-                sinkTestResultIcon(sink, TestResult.ERRORED);
+                sink.tableCell();
+                sink.text("   ");
                 sink.tableCell_();
 
-                sinkCell(sink, String.valueOf(test.getErrorLineNumber(i)));
-                sinkCell(sink, test.getErrorText(i));
+                sink.tableCell(iconCellAttributes);
+                resultIcon(sink, TestResult.ERRORED);
+                sink.tableCell_();
+
+                textCell(sink, String.valueOf(test.getErrorLineNumber(idx)));
+                textCell(sink, test.getErrorText(idx));
 
                 sink.tableRow_();
             }
         } else {
-            for (int i = 1; i <= test.getAssertCount(); i++) {
-                // Output the results of the individual assert statement
-                sink.tableRow();
+            boolean isToggleNeeded = false;
+            for (int idx = 1; idx <= test.getAssertCount(); idx++) {
+                SinkEventAttributes assertRowAttributes = new SinkEventAttributeSet();
+                String classname = new StringBuilder().append(idx % 2 == 0 ? "b " : "a ")
+                        .append(testCase.getName() + test.getName()).append(" ")
+                        .append(test.getResult().equals(TestResult.PASSED) ? "unitTestPassed " : "")
+                        .append(isToggleNeeded ? "assertPassedToggle " : "")
+                        .append(test.getAssertResult(idx).equals(TestResult.PASSED) ? "assertPassed"
+                                : "assertNotPassed")
+                        .toString();
+                if (test.getAssertResult(idx).equals(TestResult.PASSED)) {
+                    isToggleNeeded = !isToggleNeeded;
+                }
+                assertRowAttributes.addAttribute(SinkEventAttributes.CLASS, classname);
+                sink.tableRow(assertRowAttributes);
 
-                // Output the assert result icon
-                sink.tableCell(attrs);
-                sinkTestResultIcon(sink, test.getAssertResult(i));
+                sink.tableCell();
+                sink.text("   ");
                 sink.tableCell_();
-                sinkCell(sink, getAssertStatement(testCase, test, i));
-                sinkCell(sink, test.getAssertContext(i));
-                sinkCell(sink, test.getAssertTest(i));
+                sink.tableCell(iconCellAttributes);
+                resultIcon(sink, test.getAssertResult(idx));
+                sink.tableCell_();
+
+                textCell(sink, getAssertStatement(testCase, test, idx));
+                textCell(sink, test.getAssertContext(idx));
+                textCell(sink, test.getAssertTest(idx));
 
                 sink.tableRow_();
             }
         }
 
-        sink.table_();
-
-        sink.rawText("</span>");
-
-        sink.rawText("</td>");
+        if (test.getErrorCount() > 0 || test.getAssertCount() > 0) {
+            sink.tableRows_();
+            sink.table_();
+        }
+        sink.tableCell_();
         sink.tableRow_();
     }
 
@@ -458,7 +522,7 @@ public class CerrealReportGenerator {
         String response;
         int finalLineNumber;
 
-        public ExtendToRightParenResponse(String response, int finalLineNumber) {
+        public ExtendToRightParenResponse(final String response, final int finalLineNumber) {
             this.response = response;
             this.finalLineNumber = finalLineNumber;
         }
@@ -507,7 +571,7 @@ public class CerrealReportGenerator {
         private final boolean continuation;
         private final boolean recheck;
 
-        public MaskTextResponse(String response, boolean continuation, boolean recheck) {
+        public MaskTextResponse(final String response, final boolean continuation, final boolean recheck) {
             this.response = response;
             this.continuation = continuation;
             this.recheck = recheck;
@@ -583,7 +647,7 @@ public class CerrealReportGenerator {
      * @param header
      *            The text of the header.
      */
-    private void sinkHeader(final Sink s, final String header) {
+    private void tableHeader(final Sink s, final String header) {
         s.tableHeaderCell();
         s.text(header);
         s.tableHeaderCell_();
@@ -597,7 +661,7 @@ public class CerrealReportGenerator {
      * @param text
      *            The content of the table cell.
      */
-    private void sinkCell(final Sink s, final String text) {
+    private void textCell(final Sink s, final String text) {
         s.tableCell();
         s.text(text);
         s.tableCell_();
@@ -611,7 +675,7 @@ public class CerrealReportGenerator {
      * @param result
      *            A {@link TestResult} representing the result of the test.
      */
-    private void sinkTestResultIcon(final Sink sink, final TestResult result) {
+    private void resultIcon(final Sink sink, final TestResult result) {
         sink.figure();
 
         if (result == TestResult.PASSED) {
