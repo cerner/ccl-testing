@@ -157,6 +157,7 @@ public class CachedConnection implements Connection {
     private Session createSession(final String username, final String password, final URI serverAddress) {
         final JSch jsch = new JSch();
         try {
+            jsch.setConfig("PreferredAuthentications", "password");
             final Session session = jsch.getSession(username, serverAddress.getPath(), 22);
             session.setUserInfo(new SimpleUserInfo(password, null));
             session.connect();
@@ -183,6 +184,7 @@ public class CachedConnection implements Connection {
             final URI serverAddress) {
         final JSch jsch = new JSch();
         try {
+            jsch.setConfig("PreferredAuthentications", "publickey");
             jsch.addIdentity(new File(privateKeyLocation).getAbsolutePath());
             final Session session = jsch.getSession(username, serverAddress.getPath(), 22);
             session.setUserInfo(new SimpleUserInfo(null, salt));

@@ -1,0 +1,11 @@
+/* You can override this file with your own styles */
+
+td.test-icon {
+    width: 17px;
+}
+td.assert-icon {
+    width: 17px;
+}
+img.assert-icon {
+    padding-left: 7px;
+}

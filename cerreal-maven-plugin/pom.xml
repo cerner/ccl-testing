@@ -237,31 +237,40 @@
                     </execution>
                 </executions>
             </plugin>
+<!-- v2.4+ is needed to debug integration tests -->
+<!-- remove this when the parent pom gets upgraged -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
+                    <argLine>-Xmx1024m</argLine>
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                     <excludes>
-                        <exclude>**/CerrealPluginITest.java</exclude>
+                        <exclude>**/*ITest.java</exclude>
                         <exclude>**/internal/*.java</exclude>
                         <exclude>**/*$*.java</exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <argLine>-Xmx1024m</argLine>
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <includes>
+                        <include>**/*ITest.java</include>
+                    </includes>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
                         <phase>integration-test</phase>
-                        <configuration>
-                            <excludes>
-                                <exclude>none</exclude>
-                            </excludes>
-                            <includes>
-                                <include>**/CerrealPluginITest.java</include>
-                            </includes>
-                        </configuration>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -276,8 +285,8 @@
         <dependency>
             <groupId>org.apache.maven.doxia</groupId>
             <artifactId>doxia-sink-api</artifactId>
-            <version>1.8</version>
-        </dependency>        
+            <version>1.9</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.maven.reporting</groupId>
             <artifactId>maven-reporting-impl</artifactId>
@@ -301,7 +310,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.8.0-beta2</version>            
+            <version>1.8.0-beta2</version>
         </dependency>
 
         <!-- TEST -->

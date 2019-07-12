@@ -44,20 +44,23 @@ public class CerrealMojo extends AbstractCCLMavenReport {
     /**
      * {@inheritDoc}
      */
-    public String getDescription(Locale locale) {
+    @Override
+    public String getDescription(final Locale locale) {
         return "Reports test results for automated CCL tests";
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getName(Locale locale) {
+    @Override
+    public String getName(final Locale locale) {
         return "Cerreal Report";
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getOutputName() {
         return outputName;
     }
@@ -70,9 +73,10 @@ public class CerrealMojo extends AbstractCCLMavenReport {
      *             When the reports cannot be generated correctly
      */
     @Override
-    protected void executeReport(Locale local) throws MavenReportException {
-        if (!canGenerateReport())
+    protected void executeReport(final Locale local) throws MavenReportException {
+        if (!canGenerateReport()) {
             return;
+        }
 
         // Instantiate the error logger object which will be passed to the report generator to log any
         // errors to a special folder
