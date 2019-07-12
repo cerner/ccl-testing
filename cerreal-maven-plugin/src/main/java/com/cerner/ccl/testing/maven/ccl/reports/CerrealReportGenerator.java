@@ -105,11 +105,11 @@ public class CerrealReportGenerator {
             writeStandaloneTestCasePage(tc);
         }
 
-        deployStylesheets();
-        deployJavascript();
-
         sink.section_(2);
         sink.section_(1);
+
+        deployStylesheets();
+        deployJavascript();
     }
 
     /**
@@ -125,7 +125,7 @@ public class CerrealReportGenerator {
         sink.text("Cerreal Report");
         sink.title_();
 
-        SinkEventAttributeSet attrs = new SinkEventAttributeSet();
+        final SinkEventAttributeSet attrs = new SinkEventAttributeSet();
         attrs.addAttribute(SinkEventAttributes.SRC, "cerreal-reports/js/cerreal.js");
         sink.unknown("script", new Object[] { Integer.valueOf(HtmlMarkup.TAG_TYPE_START) }, attrs);
         sink.unknown("script", new Object[] { Integer.valueOf(HtmlMarkup.TAG_TYPE_END) }, null);
@@ -271,14 +271,12 @@ public class CerrealReportGenerator {
             sink.tableRow(testAttributes);
 
             SinkEventAttributeSet attrs = new SinkEventAttributeSet();
-            attrs.addAttribute(SinkEventAttributes.WIDTH, "20px");
+            attrs.addAttribute(SinkEventAttributes.CLASS, "test-icon");
             sink.tableCell(attrs);
-            resultIcon(sink, test.getResult());
+            resultIcon(sink, "test-icon", test.getResult());
             sink.tableCell_();
 
-            SinkEventAttributes tableCellAttributes = new SinkEventAttributeSet();
-            tableCellAttributes.addAttribute(SinkEventAttributes.COLSPAN, 4);
-            sink.tableCell(tableCellAttributes);
+            sink.tableCell();
 
             sink.link("javascript:cerreal_toggleDisplay('" + testCase.getName() + test.getName() + "');");
             sink.text(test.getName());
@@ -345,7 +343,7 @@ public class CerrealReportGenerator {
         sink.tableRow(detailRowAttributes);
 
         SinkEventAttributes tableCellAttributes = new SinkEventAttributeSet();
-        tableCellAttributes.addAttribute(SinkEventAttributes.COLSPAN, 4);
+        tableCellAttributes.addAttribute(SinkEventAttributes.COLSPAN, 2);
         sink.tableCell(tableCellAttributes);
 
         if (test.getErrorCount() > 0 || test.getAssertCount() > 0) {
@@ -354,17 +352,13 @@ public class CerrealReportGenerator {
         }
 
         SinkEventAttributeSet iconCellAttributes = new SinkEventAttributeSet();
-        iconCellAttributes.addAttribute(SinkEventAttributes.WIDTH, "15px");
+        iconCellAttributes.addAttribute(SinkEventAttributes.CLASS, "assert-icon");
         if (test.getResult() == TestResult.ERRORED) {
             for (int idx = 1; idx <= test.getErrorCount(); idx++) {
                 sink.tableRow();
 
-                sink.tableCell();
-                sink.text("   ");
-                sink.tableCell_();
-
                 sink.tableCell(iconCellAttributes);
-                resultIcon(sink, TestResult.ERRORED);
+                resultIcon(sink, "assert-icon", TestResult.ERRORED);
                 sink.tableCell_();
 
                 textCell(sink, String.valueOf(test.getErrorLineNumber(idx)));
@@ -389,11 +383,8 @@ public class CerrealReportGenerator {
                 assertRowAttributes.addAttribute(SinkEventAttributes.CLASS, classname);
                 sink.tableRow(assertRowAttributes);
 
-                sink.tableCell();
-                sink.text("   ");
-                sink.tableCell_();
                 sink.tableCell(iconCellAttributes);
-                resultIcon(sink, test.getAssertResult(idx));
+                resultIcon(sink, "assert-icon", test.getAssertResult(idx));
                 sink.tableCell_();
 
                 textCell(sink, getAssertStatement(testCase, test, idx));
@@ -672,21 +663,21 @@ public class CerrealReportGenerator {
      *
      * @param sink
      *            The {@link Sink} to be used to generate the container.
+     * @param classname
+     *            The classname to set on the element.
      * @param result
      *            A {@link TestResult} representing the result of the test.
      */
-    private void resultIcon(final Sink sink, final TestResult result) {
-        sink.figure();
+    private void resultIcon(final Sink sink, final String classname, final TestResult result) {
+        String imageName = result == TestResult.PASSED ? "images/icon_success_sml.gif" : result == TestResult.ERRORED
+                ? "images/icon_error_sml.gif" : result == TestResult.FAILED ? "images/icon_warning_sml.gif" : "";
+        SinkEventAttributeSet attrs = new SinkEventAttributeSet();
+        attrs.addAttribute(SinkEventAttributes.ALT, "");
+        attrs.addAttribute(SinkEventAttributes.CLASS, classname);
 
-        if (result == TestResult.PASSED) {
-            sink.figureGraphics("images/icon_success_sml.gif");
-        } else if (result == TestResult.ERRORED) {
-            sink.figureGraphics("images/icon_error_sml.gif");
-        } else if (result == TestResult.FAILED) {
-            sink.figureGraphics("images/icon_warning_sml.gif");
-        }
-
-        sink.figure_();
+        sink.figureGraphics(imageName, attrs);
+        // if doxia-site-renderer get fixed, the next line might be necessary, but till then it add an extra </div>
+        // sink.figure_();
     }
 
     /**
@@ -701,6 +692,10 @@ public class CerrealReportGenerator {
         try {
             cssFile = new File(outputDirectory.getAbsolutePath() + "/cerreal-reports/css/testResultsProgram.css");
             FileUtils.writeStringToFile(cssFile, getResourceAsString("css/testResultsProgram.css"), "utf-8");
+            File siteCssFile = new File(outputDirectory.getAbsolutePath(), "/css/site.css");
+            if (!siteCssFile.exists()) {
+                FileUtils.writeStringToFile(siteCssFile, getResourceAsString("css/cerreal.css"), "utf-8");
+            }
         } catch (final IOException e) {
             throw new MavenReportException("Failed to deploy Cerreal CSS files due to error", e);
         }

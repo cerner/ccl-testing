@@ -52,20 +52,23 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
     /**
      * {@inheritDoc}
      */
-    public String getDescription(Locale locale) {
+    @Override
+    public String getDescription(final Locale locale) {
         return "Reports code coverage for automated CCL tests";
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getName(Locale locale) {
+    @Override
+    public String getName(final Locale locale) {
         return "CCL Coverage Report";
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getOutputName() {
         return "ccl-coverage-report";
     }
@@ -79,9 +82,10 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
      * Entry point to the Mojo which generates the ccl-coverage report files.
      */
     @Override
-    protected void executeReport(Locale local) throws MavenReportException {
-        if (!canGenerateReport())
+    protected void executeReport(final Locale local) throws MavenReportException {
+        if (!canGenerateReport()) {
             return;
+        }
 
         // Instantiate the error logger object which will be passed to the report generator to log any
         // errors to a special folder
@@ -117,8 +121,8 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
      * @throws MavenReportException
      *             When the xml files cannot be read or parsed and interpreted as coverage data
      */
-    void loadCoverage(File testResultsDirectory, Map<String, CCLCoverageProgram> programs,
-            Map<String, CCLCoverageProgram> tests) throws MavenReportException {
+    void loadCoverage(final File testResultsDirectory, final Map<String, CCLCoverageProgram> programs,
+            final Map<String, CCLCoverageProgram> tests) throws MavenReportException {
         File[] directoryList = testResultsDirectory.listFiles();
         if (directoryList == null) {
             return;
@@ -129,9 +133,10 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
                 // Lets get the appropriate testProgram for this test-result folder
                 CCLCoverageProgram testProgram = tests.get(dir.getName());
 
-                if (testProgram == null)
+                if (testProgram == null) {
                     throw new MavenReportException(
                             "Failed to get the test program object for test folder " + dir.getName());
+                }
 
                 // Find the coverage sub-directory
                 File[] subdirectoryList = dir.listFiles();
@@ -164,10 +169,11 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
                                     // This is a coverage file for a source program, so find the correct
                                     // source program and add this coverage to it
                                     CCLCoverageProgram sourceProgram = programs.get(f.getName().replace(".xml", ""));
-                                    if (sourceProgram == null)
+                                    if (sourceProgram == null) {
                                         throw new MavenReportException(
                                                 "Expected a corresponding program listing for the coverage file "
                                                         + f.getAbsolutePath());
+                                    }
 
                                     // Add the coverage information to the source program
                                     sourceProgram.addCoverage(testProgram, coverageXML);
@@ -191,7 +197,8 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
      * @throws MavenReportException
      *             When an XML file cannot be read or parsed into a CCLCoverageProgram object
      */
-    Map<String, CCLCoverageProgram> loadSourcePrograms(File programListingsDirectory) throws MavenReportException {
+    Map<String, CCLCoverageProgram> loadSourcePrograms(final File programListingsDirectory)
+            throws MavenReportException {
         final Map<String, CCLCoverageProgram> programs = new HashMap<String, CCLCoverageProgram>();
         File[] fileList = programListingsDirectory.listFiles();
         if (fileList != null) {
@@ -222,7 +229,7 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
      * @throws MavenReportException
      *             When an XML file cannot be read or parsed into a CCLCoverageProgram object
      */
-    Map<String, CCLCoverageProgram> loadTestPrograms(File testResultsDirectory) throws MavenReportException {
+    Map<String, CCLCoverageProgram> loadTestPrograms(final File testResultsDirectory) throws MavenReportException {
         Map<String, CCLCoverageProgram> tests = new HashMap<String, CCLCoverageProgram>();
 
         File[] directoryList = testResultsDirectory.listFiles();
