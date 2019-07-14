@@ -24,7 +24,7 @@ The sending of commands and waiting for expected output is handled by [expect4j]
 each command is sent. That is followed by more [expect4j] output showing the receipt and processing of the back-end output. The logging for this is rather chatty. The maven logging
 configuration can be modified to suppress some of the [expect4j] output.
 
-If the prompt patterns are correct, then the backend device and/or the connection to it are too slow to beat the [expectation timeout](./CONFIGURATIONOPTIONS.md#expectationTimeout). Try setting a larger value.
+If the prompt patterns are correct, then the backend device and/or the connection to it are too slow to beat the [expectation timeout][expectation timeout]. Try setting a larger value.
 
 Prerequisite Violations
 ===
@@ -47,14 +47,13 @@ indicates there was a parsing error. The output will name each entity just befor
 
 Test Failures
 ===
-Try [`-DdeprecatedFlag=W`][configuration]. CCL's messaging for deprecated constructs does not always explain the problem is deprecation. This should only be done temporarily as it
+Try [`-DdeprecatedFlag=W`](CONFIGURATIONOPTIONS.md#deprecatedFlag). CCL's messaging for deprecated constructs does not always explain the problem is deprecation. This should only be done temporarily as it
 prevents the identification of undeclared variables. Here are some known examples
 - %CCL-E-414 and %CCL-E-415: Non-boolean predicate could return truncation in where clause requiring ccl893 or higher.
   - most likely MAXREC or ASSIGN was used in a where clause without adding '> 0' or '= #'. 
 - %CCL-E-393: updt column missing from update command.
   - When updating a record, the updt_dt_tm column must be be updated.
 
-[prompt patterns]:./CONFIGURATIONOPTIONS.md#os-prompt-pattern
+[prompt patterns]:./CONFIGURATIONOPTIONS.md#osPromptPattern
 [expectation timeout]:./CONFIGURATIONOPTIONS.md#expectationTimeout
-[configuration]:CONFIGURATIONOPTIONS.md#ccl-log-file
 [expect4j]:https://github.com/cverges/expect4j
