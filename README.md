@@ -18,11 +18,15 @@ tests, and retrieving the test and coverage results.
 * [**jsch-util (2.0.0)**](jsch-util/README.md) - ccl-maven-plugin dependency leveraging JCraft to provide back-end connections for j4ccl-ssh.
 * [**cclunit-archetype (1.5)**](./archetype/ARCHETYPEUSAGE.md) - archetype to generate a skeleton CCL project using the latest plugins.
 * [**cclunit-maven-settings-check-archetype (1.2)**](./archetype/ARCHETYPEUSAGE.md) - archetype to generate a CCL project to check maven settings.
-
-Some significant differences from legacy versions to note:
-* The artifactId for plugins is now `X-maven-plugin` rather than `maven-X-plugin` to satisfy [maven3 restrictions on plugin naming][plugin-naming].
-* Several groupId values changed. All components now live below com.cerner.ccl or com.cerner.ftp. In particular use com.cerner.ccl.testing not com.cerner.ccltesting.
-* The [specifyDebugCcl](ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md#specifyDebugCcl) flag in the ccl-maven-plugin.
+  
+## Legacy Upgades
+Here are some significant differences from legacy versions to note:
+* The artifactId for plugins is now `X-maven-plugin` rather than `maven-X-plugin` 
+    * This is to satisfy [maven3 restrictions on plugin naming][plugin-naming].
+* Several groupId values were changed. 
+    * All components now live below `com.cerner.ccl` or `com.cerner.ftp`. 
+    * In particular use `com.cerner.ccl.testing` not `com.cerner.ccltesting`.
+* To see code coverage, [specifyDebugCcl](ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md#specifyDebugCcl) must be false for CCL versions prior to 8.13.0.
 
 ## Quick Start Guide
 If you are new to CCL Unit testing and want to get started quickly, [look here][cclunit_quickstart].
@@ -34,14 +38,16 @@ Take a look at the [sample pom configuration](ccl-maven-plugin/README.md) and
 
 Don't want your password showing up in log files? [Look here](ccl-maven-plugin/doc/PASSWORDLOGGING.md).
 
+## Troubleshooting  
 Having build issues? [Look here](ccl-maven-plugin/doc/BUILDISSUES.md) for some common problems and troubleshooting tips.
+
 
 ## Release Schedule
 
 The release schedule will be driven by requests for and contributions of enhancements and corrections.  
 See the [change log](CHANGELOG.md) for the contents of previous releases.
 
-## Contribute
+## Contributing
 
 You are welcomed to Contribute. Please read our [Contribution Guidelines][contibution_guidelines].
 
