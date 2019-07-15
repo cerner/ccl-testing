@@ -1,13 +1,15 @@
   # Build Issues
 
 ## Contents
-[Timout Issues](#timout-issues)  
+[Timeout Issues](#timeout-issues)  
 [Prerequisite Violations](#prerequisite-violations)  
 [Compile Failures](#compile-failures)  
 [Parsing Errors](#parsing-errors)  
 [Test Failures](#test-failures)  
+[Code Coverage Problems](#code-coverage-problems)  
+[Legacy Upgrades](#legacy-upgrades)  
 
-Timout Issues
+Timeout Issues
 ===
 expectj4 send status TIMEOUT (-2)
 
@@ -54,6 +56,21 @@ prevents the identification of undeclared variables. Here are some known example
 - %CCL-E-393: updt column missing from update command.
   - When updating a record, the updt_dt_tm column must be be updated.
 
+Code Coverage Problems
+===
+To see code coverage, [specifyDebugCcl](ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md#specifyDebugCcl) must be false for CCL versions prior to 8.13.0.
+
+Legacy Upgrades
+===
+There are some significant differences from legacy versions to note:
+* The artifactId for plugins is now `X-maven-plugin` rather than `maven-X-plugin` 
+    * This is to satisfy [maven3 restrictions on plugin naming][plugin-naming].
+* Several groupId values were changed. 
+    * All components now live below `com.cerner.ccl` or `com.cerner.ftp`. 
+    * In particular use `com.cerner.ccl.testing` not `com.cerner.ccltesting`.
+
+
 [prompt patterns]:./CONFIGURATIONOPTIONS.md#osPromptPattern
 [expectation timeout]:./CONFIGURATIONOPTIONS.md#expectationTimeout
 [expect4j]:https://github.com/cverges/expect4j
+[plugin-naming]:https://maven.apache.org/guides/introduction/introduction-to-plugin-prefix-mapping.html
