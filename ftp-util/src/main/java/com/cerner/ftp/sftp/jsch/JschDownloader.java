@@ -31,16 +31,19 @@ public class JschDownloader implements Downloader {
         this.processor = processor;
     }
 
-    public void download(final Collection<? extends FileRequest> requests) {
+	@Override
+	public void download(final Collection<? extends FileRequest> requests) {
         final EtmPoint point = MONITOR.createPoint(getClass().getName() + ": download(Collection)");
 
         try {
             // If there's nothing to download...
-            if (requests.isEmpty())
-                return;
+            if (requests.isEmpty()) {
+				return;
+			}
 
-            for (final FileRequest request : requests)
-                processor.queueDownload(request);
+            for (final FileRequest request : requests) {
+				processor.queueDownload(request);
+			}
 
             processor.download();
         } finally {

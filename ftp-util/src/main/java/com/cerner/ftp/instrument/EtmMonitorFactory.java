@@ -27,8 +27,9 @@ public class EtmMonitorFactory {
      */
     public static EtmMonitor getEtmMonitor() {
         final EtmMonitor monitor = EtmManager.getEtmMonitor();
-        if (monitor.isStarted())
-            return monitor;
+        if (monitor.isStarted()) {
+			return monitor;
+		}
 
         return NO_OP_MONITOR;
     }
@@ -44,37 +45,46 @@ public class EtmMonitorFactory {
         public NoOpEtmPoint() {
         }
 
-        public void alterName(final String newName) {
+		@Override
+		public void alterName(final String newName) {
         }
 
-        public void collect() {
+		@Override
+		public void collect() {
         }
 
-        public long getEndTime() {
+		@Override
+		public long getEndTime() {
             return 0;
         }
 
-        public String getName() {
+		@Override
+		public String getName() {
             return null;
         }
 
-        public EtmPoint getParent() {
+		@Override
+		public EtmPoint getParent() {
             return null;
         }
 
-        public long getStartTime() {
+		@Override
+		public long getStartTime() {
             return 0;
         }
 
-        public long getStartTimeMillis() {
+		@Override
+		public long getStartTimeMillis() {
             return 0;
         }
 
-        public long getTicks() {
+		@Override
+		public long getTicks() {
             return 0;
         }
 
-        public double getTransactionTime() {
+		@Override
+		public double getTransactionTime() {
             return 0;
         }
     }
@@ -91,51 +101,65 @@ public class EtmMonitorFactory {
         public NoOpEtmMonitor() {
         }
 
-        public void addPlugin(final EtmPlugin aEtmPlugin) {
+		@Override
+		public void addPlugin(final EtmPlugin aEtmPlugin) {
         }
 
-        public void aggregate() {
+		@Override
+		public void aggregate() {
         }
 
-        public EtmPoint createPoint(final String symbolicName) {
+		@Override
+		public EtmPoint createPoint(final String symbolicName) {
             return NO_OP_POINT;
         }
 
-        public void disableCollection() {
+		@Override
+		public void disableCollection() {
         }
 
-        public void enableCollection() {
+		@Override
+		public void enableCollection() {
         }
 
-        public EtmMonitorMetaData getMetaData() {
+		@Override
+		public EtmMonitorMetaData getMetaData() {
             return null;
         }
 
-        public boolean isCollecting() {
+		@Override
+		public boolean isCollecting() {
             return false;
         }
 
-        public boolean isStarted() {
+		@Override
+		public boolean isStarted() {
             return false;
         }
 
-        public void render(final MeasurementRenderer renderer) {
+		@Override
+		public void render(final MeasurementRenderer renderer) {
         }
 
-        public void reset() {
+		@Override
+		public void reset() {
         }
 
-        public void reset(final String symbolicName) {
+		@Override
+		public void reset(final String symbolicName) {
         }
 
-        @SuppressWarnings("rawtypes")
+		@Override
+		@SuppressWarnings("rawtypes")
         public void setPlugins(final List plugins) {
         }
 
-        public void start() {
+		@Override
+		public void start() {
         }
 
-        public void stop() {
+		@Override
+		public void stop() {
         }
     }
 }

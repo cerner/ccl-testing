@@ -44,8 +44,9 @@ public class SimpleUserPassBuilder extends UserPassBuilder {
 
     @Override
     public UserPassBuilder setPassword(final String password) {
-        if (password == null)
-            throw new NullPointerException("Password cannot be null.");
+        if (password == null) {
+			throw new NullPointerException("Password cannot be null.");
+		}
 
         this.password = password;
         markAsSet(Attribute.PASSWORD);
@@ -54,17 +55,20 @@ public class SimpleUserPassBuilder extends UserPassBuilder {
 
     @Override
     public UserPassProduct build() {
-        for (final Attribute a : Attribute.values())
-            if (!isSet(a))
-                throw new IllegalStateException("Unset attribute: " + a.toString());
+        for (final Attribute a : Attribute.values()) {
+			if (!isSet(a)) {
+				throw new IllegalStateException("Unset attribute: " + a.toString());
+			}
+		}
 
         return new UserPassProductImpl(username, password, serverAddress);
     }
 
     @Override
     public UserPassBuilder setServerAddress(final URI serverAddress) {
-        if (serverAddress == null)
-            throw new NullPointerException("Server address cannot be null.");
+        if (serverAddress == null) {
+			throw new NullPointerException("Server address cannot be null.");
+		}
 
         this.serverAddress = serverAddress;
         markAsSet(Attribute.SERVER_ADDRESS);
@@ -73,8 +77,9 @@ public class SimpleUserPassBuilder extends UserPassBuilder {
 
     @Override
     public UserPassBuilder setUsername(final String username) {
-        if (username == null)
-            throw new NullPointerException("Username cannot be null.");
+        if (username == null) {
+			throw new NullPointerException("Username cannot be null.");
+		}
 
         this.username = username;
         markAsSet(Attribute.USERNAME);
@@ -133,21 +138,24 @@ public class SimpleUserPassBuilder extends UserPassBuilder {
         /**
          * {@inheritDoc}
          */
-        public String getPassword() {
+		@Override
+		public String getPassword() {
             return password;
         }
 
         /**
          * {@inheritDoc}
          */
-        public URI getServerAddress() {
+		@Override
+		public URI getServerAddress() {
             return serverAddress;
         }
 
         /**
          * {@inheritDoc}
          */
-        public String getUsername() {
+		@Override
+		public String getUsername() {
             return username;
         }
 

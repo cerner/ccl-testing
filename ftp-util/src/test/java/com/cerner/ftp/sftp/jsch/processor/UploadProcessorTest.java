@@ -56,7 +56,8 @@ public class UploadProcessorTest {
     @Test(expected = TransferException.class)
     public void testPutFailure() {
         final Answer<Object> exceptionThrower = new Answer<Object>() {
-            public Object answer(final InvocationOnMock invocation) throws Throwable {
+			@Override
+			public Object answer(final InvocationOnMock invocation) throws Throwable {
                 throw mock(SftpException.class);
             }
         };

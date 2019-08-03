@@ -53,10 +53,12 @@ public class CachedLibrarian implements ConnectionLibrarian<CachedConnection> {
         this.idGenerator = idGenerator;
     }
 
-    public void checkIn(final CachedConnection connection) {
-        if (!checkedOut.containsKey(connection))
-            throw new IllegalArgumentException(
+	@Override
+	public void checkIn(final CachedConnection connection) {
+        if (!checkedOut.containsKey(connection)) {
+			throw new IllegalArgumentException(
                     "The given connection is either unknown to this librarian or has already been checked in.");
+		}
 
         final String cacheKey = checkedOut.get(connection);
         final Set<Connection> connections = cast(cache.get(cacheKey).getObjectValue());
@@ -64,12 +66,14 @@ public class CachedLibrarian implements ConnectionLibrarian<CachedConnection> {
         connections.add(connection);
     }
 
-    public CachedConnection checkOut(final String username, final String password, final URI serverAddress) {
+	@Override
+	public CachedConnection checkOut(final String username, final String password, final URI serverAddress) {
         final String id = idGenerator.buildKey(username, password, serverAddress);
         return retrieveCachedConnection(id, new UserPasswordCreator(username, password, serverAddress, this));
     }
 
-    public CachedConnection checkOut(final String username, final String salt, final URI privateKeyLocation,
+	@Override
+	public CachedConnection checkOut(final String username, final String salt, final URI privateKeyLocation,
             final URI serverAddress) {
         final String id = idGenerator.buildKey(username, salt, privateKeyLocation, serverAddress);
         return retrieveCachedConnection(id,
@@ -91,9 +95,9 @@ public class CachedLibrarian implements ConnectionLibrarian<CachedConnection> {
         final Set<CachedConnection> connections = getCachedConnections(id);
 
         CachedConnection connection;
-        if (connections.isEmpty())
-            connection = creator.create();
-        else {
+        if (connections.isEmpty()) {
+			connection = creator.create();
+		} else {
             connection = connections.iterator().next();
             connections.remove(connection);
         }
@@ -116,8 +120,9 @@ public class CachedLibrarian implements ConnectionLibrarian<CachedConnection> {
         if (!cache.isKeyInCache(key)) {
             connections = new HashSet<CachedConnection>();
             cache.put(new Element(key, connections));
-        } else
-            connections = cast(cache.get(key).getObjectValue());
+        } else {
+			connections = cast(cache.get(key).getObjectValue());
+		}
 
         return connections;
     }
@@ -186,7 +191,8 @@ public class CachedLibrarian implements ConnectionLibrarian<CachedConnection> {
             this.librarian = librarian;
         }
 
-        public CachedConnection create() {
+		@Override
+		public CachedConnection create() {
             return new CachedConnection(username, password, serverAddress, librarian);
         }
     }
@@ -227,7 +233,8 @@ public class CachedLibrarian implements ConnectionLibrarian<CachedConnection> {
             this.librarian = librarian;
         }
 
-        public CachedConnection create() {
+		@Override
+		public CachedConnection create() {
             return new CachedConnection(username, salt, privateKeyLocation, serverAddress, librarian);
         }
 

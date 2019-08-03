@@ -84,8 +84,9 @@ public class CachedLibrarianTest {
      */
     @After
     public void tearDown() {
-        if (cache != null)
-            cache.removeAll();
+        if (cache != null) {
+			cache.removeAll();
+		}
     }
 
     /**
@@ -124,8 +125,9 @@ public class CachedLibrarianTest {
         librarian.checkIn(conn);
 
         final Field checkOutField = CachedLibrarian.class.getDeclaredField("checkedOut");
-        if (!checkOutField.isAccessible())
-            checkOutField.setAccessible(true);
+        if (!checkOutField.isAccessible()) {
+			checkOutField.setAccessible(true);
+		}
         final Map<Connection, String> checkedOut = (Map<Connection, String>) checkOutField.get(librarian);
         assertThat(checkedOut.containsKey(conn)).isFalse();
     }
@@ -214,7 +216,8 @@ public class CachedLibrarianTest {
             this.connection = connection;
         }
 
-        public CachedConnection create() {
+		@Override
+		public CachedConnection create() {
             return connection;
         }
     }

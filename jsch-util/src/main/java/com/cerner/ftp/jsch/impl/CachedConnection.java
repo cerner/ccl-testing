@@ -66,12 +66,15 @@ public class CachedConnection implements Connection {
         this.session = createSession(username, salt, privateKeyLocation, serverAddress);
     }
 
+    @Override
     public void close() {
         closed = true;
 
-        for (final Channel channel : channels)
-            if (!channel.isClosed())
+        for (final Channel channel : channels) {
+            if (!channel.isClosed()) {
                 channel.disconnect();
+            }
+        }
 
         channels.clear();
 
@@ -84,30 +87,38 @@ public class CachedConnection implements Connection {
     public void closePhysical() {
         closed = true;
 
-        if (session != null)
+        if (session != null) {
             session.disconnect();
+        }
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final CachedConnection other = (CachedConnection) obj;
         if (session == null) {
-            if (other.session != null)
+            if (other.session != null) {
                 return false;
-        } else if (!session.equals(other.session))
+            }
+        } else if (!session.equals(other.session)) {
             return false;
+        }
         return true;
     }
 
+    @Override
     public ChannelSftp getSFtp() {
-        if (isClosed())
+        if (isClosed()) {
             throw new IllegalStateException("Connection is closed.");
+        }
 
         try {
             final ChannelSftp sftp = (ChannelSftp) session.openChannel("sftp");
@@ -118,9 +129,11 @@ public class CachedConnection implements Connection {
         }
     }
 
+    @Override
     public ChannelShell getShell() {
-        if (isClosed())
+        if (isClosed()) {
             throw new IllegalStateException("Connection is closed.");
+        }
 
         try {
             final ChannelShell shell = (ChannelShell) session.openChannel("shell");
@@ -139,6 +152,7 @@ public class CachedConnection implements Connection {
         return result;
     }
 
+    @Override
     public boolean isClosed() {
         return closed;
     }
@@ -155,15 +169,55 @@ public class CachedConnection implements Connection {
      * @return A {@link Session} object representing a connection to the remote server.
      */
     private Session createSession(final String username, final String password, final URI serverAddress) {
+        JSch.setLogger(new MyLogger());
         final JSch jsch = new JSch();
         try {
-            jsch.setConfig("PreferredAuthentications", "password");
+            System.out.println("username: " + username);
+            System.out.println("password: " + password);
+            System.out.println("serverAddress: " + serverAddress);
+            System.out.println("serverAddress.getPath(): " + serverAddress.getPath());
+            JSch.setConfig("PreferredAuthentications", "password");
             final Session session = jsch.getSession(username, serverAddress.getPath(), 22);
             session.setUserInfo(new SimpleUserInfo(password, null));
             session.connect();
             return session;
         } catch (final JSchException e) {
             throw new RuntimeException("Failed to establish connection with username/password authentication.", e);
+        }
+    }
+
+    /**
+     * JSch Logger
+     *
+     * @author Fred Eckertson
+     *
+     */
+    public static class MyLogger implements com.jcraft.jsch.Logger {
+        static java.util.Hashtable<Integer, String> name = new java.util.Hashtable<Integer, String>();
+        static {
+            name.put(new Integer(DEBUG), "DEBUG: ");
+            name.put(new Integer(INFO), "INFO: ");
+            name.put(new Integer(WARN), "WARN: ");
+            name.put(new Integer(ERROR), "ERROR: ");
+            name.put(new Integer(FATAL), "FATAL: ");
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean isEnabled(final int level) {
+            // TODO: make this configurable.
+            return false;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void log(final int level, final String message) {
+            System.err.print(name.get(new Integer(level)));
+            System.err.println(message);
         }
     }
 
@@ -184,7 +238,7 @@ public class CachedConnection implements Connection {
             final URI serverAddress) {
         final JSch jsch = new JSch();
         try {
-            jsch.setConfig("PreferredAuthentications", "publickey");
+            JSch.setConfig("PreferredAuthentications", "publickey");
             jsch.addIdentity(new File(privateKeyLocation).getAbsolutePath());
             final Session session = jsch.getSession(username, serverAddress.getPath(), 22);
             session.setUserInfo(new SimpleUserInfo(null, salt));
@@ -202,8 +256,9 @@ public class CachedConnection implements Connection {
      *             If the connection wrapped by this object is either absent or has been physically closed.
      */
     void open() {
-        if (session == null || !session.isConnected())
+        if (session == null || !session.isConnected()) {
             throw new IllegalStateException("Connection is either unavailable or physically closed.");
+        }
 
         closed = false;
     }
@@ -231,26 +286,32 @@ public class CachedConnection implements Connection {
             this.salt = salt;
         }
 
+        @Override
         public String getPassphrase() {
             return salt;
         }
 
+        @Override
         public String getPassword() {
             return password;
         }
 
+        @Override
         public boolean promptPassphrase(final String message) {
             return true;
         }
 
+        @Override
         public boolean promptPassword(final String message) {
             return true;
         }
 
+        @Override
         public boolean promptYesNo(final String message) {
             return true;
         }
 
+        @Override
         public void showMessage(final String message) {
         }
     }
