@@ -24,8 +24,8 @@ public class CacheKeyBuilder implements IdentifierGenerator {
      */
     static final String PRIVATE_KEY_SALT = "private key: ";
 
-	@Override
-	public String buildKey(final String username, final String password, final URI serverAddress) {
+    @Override
+    public String buildKey(final String username, final String password, final URI serverAddress) {
         try {
             return Base64.encodeBase64String(
                     (USERNAME_PASSWORD_SALT + username + password + serverAddress.toString()).getBytes("utf-8"));
@@ -34,8 +34,8 @@ public class CacheKeyBuilder implements IdentifierGenerator {
         }
     }
 
-	@Override
-	public String buildKey(final String username, final String salt, final URI privateKeyLocation,
+    @Override
+    public String buildKey(final String username, final String salt, final URI privateKeyLocation,
             final URI serverAddress) {
         try {
             return Base64.encodeBase64String(

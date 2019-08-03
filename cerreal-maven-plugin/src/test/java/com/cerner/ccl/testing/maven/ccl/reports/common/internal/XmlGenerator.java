@@ -42,7 +42,7 @@ public class XmlGenerator {
      * 
      *            <pre>
      *            Arrays.asList(&quot;call echo('test')&quot;, incStart + &quot;%i cclsource:test.inc&quot;, &quot;call echo('nested in an include!')&quot;,
-     *                    incEnd + &quot;%i cclsource:test.inc&quot;, &quot;call echo('not nested!')&quot;)
+     *            incEnd + &quot;%i cclsource:test.inc&quot;, &quot;call echo('not nested!')&quot;)
      *            </pre>
      * 
      * @return A {@link String} containing the listing XML.

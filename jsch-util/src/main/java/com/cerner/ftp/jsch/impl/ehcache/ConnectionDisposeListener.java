@@ -18,34 +18,34 @@ import net.sf.ehcache.event.CacheEventListener;
 
 public class ConnectionDisposeListener implements CacheEventListener {
 
-	@Override
-	public void dispose() {
+    @Override
+    public void dispose() {
     }
 
-	@Override
-	public void notifyElementEvicted(final Ehcache cache, final Element element) {
+    @Override
+    public void notifyElementEvicted(final Ehcache cache, final Element element) {
     }
 
-	@Override
-	public void notifyElementExpired(final Ehcache cache, final Element element) {
+    @Override
+    public void notifyElementExpired(final Ehcache cache, final Element element) {
         close(element);
     }
 
-	@Override
-	public void notifyElementPut(final Ehcache cache, final Element element) throws CacheException {
+    @Override
+    public void notifyElementPut(final Ehcache cache, final Element element) throws CacheException {
     }
 
-	@Override
-	public void notifyElementRemoved(final Ehcache cache, final Element element) throws CacheException {
+    @Override
+    public void notifyElementRemoved(final Ehcache cache, final Element element) throws CacheException {
         close(element);
     }
 
-	@Override
-	public void notifyElementUpdated(final Ehcache cache, final Element element) throws CacheException {
+    @Override
+    public void notifyElementUpdated(final Ehcache cache, final Element element) throws CacheException {
     }
 
-	@Override
-	public void notifyRemoveAll(final Ehcache cache) {
+    @Override
+    public void notifyRemoveAll(final Ehcache cache) {
         /*
          * This method is not implemented because, when #removeAll() is invoked, the elements within the cache have
          * already been removed and are unavilable.
@@ -60,13 +60,13 @@ public class ConnectionDisposeListener implements CacheEventListener {
     private void close(final Element element) {
         final Object values = element.getObjectValue();
         if (values == null || !(values instanceof Set)) {
-			return;
-		}
+            return;
+        }
 
         for (final Object value : (Set<?>) values) {
-			if (value instanceof CachedConnection) {
-				((CachedConnection) value).closePhysical();
-			}
-		}
+            if (value instanceof CachedConnection) {
+                ((CachedConnection) value).closePhysical();
+            }
+        }
     }
 }

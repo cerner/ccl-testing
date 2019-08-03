@@ -27,12 +27,12 @@ public class FileRequestFactory {
      */
     public static FileRequest create(final URI sourceFile, final URI targetFile) {
         if (sourceFile == null) {
-			throw new NullPointerException("Source file cannot be null.");
-		}
+            throw new NullPointerException("Source file cannot be null.");
+        }
 
         if (targetFile == null) {
-			throw new NullPointerException("Target file cannot be null.");
-		}
+            throw new NullPointerException("Target file cannot be null.");
+        }
 
         return new FileRequestImpl(sourceFile, targetFile);
     }
@@ -66,16 +66,16 @@ public class FileRequestFactory {
         @Override
         public boolean equals(final Object o) {
             if (o == null) {
-				return false;
-			}
+                return false;
+            }
 
             if (!(o instanceof FileRequest)) {
-				return false;
-			}
+                return false;
+            }
 
             if (o == this) {
-				return true;
-			}
+                return true;
+            }
 
             final FileRequest other = (FileRequest) o;
 
@@ -88,8 +88,8 @@ public class FileRequestFactory {
          *
          * @see FileRequest#getSourceFile()
          */
-		@Override
-		public URI getSourceFile() {
+        @Override
+        public URI getSourceFile() {
             return sourceFile;
         }
 
@@ -98,8 +98,8 @@ public class FileRequestFactory {
          *
          * @see FileRequest#getTargetFile()
          */
-		@Override
-		public URI getTargetFile() {
+        @Override
+        public URI getTargetFile() {
             return targetFile;
         }
 

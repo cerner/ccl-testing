@@ -34,28 +34,28 @@ public class JschUploader implements Uploader {
         this.processor = processor;
     }
 
-	@Override
-	public void ignoreChmodErrors(final boolean ignoreChmodErrors) {
+    @Override
+    public void ignoreChmodErrors(final boolean ignoreChmodErrors) {
         this.ignoreChmodErrors = ignoreChmodErrors;
     }
 
-	@Override
-	public void setPermissions(final int permissions) {
+    @Override
+    public void setPermissions(final int permissions) {
         this.permissions = permissions;
     }
 
-	@Override
-	public void upload(final Collection<? extends FileRequest> requests) {
+    @Override
+    public void upload(final Collection<? extends FileRequest> requests) {
         final EtmPoint point = MONITOR.createPoint(getClass().getName() + ": upload(Collection)");
 
         try {
             if (requests.isEmpty()) {
-				return;
-			}
+                return;
+            }
 
             for (final FileRequest request : requests) {
-				processor.queueUpload(request, ignoreChmodErrors, permissions);
-			}
+                processor.queueUpload(request, ignoreChmodErrors, permissions);
+            }
 
             processor.upload();
         } finally {

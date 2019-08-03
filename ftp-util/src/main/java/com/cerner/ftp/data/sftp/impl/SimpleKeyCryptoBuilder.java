@@ -50,10 +50,10 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
     @Override
     public KeyCryptoProduct build() {
         for (final Attribute a : Attribute.values()) {
-			if (!isSet(a)) {
-				throw new IllegalStateException("Unset attribute: " + a.toString());
-			}
-		}
+            if (!isSet(a)) {
+                throw new IllegalStateException("Unset attribute: " + a.toString());
+            }
+        }
 
         return new KeyCryptoProductImpl(username, keySalt, privateKey, serverAddress);
     }
@@ -61,8 +61,8 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
     @Override
     public KeyCryptoBuilder setKeySalt(final String keySalt) {
         if (keySalt == null) {
-			throw new NullPointerException("Key salt cannot be null.");
-		}
+            throw new NullPointerException("Key salt cannot be null.");
+        }
 
         this.keySalt = keySalt;
         markAsSet(Attribute.KEY_SALT);
@@ -72,8 +72,8 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
     @Override
     public KeyCryptoBuilder setPrivateKey(final URI privateKey) {
         if (privateKey == null) {
-			throw new NullPointerException("Private key location cannot be null.");
-		}
+            throw new NullPointerException("Private key location cannot be null.");
+        }
 
         this.privateKey = privateKey;
         markAsSet(Attribute.PRIVATE_KEY);
@@ -83,8 +83,8 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
     @Override
     public KeyCryptoBuilder setServerAddress(final URI serverAddress) {
         if (serverAddress == null) {
-			throw new NullPointerException("Server address cannot be null.");
-		}
+            throw new NullPointerException("Server address cannot be null.");
+        }
 
         this.serverAddress = serverAddress;
         markAsSet(Attribute.SERVER_ADDRESS);
@@ -94,8 +94,8 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
     @Override
     public KeyCryptoBuilder setUsername(final String username) {
         if (username == null) {
-			throw new NullPointerException("Username cannot be null.");
-		}
+            throw new NullPointerException("Username cannot be null.");
+        }
 
         this.username = username;
         markAsSet(Attribute.USERNAME);
@@ -158,32 +158,32 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
         /**
          * {@inheritDoc}
          */
-		@Override
-		public String getKeySalt() {
+        @Override
+        public String getKeySalt() {
             return keySalt;
         }
 
         /**
          * {@inheritDoc}
          */
-		@Override
-		public URI getPrivateKey() {
+        @Override
+        public URI getPrivateKey() {
             return privateKey;
         }
 
         /**
          * {@inheritDoc}
          */
-		@Override
-		public URI getServerAddress() {
+        @Override
+        public URI getServerAddress() {
             return serverAddress;
         }
 
         /**
          * {@inheritDoc}
          */
-		@Override
-		public String getUsername() {
+        @Override
+        public String getUsername() {
             return username;
         }
 

@@ -134,18 +134,18 @@ public class AbstractCCLMavenReportTest {
         public ConcreteReportMojo() {
         }
 
-		@Override
-		public String getOutputName() {
+        @Override
+        public String getOutputName() {
             return null;
         }
 
-		@Override
-		public String getName(final Locale locale) {
+        @Override
+        public String getName(final Locale locale) {
             return null;
         }
 
-		@Override
-		public String getDescription(final Locale locale) {
+        @Override
+        public String getDescription(final Locale locale) {
             return null;
         }
 
