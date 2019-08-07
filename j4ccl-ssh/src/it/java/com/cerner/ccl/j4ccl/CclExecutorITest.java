@@ -464,7 +464,7 @@ public class CclExecutorITest {
      */
     @Test
     public void testReadUtf8() throws Exception {
-        final String stringValue = "/*Don�t join DCD to DAC */";
+        final String stringValue = "/* Don�t join DCD to DAC */";
         final Record request = RecordFactory.create("request_test",
                 StructureBuilder.getBuilder().addVC("source").build());
         request.setVC("source", stringValue);

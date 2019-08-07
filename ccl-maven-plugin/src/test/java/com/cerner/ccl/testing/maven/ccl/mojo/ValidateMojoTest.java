@@ -1,7 +1,7 @@
 package com.cerner.ccl.testing.maven.ccl.mojo;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -35,9 +35,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.cerner.ccl.j4ccl.CclExecutor;
 import com.cerner.ccl.j4ccl.adders.ScriptExecutionAdder;
 import com.cerner.ccl.j4ccl.record.Record;
-import com.cerner.ccl.testing.maven.ccl.mojo.BaseCclMojo;
-import com.cerner.ccl.testing.maven.ccl.mojo.ValidateMojo;
-import com.cerner.ccl.testing.maven.ccl.mojo.ValidationRule;
 
 /**
  * Unit tests for {@link ValidateMojo}.
@@ -237,9 +234,11 @@ public class ValidateMojoTest {
         /**
          * {@inheritDoc}
          */
+        @Override
         public ScriptExecutionAdder answer(final InvocationOnMock invocation) throws Throwable {
-            if (invocation.getArguments()[1] instanceof Record)
+            if (invocation.getArguments()[1] instanceof Record) {
                 ((Record) invocation.getArguments()[1]).setVC("STATE", state);
+            }
             return adder;
         }
 

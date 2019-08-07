@@ -32,8 +32,9 @@ public class DuplicateSubroutineDefinitionViolation implements SubroutineViolati
      *             If the given subroutine name is {@code null}.
      */
     public DuplicateSubroutineDefinitionViolation(final String subroutineName, final Integer lineNumber) {
-        if (subroutineName == null)
+        if (subroutineName == null) {
             throw new IllegalArgumentException("Subroutine name cannot be null.");
+        }
 
         this.subroutineName = subroutineName;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -41,11 +42,13 @@ public class DuplicateSubroutineDefinitionViolation implements SubroutineViolati
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof DuplicateSubroutineDefinitionViolation))
+        if (!(obj instanceof DuplicateSubroutineDefinitionViolation)) {
             return false;
+        }
 
         final DuplicateSubroutineDefinitionViolation other = (DuplicateSubroutineDefinitionViolation) obj;
         return getSubroutineName().equalsIgnoreCase(other.getSubroutineName())
@@ -55,6 +58,7 @@ public class DuplicateSubroutineDefinitionViolation implements SubroutineViolati
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -62,6 +66,7 @@ public class DuplicateSubroutineDefinitionViolation implements SubroutineViolati
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return getSubroutineName() + " has been defined twice with two different implementations";
     }
@@ -69,6 +74,7 @@ public class DuplicateSubroutineDefinitionViolation implements SubroutineViolati
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "Unless you are carefully managing the scope of subroutine definitions, it is not recommended to have two different implementations "
                 + "of the same subroutine. Consider consolidating the logic to a single consistent routine or rename the subroutine to avoid "
@@ -78,6 +84,7 @@ public class DuplicateSubroutineDefinitionViolation implements SubroutineViolati
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }
@@ -85,6 +92,7 @@ public class DuplicateSubroutineDefinitionViolation implements SubroutineViolati
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getSubroutineName() {
         return subroutineName;
     }

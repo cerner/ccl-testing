@@ -41,7 +41,6 @@ import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePasswordCredential;
 import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePrincipal;
 import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPasswordCredential;
 import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPrincipal;
-import com.cerner.ccl.testing.maven.ccl.mojo.BaseCclMojo;
 import com.cerner.ccl.testing.maven.ccl.util.CclLogFileOutputStream;
 import com.cerner.ccl.testing.maven.ccl.util.DelegatingOutputStream;
 import com.cerner.ccl.testing.maven.ccl.util.LogOutputStreamProxy;
@@ -460,11 +459,13 @@ public class BaseCclMojoTest {
 
             LogOutputStreamProxy proxy = null;
             CclLogFileOutputStream logStream = null;
-            for (final OutputStream stream : delegateStreams)
-                if (stream instanceof LogOutputStreamProxy)
+            for (final OutputStream stream : delegateStreams) {
+                if (stream instanceof LogOutputStreamProxy) {
                     proxy = (LogOutputStreamProxy) stream;
-                else if (stream instanceof CclLogFileOutputStream)
+                } else if (stream instanceof CclLogFileOutputStream) {
                     logStream = (CclLogFileOutputStream) stream;
+                }
+            }
 
             assertThat(proxy).isNotNull();
             assertThat(proxy.getLogProxy().getLog()).isSameAs(log);
@@ -522,9 +523,11 @@ public class BaseCclMojoTest {
             assertThat(delegateStreams).isNotEmpty();
 
             CclLogFileOutputStream logStream = null;
-            for (final OutputStream stream : delegateStreams)
-                if (stream instanceof CclLogFileOutputStream)
+            for (final OutputStream stream : delegateStreams) {
+                if (stream instanceof CclLogFileOutputStream) {
                     logStream = (CclLogFileOutputStream) stream;
+                }
+            }
 
             assertThat(logStream).isNotNull();
         } finally {
@@ -558,9 +561,11 @@ public class BaseCclMojoTest {
             assertThat(delegateStreams).isNotEmpty();
 
             LogOutputStreamProxy logStream = null;
-            for (final OutputStream stream : delegateStreams)
-                if (stream instanceof LogOutputStreamProxy)
+            for (final OutputStream stream : delegateStreams) {
+                if (stream instanceof LogOutputStreamProxy) {
                     logStream = (LogOutputStreamProxy) stream;
+                }
+            }
 
             assertThat(logStream).isNotNull();
         } finally {
@@ -598,9 +603,11 @@ public class BaseCclMojoTest {
             assertThat(delegateStreams).isNotEmpty();
 
             LogOutputStreamProxy logStream = null;
-            for (final OutputStream stream : delegateStreams)
-                if (stream instanceof LogOutputStreamProxy)
+            for (final OutputStream stream : delegateStreams) {
+                if (stream instanceof LogOutputStreamProxy) {
                     logStream = (LogOutputStreamProxy) stream;
+                }
+            }
 
             assertThat(logStream).isNotNull();
         } finally {
@@ -695,6 +702,7 @@ public class BaseCclMojoTest {
         public StubCclMojo() {
         }
 
+        @Override
         public void execute() {
         }
     }

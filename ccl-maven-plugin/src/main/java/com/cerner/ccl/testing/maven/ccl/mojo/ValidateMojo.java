@@ -50,6 +50,7 @@ public class ValidateMojo extends BaseCclMojo {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         validateTestFrameworkVersion();
     }
@@ -70,14 +71,16 @@ public class ValidateMojo extends BaseCclMojo {
         }
 
         final String testFrameworkVersion = validationRule.getTestFrameworkVersion();
-        if (testFrameworkVersion == null)
+        if (testFrameworkVersion == null) {
             return;
+        }
 
         final VersionRange range = getVersionRange(testFrameworkVersion);
 
         final Record stateReply = RecordFactory.create("stateReply",
                 StructureBuilder.getBuilder().addVC("state").build());
         Subject.doAs(getSubject(), new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 CclExecutor executor;
                 try {

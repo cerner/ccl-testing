@@ -135,8 +135,8 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
         final RecordStructureField field = mock(RecordStructureField.class);
         final AbstractParentRecordStructureMember list = mock(AbstractParentRecordStructureMember.class);
         final RecordStructure toRetrieve = new RecordStructure(name, Arrays.asList(field, list));
-        assertThat(toRetrieve.getRootLevelMember(0)).isEqualTo(field);
-        assertThat(toRetrieve.getRootLevelMember(1)).isEqualTo(list);
+        assertThat(toRetrieve.<RecordStructureField> getRootLevelMember(0)).isEqualTo(field);
+        assertThat(toRetrieve.<RecordStructureField> getRootLevelMember(1)).isEqualTo(list);
     }
 
     /**

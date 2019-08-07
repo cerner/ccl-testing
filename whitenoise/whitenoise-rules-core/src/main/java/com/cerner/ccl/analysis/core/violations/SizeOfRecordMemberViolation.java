@@ -33,8 +33,9 @@ public class SizeOfRecordMemberViolation implements Violation {
      *             If any of the given objects, except for the line number, are {@code null}.
      */
     public SizeOfRecordMemberViolation(final String option, final Integer lineNumber) {
-        if (option == null)
+        if (option == null) {
             throw new IllegalArgumentException("Option cannot be null.");
+        }
 
         this.option = option;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -42,11 +43,13 @@ public class SizeOfRecordMemberViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof SizeOfRecordMemberViolation))
+        if (!(obj instanceof SizeOfRecordMemberViolation)) {
             return false;
+        }
 
         final SizeOfRecordMemberViolation other = (SizeOfRecordMemberViolation) obj;
         return getOption().equals(other.getOption()) && getLineNumber().equals(other.getLineNumber());
@@ -55,6 +58,7 @@ public class SizeOfRecordMemberViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -62,6 +66,7 @@ public class SizeOfRecordMemberViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Size function with record list member is most likely not intended to be used with size option "
                 + getOption();
@@ -70,6 +75,7 @@ public class SizeOfRecordMemberViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "When using the size() function on a record structure dynamic list, the second parameter to the "
                 + "size function is almost always required to be 5. This ensures that you are testing for the number"
@@ -79,6 +85,7 @@ public class SizeOfRecordMemberViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

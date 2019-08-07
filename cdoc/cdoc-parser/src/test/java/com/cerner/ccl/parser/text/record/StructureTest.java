@@ -93,7 +93,7 @@ public class StructureTest extends AbstractBeanUnitTest<Structure> {
      */
     @Test
     public void testGetRootLevelMember() {
-        assertThat(structure.getRootLevelMember(0)).isEqualTo(member);
+        assertThat(structure.<StructureMember> getRootLevelMember(0)).isEqualTo(member);
     }
 
     /**

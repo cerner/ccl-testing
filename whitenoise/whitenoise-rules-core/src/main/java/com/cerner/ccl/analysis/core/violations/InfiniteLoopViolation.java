@@ -30,11 +30,13 @@ public class InfiniteLoopViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof InfiniteLoopViolation))
+        if (!(obj instanceof InfiniteLoopViolation)) {
             return false;
+        }
 
         final InfiniteLoopViolation other = (InfiniteLoopViolation) obj;
         return getLineNumber().equals(other.getLineNumber());
@@ -43,6 +45,7 @@ public class InfiniteLoopViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -50,6 +53,7 @@ public class InfiniteLoopViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Possible infinite while loop. No reference to conditional variable(s) in loop body.";
     }
@@ -57,6 +61,7 @@ public class InfiniteLoopViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "While loops must update the conditional variable(s) during each iteration of the loop; failure do so will result in an  "
                 + "infinite loop. If the conditional variable(s) are being modified from a subroutine called from within the loop, this rule will "
@@ -68,6 +73,7 @@ public class InfiniteLoopViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

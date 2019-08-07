@@ -531,12 +531,16 @@ public class CerrealReportGenerator {
             final int lineNumber) {
         int startPos = source.endsWith("\\") ? source.length() - 1 : source.length();
         int finalLineNumber = lineNumber;
-        String response = source.substring(0, startPos) + testCase.getSourceByLineNumber(++finalLineNumber);
-        while (response.indexOf(")", startPos) == -1) {
-            logger.trace("endingToRightParen cclutassert: {}", response);
-            response = (response.endsWith("\\") ? response.substring(0, response.length() - 1) : response)
-                    + testCase.getSourceByLineNumber(++finalLineNumber);
+        StringBuilder sbResponse = new StringBuilder(
+                source.substring(0, startPos) + testCase.getSourceByLineNumber(++finalLineNumber));
+        while (sbResponse.indexOf(")", startPos) == -1) {
+            logger.trace("endingToRightParen cclutassert: {}", sbResponse.toString());
+            if (sbResponse.length() > 0 && sbResponse.substring(sbResponse.length() - 1).equals("\\")) {
+                sbResponse.setLength(sbResponse.length() - 1);
+            }
+            sbResponse.append(testCase.getSourceByLineNumber(++finalLineNumber));
         }
+        String response = sbResponse.toString();
         logger.trace("found right paren: {}", response);
         MaskTextResponse maskTextResponse = maskText(response);
         response = maskTextResponse.getResponse();

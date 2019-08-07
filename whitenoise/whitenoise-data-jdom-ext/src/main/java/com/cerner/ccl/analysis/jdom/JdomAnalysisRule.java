@@ -53,6 +53,7 @@ public class JdomAnalysisRule implements AnalysisRule {
     /**
      * {@inheritDoc}
      */
+    @Override
     @SuppressWarnings("unchecked")
     public Set<Violation> analyze(final String prgXml) {
         final Set<Violation> violations = new HashSet<Violation>();
@@ -77,6 +78,7 @@ public class JdomAnalysisRule implements AnalysisRule {
     /**
      * {@inheritDoc}
      */
+    @Override
     @SuppressWarnings("unchecked")
     public Set<Violation> getCheckedViolations() {
         final Set<Violation> violations = new HashSet<Violation>();

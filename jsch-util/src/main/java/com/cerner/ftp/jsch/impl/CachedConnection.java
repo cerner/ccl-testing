@@ -5,6 +5,9 @@ import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cerner.ftp.jsch.Connection;
 import com.cerner.ftp.jsch.impl.DefaultConnectionPool.ConnectionLibrarian;
 import com.jcraft.jsch.Channel;
@@ -21,12 +24,13 @@ import com.jcraft.jsch.UserInfo;
  * @author Joshua Hyde
  *
  */
-
 public class CachedConnection implements Connection {
     private final Set<Channel> channels = new HashSet<Channel>();
     private final Session session;
     private final ConnectionLibrarian<CachedConnection> librarian;
     private boolean closed;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CachedConnection.class);
 
     /**
      * Create a connection that uses a username/password form of authentication.
@@ -169,13 +173,9 @@ public class CachedConnection implements Connection {
      * @return A {@link Session} object representing a connection to the remote server.
      */
     private Session createSession(final String username, final String password, final URI serverAddress) {
-        JSch.setLogger(new MyLogger());
+        JSch.setLogger(new JschLogger());
         final JSch jsch = new JSch();
         try {
-            System.out.println("username: " + username);
-            System.out.println("password: " + password);
-            System.out.println("serverAddress: " + serverAddress);
-            System.out.println("serverAddress.getPath(): " + serverAddress.getPath());
             JSch.setConfig("PreferredAuthentications", "password");
             final Session session = jsch.getSession(username, serverAddress.getPath(), 22);
             session.setUserInfo(new SimpleUserInfo(password, null));
@@ -192,32 +192,57 @@ public class CachedConnection implements Connection {
      * @author Fred Eckertson
      *
      */
-    public static class MyLogger implements com.jcraft.jsch.Logger {
+    public static class JschLogger implements com.jcraft.jsch.Logger {
         static java.util.Hashtable<Integer, String> name = new java.util.Hashtable<Integer, String>();
         static {
-            name.put(new Integer(DEBUG), "DEBUG: ");
-            name.put(new Integer(INFO), "INFO: ");
-            name.put(new Integer(WARN), "WARN: ");
-            name.put(new Integer(ERROR), "ERROR: ");
-            name.put(new Integer(FATAL), "FATAL: ");
+            name.put(Integer.valueOf(DEBUG), "DEBUG: ");
+            name.put(Integer.valueOf(INFO), "INFO: ");
+            name.put(Integer.valueOf(WARN), "WARN: ");
+            name.put(Integer.valueOf(ERROR), "ERROR: ");
+            name.put(Integer.valueOf(FATAL), "FATAL: ");
         }
 
         /**
          * {@inheritDoc}
          */
+        @SuppressWarnings("synthetic-access")
         @Override
         public boolean isEnabled(final int level) {
-            // TODO: make this configurable.
-            return false;
+            switch (level) {
+            case DEBUG:
+                return LOGGER.isDebugEnabled();
+            case INFO:
+                return LOGGER.isInfoEnabled();
+            case WARN:
+                return LOGGER.isWarnEnabled();
+            case ERROR:
+            case FATAL:
+                return LOGGER.isErrorEnabled();
+            default:
+                return false;
+            }
         }
 
         /**
          * {@inheritDoc}
          */
+        @SuppressWarnings("synthetic-access")
         @Override
         public void log(final int level, final String message) {
-            System.err.print(name.get(new Integer(level)));
-            System.err.println(message);
+            switch (level) {
+            case DEBUG:
+                LOGGER.debug(message);
+                break;
+            case INFO:
+                LOGGER.info(message);
+                break;
+            case WARN:
+                LOGGER.warn(message);
+                break;
+            case ERROR:
+            case FATAL:
+                LOGGER.error(message);
+            }
         }
     }
 

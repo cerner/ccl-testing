@@ -7,15 +7,16 @@ import com.cerner.ftp.data.FtpProduct;
 /**
  * An {@link FtpProductProvider} that leverages utilities provided by the {@code j4ccl-ssh} to construct an
  * {@link FtpProduct}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 public class J4CclFtpProductProvider implements FtpProductProvider {
     /**
      * {@inheritDoc}
      */
+    @Override
     public FtpProduct getProduct() {
         return AuthHelper.fromCurrentSubject();
     }

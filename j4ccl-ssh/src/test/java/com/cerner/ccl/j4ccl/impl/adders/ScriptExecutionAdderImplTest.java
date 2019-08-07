@@ -38,7 +38,6 @@ import com.cerner.ccl.j4ccl.record.Record;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { ScriptExecutionAdderImpl.class, ScriptExecutionCommand.class })
-@SuppressWarnings("nls")
 public class ScriptExecutionAdderImplTest {
     /**
      * A {@link Rule} used to test for thrown exceptions.

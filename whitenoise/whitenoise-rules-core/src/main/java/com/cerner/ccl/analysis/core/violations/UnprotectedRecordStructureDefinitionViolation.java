@@ -34,8 +34,9 @@ public class UnprotectedRecordStructureDefinitionViolation implements RecordStru
      *             If any of the given objects, except for the line number, are {@code null}.
      */
     public UnprotectedRecordStructureDefinitionViolation(final String recordStructureName, final Integer lineNumber) {
-        if (recordStructureName == null)
+        if (recordStructureName == null) {
             throw new IllegalArgumentException("Record structure name cannot be null.");
+        }
 
         this.recordStructureName = recordStructureName;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -43,17 +44,20 @@ public class UnprotectedRecordStructureDefinitionViolation implements RecordStru
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof UnprotectedRecordStructureDefinitionViolation))
+        if (!(obj instanceof UnprotectedRecordStructureDefinitionViolation)) {
             return false;
+        }
 
         final UnprotectedRecordStructureDefinitionViolation other = (UnprotectedRecordStructureDefinitionViolation) obj;
         return getRecordStructureName().equalsIgnoreCase(other.getRecordStructureName())
                 && getLineNumber().equals(other.getLineNumber());
     }
 
+    @Override
     public String getRecordStructureName() {
         return recordStructureName;
     }
@@ -61,6 +65,7 @@ public class UnprotectedRecordStructureDefinitionViolation implements RecordStru
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -68,6 +73,7 @@ public class UnprotectedRecordStructureDefinitionViolation implements RecordStru
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Record [" + recordStructureName + "] was not declared with explicit scoping";
     }
@@ -75,6 +81,7 @@ public class UnprotectedRecordStructureDefinitionViolation implements RecordStru
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "Much like variables, record structure declarations are almost always required to be protected or private so that instances "
                 + "where multiple structures of the same name containing different data are appropriately protected by their defined scope. Structures "
@@ -86,6 +93,7 @@ public class UnprotectedRecordStructureDefinitionViolation implements RecordStru
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

@@ -19,8 +19,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.cerner.ccl.j4ccl.util.CclResourceUploader;
-import com.cerner.ccl.testing.maven.ccl.mojo.BaseCclResourceMojo;
-import com.cerner.ccl.testing.maven.ccl.mojo.ResourcesMojo;
 
 /**
  * Unit tests for {@link BaseCclResourceMojo}.
@@ -79,6 +77,7 @@ public class BaseCclResourceMojoTest {
         public StubMojo() {
         }
 
+        @Override
         public void execute() {
         }
 

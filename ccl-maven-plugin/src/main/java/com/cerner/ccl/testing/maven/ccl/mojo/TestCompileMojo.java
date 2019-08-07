@@ -37,6 +37,7 @@ public class TestCompileMojo extends BaseCclCompilationMojo {
     @Parameter(property = "ccl-skipTestCompile", defaultValue = "${ccl-skipProcessing}")
     protected boolean skipTestCompile;
 
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (skipTestCompile) {
             getLog().info("Skipping test-compile goal");
@@ -49,6 +50,7 @@ public class TestCompileMojo extends BaseCclCompilationMojo {
         queueIncludeCompilation(executor, cclTestSourceDirectory);
         queueScriptCompilation(executor, cclTestSourceDirectory);
         Subject.doAs(subject, new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 executor.execute();
                 return null;

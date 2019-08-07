@@ -85,8 +85,8 @@ public class AbstractParentStructureTest extends AbstractBeanUnitTest<AbstractPa
         list.addChildMember(second);
 
         assertThat(list.getChildMemberCount()).isEqualTo(2);
-        assertThat(list.getChildMember(0)).isEqualTo(first);
-        assertThat(list.getChildMember(1)).isEqualTo(second);
+        assertThat(list.<StructureMember> getChildMember(0)).isEqualTo(first);
+        assertThat(list.<StructureMember> getChildMember(1)).isEqualTo(second);
     }
 
     /**

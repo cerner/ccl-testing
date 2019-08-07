@@ -120,11 +120,13 @@ public class CDocReportMojo extends AbstractMavenReport {
     public CDocReportMojo(final TextParser textParser, final ScriptExecutionDetailsParser detailsParser) {
         super();
         getLog().info("entering CDocReportMojo constructor");
-        if (textParser == null)
+        if (textParser == null) {
             throw new IllegalArgumentException("Text parser cannot be null.");
+        }
 
-        if (detailsParser == null)
+        if (detailsParser == null) {
             throw new IllegalArgumentException("Script execution details parser cannot be null.");
+        }
 
         this.textParser = textParser;
         this.detailsParser = detailsParser;
@@ -143,6 +145,7 @@ public class CDocReportMojo extends AbstractMavenReport {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getDescription(final Locale locale) {
         return "A report of documentation surrounding CCL scripts.";
     }
@@ -150,6 +153,7 @@ public class CDocReportMojo extends AbstractMavenReport {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getName(final Locale locale) {
         return "CDoc";
     }
@@ -157,6 +161,7 @@ public class CDocReportMojo extends AbstractMavenReport {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getOutputName() {
         return "cdoc-report";
     }
@@ -171,12 +176,13 @@ public class CDocReportMojo extends AbstractMavenReport {
         final List<File> scriptFiles = getFiles();
 
         final File cssDirectory = new File(getDestinationDirectory(), "css");
-        if (!cssDirectory.exists())
+        if (!cssDirectory.exists()) {
             try {
                 FileUtils.forceMkdir(cssDirectory);
             } catch (final IOException e) {
                 throw new MavenReportException("Failed to create CSS directory.", e);
             }
+        }
 
         copyCss(cssDirectory, "cdoc.css");
         copyCss(cssDirectory, "script-doc.css");
@@ -259,11 +265,13 @@ public class CDocReportMojo extends AbstractMavenReport {
         try {
             final String excludePattern = excludes == null ? "" : StringUtils.join(excludes, ',');
             final List<File> sourceFiles = new ArrayList<File>();
-            if (sourceDirectory.exists())
+            if (sourceDirectory.exists()) {
                 sourceFiles.addAll(FileUtils.getFiles(sourceDirectory, "*.prg,*.inc,*.sub", excludePattern));
+            }
 
-            if (resourcesDirectory.exists())
+            if (resourcesDirectory.exists()) {
                 sourceFiles.addAll(FileUtils.getFiles(resourcesDirectory, "*.prg,*.inc,*.sub", excludePattern));
+            }
 
             return sourceFiles;
         } catch (final IOException e) {
@@ -350,8 +358,9 @@ public class CDocReportMojo extends AbstractMavenReport {
         try {
             final File destinationFile = new File(getDestinationDirectory(), doc.getDestinationFilename());
             // Make sure that the output directory exists
-            if (!destinationFile.getParentFile().exists())
+            if (!destinationFile.getParentFile().exists()) {
                 FileUtils.forceMkdir(destinationFile.getParentFile());
+            }
             return new OutputStreamWriter(new FileOutputStream(destinationFile), Charset.forName(getOutputEncoding()));
         } catch (final IOException e) {
             throw new MavenReportException(
@@ -385,8 +394,9 @@ public class CDocReportMojo extends AbstractMavenReport {
      */
     List<Documentation> toDocumentation(final List<File> files) {
         final List<Documentation> documentation = new ArrayList<Documentation>(files.size());
-        for (final File file : files)
+        for (final File file : files) {
             documentation.add(new Documentation(file));
+        }
         Collections.sort(documentation, new DocumentationNameComparator());
         return documentation;
     }

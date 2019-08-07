@@ -97,9 +97,11 @@ public class RecordImplTest {
     public void testGetDeclaration() {
         // Create a structure that returns its "declaration"
         final Answer<Object> structureAnswer = new Answer<Object>() {
+            @Override
             public String answer(final InvocationOnMock invocation) throws Throwable {
-                if (!"addDeclaration".equals(invocation.getMethod().getName()))
+                if (!"addDeclaration".equals(invocation.getMethod().getName())) {
                     return null;
+                }
 
                 final StringBuilder builder = (StringBuilder) invocation.getArguments()[0];
                 builder.append("declaration");
@@ -140,6 +142,7 @@ public class RecordImplTest {
         // Create a factory to return a specific record list
         final DynamicRecordList recordList = mock(DynamicRecordList.class);
         final Answer<DynamicRecordList> factoryAnswer = new Answer<DynamicRecordList>() {
+            @Override
             public DynamicRecordList answer(final InvocationOnMock invocation) throws Throwable {
                 return recordList;
             }
@@ -169,6 +172,7 @@ public class RecordImplTest {
         // Create a factory to return a specific record list
         final DynamicRecordList recordList = mock(DynamicRecordList.class);
         final Answer<DynamicRecordList> factoryAnswer = new Answer<DynamicRecordList>() {
+            @Override
             public DynamicRecordList answer(final InvocationOnMock invocation) throws Throwable {
                 return recordList;
             }
@@ -349,6 +353,7 @@ public class RecordImplTest {
         // Create a factory to return a specific record list
         final RecordList recordList = mock(RecordList.class);
         final Answer<RecordList> factoryAnswer = new Answer<RecordList>() {
+            @Override
             public RecordList answer(final InvocationOnMock invocation) throws Throwable {
                 return recordList;
             }
@@ -401,6 +406,7 @@ public class RecordImplTest {
         // Create a factory to return a specific record list
         final RecordList recordList = mock(RecordList.class);
         final Answer<RecordList> factoryAnswer = new Answer<RecordList>() {
+            @Override
             public RecordList answer(final InvocationOnMock invocation) throws Throwable {
                 return recordList;
             }
@@ -454,6 +460,7 @@ public class RecordImplTest {
 
         final Record nestedRecord = mock(Record.class);
         final Answer<Record> recordAnswer = new Answer<Record>() {
+            @Override
             public Record answer(final InvocationOnMock invocation) throws Throwable {
                 return nestedRecord;
             }
@@ -576,8 +583,9 @@ public class RecordImplTest {
     public void testSetCharOneTooLong() {
         final int valueLength = (int) (CHAR_FIELD.getDataLength() + 1);
         final StringBuilder builder = new StringBuilder(valueLength);
-        for (int i = 0; i < valueLength; i++)
+        for (int i = 0; i < valueLength; i++) {
             builder.append(' ');
+        }
 
         final RecordImpl record = new RecordImpl(ROOT_NAME, mockStructure(CHAR_FIELD), null);
         record.setChar(CHAR_FIELD.getName(), builder.toString());
@@ -590,8 +598,9 @@ public class RecordImplTest {
     public void testSetCharTwoTooLong() {
         final int valueLength = (int) (CHAR_FIELD.getDataLength() + 2);
         final StringBuilder builder = new StringBuilder(valueLength);
-        for (int i = 0; i < valueLength; i++)
+        for (int i = 0; i < valueLength; i++) {
             builder.append(' ');
+        }
 
         final RecordImpl record = new RecordImpl(ROOT_NAME, mockStructure(CHAR_FIELD), null);
         record.setChar(CHAR_FIELD.getName(), builder.toString());
@@ -820,6 +829,7 @@ public class RecordImplTest {
         when(rootStructure.getFields()).thenReturn(Arrays.asList(listField));
 
         final Answer<RecordList> factoryAnswer = new Answer<RecordList>() {
+            @Override
             public RecordList answer(final InvocationOnMock invocation) throws Throwable {
                 return list;
             }
@@ -856,6 +866,7 @@ public class RecordImplTest {
         final Structure rootStructure = mockStructure(recordField);
 
         final Answer<Record> factoryAnswer = new Answer<Record>() {
+            @Override
             public Record answer(final InvocationOnMock invocation) throws Throwable {
                 return nestedRecord;
             }

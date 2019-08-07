@@ -42,21 +42,25 @@ public class DynamicCompilerAdderImpl extends AbstractCompilerAdder
      * @throws IllegalArgumentException
      *             If the given source code location does not end in a ".inc" or ".sub" file extension.
      */
-    public DynamicCompilerAdderImpl(File sourceFile, final CommandQueue queue) {
-        if (sourceFile == null)
+    public DynamicCompilerAdderImpl(final File sourceFile, final CommandQueue queue) {
+        if (sourceFile == null) {
             throw new NullPointerException("Source code cannot be null.");
+        }
 
-        if (queue == null)
+        if (queue == null) {
             throw new NullPointerException("Command queue cannot be null.");
+        }
 
         final String caselessName = sourceFile.getName().toUpperCase(Locale.getDefault());
-        if (!caselessName.endsWith(".INC") && !caselessName.endsWith(".SUB"))
+        if (!caselessName.endsWith(".INC") && !caselessName.endsWith(".SUB")) {
             throw new IllegalArgumentException("Source code file must be a .INC or .SUB file.");
+        }
 
         this.sourceCodeLocation = sourceFile;
         this.queue = queue;
     }
 
+    @Override
     public DynamicCompilerAdderImpl withDebugModeEnabled(final boolean debugModeEnabled) {
         setDoDebugCompile(debugModeEnabled);
         return this;
@@ -65,6 +69,7 @@ public class DynamicCompilerAdderImpl extends AbstractCompilerAdder
     /**
      * {@inheritDoc}
      */
+    @Override
     public DynamicCompilerAdderImpl withDependency(final File file) {
         addDependency(file);
         return this;
@@ -73,6 +78,7 @@ public class DynamicCompilerAdderImpl extends AbstractCompilerAdder
     /**
      * {@inheritDoc}
      */
+    @Override
     public DynamicCompilerAdderImpl withListingOutput(final File file) {
         setListingLocation(file);
         return this;
@@ -81,16 +87,20 @@ public class DynamicCompilerAdderImpl extends AbstractCompilerAdder
     /**
      * {@inheritDoc}
      */
+    @Override
     public DynamicCompilerAdderImpl withScriptName(final String scriptName) {
-        if (scriptName == null)
+        if (scriptName == null) {
             throw new NullPointerException("Script name cannot be null.");
+        }
 
-        if (scriptName.trim().length() == 0)
+        if (scriptName.trim().length() == 0) {
             throw new IllegalArgumentException("Script name cannot be blank.");
+        }
 
-        if (scriptName.length() > MAX_SCRIPT_NAME_LENGTH)
+        if (scriptName.length() > MAX_SCRIPT_NAME_LENGTH) {
             throw new IllegalArgumentException(String.format("Script name exceeds max length: %d > %d",
                     scriptName.length(), MAX_SCRIPT_NAME_LENGTH));
+        }
 
         this.scriptName = scriptName;
         return this;
@@ -99,6 +109,7 @@ public class DynamicCompilerAdderImpl extends AbstractCompilerAdder
     /**
      * {@inheritDoc}
      */
+    @Override
     public void commit() {
         final String tempScriptName = getScriptName();
         final File temporaryFile = new File(System.getProperty("java.io.tmpdir"), tempScriptName + ".prg");

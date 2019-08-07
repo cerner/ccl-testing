@@ -26,8 +26,9 @@ public class UnknownDeclareOptionViolation implements VariableViolation {
      *            The line number where the violation occurs.
      */
     public UnknownDeclareOptionViolation(final String variableName, final Integer lineNumber) {
-        if (variableName == null)
+        if (variableName == null) {
             throw new IllegalArgumentException("Variable name cannot be null.");
+        }
 
         this.variableName = variableName;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -35,11 +36,13 @@ public class UnknownDeclareOptionViolation implements VariableViolation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof UnknownDeclareOptionViolation))
+        if (!(obj instanceof UnknownDeclareOptionViolation)) {
             return false;
+        }
 
         final UnknownDeclareOptionViolation other = (UnknownDeclareOptionViolation) obj;
         return getVariableName().equalsIgnoreCase(other.getVariableName())
@@ -49,6 +52,7 @@ public class UnknownDeclareOptionViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -56,18 +60,22 @@ public class UnknownDeclareOptionViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return getVariableName() + " has been declared with an invalid option.";
     }
 
+    @Override
     public String getViolationExplanation() {
         return "Variables which are declared should use valid options such as 'protect', 'private', 'noconstant', 'constant'";
     }
 
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }
 
+    @Override
     public String getVariableName() {
         return variableName;
     }

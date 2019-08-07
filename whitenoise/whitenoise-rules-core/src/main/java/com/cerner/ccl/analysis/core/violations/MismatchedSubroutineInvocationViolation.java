@@ -35,8 +35,9 @@ public class MismatchedSubroutineInvocationViolation implements SubroutineViolat
      *             If the given subroutine name is {@code null}.
      */
     public MismatchedSubroutineInvocationViolation(final String subroutineName, final Integer lineNumber) {
-        if (subroutineName == null)
+        if (subroutineName == null) {
             throw new IllegalArgumentException("Subroutine name cannot be null.");
+        }
 
         this.subroutineName = subroutineName;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -44,11 +45,13 @@ public class MismatchedSubroutineInvocationViolation implements SubroutineViolat
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof MismatchedSubroutineInvocationViolation))
+        if (!(obj instanceof MismatchedSubroutineInvocationViolation)) {
             return false;
+        }
 
         final MismatchedSubroutineInvocationViolation other = (MismatchedSubroutineInvocationViolation) obj;
         return getSubroutineName().equalsIgnoreCase(other.getSubroutineName())
@@ -58,6 +61,7 @@ public class MismatchedSubroutineInvocationViolation implements SubroutineViolat
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -65,6 +69,7 @@ public class MismatchedSubroutineInvocationViolation implements SubroutineViolat
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "The invocation of subroutine " + getSubroutineName() + " does not match it's implementation";
     }
@@ -72,6 +77,7 @@ public class MismatchedSubroutineInvocationViolation implements SubroutineViolat
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "Subroutines with mismatched invocation of it's parameters.";
     }
@@ -79,6 +85,7 @@ public class MismatchedSubroutineInvocationViolation implements SubroutineViolat
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }
@@ -86,6 +93,7 @@ public class MismatchedSubroutineInvocationViolation implements SubroutineViolat
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getSubroutineName() {
         return subroutineName;
     }

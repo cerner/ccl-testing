@@ -33,17 +33,21 @@ public class MillenniumDomainPrincipal implements Principal, Serializable {
      *             If either of the given objects are {@code null}.
      */
     public MillenniumDomainPrincipal(final String username, final String domainName) {
-        if (username == null)
+        if (username == null) {
             throw new NullPointerException("Username cannot be null.");
+        }
 
-        if (StringUtils.isBlank(username))
+        if (StringUtils.isBlank(username)) {
             throw new IllegalArgumentException("Username cannot be blank.");
+        }
 
-        if (domainName == null)
+        if (domainName == null) {
             throw new NullPointerException("Domain name cannot be null.");
+        }
 
-        if (StringUtils.isBlank(domainName))
+        if (StringUtils.isBlank(domainName)) {
             throw new IllegalArgumentException("Domain name cannot be blank.");
+        }
 
         this.username = username;
         this.domainName = domainName;
@@ -61,6 +65,7 @@ public class MillenniumDomainPrincipal implements Principal, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getName() {
         return username + "@" + domainName;
     }

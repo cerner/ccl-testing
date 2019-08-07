@@ -36,11 +36,13 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
      */
     public EmptyListOrStructureDefinitionViolation(final String recordStructureName, final String fieldName,
             final Integer lineNumber) {
-        if (recordStructureName == null)
+        if (recordStructureName == null) {
             throw new IllegalArgumentException("Record structure name cannot be null.");
+        }
 
-        if (fieldName == null)
+        if (fieldName == null) {
             throw new IllegalArgumentException("Field name cannot be null.");
+        }
 
         this.recordStructureName = recordStructureName;
         this.fieldName = fieldName;
@@ -49,11 +51,13 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof EmptyListOrStructureDefinitionViolation))
+        if (!(obj instanceof EmptyListOrStructureDefinitionViolation)) {
             return false;
+        }
 
         final EmptyListOrStructureDefinitionViolation other = (EmptyListOrStructureDefinitionViolation) obj;
         return getRecordStructureName().equalsIgnoreCase(other.getRecordStructureName())
@@ -64,6 +68,7 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getRecordStructureName() {
         return recordStructureName;
     }
@@ -78,6 +83,7 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -85,6 +91,7 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Record [" + recordStructureName + "] contains list or struct member [" + fieldName
                 + "] which does not have any child elements";
@@ -93,6 +100,7 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "If a record structure declaration contains either a list or structure member with no child elements, there is almost certainly"
                 + " a problem with the definition of the record. Either the depth of the child elements was defined incorrectly or the list/struct"
@@ -102,6 +110,7 @@ public class EmptyListOrStructureDefinitionViolation implements RecordStructureV
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

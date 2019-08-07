@@ -27,6 +27,7 @@ public class JaasUtilsTest extends AbstractUnitTest {
     public void testGetCurrentSubject() {
         final Subject subject = new Subject();
         assertThat(Subject.doAs(subject, new PrivilegedAction<Subject>() {
+            @Override
             public Subject run() {
                 return JaasUtils.getCurrentSubject();
             }
@@ -53,6 +54,7 @@ public class JaasUtilsTest extends AbstractUnitTest {
         subject.getPrincipals().add(principal);
 
         assertThat(Subject.doAs(subject, new PrivilegedAction<Principal>() {
+            @Override
             public Principal run() {
                 return JaasUtils.getPrincipal(principal.getClass());
             }
@@ -68,6 +70,7 @@ public class JaasUtilsTest extends AbstractUnitTest {
         expect("Incorrect number of principals of type " + Principal.class.getCanonicalName() + " on subject: "
                 + Integer.toString(0));
         Subject.doAs(new Subject(), new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 JaasUtils.getPrincipal(Principal.class);
                 return null;
@@ -94,6 +97,7 @@ public class JaasUtilsTest extends AbstractUnitTest {
         final Subject subject = new Subject();
         subject.getPrivateCredentials().add(credential);
         assertThat(Subject.doAs(subject, new PrivilegedAction<Object>() {
+            @Override
             public Object run() {
                 return JaasUtils.getPrivateCredential(credential.getClass());
             }
@@ -109,6 +113,7 @@ public class JaasUtilsTest extends AbstractUnitTest {
         expect("Incorrect number of private credentials of type " + Integer.class.getCanonicalName() + " on subject : "
                 + Integer.toString(0));
         Subject.doAs(new Subject(), new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 JaasUtils.getPrivateCredential(Integer.class);
                 return null;
@@ -135,11 +140,13 @@ public class JaasUtilsTest extends AbstractUnitTest {
         final Subject subject = new Subject();
         subject.getPrincipals().add(principal);
         assertThat(Subject.doAs(subject, new PrivilegedAction<Boolean>() {
+            @Override
             public Boolean run() {
                 return JaasUtils.hasPrincipal(principal.getClass());
             }
         })).isTrue();
         assertThat(Subject.doAs(subject, new PrivilegedAction<Boolean>() {
+            @Override
             public Boolean run() {
                 return JaasUtils.hasPrincipal(MillenniumDomainPrincipal.class);
             }

@@ -28,8 +28,9 @@ public class DuplicateI18nKeyViolation implements Violation {
      *            An {@link String} representing the Key which was duplicated
      */
     public DuplicateI18nKeyViolation(final Integer lineNumber, final String key) {
-        if (key == null)
+        if (key == null) {
             throw new IllegalArgumentException("key cannot be null");
+        }
 
         this.lineNumber = lineNumber != null ? lineNumber : 0;
         this.key = key;
@@ -37,11 +38,13 @@ public class DuplicateI18nKeyViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof DuplicateI18nKeyViolation))
+        if (!(obj instanceof DuplicateI18nKeyViolation)) {
             return false;
+        }
 
         final DuplicateI18nKeyViolation other = (DuplicateI18nKeyViolation) obj;
         return getLineNumber().equals(other.getLineNumber()) && getKey().equalsIgnoreCase(other.getKey());
@@ -50,6 +53,7 @@ public class DuplicateI18nKeyViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -64,6 +68,7 @@ public class DuplicateI18nKeyViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "uar_i18ngetmessage key [" + getKey() + "] is not unique for script";
     }
@@ -71,6 +76,7 @@ public class DuplicateI18nKeyViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "To ensure that each i18n string is uniquely identified and internationalized by the internationalization team, there cannot exist "
                 + "two calls to uar_i18ngetmessage with the same 'key' value and different 'text' value";
@@ -79,6 +85,7 @@ public class DuplicateI18nKeyViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

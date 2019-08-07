@@ -37,8 +37,9 @@ public class SubroutineReturnRequiredAndMissingViolation implements SubroutineVi
      */
     public SubroutineReturnRequiredAndMissingViolation(final String subroutineName, final Integer subroutineLineNumber,
             final Integer invocationLineNumber) {
-        if (subroutineName == null)
+        if (subroutineName == null) {
             throw new IllegalArgumentException("Subroutine name cannot be null.");
+        }
 
         this.subroutineName = subroutineName;
         this.subroutineLineNumber = subroutineLineNumber != null ? subroutineLineNumber : 0;
@@ -47,11 +48,13 @@ public class SubroutineReturnRequiredAndMissingViolation implements SubroutineVi
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof SubroutineReturnRequiredAndMissingViolation))
+        if (!(obj instanceof SubroutineReturnRequiredAndMissingViolation)) {
             return false;
+        }
 
         final SubroutineReturnRequiredAndMissingViolation other = (SubroutineReturnRequiredAndMissingViolation) obj;
         return getSubroutineName().equalsIgnoreCase(other.getSubroutineName())
@@ -62,6 +65,7 @@ public class SubroutineReturnRequiredAndMissingViolation implements SubroutineVi
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return invocationLineNumber;
     }
@@ -69,6 +73,7 @@ public class SubroutineReturnRequiredAndMissingViolation implements SubroutineVi
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return getSubroutineName() + " invoked from line [" + invocationLineNumber
                 + "] appears to have no return statement but is required by invocation";
@@ -77,6 +82,7 @@ public class SubroutineReturnRequiredAndMissingViolation implements SubroutineVi
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "A subroutine which does not return a value but is called in a manner in which the return value appears to be required "
                 + "is problemmatic. CCL will not explicitly detect this condition at compile or runtime; therefore, you might experience "
@@ -91,6 +97,7 @@ public class SubroutineReturnRequiredAndMissingViolation implements SubroutineVi
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }
@@ -98,6 +105,7 @@ public class SubroutineReturnRequiredAndMissingViolation implements SubroutineVi
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getSubroutineName() {
         return subroutineName;
     }

@@ -118,8 +118,8 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
                 Arrays.asList(field, list));
 
         assertThat(parent.getChildMemberCount()).isEqualTo(2);
-        assertThat(parent.getChildMember(0)).isEqualTo(field);
-        assertThat(parent.getChildMember(1)).isEqualTo(list);
+        assertThat(parent.<RecordStructureField> getChildMember(0)).isEqualTo(field);
+        assertThat(parent.<RecordStructureField> getChildMember(1)).isEqualTo(list);
     }
 
     /**

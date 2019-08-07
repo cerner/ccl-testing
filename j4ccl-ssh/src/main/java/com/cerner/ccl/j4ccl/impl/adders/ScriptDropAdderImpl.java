@@ -29,14 +29,17 @@ public class ScriptDropAdderImpl implements ScriptDropAdder {
      *             If the given command queue or script name are {@code null}.
      */
     public ScriptDropAdderImpl(final String scriptName, final CommandQueue queue) {
-        if (scriptName == null)
+        if (scriptName == null) {
             throw new NullPointerException("Script name cannot be null.");
+        }
 
-        if (StringUtils.isBlank(scriptName))
+        if (StringUtils.isBlank(scriptName)) {
             throw new IllegalArgumentException("Script name cannot be blank.");
+        }
 
-        if (queue == null)
+        if (queue == null) {
             throw new NullPointerException("Command queue cannot be null.");
+        }
 
         this.scriptName = scriptName;
         this.queue = queue;
@@ -45,6 +48,7 @@ public class ScriptDropAdderImpl implements ScriptDropAdder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void commit() {
         queue.addOnCclCloseCommand(new DropScriptCommand(scriptName));
     }

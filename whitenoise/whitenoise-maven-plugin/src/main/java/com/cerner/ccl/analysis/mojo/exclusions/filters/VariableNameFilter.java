@@ -17,9 +17,9 @@ import com.cerner.ccl.analysis.mojo.exclusions.filters.ViolationFilterChain.Viol
  * <li>If none of these hold true, then no comparison is made and the violation is not excluded.</li>
  * </ol>
  * The comparison of variable names is case-insensitive.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 public class VariableNameFilter extends AbstractPropertyReflectingFilter {
@@ -27,15 +27,16 @@ public class VariableNameFilter extends AbstractPropertyReflectingFilter {
 
     /**
      * Create a filter that filters by variable name.
-     * 
+     *
      * @param variableName
      *            The name of the variable.
      * @throws IllegalArgumentException
      *             If the given variable name is {@code null}.
      */
     public VariableNameFilter(final String variableName) {
-        if (variableName == null)
+        if (variableName == null) {
             throw new IllegalArgumentException("Variable name cannot be null.");
+        }
 
         this.variableName = variableName;
     }
@@ -43,15 +44,19 @@ public class VariableNameFilter extends AbstractPropertyReflectingFilter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean exclude(final String scriptName, final Violation violation) {
-        if (scriptName == null)
+        if (scriptName == null) {
             throw new IllegalArgumentException("Script name cannot be null.");
+        }
 
-        if (violation == null)
+        if (violation == null) {
             throw new IllegalArgumentException("Violation cannot be null.");
+        }
 
-        if (violation instanceof VariableViolation)
+        if (violation instanceof VariableViolation) {
             return variableName.equalsIgnoreCase(((VariableViolation) violation).getVariableName());
+        }
 
         final String internalValue = getInternalValue(violation, "variableName");
         return variableName.equalsIgnoreCase(internalValue);

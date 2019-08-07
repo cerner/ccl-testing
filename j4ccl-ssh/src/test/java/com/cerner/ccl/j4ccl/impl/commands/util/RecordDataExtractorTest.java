@@ -152,6 +152,7 @@ public class RecordDataExtractorTest {
          * Copy the JSON file to the location the extractor expects to find the file
          */
         doAnswer(new Answer<Object>() {
+            @Override
             public Object answer(final InvocationOnMock invocation) throws Throwable {
                 final Collection<FileRequest> requests = (Collection<FileRequest>) invocation.getArguments()[0];
                 final FileRequest request = requests.iterator().next();
@@ -186,6 +187,7 @@ public class RecordDataExtractorTest {
          * Copy the JSON file to the location the extractor expects to find the file
          */
         doAnswer(new Answer<Object>() {
+            @Override
             public Object answer(final InvocationOnMock invocation) throws Throwable {
                 final Collection<FileRequest> requests = (Collection<FileRequest>) invocation.getArguments()[0];
                 final FileRequest request = requests.iterator().next();
@@ -221,6 +223,7 @@ public class RecordDataExtractorTest {
          * Copy the JSON file to the location the extractor expects to find the file
          */
         doAnswer(new Answer<Object>() {
+            @Override
             public Object answer(final InvocationOnMock invocation) throws Throwable {
                 final Collection<FileRequest> requests = (Collection<FileRequest>) invocation.getArguments()[0];
                 final FileRequest request = requests.iterator().next();
@@ -256,6 +259,7 @@ public class RecordDataExtractorTest {
          * Copy the JSON file to the location the extractor expects to find the file
          */
         doAnswer(new Answer<Object>() {
+            @Override
             public Object answer(final InvocationOnMock invocation) throws Throwable {
                 final Collection<FileRequest> requests = (Collection<FileRequest>) invocation.getArguments()[0];
                 final FileRequest request = requests.iterator().next();
@@ -291,6 +295,7 @@ public class RecordDataExtractorTest {
          * Copy the JSON file to the location the extractor expects to find the file
          */
         doAnswer(new Answer<Object>() {
+            @Override
             public Object answer(final InvocationOnMock invocation) throws Throwable {
                 final Collection<FileRequest> requests = (Collection<FileRequest>) invocation.getArguments()[0];
                 final FileRequest request = requests.iterator().next();

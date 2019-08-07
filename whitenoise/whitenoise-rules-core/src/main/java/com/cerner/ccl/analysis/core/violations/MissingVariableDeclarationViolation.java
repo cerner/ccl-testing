@@ -35,8 +35,9 @@ public class MissingVariableDeclarationViolation implements VariableViolation {
      *             If the given variable name is {@code null}.
      */
     public MissingVariableDeclarationViolation(final String variableName, final Integer lineNumber) {
-        if (variableName == null)
+        if (variableName == null) {
             throw new IllegalArgumentException("Variable name cannot be null.");
+        }
 
         this.variableName = variableName;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -44,11 +45,13 @@ public class MissingVariableDeclarationViolation implements VariableViolation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof MissingVariableDeclarationViolation))
+        if (!(obj instanceof MissingVariableDeclarationViolation)) {
             return false;
+        }
 
         final MissingVariableDeclarationViolation other = (MissingVariableDeclarationViolation) obj;
         return getVariableName().equalsIgnoreCase(other.getVariableName())
@@ -58,6 +61,7 @@ public class MissingVariableDeclarationViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -65,6 +69,7 @@ public class MissingVariableDeclarationViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Variable " + getVariableName() + " is referenced, but not declared";
     }
@@ -72,6 +77,7 @@ public class MissingVariableDeclarationViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "A variable that is implicitly declared, rather than explicitly, could be typed to a type other than what is later expected in the program.";
     }
@@ -79,6 +85,7 @@ public class MissingVariableDeclarationViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }
@@ -86,6 +93,7 @@ public class MissingVariableDeclarationViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getVariableName() {
         return variableName;
     }

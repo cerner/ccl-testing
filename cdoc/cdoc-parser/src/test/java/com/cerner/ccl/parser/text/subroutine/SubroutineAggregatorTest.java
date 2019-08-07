@@ -81,7 +81,7 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
         assertThat(aggregate.getName()).isEqualTo(def.getName());
         assertThat(aggregate.getDescription()).isEqualTo(doc.getDescription());
         assertThat(aggregate.getReturnDataDescription()).isEqualTo(doc.getReturnDescription());
-        assertThat(aggregate.getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
+        assertThat(aggregate.<DataTyped> getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
 
         final List<SubroutineArgument> args = aggregate.getArguments();
         assertThat(args).hasSize(1);
@@ -108,7 +108,7 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
         assertThat(aggregate.getName()).isEqualTo(def.getName());
         assertThat(aggregate.getDescription()).isEmpty();
         assertThat(aggregate.getReturnDataDescription()).isEmpty();
-        assertThat(aggregate.getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
+        assertThat(aggregate.<DataTyped> getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
 
         final List<SubroutineArgument> args = aggregate.getArguments();
         assertThat(args).hasSize(1);
@@ -154,7 +154,7 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
         assertThat(aggregate.getName()).isEqualTo(def.getName());
         assertThat(aggregate.getDescription()).isEqualTo(doc.getDescription());
         assertThat(aggregate.getReturnDataDescription()).isEqualTo(doc.getReturnDescription());
-        assertThat(aggregate.getReturnDataType()).isEqualTo(returnType);
+        assertThat(aggregate.<DataTyped> getReturnDataType()).isEqualTo(returnType);
 
         final List<SubroutineArgument> args = aggregate.getArguments();
         assertThat(args).hasSize(4);
@@ -210,7 +210,7 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
         assertThat(aggregate.getName()).isEqualTo(def.getName());
         assertThat(aggregate.getDescription()).isEqualTo(doc.getDescription());
         assertThat(aggregate.getReturnDataDescription()).isEqualTo(doc.getReturnDescription());
-        assertThat(aggregate.getReturnDataType()).isEqualTo(returnType);
+        assertThat(aggregate.<DataTyped> getReturnDataType()).isEqualTo(returnType);
 
         final List<SubroutineArgument> args = aggregate.getArguments();
         assertThat(args).hasSize(1);
@@ -246,7 +246,7 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
         assertThat(aggregate.getName()).isEqualTo(def.getName());
         assertThat(aggregate.getDescription()).isEmpty();
         assertThat(aggregate.getReturnDataDescription()).isEmpty();
-        assertThat(aggregate.getReturnDataType()).isEqualTo(returnType);
+        assertThat(aggregate.<DataTyped> getReturnDataType()).isEqualTo(returnType);
 
         final List<SubroutineArgument> args = aggregate.getArguments();
         assertThat(args).hasSize(2);

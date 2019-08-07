@@ -33,8 +33,9 @@ public class OverwrittenForLoopIteratorViolation implements Violation {
      *             If any of the given objects, except for the line number, are {@code null}.
      */
     public OverwrittenForLoopIteratorViolation(final String iterator, final Integer lineNumber) {
-        if (iterator == null)
+        if (iterator == null) {
             throw new IllegalArgumentException("Iterator cannot be null.");
+        }
 
         this.iterator = iterator;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -42,11 +43,13 @@ public class OverwrittenForLoopIteratorViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof OverwrittenForLoopIteratorViolation))
+        if (!(obj instanceof OverwrittenForLoopIteratorViolation)) {
             return false;
+        }
 
         final OverwrittenForLoopIteratorViolation other = (OverwrittenForLoopIteratorViolation) obj;
         return getIterator().equalsIgnoreCase(other.getIterator()) && getLineNumber().equals(other.getLineNumber());
@@ -62,6 +65,7 @@ public class OverwrittenForLoopIteratorViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -69,6 +73,7 @@ public class OverwrittenForLoopIteratorViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "For loop with suspicious overwriting of iterator [" + getIterator() + "] value";
     }
@@ -76,6 +81,7 @@ public class OverwrittenForLoopIteratorViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "The iterator variable of a for loop is automatically incremented with each iteration of the loop. It is usually only recommended"
                 + " to modify the iterator variable to break from the loop, any other modification is usually not correct";
@@ -84,6 +90,7 @@ public class OverwrittenForLoopIteratorViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

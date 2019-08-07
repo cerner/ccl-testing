@@ -30,11 +30,13 @@ public class FilesortAndMaxqualViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof FilesortAndMaxqualViolation))
+        if (!(obj instanceof FilesortAndMaxqualViolation)) {
             return false;
+        }
 
         final FilesortAndMaxqualViolation other = (FilesortAndMaxqualViolation) obj;
         return getLineNumber().equals(other.getLineNumber());
@@ -43,6 +45,7 @@ public class FilesortAndMaxqualViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -50,6 +53,7 @@ public class FilesortAndMaxqualViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Select with conflicting options, filesort and maxqual, used together";
     }
@@ -57,6 +61,7 @@ public class FilesortAndMaxqualViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "The filesort option causes all order by statements for this select to be performed on the result set in CCL as "
                 + "opposed to Oracle; therefore the maxqual will limit the result set by the specified number, but will do so in an arbitrary "
@@ -67,6 +72,7 @@ public class FilesortAndMaxqualViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

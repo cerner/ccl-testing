@@ -41,25 +41,31 @@ public class PrimitiveFieldImpl extends AbstractField {
      * @see DataType#isComplexType()
      */
     public PrimitiveFieldImpl(final String fieldName, final DataType dataType) {
-        if (fieldName == null)
+        if (fieldName == null) {
             throw new NullPointerException("Field name cannot be null.");
+        }
 
-        if (dataType == null)
+        if (dataType == null) {
             throw new NullPointerException("Data type cannot be null.");
+        }
 
-        if (fieldName.trim().length() == 0)
+        if (fieldName.trim().length() == 0) {
             throw new IllegalArgumentException("Field name cannot be blank.");
+        }
 
-        if (dataType.isComplexType())
+        if (dataType.isComplexType()) {
             throw new IllegalArgumentException("Data type must be a primitive data type.");
+        }
 
-        if (!VALID_TYPES.contains(dataType))
+        if (!VALID_TYPES.contains(dataType)) {
             throw new IllegalArgumentException("Invalid primitive type: " + dataType);
+        }
 
         this.fieldName = fieldName;
         this.dataType = dataType;
     }
 
+    @Override
     public long getDataLength() {
         switch (getType()) {
         case I4:
@@ -75,23 +81,28 @@ public class PrimitiveFieldImpl extends AbstractField {
         }
     }
 
+    @Override
     public String getDeclaration() {
         return getName() + " = " + getType().toString();
     }
 
+    @Override
     public int getListSize() {
         throw new UnsupportedOperationException("Field represents a primitive data type; it has no list size.");
     }
 
+    @Override
     public String getName() {
         return fieldName;
     }
 
+    @Override
     public Structure getStructure() {
         throw new UnsupportedOperationException(
                 "Field represents a primtiive data type; it has no underlying structure.");
     }
 
+    @Override
     public DataType getType() {
         return dataType;
     }

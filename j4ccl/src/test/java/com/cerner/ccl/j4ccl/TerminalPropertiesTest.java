@@ -666,6 +666,7 @@ public class TerminalPropertiesTest {
     /**
      * Confirm that equals returns false when passed something that is not a TerminalProperties.
      */
+    @SuppressWarnings("unlikely-arg-type")
     @Test
     public void testEqualsWithNonTerminalProperties() {
         final TerminalProperties terminalProperties = TerminalProperties.getNewBuilder()

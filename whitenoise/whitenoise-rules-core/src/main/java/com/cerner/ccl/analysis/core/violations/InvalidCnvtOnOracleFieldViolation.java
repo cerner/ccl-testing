@@ -29,11 +29,13 @@ public class InvalidCnvtOnOracleFieldViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof InvalidCnvtOnOracleFieldViolation))
+        if (!(obj instanceof InvalidCnvtOnOracleFieldViolation)) {
             return false;
+        }
 
         final InvalidCnvtOnOracleFieldViolation other = (InvalidCnvtOnOracleFieldViolation) obj;
         return getLineNumber().equals(other.getLineNumber());
@@ -42,6 +44,7 @@ public class InvalidCnvtOnOracleFieldViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -49,6 +52,7 @@ public class InvalidCnvtOnOracleFieldViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Suspicious use of cnvtint() or cnvtreal() on Oracle field";
     }
@@ -56,6 +60,7 @@ public class InvalidCnvtOnOracleFieldViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "The use of cnvtreal(string) or cnvtint(string) on an Oracle database field is discouraged. If the field stores non-numeric "
                 + "values on any row of the table then you run the risk of an Oracle error being raised when a cnvtreal or cnvtint is attempted "
@@ -68,6 +73,7 @@ public class InvalidCnvtOnOracleFieldViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

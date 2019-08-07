@@ -37,23 +37,29 @@ public class BackendNodePrincipal implements Principal, Serializable {
      *             If any of the given strings are {@code null}.
      */
     public BackendNodePrincipal(final String username, final String hostName, final String environmentName) {
-        if (username == null)
+        if (username == null) {
             throw new NullPointerException("Username cannot be null.");
+        }
 
-        if (StringUtils.isBlank(username))
+        if (StringUtils.isBlank(username)) {
             throw new IllegalArgumentException("Username cannot be blank.");
+        }
 
-        if (hostName == null)
+        if (hostName == null) {
             throw new NullPointerException("Host name cannot be null.");
+        }
 
-        if (StringUtils.isBlank(hostName))
+        if (StringUtils.isBlank(hostName)) {
             throw new IllegalArgumentException("Host name cannot be blank.");
+        }
 
-        if (environmentName == null)
+        if (environmentName == null) {
             throw new NullPointerException("Environment name cannot be null.");
+        }
 
-        if (StringUtils.isBlank(environmentName))
+        if (StringUtils.isBlank(environmentName)) {
             throw new IllegalArgumentException("Environment name cannot be blank.");
+        }
 
         this.username = username;
         this.hostName = hostName;
@@ -81,6 +87,7 @@ public class BackendNodePrincipal implements Principal, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getName() {
         return username + "@" + environmentName + "@" + hostName;
     }

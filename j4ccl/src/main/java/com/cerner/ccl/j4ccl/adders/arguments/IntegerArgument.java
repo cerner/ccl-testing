@@ -23,6 +23,7 @@ public class IntegerArgument implements Argument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getCommandLineValue() {
         return Integer.toString(value);
     }

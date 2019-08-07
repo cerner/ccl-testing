@@ -33,8 +33,9 @@ public class AccessToPrivateVariableFromSelectViolation implements VariableViola
      *             If the given subroutine name is {@code null}.
      */
     public AccessToPrivateVariableFromSelectViolation(final String variableName, final Integer lineNumber) {
-        if (variableName == null)
+        if (variableName == null) {
             throw new IllegalArgumentException("Variable name cannot be null.");
+        }
 
         this.variableName = variableName;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -42,11 +43,13 @@ public class AccessToPrivateVariableFromSelectViolation implements VariableViola
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof AccessToPrivateVariableFromSelectViolation))
+        if (!(obj instanceof AccessToPrivateVariableFromSelectViolation)) {
             return false;
+        }
 
         final AccessToPrivateVariableFromSelectViolation other = (AccessToPrivateVariableFromSelectViolation) obj;
         return getVariableName().equalsIgnoreCase(other.getVariableName())
@@ -56,6 +59,7 @@ public class AccessToPrivateVariableFromSelectViolation implements VariableViola
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -63,6 +67,7 @@ public class AccessToPrivateVariableFromSelectViolation implements VariableViola
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getVariableName() {
         return variableName;
     }
@@ -70,6 +75,7 @@ public class AccessToPrivateVariableFromSelectViolation implements VariableViola
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return getVariableName() + " has been declared as private and cannot be read from select";
     }
@@ -77,6 +83,7 @@ public class AccessToPrivateVariableFromSelectViolation implements VariableViola
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "Variables which have been defined as private scope from a CCL script are not accessible from a select statement. "
                 + "Either the script will throw a runtime CCL-E when an attempt to access the variable is made, or a second instance "
@@ -86,6 +93,7 @@ public class AccessToPrivateVariableFromSelectViolation implements VariableViola
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

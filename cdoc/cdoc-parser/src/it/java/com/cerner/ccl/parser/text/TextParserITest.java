@@ -31,9 +31,9 @@ import etm.core.monitor.EtmMonitor;
 
 /**
  * Integration test for {@link TextParser}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 public class TextParserITest extends AbstractFileReaderITest {
@@ -42,7 +42,7 @@ public class TextParserITest extends AbstractFileReaderITest {
 
     /**
      * Write out the results of all of the test runs.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the write-out.
      */
@@ -57,7 +57,7 @@ public class TextParserITest extends AbstractFileReaderITest {
 
     /**
      * Test the parsing of a CCL script.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -92,7 +92,7 @@ public class TextParserITest extends AbstractFileReaderITest {
             {
                 final Subroutine subroutine = subroutines.get(0);
                 assertThat(subroutine.getName()).isEqualTo("get_birth_dt_tm");
-                assertThat(subroutine.getReturnDataType()).isNull();
+				assertThat(subroutine.<DataTyped>getReturnDataType()).isNull();
                 assertThat(subroutine.getDescription()).isEqualTo("This is a simple subroutine that has its documentation wrapped in stars.");
                 assertThat(subroutine.getReturnDataDescription()).isEmpty();
 
@@ -137,7 +137,7 @@ public class TextParserITest extends AbstractFileReaderITest {
             {
                 final Subroutine subroutine = subroutines.get(2);
                 assertThat(subroutine.getName()).isEqualTo("get_ssn");
-                assertThat(subroutine.getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
+				assertThat(subroutine.<DataTyped>getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
                 assertThat(subroutine.getDescription()).isEqualTo("This subroutine has no declaration, so the information about it will be severely limited.");
                 assertThat(subroutine.getReturnDataDescription()).isEqualTo("The given person's SSN.");
 
@@ -278,7 +278,7 @@ public class TextParserITest extends AbstractFileReaderITest {
 
     /**
      * Verify that, if there is no top-level documentation, that the documentation block is correctly associated with the correct object inside the script.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -297,7 +297,7 @@ public class TextParserITest extends AbstractFileReaderITest {
 
     /**
      * Test the parsing of an include file.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -356,7 +356,7 @@ public class TextParserITest extends AbstractFileReaderITest {
 
             final Subroutine includedSub = subroutines.get(0);
             assertThat(includedSub.getName()).isEqualTo("included_sub");
-            assertThat(includedSub.getReturnDataType()).isNull();
+			assertThat(includedSub.<DataTyped>getReturnDataType()).isNull();
             assertThat(includedSub.returnsVoid()).isTrue();
             assertThat(includedSub.getDescription()).isEmpty();
             assertThat(includedSub.getReturnDataDescription()).isEmpty();
@@ -374,7 +374,7 @@ public class TextParserITest extends AbstractFileReaderITest {
 
     /**
      * Test parsing of an record structure with an include file statement within it that is not {@code status_block.inc}.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */

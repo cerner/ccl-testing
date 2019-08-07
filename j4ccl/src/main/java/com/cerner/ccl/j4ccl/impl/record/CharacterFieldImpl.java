@@ -28,26 +28,32 @@ public class CharacterFieldImpl implements Field {
         this.fieldName = fieldName;
     }
 
+    @Override
     public long getDataLength() {
         return dataLength;
     }
 
+    @Override
     public String getDeclaration() {
         return String.format("%s = C%s", getName(), Long.toString(getDataLength()));
     }
 
+    @Override
     public int getListSize() {
         throw new UnsupportedOperationException("Character fields are not fixed-length lists.");
     }
 
+    @Override
     public String getName() {
         return fieldName;
     }
 
+    @Override
     public Structure getStructure() {
         throw new UnsupportedOperationException("Character fields are not complex types.");
     }
 
+    @Override
     public DataType getType() {
         return DataType.CHARACTER;
     }

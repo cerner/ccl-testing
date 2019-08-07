@@ -177,6 +177,7 @@ public class TestMojoTest {
 
         // Build the script execution adder
         final ScriptExecutionAdder adder = mock(ScriptExecutionAdder.class, new Answer<ScriptExecutionAdder>() {
+            @Override
             public ScriptExecutionAdder answer(final InvocationOnMock invocation) throws Throwable {
                 return (ScriptExecutionAdder) invocation.getMock();
             }
@@ -501,6 +502,7 @@ public class TestMojoTest {
         public ExecutionAdderReplyWriter() {
         }
 
+        @Override
         public Object answer(final InvocationOnMock invocation) throws Throwable {
             if (!"withReplace".equals(invocation.getMethod().getName())) {
                 return adder;
@@ -548,6 +550,7 @@ public class TestMojoTest {
         public ExecutionAdderRequestArchiver() {
         }
 
+        @Override
         public Object answer(final InvocationOnMock invocation) throws Throwable {
             if (!"withReplace".equals(invocation.getMethod().getName())) {
                 return adder;

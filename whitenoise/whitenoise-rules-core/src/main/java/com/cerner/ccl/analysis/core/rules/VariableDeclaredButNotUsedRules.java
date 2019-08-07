@@ -105,14 +105,14 @@ public class VariableDeclaredButNotUsedRules extends TimedDelegate {
             String nakedCheck = namespace.equals("PUBLIC") ? " and not(ancestor::Z_SET.[NAME[@text='" + simpleName
                     + "' and not(preceding-sibling::*)]]) and not(ancestor::IS.[NAME[@text='" + simpleName
                     + "' and not(preceding-sibling::*)]])" : "";
-            usages.addAll(
-                    selectNodes("//NAME[@text='" + simpleName + "' and parent::NAMESPACE.[NAME[position()=1 and @text='"
-                            + namespace + "'] and NAME[position()=2 and @text='" + simpleName
-                            + "']] and not(../parent::Z_DECLARE.) and not(ancestor::Z_SET.[NAMESPACE.[NAME[position()=1 and @text='"
-                            + namespace + "'] and NAME[position()=2 and @text='" + simpleName
-                            + "'] and not(preceding-sibling::*)]]) and not(ancestor::IS.[NAMESPACE.[NAME[position()=1 and @text='"
-                            + namespace + "'] and NAME[position()=2 and @text='" + simpleName
-                            + "'] and not(preceding-sibling::*)]])" + nakedCheck + "]"));
+            usages.addAll(selectNodes("//NAME[@text='" + simpleName
+                    + "' and parent::NAMESPACE.[NAME[position()=1 and @text='" + namespace
+                    + "'] and NAME[position()=2 and @text='" + simpleName
+                    + "']] and not(../parent::Z_DECLARE.) and not(ancestor::Z_SET.[NAMESPACE.[NAME[position()=1 and @text='"
+                    + namespace + "'] and NAME[position()=2 and @text='" + simpleName
+                    + "'] and not(preceding-sibling::*)]]) and not(ancestor::IS.[NAMESPACE.[NAME[position()=1 and @text='"
+                    + namespace + "'] and NAME[position()=2 and @text='" + simpleName
+                    + "'] and not(preceding-sibling::*)]])" + nakedCheck + "]"));
         }
         Set<Element> usageScopes = new HashSet<Element>();
         for (Element usage : usages) {

@@ -35,8 +35,9 @@ public class VariableDeclaredButNotUsedViolation implements VariableViolation {
      *             blank.
      */
     public VariableDeclaredButNotUsedViolation(final String variableName, final Integer lineNumber) {
-        if (variableName == null)
+        if (variableName == null) {
             throw new IllegalArgumentException("Variable name cannot be null.");
+        }
 
         this.variableName = variableName;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -44,11 +45,13 @@ public class VariableDeclaredButNotUsedViolation implements VariableViolation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof VariableDeclaredButNotUsedViolation))
+        if (!(obj instanceof VariableDeclaredButNotUsedViolation)) {
             return false;
+        }
 
         final VariableDeclaredButNotUsedViolation other = (VariableDeclaredButNotUsedViolation) obj;
         return getVariableName().equalsIgnoreCase(other.getVariableName())
@@ -58,6 +61,7 @@ public class VariableDeclaredButNotUsedViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -65,6 +69,7 @@ public class VariableDeclaredButNotUsedViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return getVariableName() + " is declared but never used";
     }
@@ -72,6 +77,7 @@ public class VariableDeclaredButNotUsedViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "Variables which are declared but never used are often left over from refactored code and contribute to clutter and readability "
                 + "problems in the script. Consider removing the declaration to the unused variable.";
@@ -80,6 +86,7 @@ public class VariableDeclaredButNotUsedViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }
@@ -87,6 +94,7 @@ public class VariableDeclaredButNotUsedViolation implements VariableViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getVariableName() {
         return variableName;
     }

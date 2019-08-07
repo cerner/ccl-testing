@@ -74,6 +74,7 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
         this.queue = queue;
     }
 
+    @Override
     public ScriptCompilerAdderImpl withDebugModeEnabled(final boolean debugModeEnabled) {
         setDoDebugCompile(debugModeEnabled);
         return this;
@@ -82,6 +83,7 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
     /**
      * {@inheritDoc}
      */
+    @Override
     public ScriptCompilerAdderImpl withDependency(final File file) {
         addDependency(file);
         return this;
@@ -90,6 +92,7 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
     /**
      * {@inheritDoc}
      */
+    @Override
     public ScriptCompilerAdderImpl withListingOutput(final File file) {
         setListingLocation(file);
         return this;
@@ -98,6 +101,7 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
     /**
      * {@inheritDoc}
      */
+    @Override
     public void commit() {
         queue.addInCclSessionCommand(
                 new ScriptCompilerCommand(sourceCodeFile, getDependencies(), getListingLocation(), doDebugCompile()));

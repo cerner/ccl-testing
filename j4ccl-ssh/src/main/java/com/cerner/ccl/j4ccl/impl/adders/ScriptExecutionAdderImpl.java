@@ -41,14 +41,17 @@ public class ScriptExecutionAdderImpl implements ScriptExecutionAdder {
      *             If any of the given arguments are {@code null}.
      */
     public ScriptExecutionAdderImpl(final String scriptName, final CommandQueue queue) {
-        if (scriptName == null)
+        if (scriptName == null) {
             throw new NullPointerException("Script name cannot be null.");
+        }
 
-        if (queue == null)
+        if (queue == null) {
             throw new NullPointerException("Command queue cannot be null.");
+        }
 
-        if (scriptName.trim().length() == 0)
+        if (scriptName.trim().length() == 0) {
             throw new IllegalArgumentException("Script name cannot be blank.");
+        }
 
         this.queue = queue;
         this.scriptName = scriptName;
@@ -58,12 +61,15 @@ public class ScriptExecutionAdderImpl implements ScriptExecutionAdder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void commit() {
         final ScriptExecutionCommand command = new ScriptExecutionCommand(scriptName, arguments, authenticate);
 
-        if (!records.isEmpty())
-            for (final Entry<String, Record> entry : records.entrySet())
+        if (!records.isEmpty()) {
+            for (final Entry<String, Record> entry : records.entrySet()) {
                 command.addWithReplace(entry.getKey(), entry.getValue());
+            }
+        }
 
         queue.addInCclSessionCommand(command);
     }
@@ -71,15 +77,19 @@ public class ScriptExecutionAdderImpl implements ScriptExecutionAdder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ScriptExecutionAdder withReplace(final String recordName, final Record record) {
-        if (recordName == null)
+        if (recordName == null) {
             throw new NullPointerException("Record name cannot be null.");
+        }
 
-        if (record == null)
+        if (record == null) {
             throw new NullPointerException("Record cannot be null.");
+        }
 
-        if (recordName.trim().length() == 0)
+        if (recordName.trim().length() == 0) {
             throw new IllegalArgumentException("Record name cannot be blank.");
+        }
 
         final String upperName = recordName.toUpperCase(Locale.getDefault());
         records.put(upperName, record);
@@ -90,17 +100,22 @@ public class ScriptExecutionAdderImpl implements ScriptExecutionAdder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ScriptExecutionAdder withArguments(final Argument... arguments) {
-        if (arguments == null)
+        if (arguments == null) {
             throw new IllegalArgumentException("Arguments cannot be null.");
+        }
 
-        if (arguments.length == 0)
+        if (arguments.length == 0) {
             throw new IllegalArgumentException("At least one argument must be supplied.");
+        }
 
         // Verify that nothing is null
-        for (final Argument argument : arguments)
-            if (argument == null)
+        for (final Argument argument : arguments) {
+            if (argument == null) {
                 throw new IllegalArgumentException("Null arguments are not allowed: " + Arrays.toString(arguments));
+            }
+        }
 
         this.arguments = Arrays.asList(arguments);
         return this;
@@ -109,6 +124,7 @@ public class ScriptExecutionAdderImpl implements ScriptExecutionAdder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ScriptExecutionAdder withAuthentication(final boolean authenticate) {
         this.authenticate = authenticate;
         return this;
