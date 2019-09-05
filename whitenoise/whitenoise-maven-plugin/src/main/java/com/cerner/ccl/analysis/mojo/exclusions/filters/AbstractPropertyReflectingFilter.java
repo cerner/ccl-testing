@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.mojo.exclusions.filters;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.slf4j.Logger;
@@ -38,20 +39,23 @@ public abstract class AbstractPropertyReflectingFilter implements ViolationFilte
         final String methodName = "get" + Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
         try {
             final Method getter = violation.getClass().getDeclaredMethod(methodName);
-            if (!getter.isAccessible())
+            if (!getter.isAccessible()) {
                 getter.setAccessible(true);
+            }
             return (T) getter.invoke(violation);
-        } catch (final Exception e) {
+        } catch (final IllegalArgumentException | IllegalAccessException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
             LOGGER.trace("Failed to retrieve '{}' off of {}; moving on to field retrieval.", methodName, violation);
             LOGGER.trace("Tracing thrown exception during retrieval by method.", e);
         }
 
         try {
             final Field field = violation.getClass().getDeclaredField(propertyName);
-            if (!field.isAccessible())
+            if (!field.isAccessible()) {
                 field.setAccessible(true);
+            }
             return (T) field.get(violation);
-        } catch (final Exception e) {
+        } catch (final IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             LOGGER.trace("Failed to retrieve field by name '{}' off of {}.", propertyName, violation);
             LOGGER.trace("Tracing thrown exception during retrieval by field.", e);
         }

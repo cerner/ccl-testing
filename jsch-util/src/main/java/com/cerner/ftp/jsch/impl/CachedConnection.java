@@ -242,6 +242,9 @@ public class CachedConnection implements Connection {
             case ERROR:
             case FATAL:
                 LOGGER.error(message);
+                break;
+            default:
+                break;
             }
         }
     }

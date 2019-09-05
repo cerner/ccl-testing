@@ -50,10 +50,11 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <changes.plugin.version>2.12.1</changes.plugin.version>
-        <powermock.version>2.0.2</powermock.version>
+        <powermock.version>2.0.3</powermock.version>
         <jdk.source.version>1.8</jdk.source.version>
         <jdk.target.version>1.8</jdk.target.version>
         <surefire.version>3.0.0-M3</surefire.version>
+        <slf4j.version>2.0.0-alpha0</slf4j.version>
     </properties>
     <build>
         <extensions>
@@ -302,7 +303,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -347,7 +348,7 @@
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
                     <artifactId>formatter-maven-plugin</artifactId>
-                    <version>2.6.0</version>
+                    <version>2.10.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -367,7 +368,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.8.0-beta2</version>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>fm.void.jetm</groupId>
@@ -378,7 +379,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.8.0-beta2</version>
+            <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -390,7 +391,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13-beta-3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -402,13 +403,13 @@
         <dependency>
             <groupId>org.objenesis</groupId>
             <artifactId>objenesis</artifactId>
-            <version>2.6</version>
+            <version>3.0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.18.3</version>
+            <version>3.0.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>

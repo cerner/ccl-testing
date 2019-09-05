@@ -58,9 +58,10 @@
         <changes.plugin.version>2.12.1</changes.plugin.version>
         <plugin.plugin.version>3.4</plugin.plugin.version>
         <mockito-all.version>2.0.2-beta</mockito-all.version>
-        <mockito.version>2.18.3</mockito.version>
-        <powermock.version>2.0.2</powermock.version>
-        <spring.version>4.3.25.RELEASE</spring.version>
+        <mockito.version>3.0.0</mockito.version>
+        <powermock.version>2.0.3</powermock.version>
+        <spring.version.0>4.3.25.RELEASE</spring.version.0>
+        <spring.version>5.1.9.RELEASE</spring.version>
         <slf4j.version>2.0.0-alpha0</slf4j.version>
         <surefire.version>3.0.0-M3</surefire.version>
 
@@ -619,13 +620,19 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>4.13-beta-3</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>1.2.17</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.25.0-GA</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.easytesting</groupId>
@@ -730,7 +737,7 @@
             <dependency>
                 <groupId>org.objenesis</groupId>
                 <artifactId>objenesis</artifactId>
-                <version>2.6</version>
+                <version>3.0.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

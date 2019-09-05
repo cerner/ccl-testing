@@ -7,4 +7,8 @@
     <Match>
         <Class name="com.cerner.ccl.analysis.mojo.HelpMojo" />
     </Match>
+    <Match>
+        <Bug code="DP" />
+        <Class name="com.cerner.ccl.analysis.mojo.exclusions.filters.AbstractPropertyReflectingFilter" />
+    </Match>
 </FindBugsFilter>

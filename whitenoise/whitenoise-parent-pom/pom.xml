@@ -58,9 +58,10 @@
         <changes.plugin.version>2.12.1</changes.plugin.version>
         <plugin.plugin.version>3.4</plugin.plugin.version>
         <mockito-all.version>2.0.2-beta</mockito-all.version>
-        <mockito.version>2.18.3</mockito.version>
-        <powermock.version>2.0.2</powermock.version>
-        <spring.version>4.3.25.RELEASE</spring.version>
+        <mockito.version>3.0.0</mockito.version>
+        <powermock.version>2.0.3</powermock.version>
+        <spring.version.0>4.3.25.RELEASE</spring.version.0>
+        <spring.version>5.1.9.RELEASE</spring.version>
         <surefire.version>3.0.0-M3</surefire.version>
         <slf4j.version>2.0.0-alpha0</slf4j.version>
 
@@ -329,7 +330,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -579,7 +580,7 @@
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.11</version>
+                <version>1.13</version>
             </dependency>
             <dependency>
                 <groupId>commons-discovery</groupId>
@@ -601,7 +602,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.7</version>
+                <version>3.9</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
@@ -611,7 +612,7 @@
             <dependency>
                 <groupId>com.jcraft</groupId>
                 <artifactId>jsch</artifactId>
-                <version>0.1.54</version>
+                <version>0.1.55</version>
             </dependency>
             <dependency>
                 <groupId>fm.void.jetm</groupId>
@@ -626,7 +627,7 @@
             <dependency>
                 <groupId>jaxen</groupId>
                 <artifactId>jaxen</artifactId>
-                <version>1.1.6</version>
+                <version>1.2.0</version>
                 <exclusions>
                     <exclusion>
                         <groupId>com.ibm.icu</groupId>
@@ -643,7 +644,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>4.13-beta-3</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -724,7 +725,7 @@
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
-                <version>2.10</version>
+                <version>2.10.3</version>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
@@ -750,7 +751,7 @@
             <dependency>
                 <groupId>org.objenesis</groupId>
                 <artifactId>objenesis</artifactId>
-                <version>2.6</version>
+                <version>3.0.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

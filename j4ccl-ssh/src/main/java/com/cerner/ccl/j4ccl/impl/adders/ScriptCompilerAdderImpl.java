@@ -59,7 +59,8 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
             Matcher m = p.matcher(sourceCode);
             if (m.find()) {
                 String programName = m.group(1);
-                if (!programName.toLowerCase().equals(sourceCodeFile.getName().replaceAll("\\.prg", ""))) {
+                if (!programName.toLowerCase(Locale.getDefault())
+                        .equals(sourceCodeFile.getName().replaceAll("\\.prg", ""))) {
                     throw new IllegalArgumentException(
                             "Source code file name must match generated program name: " + sourceCodeFile.getName());
                 }
