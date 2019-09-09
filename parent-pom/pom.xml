@@ -58,8 +58,8 @@
         <changes.plugin.version>2.12.1</changes.plugin.version>
         <plugin.plugin.version>3.4</plugin.plugin.version>
         <mockito-all.version>2.0.2-beta</mockito-all.version>
-        <mockito.version>3.0.0</mockito.version>
-        <powermock.version>2.0.3</powermock.version>
+        <mockito.version>2.26.0</mockito.version>
+        <powermock.version>2.0.2</powermock.version>
         <spring.version.0>4.3.25.RELEASE</spring.version.0>
         <spring.version>5.1.9.RELEASE</spring.version>
         <slf4j.version>2.0.0-alpha0</slf4j.version>
@@ -650,6 +650,21 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+<!--
+  remove bytebuddy dependencies and bump mockito.version to 3.0.0 when powermock 2.0.3+ is released.
+-->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>1.9.16</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>1.9.16</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

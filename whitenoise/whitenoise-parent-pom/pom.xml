@@ -59,7 +59,7 @@
         <plugin.plugin.version>3.4</plugin.plugin.version>
         <mockito-all.version>2.0.2-beta</mockito-all.version>
         <mockito.version>3.0.0</mockito.version>
-        <powermock.version>2.0.3</powermock.version>
+        <powermock.version>2.0.2</powermock.version>
         <spring.version.0>4.3.25.RELEASE</spring.version.0>
         <spring.version>5.1.9.RELEASE</spring.version>
         <surefire.version>3.0.0-M3</surefire.version>
