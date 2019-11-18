@@ -44,11 +44,13 @@ public class MissingGoToLabelViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof MissingGoToLabelViolation))
+        if (!(obj instanceof MissingGoToLabelViolation)) {
             return false;
+        }
 
         final MissingGoToLabelViolation other = (MissingGoToLabelViolation) obj;
         return getLabelName().equalsIgnoreCase(other.getLabelName()) && getLineNumber().equals(other.getLineNumber());
@@ -67,6 +69,7 @@ public class MissingGoToLabelViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -74,6 +77,7 @@ public class MissingGoToLabelViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "'go to " + labelName + "' found without corresponding #" + labelName + " label";
     }
@@ -81,6 +85,7 @@ public class MissingGoToLabelViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "A go to statement that references a non-existent label will not function.";
     }
@@ -88,6 +93,7 @@ public class MissingGoToLabelViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

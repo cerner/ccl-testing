@@ -12,14 +12,17 @@ import com.jcraft.jsch.SftpProgressMonitor;
 
 public class DevNullMonitor implements SftpProgressMonitor {
 
+    @Override
     public boolean count(final long count) {
         return false;
     }
 
+    @Override
     public void end() {
 
     }
 
+    @Override
     public void init(final int op, final String src, final String dest, final long max) {
 
     }

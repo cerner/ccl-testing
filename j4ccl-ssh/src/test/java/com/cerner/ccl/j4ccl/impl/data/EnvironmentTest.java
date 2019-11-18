@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.data;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -21,7 +22,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -61,12 +61,6 @@ public class EnvironmentTest {
      */
     @Rule
     public TestName testName = new TestName();
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private final String environmentName = "enviornment.name";
     private final String CER_INSTALL = "/some/folder/cer_install";
     private final String CER_PROC = "/a/proc/folder/cer_proc";
@@ -172,9 +166,10 @@ public class EnvironmentTest {
         mockStatic(JaasUtils.class);
         when(JaasUtils.getPrincipal(BackendNodePrincipal.class)).thenReturn(badPrincipal);
 
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Environment name cannot be blank.");
-        Environment.getEnvironment();
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            Environment.getEnvironment();
+        });
+        assertThat(e.getMessage()).isEqualTo("Environment name cannot be blank.");
     }
 
     /**
@@ -196,13 +191,13 @@ public class EnvironmentTest {
      */
     @Test
     public void testGetEnvironmentNullName() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Environment name cannot be null.");
-
         final BackendNodePrincipal badPrincipal = mock(BackendNodePrincipal.class);
         when(JaasUtils.getPrincipal(BackendNodePrincipal.class)).thenReturn(badPrincipal);
 
-        Environment.getEnvironment();
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            Environment.getEnvironment();
+        });
+        assertThat(e.getMessage()).isEqualTo("Environment name cannot be null.");
     }
 
     /**
@@ -307,23 +302,24 @@ public class EnvironmentTest {
      */
     @Test
     public void testConstructMissingLogical() throws Exception {
-        expected.expect(IllegalStateException.class);
-        expected.expectMessage(
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> {
+            try {
+                new Environment(environmentName);
+            } finally {
+                final ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
+
+                verify(pointInit, times(1)).collect();
+                verify(mockLogger, times(3)).error(logCaptor.capture());
+
+                final List<String> logEntries = logCaptor.getAllValues();
+                assertThat(logEntries.get(0)).isEqualTo("Some environment logical retrieval commamds failed.");
+                assertThat(logEntries.get(2)).contains("---------envData start---------");
+                assertThat(logEntries.get(2)).contains("---------envData end---------");
+            }
+        });
+        assertThat(e.getMessage()).isEqualTo(
                 "A server-side environment logical could not be determined. Verify that the given environment name exists: "
                         + environmentName);
-        try {
-            new Environment(environmentName);
-        } finally {
-            final ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
-
-            verify(pointInit, times(1)).collect();
-            verify(mockLogger, times(3)).error(logCaptor.capture());
-
-            final List<String> logEntries = logCaptor.getAllValues();
-            assertThat(logEntries.get(0)).isEqualTo("Some environment logical retrieval commamds failed.");
-            assertThat(logEntries.get(2)).contains("---------envData start---------");
-            assertThat(logEntries.get(2)).contains("---------envData end---------");
-        }
     }
 
     /**
@@ -335,28 +331,29 @@ public class EnvironmentTest {
 
     @Test
     public void testEnvironmentRetrievalTotalFailure() throws Exception {
-        expected.expect(IllegalStateException.class);
-        expected.expectMessage(
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> {
+            try {
+                new Environment(environmentName);
+            } finally {
+                final ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
+
+                verify(pointInit, times(1)).collect();
+                verify(mockLogger, times(3)).error(logCaptor.capture());
+
+                final List<String> logEntries = logCaptor.getAllValues();
+                assertThat(logEntries.get(0)).isEqualTo("Some environment logical retrieval commamds failed.");
+                assertThat(logEntries.get(1)).isEqualTo(
+                        "\n\r---------raw output start---------\n\rwhatever the terminal happens to return.\n\r---------raw output end---------");
+                assertThat(logEntries.get(2)).contains("---------envData start---------");
+                assertThat(logEntries.get(2)).contains("---------envData end---------");
+            }
+        });
+        assertThat(e.getMessage()).isEqualTo(
                 "A server-side environment logical could not be determined. Verify that the given environment name exists: "
                         + environmentName);
-        try {
-            new Environment(environmentName);
-        } finally {
-            final ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
-
-            verify(pointInit, times(1)).collect();
-            verify(mockLogger, times(3)).error(logCaptor.capture());
-
-            final List<String> logEntries = logCaptor.getAllValues();
-            assertThat(logEntries.get(0)).isEqualTo("Some environment logical retrieval commamds failed.");
-            assertThat(logEntries.get(1)).isEqualTo(
-                    "\n\r---------raw output start---------\n\rwhatever the terminal happens to return.\n\r---------raw output end---------");
-            assertThat(logEntries.get(2)).contains("---------envData start---------");
-            assertThat(logEntries.get(2)).contains("---------envData end---------");
-        }
     }
 
-    private String loadEnvResource(String resourceName) throws IOException {
+    private String loadEnvResource(final String resourceName) throws IOException {
         final InputStream is = EnvironmentTest.class.getResourceAsStream(resourceName);
         final BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line = null;

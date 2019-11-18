@@ -34,8 +34,9 @@ public class HeadOrFootSectionWithoutOrderClauseViolation implements Violation {
      */
     public HeadOrFootSectionWithoutOrderClauseViolation(final String headerOrFooterField, final Integer lineNumber)
             throws IllegalArgumentException {
-        if (headerOrFooterField == null)
+        if (headerOrFooterField == null) {
             throw new IllegalArgumentException("Header/footer field name cannot be null.");
+        }
 
         this.headFootOn = headerOrFooterField;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -43,11 +44,13 @@ public class HeadOrFootSectionWithoutOrderClauseViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof HeadOrFootSectionWithoutOrderClauseViolation))
+        if (!(obj instanceof HeadOrFootSectionWithoutOrderClauseViolation)) {
             return false;
+        }
 
         final HeadOrFootSectionWithoutOrderClauseViolation other = (HeadOrFootSectionWithoutOrderClauseViolation) obj;
         return getHeaderOrFooterField().equalsIgnoreCase(other.getHeaderOrFooterField())
@@ -68,6 +71,7 @@ public class HeadOrFootSectionWithoutOrderClauseViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -75,6 +79,7 @@ public class HeadOrFootSectionWithoutOrderClauseViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Head [" + headFootOn + "] or Foot [" + headFootOn + "] does not have corresponding order by clause";
     }
@@ -82,6 +87,7 @@ public class HeadOrFootSectionWithoutOrderClauseViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "When using a head or foot section in report writer code, it is almost always required to include a corresponding "
                 + "order by clause so that the head or foot section does not fire too frequently due to a result set which was not "
@@ -92,6 +98,7 @@ public class HeadOrFootSectionWithoutOrderClauseViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

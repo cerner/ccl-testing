@@ -1,15 +1,14 @@
 package com.cerner.ccl.j4ccl.record.factory;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import com.cerner.ccl.j4ccl.record.DataType;
 import com.cerner.ccl.j4ccl.record.Field;
@@ -25,19 +24,14 @@ import com.cerner.ccl.j4ccl.record.Structure;
 
 public class RecordFactoryTest {
     /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
-    /**
      * Test the creation of a record with a null name. It should fail.
      */
     @Test
     public void testCreateNullName() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Name must not be null");
-        RecordFactory.create(null, mock(Structure.class));
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            RecordFactory.create(null, mock(Structure.class));
+        });
+        assertThat(e.getMessage()).isEqualTo("Name must not be null");
     }
 
     /**
@@ -45,9 +39,10 @@ public class RecordFactoryTest {
      */
     @Test
     public void testCreateNullStructure() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Structure must not be null");
-        RecordFactory.create("name", null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            RecordFactory.create("name", null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Structure must not be null");
     }
 
     /**

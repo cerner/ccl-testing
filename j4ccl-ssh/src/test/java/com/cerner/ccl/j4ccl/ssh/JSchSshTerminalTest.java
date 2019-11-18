@@ -1,8 +1,8 @@
 package com.cerner.ccl.j4ccl.ssh;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -21,9 +21,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -59,12 +57,6 @@ import expect4j.matches.RegExpMatch;
 @PrepareForTest(value = { JaasUtils.class, JSchSshTerminal.class, TerminalResponse.class, ConnectionPoolFactory.class,
         LoggerFactory.class })
 public class JSchSshTerminalTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private final String username = "username";
     private final String password = "password";
     private final String serverAddress = "http://www.google.com";
@@ -317,8 +309,8 @@ public class JSchSshTerminalTest {
         verify(conn, times(0)).close();
     }
 
-    private TerminalResponse executeCommandsHelper(JSchSshTerminal terminal, List<String> commands, String prompt)
-            throws Exception {
+    private TerminalResponse executeCommandsHelper(final JSchSshTerminal terminal, final List<String> commands,
+            final String prompt) throws Exception {
         List<CommandExpectationGroup> commandExpectationGroups = new ArrayList<CommandExpectationGroup>();
         CommandExpectationGroup commandExpectationGroup = new CommandExpectationGroup();
         commandExpectationGroup.addCommands(commands);

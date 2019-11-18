@@ -34,11 +34,13 @@ public class SizeOfRecordMissingTrimViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof SizeOfRecordMissingTrimViolation))
+        if (!(obj instanceof SizeOfRecordMissingTrimViolation)) {
             return false;
+        }
 
         final SizeOfRecordMissingTrimViolation other = (SizeOfRecordMissingTrimViolation) obj;
         return getLineNumber().equals(other.getLineNumber());
@@ -47,6 +49,7 @@ public class SizeOfRecordMissingTrimViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -54,6 +57,7 @@ public class SizeOfRecordMissingTrimViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Size function on string variable should be wrapped with trim function";
     }
@@ -61,6 +65,7 @@ public class SizeOfRecordMissingTrimViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "When using the size() function on a string variable, the variable should be wrapped "
                 + "with trim(). This ensures that when value is empty size will return 0.";
@@ -69,6 +74,7 @@ public class SizeOfRecordMissingTrimViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

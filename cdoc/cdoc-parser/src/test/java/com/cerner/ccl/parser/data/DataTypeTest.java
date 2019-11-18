@@ -1,12 +1,11 @@
 package com.cerner.ccl.parser.data;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.Locale;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import com.cerner.ccl.parser.exception.InvalidDataTypeDeclarationException;
 
@@ -18,12 +17,6 @@ import com.cerner.ccl.parser.exception.InvalidDataTypeDeclarationException;
  */
 
 public class DataTypeTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     /**
      * Test the resolution of a declaration to a data type. Added two new test statements for the new data types added
      * (gvc and dq12).
@@ -64,9 +57,10 @@ public class DataTypeTest {
      */
     @Test
     public void testForDeclarationNullDeclaration() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Declaration cannot be null.");
-        DataType.forDeclaration(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            DataType.forDeclaration(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Declaration cannot be null.");
     }
 
     /**
@@ -76,8 +70,10 @@ public class DataTypeTest {
     public void testForDeclarationUnrecognized() {
         final String declaration = "this is an invalid declaration  ";
         final String normalized = declaration.trim().toUpperCase(Locale.US);
-        expected.expect(InvalidDataTypeDeclarationException.class);
-        expected.expectMessage("Unrecognized declaration: " + declaration + "; normalized to " + normalized);
-        DataType.forDeclaration(declaration);
+        InvalidDataTypeDeclarationException e = assertThrows(InvalidDataTypeDeclarationException.class, () -> {
+            DataType.forDeclaration(declaration);
+        });
+        assertThat(e.getMessage())
+                .startsWith("Unrecognized declaration: " + declaration + "; normalized to " + normalized);
     }
 }

@@ -1,11 +1,10 @@
 package com.cerner.ccl.j4ccl.impl.jaas;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.SerializationUtils;
 import org.junit.Test;
-
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 /**
  * Unit tests for {@link BackendNodePrincipal}.
@@ -14,7 +13,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
  *
  */
 
-public class BackendNodePrincipalTest extends AbstractUnitTest {
+public class BackendNodePrincipalTest {
     private final String username = "a.user";
     private final String hostName = "a.host";
     private final String environmentName = "an.environment";
@@ -26,9 +25,10 @@ public class BackendNodePrincipalTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructBlankEnvironmentName() {
-        expect(IllegalArgumentException.class);
-        expect("Environment name cannot be blank.");
-        new BackendNodePrincipal(username, hostName, " ");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new BackendNodePrincipal(username, hostName, " ");
+        });
+        assertThat(e.getMessage()).isEqualTo("Environment name cannot be blank.");
     }
 
     /**
@@ -37,9 +37,10 @@ public class BackendNodePrincipalTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructBlankHostName() {
-        expect(IllegalArgumentException.class);
-        expect("Host name cannot be blank.");
-        new BackendNodePrincipal(username, " ", environmentName);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new BackendNodePrincipal(username, " ", environmentName);
+        });
+        assertThat(e.getMessage()).isEqualTo("Host name cannot be blank.");
     }
 
     /**
@@ -48,9 +49,10 @@ public class BackendNodePrincipalTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructBlankUsername() {
-        expect(IllegalArgumentException.class);
-        expect("Username cannot be blank.");
-        new BackendNodePrincipal(" ", hostName, environmentName);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new BackendNodePrincipal(" ", hostName, environmentName);
+        });
+        assertThat(e.getMessage()).isEqualTo("Username cannot be blank.");
     }
 
     /**
@@ -59,9 +61,10 @@ public class BackendNodePrincipalTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructNullEnvironmentName() {
-        expect(NullPointerException.class);
-        expect("Environment name cannot be null.");
-        new BackendNodePrincipal(username, hostName, null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new BackendNodePrincipal(username, hostName, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Environment name cannot be null.");
     }
 
     /**
@@ -70,9 +73,10 @@ public class BackendNodePrincipalTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructNullHostName() {
-        expect(NullPointerException.class);
-        expect("Host name cannot be null.");
-        new BackendNodePrincipal(username, null, environmentName);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new BackendNodePrincipal(username, null, environmentName);
+        });
+        assertThat(e.getMessage()).isEqualTo("Host name cannot be null.");
     }
 
     /**
@@ -81,9 +85,10 @@ public class BackendNodePrincipalTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructNullUsername() {
-        expect(NullPointerException.class);
-        expect("Username cannot be null.");
-        new BackendNodePrincipal(null, hostName, environmentName);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new BackendNodePrincipal(null, hostName, environmentName);
+        });
+        assertThat(e.getMessage()).isEqualTo("Username cannot be null.");
     }
 
     /**

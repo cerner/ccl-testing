@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.data;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -26,9 +27,11 @@ public class CodeSetTest extends AbstractBeanUnitTest<CodeSet> {
     @Test
     public void testConstructNegativeCodeSetNumber() {
         final int badNumber = -4389;
-        expect(IllegalArgumentException.class);
-        expect("Code set must be a non-zero, positive integer: " + Integer.toString(badNumber));
-        new CodeSet(badNumber, description);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CodeSet(badNumber, description);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("Code set must be a non-zero, positive integer: " + Integer.toString(badNumber));
     }
 
     /**

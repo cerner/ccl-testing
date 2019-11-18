@@ -27,7 +27,7 @@ public class AbstractPropertyReflectingFilterTest {
             @SuppressWarnings("unused")
             private final String internalProperty = expectedValue;
         };
-        assertThat(filter.getInternalValue(toFilter, "internalProperty")).isEqualTo(expectedValue);
+        assertThat(filter.<String> getInternalValue(toFilter, "internalProperty")).isEqualTo(expectedValue);
     }
 
     /**
@@ -42,7 +42,7 @@ public class AbstractPropertyReflectingFilterTest {
                 return expectedValue;
             }
         };
-        assertThat(filter.getInternalValue(toFilter, "internalProperty")).isEqualTo(expectedValue);
+        assertThat(filter.<String> getInternalValue(toFilter, "internalProperty")).isEqualTo(expectedValue);
     }
 
     /**
@@ -51,7 +51,7 @@ public class AbstractPropertyReflectingFilterTest {
      */
     @Test
     public void testGetInternalValueNotFound() {
-        assertThat(filter.getInternalValue(new ViolationStub(), "thisWillNeverEverBeAProperty")).isNull();
+        assertThat(filter.<String> getInternalValue(new ViolationStub(), "thisWillNeverEverBeAProperty")).isNull();
     }
 
     /**
@@ -67,6 +67,7 @@ public class AbstractPropertyReflectingFilterTest {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean exclude(final String scriptName, final Violation violation) {
             return false;
         }
@@ -85,6 +86,7 @@ public class AbstractPropertyReflectingFilterTest {
         /**
          * {@inheritDoc}
          */
+        @Override
         public Integer getLineNumber() {
             return null;
         }
@@ -92,6 +94,7 @@ public class AbstractPropertyReflectingFilterTest {
         /**
          * {@inheritDoc}
          */
+        @Override
         public String getViolationDescription() {
             return null;
         }
@@ -99,6 +102,7 @@ public class AbstractPropertyReflectingFilterTest {
         /**
          * {@inheritDoc}
          */
+        @Override
         public String getViolationExplanation() {
             return null;
         }
@@ -106,6 +110,7 @@ public class AbstractPropertyReflectingFilterTest {
         /**
          * {@inheritDoc}
          */
+        @Override
         public ViolationId getViolationId() {
             return null;
         }

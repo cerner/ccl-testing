@@ -542,6 +542,7 @@ public abstract class BaseCclMojo extends AbstractMojo {
         /**
          * {@inheritDoc}
          */
+        @Override
         public Log getLog() {
             return log;
         }
@@ -549,6 +550,7 @@ public abstract class BaseCclMojo extends AbstractMojo {
         /**
          * {@inheritDoc}
          */
+        @Override
         public void log(final String text) {
             log.debug(text);
         }
@@ -576,6 +578,7 @@ public abstract class BaseCclMojo extends AbstractMojo {
         /**
          * {@inheritDoc}
          */
+        @Override
         public Log getLog() {
             return log;
         }
@@ -583,6 +586,7 @@ public abstract class BaseCclMojo extends AbstractMojo {
         /**
          * {@inheritDoc}
          */
+        @Override
         public void log(final String text) {
             log.info(text);
         }

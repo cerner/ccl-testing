@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.record;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
@@ -24,9 +25,10 @@ public class StructureCharacterFieldTest extends AbstractBeanUnitTest<StructureC
      */
     @Test
     public void testConstructZeroLength() {
-        expect(IllegalArgumentException.class);
-        expect("Data length cannot be less than 1: " + Integer.toString(0));
-        new StructureCharacterField(fieldName, 1, 0);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new StructureCharacterField(fieldName, 1, 0);
+        });
+        assertThat(e.getMessage()).isEqualTo("Data length cannot be less than 1: " + Integer.toString(0));
     }
 
     /**

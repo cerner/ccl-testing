@@ -1,6 +1,7 @@
 package com.cerner.ccl.testing.maven.ccl.reports.common;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -10,18 +11,13 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.testing.maven.ccl.reports.common.CCLCoverageProgram;
-import com.cerner.ccl.testing.maven.ccl.reports.common.CCLProgram;
-import com.cerner.ccl.testing.maven.ccl.reports.common.CoverageLine;
-import com.cerner.ccl.testing.maven.ccl.reports.common.CoveredStatus;
 import com.cerner.ccl.testing.maven.ccl.reports.common.CCLProgram.ProgramLine;
 import com.cerner.ccl.testing.maven.ccl.reports.common.internal.XmlCoverageLine;
 import com.cerner.ccl.testing.maven.ccl.reports.common.internal.XmlGenerator;
@@ -35,13 +31,8 @@ import com.cerner.ccl.testing.maven.ccl.reports.common.internal.XmlGenerator;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { CCLProgram.class, CCLCoverageProgram.class, CoverageLine.class })
+@PowerMockIgnore({ "javax.activation.*", "javax.management.*", "javax.xml.*", "org.xml.*", "org.w3c.dom.*" })
 public class CCLCoverageProgramTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private final String listingXml = "i am listing xml";
     @Mock
     private CCLProgram program;
@@ -128,9 +119,10 @@ public class CCLCoverageProgramTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullListingXml() throws Exception {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Listing XML cannot be null.");
-        new CCLCoverageProgram(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CCLCoverageProgram(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Listing XML cannot be null.");
     }
 
     /**
@@ -307,7 +299,7 @@ public class CCLCoverageProgramTest {
      *            The {@link CoveredStatus} that is not to be returned.
      * @return A {@link CoveredStatus} other than the given.
      */
-    private CoveredStatus getOtherStatus(CoveredStatus requested) {
+    private CoveredStatus getOtherStatus(final CoveredStatus requested) {
         return CoveredStatus.values()[requested.ordinal() == 0 ? 1 : requested.ordinal() - 1];
     }
 
@@ -320,7 +312,7 @@ public class CCLCoverageProgramTest {
      *            The line number of the line.
      * @return A {@link XmlCoverageLine}.
      */
-    private XmlCoverageLine line(CoveredStatus status, int lineNumber) {
+    private XmlCoverageLine line(final CoveredStatus status, final int lineNumber) {
         return new XmlCoverageLine(status, lineNumber);
     }
 }

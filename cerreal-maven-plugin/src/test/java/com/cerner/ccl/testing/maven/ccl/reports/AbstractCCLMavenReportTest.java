@@ -14,8 +14,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 
-import com.cerner.ccl.testing.maven.ccl.reports.AbstractCCLMavenReport;
-
 /**
  * Unit tests for {@link AbstractCCLMavenReport}.
  *
@@ -136,20 +134,23 @@ public class AbstractCCLMavenReportTest {
         public ConcreteReportMojo() {
         }
 
+        @Override
         public String getOutputName() {
             return null;
         }
 
-        public String getName(Locale locale) {
-            return null;
-        }
-
-        public String getDescription(Locale locale) {
+        @Override
+        public String getName(final Locale locale) {
             return null;
         }
 
         @Override
-        protected void executeReport(Locale locale) {
+        public String getDescription(final Locale locale) {
+            return null;
+        }
+
+        @Override
+        protected void executeReport(final Locale locale) {
             // no-op
         }
 

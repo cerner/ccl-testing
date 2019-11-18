@@ -37,8 +37,9 @@ public class DownloadProcessorTest {
         FileUtils.forceMkdir(unitDirectory);
 
         final File targetFile = new File(unitDirectory, "download.test");
-        if (targetFile.exists())
+        if (targetFile.exists()) {
             assertThat(targetFile.delete()).isTrue();
+        }
 
         final FileRequest mockRequest = mock(FileRequest.class);
         when(mockRequest.getSourceFile()).thenReturn(URI.create("target/unit/dummy.src"));
@@ -61,6 +62,7 @@ public class DownloadProcessorTest {
     @Test(expected = TransferException.class)
     public void testGetFailure() {
         final Answer<Object> exceptionThrower = new Answer<Object>() {
+            @Override
             public Object answer(final InvocationOnMock invocation) throws Throwable {
                 throw mock(SftpException.class);
             }

@@ -7,14 +7,14 @@ import org.junit.Test;
 
 /**
  * Skeleton definition of a bean unit test. This provides common tests like equality comparisons.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  * @param <T>
  *            The type of bean to be tested.
  */
 
-public abstract class AbstractBeanUnitTest<T> extends AbstractUnitTest {
+public abstract class AbstractBeanUnitTest<T> {
     /**
      * A bean should be equal to another bean of the same properties.
      */
@@ -65,14 +65,14 @@ public abstract class AbstractBeanUnitTest<T> extends AbstractUnitTest {
 
     /**
      * Get the bean to be tested.
-     * 
+     *
      * @return The bean to be tested.
      */
     protected abstract T getBean();
 
     /**
      * Create a new bean from the given bean.
-     * 
+     *
      * @param otherBean
      *            The bean from which the new bean is to be created.
      * @return A new instance of the bean from the given bean. This should be equal such that an

@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.jaas;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,8 +10,6 @@ import java.io.ObjectOutputStream;
 
 import org.junit.Test;
 
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
-
 /**
  * Unit tests for {@link MillenniumDomainPrincipal}.
  *
@@ -18,7 +17,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
  *
  */
 
-public class MillenniumDomainPrincipalTest extends AbstractUnitTest {
+public class MillenniumDomainPrincipalTest {
     private final String username = "bob";
     private final String domainName = "der_domain";
     private final MillenniumDomainPrincipal principal = new MillenniumDomainPrincipal(username, domainName);
@@ -29,9 +28,10 @@ public class MillenniumDomainPrincipalTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructBlankDomainName() {
-        expect(IllegalArgumentException.class);
-        expect("Domain name cannot be blank.");
-        new MillenniumDomainPrincipal(username, " ");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new MillenniumDomainPrincipal(username, " ");
+        });
+        assertThat(e.getMessage()).isEqualTo("Domain name cannot be blank.");
     }
 
     /**
@@ -40,9 +40,10 @@ public class MillenniumDomainPrincipalTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructBlankUsername() {
-        expect(IllegalArgumentException.class);
-        expect("Username cannot be blank.");
-        new MillenniumDomainPrincipal(" ", domainName);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new MillenniumDomainPrincipal(" ", domainName);
+        });
+        assertThat(e.getMessage()).isEqualTo("Username cannot be blank.");
     }
 
     /**
@@ -51,9 +52,10 @@ public class MillenniumDomainPrincipalTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructNullDomainName() {
-        expect(NullPointerException.class);
-        expect("Domain name cannot be null.");
-        new MillenniumDomainPrincipal(username, null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new MillenniumDomainPrincipal(username, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Domain name cannot be null.");
     }
 
     /**
@@ -62,9 +64,10 @@ public class MillenniumDomainPrincipalTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructNullUsername() {
-        expect(NullPointerException.class);
-        expect("Username cannot be null.");
-        new MillenniumDomainPrincipal(null, domainName);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new MillenniumDomainPrincipal(null, domainName);
+        });
+        assertThat(e.getMessage()).isEqualTo("Username cannot be null.");
     }
 
     /**

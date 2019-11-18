@@ -1,6 +1,8 @@
 language: java
 jdk:
-  - oraclejdk8
+  - oraclejdk9
+dist:
+  - trusty
 install:
   - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -Pfmt-validate -B -V
 script:

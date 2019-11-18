@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.record;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,7 +11,6 @@ import java.util.TreeMap;
 
 import org.junit.Test;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
 import com.cerner.ccl.parser.data.CodeSet;
 import com.cerner.ccl.parser.data.DataType;
 import com.cerner.ccl.parser.data.EnumeratedValue;
@@ -32,7 +32,7 @@ import com.cerner.ccl.parser.text.documentation.RecordStructureDocumentation;
  *
  */
 
-public class RecordStructureAggregatorTest extends AbstractUnitTest {
+public class RecordStructureAggregatorTest {
     private final RecordStructureAggregator aggregator = new RecordStructureAggregator();
 
     /**
@@ -265,9 +265,10 @@ public class RecordStructureAggregatorTest extends AbstractUnitTest {
      */
     @Test
     public void testAggregateNullDocumentation() {
-        expect(IllegalArgumentException.class);
-        expect("Record structure documentation cannot be null.");
-        aggregator.aggregate(Collections.<Structure> emptyList(), null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            aggregator.aggregate(Collections.<Structure> emptyList(), null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Record structure documentation cannot be null.");
     }
 
     /**
@@ -275,8 +276,9 @@ public class RecordStructureAggregatorTest extends AbstractUnitTest {
      */
     @Test
     public void testAggregateNullStructures() {
-        expect(IllegalArgumentException.class);
-        expect("Structures cannot be null.");
-        aggregator.aggregate(null, Collections.<String, RecordStructureDocumentation> emptyMap());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            aggregator.aggregate(null, Collections.<String, RecordStructureDocumentation> emptyMap());
+        });
+        assertThat(e.getMessage()).isEqualTo("Structures cannot be null.");
     }
 }

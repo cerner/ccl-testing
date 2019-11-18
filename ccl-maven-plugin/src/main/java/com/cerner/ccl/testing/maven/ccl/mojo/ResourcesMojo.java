@@ -30,15 +30,17 @@ public class ResourcesMojo extends BaseCclResourceMojo {
     @Parameter(property = "ccl-skipProcessResources", defaultValue = "${ccl-skipProcessing}")
     protected boolean skipProcessResources;
 
+    @Override
     public void execute() throws MojoExecutionException {
         if (skipProcessResources) {
             getLog().info("Skipping process-resources goal");
             return;
         }
 
-        if (!resources.isEmpty())
+        if (!resources.isEmpty()) {
             upload(resources);
-        else
+        } else {
             getLog().info("No resources to process");
+        }
     }
 }

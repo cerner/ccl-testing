@@ -5,9 +5,9 @@ import com.cerner.ccl.analysis.mojo.exclusions.filters.ViolationFilterChain.Viol
 
 /**
  * A {@link ViolationFilter} that excludes a script by script name.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 public class ScriptNameFilter implements ViolationFilter {
@@ -15,15 +15,16 @@ public class ScriptNameFilter implements ViolationFilter {
 
     /**
      * Create a filter to filter by script name.
-     * 
+     *
      * @param scriptName
      *            The name of the script by which to filter.
      * @throws IllegalArgumentException
      *             If any errors occur during the test run.
      */
     public ScriptNameFilter(final String scriptName) {
-        if (scriptName == null)
+        if (scriptName == null) {
             throw new IllegalArgumentException("Script name cannot be null.");
+        }
 
         this.scriptName = scriptName;
     }
@@ -31,12 +32,15 @@ public class ScriptNameFilter implements ViolationFilter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean exclude(final String scriptName, final Violation violation) {
-        if (scriptName == null)
+        if (scriptName == null) {
             throw new IllegalArgumentException("Script name cannot be null.");
+        }
 
-        if (violation == null)
+        if (violation == null) {
             throw new IllegalArgumentException("Violation cannot be null.");
+        }
 
         return this.scriptName.equalsIgnoreCase(scriptName);
     }

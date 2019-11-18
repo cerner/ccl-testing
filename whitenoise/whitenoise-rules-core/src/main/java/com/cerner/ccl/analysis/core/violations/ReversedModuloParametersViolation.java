@@ -31,11 +31,13 @@ public class ReversedModuloParametersViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof ReversedModuloParametersViolation))
+        if (!(obj instanceof ReversedModuloParametersViolation)) {
             return false;
+        }
 
         final ReversedModuloParametersViolation other = (ReversedModuloParametersViolation) obj;
         return getLineNumber().equals(other.getLineNumber());
@@ -44,6 +46,7 @@ public class ReversedModuloParametersViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -51,6 +54,7 @@ public class ReversedModuloParametersViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Call to MOD function with parameters in reverse order";
     }
@@ -58,6 +62,7 @@ public class ReversedModuloParametersViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "When using the modulo function in CCL the first parameter is usually a variable representing the dividend while the second "
                 + "parameter is usually a hardcoded integer indicating the divisor. If these parameters are switched while using this function "
@@ -67,6 +72,7 @@ public class ReversedModuloParametersViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

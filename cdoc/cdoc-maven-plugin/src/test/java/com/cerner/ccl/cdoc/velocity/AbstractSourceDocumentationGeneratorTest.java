@@ -1,5 +1,7 @@
 package com.cerner.ccl.cdoc.velocity;
 
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -23,7 +25,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.cdoc.AbstractUnitTest;
 import com.cerner.ccl.cdoc.script.ScriptExecutionDetails;
 import com.cerner.ccl.cdoc.velocity.navigation.Navigation;
 import com.cerner.ccl.cdoc.velocity.structure.RecordStructureFormatter;
@@ -40,7 +41,7 @@ import com.cerner.ccl.parser.data.record.RecordStructure;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { AbstractSourceDocumentationGenerator.class, RecordStructureFormatter.class, URL.class,
         VelocityContext.class })
-public class AbstractSourceDocumentationGeneratorTest extends AbstractUnitTest {
+public class AbstractSourceDocumentationGeneratorTest {
     @Mock
     private Writer writer;
     @Mock
@@ -66,9 +67,10 @@ public class AbstractSourceDocumentationGeneratorTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullBackNavigation() {
-        expect(IllegalArgumentException.class);
-        expect("Back navigation cannot be null.");
-        new ConcreteGenerator(writer, cssDirectory, executionDetails, engine, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ConcreteGenerator(writer, cssDirectory, executionDetails, engine, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Back navigation cannot be null.");
     }
 
     /**
@@ -76,9 +78,10 @@ public class AbstractSourceDocumentationGeneratorTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullCssDirectory() {
-        expect(IllegalArgumentException.class);
-        expect("CSS directory cannot be null.");
-        new ConcreteGenerator(writer, null, executionDetails, engine, backNav);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ConcreteGenerator(writer, null, executionDetails, engine, backNav);
+        });
+        assertThat(e.getMessage()).isEqualTo("CSS directory cannot be null.");
     }
 
     /**
@@ -86,9 +89,10 @@ public class AbstractSourceDocumentationGeneratorTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullScriptExecutionDetails() {
-        expect(IllegalArgumentException.class);
-        expect("Script execution details cannot be null.");
-        new ConcreteGenerator(writer, cssDirectory, null, engine, backNav);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ConcreteGenerator(writer, cssDirectory, null, engine, backNav);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script execution details cannot be null.");
     }
 
     /**
@@ -96,9 +100,10 @@ public class AbstractSourceDocumentationGeneratorTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullWriter() {
-        expect(IllegalArgumentException.class);
-        expect("Writer cannot be null.");
-        new ConcreteGenerator(null, cssDirectory, executionDetails, engine, backNav);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ConcreteGenerator(null, cssDirectory, executionDetails, engine, backNav);
+        });
+        assertThat(e.getMessage()).isEqualTo("Writer cannot be null.");
     }
 
     /**

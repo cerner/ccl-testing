@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.record;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import java.util.Collections;
@@ -45,9 +46,10 @@ public class StructureTest extends AbstractBeanUnitTest<Structure> {
      */
     @Test
     public void testConstructNullMembers() {
-        expect(IllegalArgumentException.class);
-        expect("Members cannot be null.");
-        new Structure(structureName, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new Structure(structureName, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Members cannot be null.");
     }
 
     /**
@@ -55,9 +57,10 @@ public class StructureTest extends AbstractBeanUnitTest<Structure> {
      */
     @Test
     public void testConstructNullName() {
-        expect(IllegalArgumentException.class);
-        expect("Name cannot be null.");
-        new Structure(null, members);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new Structure(null, members);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**
@@ -93,7 +96,7 @@ public class StructureTest extends AbstractBeanUnitTest<Structure> {
      */
     @Test
     public void testGetRootLevelMember() {
-        assertThat(structure.getRootLevelMember(0)).isEqualTo(member);
+        assertThat(structure.<StructureMember> getRootLevelMember(0)).isEqualTo(member);
     }
 
     /**

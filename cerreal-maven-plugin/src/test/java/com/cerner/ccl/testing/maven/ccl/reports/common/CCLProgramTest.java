@@ -4,6 +4,7 @@ import static com.cerner.ccl.testing.maven.ccl.reports.common.internal.XmlGenera
 import static com.cerner.ccl.testing.maven.ccl.reports.common.internal.XmlGenerator.INC_START;
 import static com.cerner.ccl.testing.maven.ccl.reports.common.internal.XmlGenerator.createListingXml;
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -14,15 +15,14 @@ import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import com.cerner.ccl.testing.maven.ccl.reports.common.CCLProgram;
 import com.cerner.ccl.testing.maven.ccl.reports.common.CCLProgram.ProgramLine;
 import com.cerner.ccl.testing.xsl.XslAPI;
 
@@ -35,18 +35,13 @@ import com.cerner.ccl.testing.xsl.XslAPI;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { XslAPI.class })
+@PowerMockIgnore({ "javax.activation.*", "javax.management.*", "javax.xml.*", "org.xml.*", "org.w3c.dom.*" })
 public class CCLProgramTest {
     /**
      * A {@link Rule} used to retrieve the current test name.
      */
     @Rule
     public TestName testName = new TestName();
-    /**
-     * A {@link Rule} used to test for thrown exceptions. This <b>must</b> appear last of all rules in order to ensure
-     * it can catch any exceptions (instead of letting another rule catch and mishandle the expected exception).
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
 
     /**
      * Constructing a program with a {@code null} listing XML should fail.
@@ -57,9 +52,10 @@ public class CCLProgramTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullListingXml() throws Exception {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Listing XML cannot be null.");
-        new CCLProgram(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CCLProgram(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Listing XML cannot be null.");
     }
 
     /**
@@ -171,8 +167,9 @@ public class CCLProgramTest {
     public void testGetSourceCodeAtLine() throws Exception {
         final List<String> lines = Arrays.asList("x", "y", "z");
         final CCLProgram program = new CCLProgram(createListingXml(testName.getMethodName(), lines));
-        for (int i = 0; i < lines.size(); i++)
+        for (int i = 0; i < lines.size(); i++) {
             assertThat(program.getSourceCodeAtLine(i + 1)).as("Incorrect line at index " + i).isEqualTo(lines.get(i));
+        }
     }
 
     /**

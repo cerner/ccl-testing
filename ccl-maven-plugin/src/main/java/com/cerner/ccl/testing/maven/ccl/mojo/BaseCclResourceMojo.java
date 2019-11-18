@@ -33,8 +33,9 @@ public abstract class BaseCclResourceMojo extends BaseCclMojo {
      *             If any errors occur in creating the uploader.
      */
     protected final void upload(final Collection<? extends Resource> resources) throws MojoExecutionException {
-        if (resources.isEmpty())
+        if (resources.isEmpty()) {
             return;
+        }
 
         try {
             final CclResourceUploader uploader = CclResourceUploader.getUploader();
@@ -53,6 +54,7 @@ public abstract class BaseCclResourceMojo extends BaseCclMojo {
             }
 
             Subject.doAs(getSubject(), new PrivilegedExceptionAction<Void>() {
+                @Override
                 public Void run() throws Exception {
                     uploader.upload();
                     return null;

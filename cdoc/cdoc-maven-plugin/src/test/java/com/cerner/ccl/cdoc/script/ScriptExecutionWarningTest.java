@@ -1,6 +1,7 @@
 package com.cerner.ccl.cdoc.script;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -24,9 +25,10 @@ public class ScriptExecutionWarningTest extends AbstractBeanUnitTest<ScriptExecu
      */
     @Test
     public void testConstructNullSourceCode() {
-        expect(IllegalArgumentException.class);
-        expect("Source code cannot be null.");
-        new ScriptExecutionWarning(lineNumber, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptExecutionWarning(lineNumber, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source code cannot be null.");
     }
 
     /**
@@ -34,9 +36,11 @@ public class ScriptExecutionWarningTest extends AbstractBeanUnitTest<ScriptExecu
      */
     @Test
     public void testConstructZeroLineNumber() {
-        expect(IllegalArgumentException.class);
-        expect("Line number must be a non-zero, positive integer: " + Integer.toString(0));
-        new ScriptExecutionWarning(0, sourceCode);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptExecutionWarning(0, sourceCode);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("Line number must be a non-zero, positive integer: " + Integer.toString(0));
     }
 
     /**

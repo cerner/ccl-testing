@@ -37,11 +37,13 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolation implements Vio
      */
     public LargeSequenceStoredToNonFloatingPointNumberViolation(final String seqResultVariable,
             final String attemptedStoreVariable, final Integer lineNumber) {
-        if (StringUtils.isBlank(seqResultVariable))
+        if (StringUtils.isBlank(seqResultVariable)) {
             throw new IllegalArgumentException("seqResultVariable cannot be null or empty");
+        }
 
-        if (StringUtils.isBlank(attemptedStoreVariable))
+        if (StringUtils.isBlank(attemptedStoreVariable)) {
             throw new IllegalArgumentException("attemptedStoreVariable cannot be null or empty");
+        }
 
         this.seqResultVariable = seqResultVariable;
         this.attemptedStoreVariable = attemptedStoreVariable;
@@ -50,11 +52,13 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolation implements Vio
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof LargeSequenceStoredToNonFloatingPointNumberViolation))
+        if (!(obj instanceof LargeSequenceStoredToNonFloatingPointNumberViolation)) {
             return false;
+        }
 
         final LargeSequenceStoredToNonFloatingPointNumberViolation other = (LargeSequenceStoredToNonFloatingPointNumberViolation) obj;
         return StringUtils.equalsIgnoreCase(seqResultVariable, other.seqResultVariable)
@@ -65,6 +69,7 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolation implements Vio
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -72,6 +77,7 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolation implements Vio
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Attempt to store result of SEQ() into non-floating point variable with assignment "
                 + attemptedStoreVariable + " = " + seqResultVariable;
@@ -80,6 +86,7 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolation implements Vio
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "An attempt to store the resulting return value of the Oracle SEQ() function into a variable that was not defined as an F8 will "
                 + "overflow and not function correctly when the sequence exceeds 2^31. This is commonly referred to as the large sequence problem. "
@@ -90,6 +97,7 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolation implements Vio
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

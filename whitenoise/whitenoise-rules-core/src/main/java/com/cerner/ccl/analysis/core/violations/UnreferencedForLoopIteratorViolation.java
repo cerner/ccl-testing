@@ -33,8 +33,9 @@ public class UnreferencedForLoopIteratorViolation implements Violation {
      *             If any of the given objects, except for the line number, are {@code null}.
      */
     public UnreferencedForLoopIteratorViolation(final String iterator, final Integer lineNumber) {
-        if (iterator == null)
+        if (iterator == null) {
             throw new IllegalArgumentException("Iterator cannot be null.");
+        }
 
         this.iterator = iterator;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -42,11 +43,13 @@ public class UnreferencedForLoopIteratorViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof UnreferencedForLoopIteratorViolation))
+        if (!(obj instanceof UnreferencedForLoopIteratorViolation)) {
             return false;
+        }
 
         final UnreferencedForLoopIteratorViolation other = (UnreferencedForLoopIteratorViolation) obj;
         return getIterator().equalsIgnoreCase(other.getIterator()) && getLineNumber().equals(other.getLineNumber());
@@ -62,6 +65,7 @@ public class UnreferencedForLoopIteratorViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -69,6 +73,7 @@ public class UnreferencedForLoopIteratorViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "For loop with no reference to iterator [" + getIterator() + "] within loop code";
     }
@@ -76,6 +81,7 @@ public class UnreferencedForLoopIteratorViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "If for loop for(idx = 1 to 10) is created and idx is not referenced anywhere in the for loop, the"
                 + " loop is most likely incorrectly coded";
@@ -84,6 +90,7 @@ public class UnreferencedForLoopIteratorViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

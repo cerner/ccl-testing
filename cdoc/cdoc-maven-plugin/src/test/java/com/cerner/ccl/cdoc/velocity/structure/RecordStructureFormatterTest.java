@@ -1,6 +1,7 @@
 package com.cerner.ccl.cdoc.velocity.structure;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -9,7 +10,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.cdoc.AbstractUnitTest;
 import com.cerner.ccl.parser.data.record.RecordInclude;
 import com.cerner.ccl.parser.data.record.RecordStructure;
 import com.cerner.ccl.parser.data.record.RecordStructureField;
@@ -22,7 +22,7 @@ import com.cerner.ccl.parser.data.record.RecordStructureList;
  *
  */
 @SuppressWarnings("unused")
-public class RecordStructureFormatterTest extends AbstractUnitTest {
+public class RecordStructureFormatterTest {
     @Mock
     private FieldFormatter fieldFormatter;
     @Mock
@@ -45,9 +45,10 @@ public class RecordStructureFormatterTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullFieldFormatter() {
-        expect(IllegalArgumentException.class);
-        expect("Field formatter cannot be null.");
-        new RecordStructureFormatter(null, listFormatter, includeFormatter);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new RecordStructureFormatter(null, listFormatter, includeFormatter);
+        });
+        assertThat(e.getMessage()).isEqualTo("Field formatter cannot be null.");
     }
 
     /**
@@ -55,9 +56,10 @@ public class RecordStructureFormatterTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullIncludeFormatter() {
-        expect(IllegalArgumentException.class);
-        expect("Include formatter cannot be null.");
-        new RecordStructureFormatter(fieldFormatter, listFormatter, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new RecordStructureFormatter(fieldFormatter, listFormatter, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Include formatter cannot be null.");
     }
 
     /**
@@ -65,9 +67,10 @@ public class RecordStructureFormatterTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullListFormatter() {
-        expect(IllegalArgumentException.class);
-        expect("List formatter cannot be null.");
-        new RecordStructureFormatter(fieldFormatter, null, includeFormatter);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new RecordStructureFormatter(fieldFormatter, null, includeFormatter);
+        });
+        assertThat(e.getMessage()).isEqualTo("List formatter cannot be null.");
     }
 
     /**
@@ -107,8 +110,9 @@ public class RecordStructureFormatterTest extends AbstractUnitTest {
      */
     @Test
     public void testFormatNullStructure() throws Exception {
-        expect(IllegalArgumentException.class);
-        expect("Record structure cannot be null.");
-        formatter.format(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            formatter.format(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Record structure cannot be null.");
     }
 }

@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.adders;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -12,9 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -38,14 +37,7 @@ import com.cerner.ccl.j4ccl.record.Record;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { ScriptExecutionAdderImpl.class, ScriptExecutionCommand.class })
-@SuppressWarnings("nls")
 public class ScriptExecutionAdderImplTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private static final String THE_SCRIPT_NAME = "script_name";
     @Mock
     private CommandQueue commandQueue;
@@ -112,9 +104,10 @@ public class ScriptExecutionAdderImplTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructionBlankScriptName() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Script name cannot be blank.");
-        new ScriptExecutionAdderImpl("  ", commandQueue);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptExecutionAdderImpl("  ", commandQueue);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be blank.");
     }
 
     /**
@@ -123,9 +116,10 @@ public class ScriptExecutionAdderImplTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructionNullScriptName() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Script name cannot be null.");
-        new ScriptExecutionAdderImpl(null, commandQueue);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new ScriptExecutionAdderImpl(null, commandQueue);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**
@@ -134,9 +128,10 @@ public class ScriptExecutionAdderImplTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructionNullQueue() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Command queue cannot be null.");
-        new ScriptExecutionAdderImpl(THE_SCRIPT_NAME, null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new ScriptExecutionAdderImpl(THE_SCRIPT_NAME, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Command queue cannot be null.");
     }
 
     /**
@@ -172,11 +167,11 @@ public class ScriptExecutionAdderImplTest {
      */
     @Test
     public void testWithArgumentsNull() throws Exception {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Null arguments are not allowed: ");
-
         FloatArgument floatArgumentNull = null;
-        adder.withArguments(floatArgumentNull).commit();
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            adder.withArguments(floatArgumentNull).commit();
+        });
+        assertThat(e.getMessage()).isEqualTo("Null arguments are not allowed: [null]");
     }
 
     /**
@@ -209,9 +204,10 @@ public class ScriptExecutionAdderImplTest {
      */
     @Test
     public void testWithEmptyArguments() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("At least one argument must be supplied.");
-        adder.withArguments();
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            adder.withArguments();
+        });
+        assertThat(e.getMessage()).isEqualTo("At least one argument must be supplied.");
     }
 
     /**
@@ -220,9 +216,10 @@ public class ScriptExecutionAdderImplTest {
     @Test
     public void testWithNullArgument() {
         final Argument[] args = new Argument[] { mock(Argument.class), null, mock(Argument.class) };
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Null arguments are not allowed: " + Arrays.toString(args));
-        adder.withArguments(args);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            adder.withArguments(args);
+        });
+        assertThat(e.getMessage()).isEqualTo("Null arguments are not allowed: " + Arrays.toString(args));
     }
 
     /**
@@ -230,9 +227,10 @@ public class ScriptExecutionAdderImplTest {
      */
     @Test
     public void testWithNullArguments() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Arguments cannot be null.");
-        adder.withArguments((Argument[]) null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            adder.withArguments((Argument[]) null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Arguments cannot be null.");
     }
 
     /**
@@ -240,9 +238,10 @@ public class ScriptExecutionAdderImplTest {
      */
     @Test
     public void testWithReplaceBlankRecordName() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Record name cannot be blank.");
-        adder.withReplace("  ", mock(Record.class));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            adder.withReplace("  ", mock(Record.class));
+        });
+        assertThat(e.getMessage()).isEqualTo("Record name cannot be blank.");
     }
 
     /**
@@ -250,9 +249,10 @@ public class ScriptExecutionAdderImplTest {
      */
     @Test
     public void testWithReplaceNullRecord() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Record cannot be null.");
-        adder.withReplace("recordName", null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            adder.withReplace("recordName", null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Record cannot be null.");
     }
 
     /**
@@ -260,8 +260,9 @@ public class ScriptExecutionAdderImplTest {
      */
     @Test
     public void testWithReplaceNullRecordName() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Record name cannot be null.");
-        adder.withReplace(null, mock(Record.class));
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            adder.withReplace(null, mock(Record.class));
+        });
+        assertThat(e.getMessage()).isEqualTo("Record name cannot be null.");
     }
 }

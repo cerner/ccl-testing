@@ -44,19 +44,22 @@ public class CompileMojo extends BaseCclCompilationMojo {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (skipCompile) {
             getLog().info("Skipping compile goal");
             return;
         }
 
-        if (!sourceDirectory.exists())
+        if (!sourceDirectory.exists()) {
             throw new MojoFailureException("Source directory does not exist: " + sourceDirectory.getAbsolutePath());
+        }
 
         uploadIncludeFiles(sourceDirectory);
         final CclExecutor executor = createCclExecutor();
         queueScriptCompilation(executor, sourceDirectory);
         Subject.doAs(getSubject(), new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 executor.execute();
                 return null;
@@ -73,6 +76,7 @@ public class CompileMojo extends BaseCclCompilationMojo {
         }
 
         Subject.doAs(getSubject(), new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 uploader.upload();
                 return null;

@@ -54,37 +54,46 @@ public class RecordListImpl implements RecordList {
      */
     RecordListImpl(final Record parent, final Structure structure, final int listSize,
             final RecordImplFactory recordFactory) {
-        if (structure == null)
+        if (structure == null) {
             throw new NullPointerException("Structure cannot be null.");
+        }
 
-        if (parent == null)
+        if (parent == null) {
             throw new NullPointerException("Parent record structure cannot be null.");
+        }
 
-        if (listSize < 1)
+        if (listSize < 1) {
             throw new IllegalArgumentException("List size must be greater than zero.");
+        }
 
         this.records = new ArrayList<Record>(listSize);
         this.structure = structure;
-        for (int i = 0; i < listSize; i++)
+        for (int i = 0; i < listSize; i++) {
             records.add(recordFactory.createNestedRecord(structure, parent));
+        }
     }
 
+    @Override
     public List<Record> getAll() {
         return Collections.unmodifiableList(records);
     }
 
+    @Override
     public Record get(final int index) {
         return records.get(index);
     }
 
+    @Override
     public int getSize() {
         return records.size();
     }
 
+    @Override
     public Structure getStructure() {
         return structure;
     }
 
+    @Override
     public Iterator<Record> iterator() {
         return records.iterator();
     }

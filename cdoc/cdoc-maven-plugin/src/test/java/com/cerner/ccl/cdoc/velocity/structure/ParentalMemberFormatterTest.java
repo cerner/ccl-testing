@@ -1,6 +1,7 @@
 package com.cerner.ccl.cdoc.velocity.structure;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,7 +19,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.cdoc.AbstractUnitTest;
 import com.cerner.ccl.parser.data.record.AbstractParentRecordStructureMember;
 import com.cerner.ccl.parser.data.record.RecordStructureField;
 
@@ -31,7 +31,7 @@ import com.cerner.ccl.parser.data.record.RecordStructureField;
 @SuppressWarnings("unused")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { ParentalMemberFormatter.class, Random.class, StringWriter.class, VelocityContext.class })
-public class ParentalMemberFormatterTest extends AbstractUnitTest {
+public class ParentalMemberFormatterTest {
     @Mock
     private FieldFormatter fieldFormatter;
     @Mock
@@ -57,9 +57,10 @@ public class ParentalMemberFormatterTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullFieldFormatter() {
-        expect(IllegalArgumentException.class);
-        expect("Field formatter cannot be null.");
-        new ParentalMemberFormatter(null, template);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ParentalMemberFormatter(null, template);
+        });
+        assertThat(e.getMessage()).isEqualTo("Field formatter cannot be null.");
     }
 
     /**
@@ -67,9 +68,10 @@ public class ParentalMemberFormatterTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullTemplate() {
-        expect(IllegalArgumentException.class);
-        expect("Template cannot be null.");
-        new ParentalMemberFormatter(fieldFormatter, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ParentalMemberFormatter(fieldFormatter, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Template cannot be null.");
     }
 
     /**

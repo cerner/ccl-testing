@@ -241,6 +241,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getDescription(final Locale locale) {
         return "A static analysis report of CCL code.";
     }
@@ -248,6 +249,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getName(final Locale locale) {
         return "Whitenoise";
     }
@@ -255,6 +257,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getOutputName() {
         return "whitenoise-report";
     }
@@ -299,6 +302,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
             final AnalysisEngine engine = new J4CclAnalysisEngine(productProvider);
             final Map<String, List<Violation>> violations = Subject.doAs(subject,
                     new PrivilegedAction<Map<String, List<Violation>>>() {
+                        @Override
                         public Map<String, List<Violation>> run() {
                             @SuppressWarnings("synthetic-access")
                             final Map<String, Set<Violation>> rootViolations = engine.analyze(getProgramNames(files),
@@ -406,6 +410,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
 
         // Sort the list of violations by line number, then violation type, then hash code
         final TreeSet<Violation> sortedViolations = new TreeSet<Violation>(new Comparator<Violation>() {
+            @Override
             public int compare(final Violation o1, final Violation o2) {
                 if (!o1.getLineNumber().equals(o2.getLineNumber())) {
                     return o1.getLineNumber() - o2.getLineNumber();
@@ -526,6 +531,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
         }
 
         Subject.doAs(subject, new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 executor.execute();
                 return null;

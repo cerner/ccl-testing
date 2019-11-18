@@ -5,6 +5,9 @@ import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cerner.ftp.jsch.Connection;
 import com.cerner.ftp.jsch.impl.DefaultConnectionPool.ConnectionLibrarian;
 import com.jcraft.jsch.Channel;
@@ -21,12 +24,13 @@ import com.jcraft.jsch.UserInfo;
  * @author Joshua Hyde
  *
  */
-
 public class CachedConnection implements Connection {
     private final Set<Channel> channels = new HashSet<Channel>();
     private final Session session;
     private final ConnectionLibrarian<CachedConnection> librarian;
     private boolean closed;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CachedConnection.class);
 
     /**
      * Create a connection that uses a username/password form of authentication.
@@ -66,12 +70,15 @@ public class CachedConnection implements Connection {
         this.session = createSession(username, salt, privateKeyLocation, serverAddress);
     }
 
+    @Override
     public void close() {
         closed = true;
 
-        for (final Channel channel : channels)
-            if (!channel.isClosed())
+        for (final Channel channel : channels) {
+            if (!channel.isClosed()) {
                 channel.disconnect();
+            }
+        }
 
         channels.clear();
 
@@ -84,30 +91,38 @@ public class CachedConnection implements Connection {
     public void closePhysical() {
         closed = true;
 
-        if (session != null)
+        if (session != null) {
             session.disconnect();
+        }
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final CachedConnection other = (CachedConnection) obj;
         if (session == null) {
-            if (other.session != null)
+            if (other.session != null) {
                 return false;
-        } else if (!session.equals(other.session))
+            }
+        } else if (!session.equals(other.session)) {
             return false;
+        }
         return true;
     }
 
+    @Override
     public ChannelSftp getSFtp() {
-        if (isClosed())
+        if (isClosed()) {
             throw new IllegalStateException("Connection is closed.");
+        }
 
         try {
             final ChannelSftp sftp = (ChannelSftp) session.openChannel("sftp");
@@ -118,9 +133,11 @@ public class CachedConnection implements Connection {
         }
     }
 
+    @Override
     public ChannelShell getShell() {
-        if (isClosed())
+        if (isClosed()) {
             throw new IllegalStateException("Connection is closed.");
+        }
 
         try {
             final ChannelShell shell = (ChannelShell) session.openChannel("shell");
@@ -139,6 +156,7 @@ public class CachedConnection implements Connection {
         return result;
     }
 
+    @Override
     public boolean isClosed() {
         return closed;
     }
@@ -155,15 +173,79 @@ public class CachedConnection implements Connection {
      * @return A {@link Session} object representing a connection to the remote server.
      */
     private Session createSession(final String username, final String password, final URI serverAddress) {
+        JSch.setLogger(new JschLogger());
         final JSch jsch = new JSch();
         try {
-            jsch.setConfig("PreferredAuthentications", "password");
+            JSch.setConfig("PreferredAuthentications", "password");
             final Session session = jsch.getSession(username, serverAddress.getPath(), 22);
             session.setUserInfo(new SimpleUserInfo(password, null));
             session.connect();
             return session;
         } catch (final JSchException e) {
             throw new RuntimeException("Failed to establish connection with username/password authentication.", e);
+        }
+    }
+
+    /**
+     * JSch Logger
+     *
+     * @author Fred Eckertson
+     *
+     */
+    public static class JschLogger implements com.jcraft.jsch.Logger {
+        static java.util.Hashtable<Integer, String> name = new java.util.Hashtable<Integer, String>();
+        static {
+            name.put(Integer.valueOf(DEBUG), "DEBUG: ");
+            name.put(Integer.valueOf(INFO), "INFO: ");
+            name.put(Integer.valueOf(WARN), "WARN: ");
+            name.put(Integer.valueOf(ERROR), "ERROR: ");
+            name.put(Integer.valueOf(FATAL), "FATAL: ");
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @SuppressWarnings("synthetic-access")
+        @Override
+        public boolean isEnabled(final int level) {
+            switch (level) {
+            case DEBUG:
+                return LOGGER.isDebugEnabled();
+            case INFO:
+                return LOGGER.isInfoEnabled();
+            case WARN:
+                return LOGGER.isWarnEnabled();
+            case ERROR:
+            case FATAL:
+                return LOGGER.isErrorEnabled();
+            default:
+                return false;
+            }
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @SuppressWarnings("synthetic-access")
+        @Override
+        public void log(final int level, final String message) {
+            switch (level) {
+            case DEBUG:
+                LOGGER.debug(message);
+                break;
+            case INFO:
+                LOGGER.info(message);
+                break;
+            case WARN:
+                LOGGER.warn(message);
+                break;
+            case ERROR:
+            case FATAL:
+                LOGGER.error(message);
+                break;
+            default:
+                break;
+            }
         }
     }
 
@@ -184,7 +266,7 @@ public class CachedConnection implements Connection {
             final URI serverAddress) {
         final JSch jsch = new JSch();
         try {
-            jsch.setConfig("PreferredAuthentications", "publickey");
+            JSch.setConfig("PreferredAuthentications", "publickey");
             jsch.addIdentity(new File(privateKeyLocation).getAbsolutePath());
             final Session session = jsch.getSession(username, serverAddress.getPath(), 22);
             session.setUserInfo(new SimpleUserInfo(null, salt));
@@ -202,8 +284,9 @@ public class CachedConnection implements Connection {
      *             If the connection wrapped by this object is either absent or has been physically closed.
      */
     void open() {
-        if (session == null || !session.isConnected())
+        if (session == null || !session.isConnected()) {
             throw new IllegalStateException("Connection is either unavailable or physically closed.");
+        }
 
         closed = false;
     }
@@ -231,26 +314,32 @@ public class CachedConnection implements Connection {
             this.salt = salt;
         }
 
+        @Override
         public String getPassphrase() {
             return salt;
         }
 
+        @Override
         public String getPassword() {
             return password;
         }
 
+        @Override
         public boolean promptPassphrase(final String message) {
             return true;
         }
 
+        @Override
         public boolean promptPassword(final String message) {
             return true;
         }
 
+        @Override
         public boolean promptYesNo(final String message) {
             return true;
         }
 
+        @Override
         public void showMessage(final String message) {
         }
     }

@@ -28,39 +28,48 @@ public class RecordFieldImpl extends AbstractField {
      *             If the given field name or structure is {@code null}.
      */
     public RecordFieldImpl(final String fieldName, final Structure structure) {
-        if (fieldName == null)
+        if (fieldName == null) {
             throw new NullPointerException("Field name cannot be null.");
+        }
 
-        if (structure == null)
+        if (structure == null) {
             throw new NullPointerException("Structure cannot be null.");
+        }
 
-        if (fieldName.trim().length() == 0)
+        if (fieldName.trim().length() == 0) {
             throw new IllegalArgumentException("Field name cannot be blank.");
+        }
 
         this.fieldName = fieldName;
         this.structure = structure;
     }
 
+    @Override
     public long getDataLength() {
         throw new UnsupportedOperationException("Records are not fixed-length primitives.");
     }
 
+    @Override
     public String getDeclaration() {
         return getName();
     }
 
+    @Override
     public int getListSize() {
         throw new UnsupportedOperationException("This field represents a record structure; it has no size.");
     }
 
+    @Override
     public String getName() {
         return fieldName;
     }
 
+    @Override
     public Structure getStructure() {
         return structure;
     }
 
+    @Override
     public DataType getType() {
         return DataType.RECORD;
     }

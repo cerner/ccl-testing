@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.mojo.exclusions.filters;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,9 +27,10 @@ public class VariableNameFilterTest extends AbstractViolationFilterUnitTest<Vari
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullVariableName() {
-        expect(IllegalArgumentException.class);
-        expect("Variable name cannot be null.");
-        new VariableNameFilter(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new VariableNameFilter(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Variable name cannot be null.");
     }
 
     /**

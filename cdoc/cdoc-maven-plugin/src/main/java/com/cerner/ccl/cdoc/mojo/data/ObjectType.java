@@ -2,9 +2,9 @@ package com.cerner.ccl.cdoc.mojo.data;
 
 /**
  * Enumerations of the possible CCL object types.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 public enum ObjectType {

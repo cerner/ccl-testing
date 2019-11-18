@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.documentation.parser;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
@@ -13,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
 import com.cerner.ccl.parser.text.smoosh.DocumentationTagIndexedSmoosher;
 
 /**
@@ -26,7 +26,7 @@ import com.cerner.ccl.parser.text.smoosh.DocumentationTagIndexedSmoosher;
 @SuppressWarnings("unused")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { DocumentationTagIndexedSmoosher.class, SingleTagParser.class })
-public class SingleTagParserTest extends AbstractUnitTest {
+public class SingleTagParserTest {
     private final String tag = "@tag";
     private final SingleTagParser parser = new SingleTagParser(tag);
 
@@ -35,9 +35,10 @@ public class SingleTagParserTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullTag() {
-        expect(IllegalArgumentException.class);
-        expect("Tag cannot be null.");
-        new SingleTagParser(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SingleTagParser(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Tag cannot be null.");
     }
 
     /**
@@ -54,9 +55,10 @@ public class SingleTagParserTest extends AbstractUnitTest {
      */
     @Test
     public void testCanParseNullLine() {
-        expect(IllegalArgumentException.class);
-        expect("Line cannot be null.");
-        parser.canParse(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            parser.canParse(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Line cannot be null.");
     }
 
     /**

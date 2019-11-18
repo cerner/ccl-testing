@@ -16,7 +16,7 @@ import io.takari.maven.testing.TestResources;
 
 /**
  * Integration Tests for WhitenoiseMojo.
- * <br />
+ * <br>
  * NOTE: in order for these integration tests to work the "domain profile" must be activated when the "maven-profile"
  * property equals its profile id and it must set the "maven-profile" property equal to its id.
  *

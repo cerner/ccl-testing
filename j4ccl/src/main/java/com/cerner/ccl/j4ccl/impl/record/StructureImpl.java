@@ -32,8 +32,9 @@ public class StructureImpl implements Structure {
      *             If the given map is {@code null}
      */
     public StructureImpl(final Map<String, Field> fields) {
-        if (fields == null)
+        if (fields == null) {
             throw new NullPointerException("Fields map cannot be null.");
+        }
 
         this.fieldsMap = new HashMap<String, Field>(fields.size());
         for (final Entry<String, Field> entry : fields.entrySet()) {
@@ -42,26 +43,32 @@ public class StructureImpl implements Structure {
         }
     }
 
+    @Override
     public Field getField(final String fieldName) {
-        if (fieldName == null)
+        if (fieldName == null) {
             throw new NullPointerException("Field name cannot be null.");
+        }
 
-        if (!hasMember(fieldName))
+        if (!hasMember(fieldName)) {
             throw new IllegalArgumentException("No such field: " + fieldName);
+        }
 
         return fieldsMap.get(fieldName.toUpperCase(Locale.getDefault()));
     }
 
+    @Override
     public List<Field> getFields() {
         final List<Field> fieldList = new ArrayList<Field>(fieldsMap.size());
         fieldList.addAll(fieldsMap.values());
         return Collections.unmodifiableList(fieldList);
     }
 
+    @Override
     public DataType getType(final String fieldName) {
         return getField(fieldName).getType();
     }
 
+    @Override
     public boolean hasMember(final String fieldName) {
         final String upperName = fieldName == null ? null : fieldName.toUpperCase(Locale.getDefault());
         return fieldsMap.containsKey(upperName);
@@ -84,8 +91,9 @@ public class StructureImpl implements Structure {
             builder.append(field.getDeclaration());
             builder.append("\n");
 
-            if (field.getType().isComplexType())
+            if (field.getType().isComplexType()) {
                 ((StructureImpl) field.getStructure()).addDeclaration(builder, level + 1);
+            }
         }
     }
 }

@@ -49,11 +49,13 @@ public class LargeSequenceConvertedToIntegerViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof LargeSequenceConvertedToIntegerViolation))
+        if (!(obj instanceof LargeSequenceConvertedToIntegerViolation)) {
             return false;
+        }
 
         final LargeSequenceConvertedToIntegerViolation other = (LargeSequenceConvertedToIntegerViolation) obj;
         return StringUtils.equalsIgnoreCase(onVariable, other.onVariable)
@@ -63,6 +65,7 @@ public class LargeSequenceConvertedToIntegerViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -70,9 +73,11 @@ public class LargeSequenceConvertedToIntegerViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
-        if (onVariable == null)
+        if (onVariable == null) {
             return "CNVTINT function applied to return value of SEQ() function";
+        }
 
         return "CNVTINT on variable " + onVariable + " applied to return value of SEQ() function";
     }
@@ -80,6 +85,7 @@ public class LargeSequenceConvertedToIntegerViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "CNVTINT on the resulting return value of the Oracle SEQ() function will overflow and not function correctly when the sequence "
                 + "exceeds 2^31. This is commonly referred to as the large sequence problem. CNVTREAL is the appropriate function to use instead.";
@@ -89,6 +95,7 @@ public class LargeSequenceConvertedToIntegerViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

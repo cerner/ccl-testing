@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.documentation.parser;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
@@ -12,7 +13,6 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -33,8 +33,6 @@ public class AbstractMultiTagParserTest {
     /**
      * A {@link Rule} used to test for thrown exceptions.
      */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
     @Mock
     private DocumentationTagIndexedSmoosher smoosher;
     private ConcreteParser parser;
@@ -82,9 +80,10 @@ public class AbstractMultiTagParserTest {
      */
     @Test
     public void testParseNullDocumentation() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Documentation list cannot be null.");
-        parser.parse(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            parser.parse(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Documentation list cannot be null.");
     }
 
     /**

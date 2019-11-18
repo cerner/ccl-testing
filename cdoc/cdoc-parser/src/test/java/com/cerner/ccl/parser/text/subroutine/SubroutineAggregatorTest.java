@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.subroutine;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,7 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
 import com.cerner.ccl.parser.data.DataType;
 import com.cerner.ccl.parser.data.DataTyped;
 import com.cerner.ccl.parser.data.SimpleDataTyped;
@@ -25,7 +25,7 @@ import com.cerner.ccl.parser.text.documentation.SubroutineDocumentation;
  *
  */
 
-public class SubroutineAggregatorTest extends AbstractUnitTest {
+public class SubroutineAggregatorTest {
     private final SubroutineAggregator aggregator = new SubroutineAggregator();
 
     /**
@@ -33,10 +33,11 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
      */
     @Test
     public void testAggregateNullDeclarations() {
-        expect(IllegalArgumentException.class);
-        expect("Declarations cannot be null.");
-        aggregator.aggregate(null, Collections.<SubroutineDefinition> emptyList(),
-                Collections.<String, SubroutineDocumentation> emptyMap());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            aggregator.aggregate(null, Collections.<SubroutineDefinition> emptyList(),
+                    Collections.<String, SubroutineDocumentation> emptyMap());
+        });
+        assertThat(e.getMessage()).isEqualTo("Declarations cannot be null.");
     }
 
     /**
@@ -44,10 +45,11 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
      */
     @Test
     public void testAggregateNullDefinitions() {
-        expect(IllegalArgumentException.class);
-        expect("Definitions cannot be null.");
-        aggregator.aggregate(Collections.<String, SubroutineDeclaration> emptyMap(), null,
-                Collections.<String, SubroutineDocumentation> emptyMap());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            aggregator.aggregate(Collections.<String, SubroutineDeclaration> emptyMap(), null,
+                    Collections.<String, SubroutineDocumentation> emptyMap());
+        });
+        assertThat(e.getMessage()).isEqualTo("Definitions cannot be null.");
     }
 
     /**
@@ -55,10 +57,11 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
      */
     @Test
     public void testAggregateNullSubroutineDocumentation() {
-        expect(IllegalArgumentException.class);
-        expect("Subroutine documentation cannot be null.");
-        aggregator.aggregate(Collections.<String, SubroutineDeclaration> emptyMap(),
-                Collections.<SubroutineDefinition> emptyList(), null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            aggregator.aggregate(Collections.<String, SubroutineDeclaration> emptyMap(),
+                    Collections.<SubroutineDefinition> emptyList(), null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Subroutine documentation cannot be null.");
     }
 
     /**
@@ -81,7 +84,7 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
         assertThat(aggregate.getName()).isEqualTo(def.getName());
         assertThat(aggregate.getDescription()).isEqualTo(doc.getDescription());
         assertThat(aggregate.getReturnDataDescription()).isEqualTo(doc.getReturnDescription());
-        assertThat(aggregate.getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
+        assertThat(aggregate.<DataTyped> getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
 
         final List<SubroutineArgument> args = aggregate.getArguments();
         assertThat(args).hasSize(1);
@@ -108,7 +111,7 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
         assertThat(aggregate.getName()).isEqualTo(def.getName());
         assertThat(aggregate.getDescription()).isEmpty();
         assertThat(aggregate.getReturnDataDescription()).isEmpty();
-        assertThat(aggregate.getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
+        assertThat(aggregate.<DataTyped> getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
 
         final List<SubroutineArgument> args = aggregate.getArguments();
         assertThat(args).hasSize(1);
@@ -154,7 +157,7 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
         assertThat(aggregate.getName()).isEqualTo(def.getName());
         assertThat(aggregate.getDescription()).isEqualTo(doc.getDescription());
         assertThat(aggregate.getReturnDataDescription()).isEqualTo(doc.getReturnDescription());
-        assertThat(aggregate.getReturnDataType()).isEqualTo(returnType);
+        assertThat(aggregate.<DataTyped> getReturnDataType()).isEqualTo(returnType);
 
         final List<SubroutineArgument> args = aggregate.getArguments();
         assertThat(args).hasSize(4);
@@ -210,7 +213,7 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
         assertThat(aggregate.getName()).isEqualTo(def.getName());
         assertThat(aggregate.getDescription()).isEqualTo(doc.getDescription());
         assertThat(aggregate.getReturnDataDescription()).isEqualTo(doc.getReturnDescription());
-        assertThat(aggregate.getReturnDataType()).isEqualTo(returnType);
+        assertThat(aggregate.<DataTyped> getReturnDataType()).isEqualTo(returnType);
 
         final List<SubroutineArgument> args = aggregate.getArguments();
         assertThat(args).hasSize(1);
@@ -246,7 +249,7 @@ public class SubroutineAggregatorTest extends AbstractUnitTest {
         assertThat(aggregate.getName()).isEqualTo(def.getName());
         assertThat(aggregate.getDescription()).isEmpty();
         assertThat(aggregate.getReturnDataDescription()).isEmpty();
-        assertThat(aggregate.getReturnDataType()).isEqualTo(returnType);
+        assertThat(aggregate.<DataTyped> getReturnDataType()).isEqualTo(returnType);
 
         final List<SubroutineArgument> args = aggregate.getArguments();
         assertThat(args).hasSize(2);

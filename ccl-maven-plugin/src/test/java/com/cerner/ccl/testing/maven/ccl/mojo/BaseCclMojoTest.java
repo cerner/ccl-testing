@@ -1,6 +1,7 @@
 package com.cerner.ccl.testing.maven.ccl.mojo;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -24,9 +25,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.settings.Server;
 import org.apache.maven.settings.Settings;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -41,7 +40,6 @@ import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePasswordCredential;
 import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePrincipal;
 import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPasswordCredential;
 import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPrincipal;
-import com.cerner.ccl.testing.maven.ccl.mojo.BaseCclMojo;
 import com.cerner.ccl.testing.maven.ccl.util.CclLogFileOutputStream;
 import com.cerner.ccl.testing.maven.ccl.util.DelegatingOutputStream;
 import com.cerner.ccl.testing.maven.ccl.util.LogOutputStreamProxy;
@@ -57,12 +55,6 @@ import com.cerner.ccl.testing.maven.ccl.util.LogOutputStreamProxy;
 @PrepareForTest(value = { BackendNodePasswordCredential.class, BackendNodePrincipal.class, BaseCclMojo.class,
         CclExecutor.class, MillenniumDomainPrincipal.class, MillenniumDomainPasswordCredential.class })
 public class BaseCclMojoTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     @Mock
     private CclExecutor executor;
     private StubCclMojo mojo;
@@ -116,9 +108,10 @@ public class BaseCclMojoTest {
      */
     @Test
     public void testAddBackendInformationBlankUsername() throws Exception {
-        expected.expect(MojoExecutionException.class);
-        expected.expectMessage("A valid host username must be provided.");
-        mojo.addBackendInformation(new Subject());
+        MojoExecutionException e = assertThrows(MojoExecutionException.class, () -> {
+            mojo.addBackendInformation(new Subject());
+        });
+        assertThat(e.getMessage()).isEqualTo("A valid host username must be provided.");
     }
 
     /**
@@ -129,9 +122,10 @@ public class BaseCclMojoTest {
      */
     @Test
     public void testAddBackendInformationNullSubject() throws Exception {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Subject cannot be null.");
-        mojo.addBackendInformation(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            mojo.addBackendInformation(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Subject cannot be null.");
     }
 
     /**
@@ -189,9 +183,10 @@ public class BaseCclMojoTest {
         mojo.hostCredentialsId = serverId;
         mojo.settings = mock(Settings.class);
 
-        expected.expect(MojoExecutionException.class);
-        expected.expectMessage("No backend <server /> found by the given ID: " + serverId);
-        mojo.addBackendInformation(new Subject());
+        MojoExecutionException e = assertThrows(MojoExecutionException.class, () -> {
+            mojo.addBackendInformation(new Subject());
+        });
+        assertThat(e.getMessage()).isEqualTo("No backend <server /> found by the given ID: " + serverId);
     }
 
     /**
@@ -282,11 +277,11 @@ public class BaseCclMojoTest {
      */
     @Test
     public void testAddDomainLoginInformationBlankUsername() throws Exception {
-        expected.expect(MojoExecutionException.class);
-        expected.expectMessage("A valid frontend username must be provided when domain is specified.");
-
         mojo.domain = "a.domain";
-        mojo.addDomainLoginInformation(new Subject());
+        MojoExecutionException e = assertThrows(MojoExecutionException.class, () -> {
+            mojo.addDomainLoginInformation(new Subject());
+        });
+        assertThat(e.getMessage()).isEqualTo("A valid frontend username must be provided when domain is specified.");
     }
 
     /**
@@ -311,9 +306,10 @@ public class BaseCclMojoTest {
      */
     @Test
     public void testAddDomainLoginInformationNullSubject() throws Exception {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Subject cannot be null.");
-        mojo.addDomainLoginInformation(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            mojo.addDomainLoginInformation(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Subject cannot be null.");
     }
 
     /**
@@ -374,9 +370,10 @@ public class BaseCclMojoTest {
         mojo.frontendCredentialsId = serverId;
         mojo.settings = settings;
 
-        expected.expect(MojoExecutionException.class);
-        expected.expectMessage("No frontend <server /> found by the given ID: ");
-        mojo.addDomainLoginInformation(new Subject());
+        MojoExecutionException e = assertThrows(MojoExecutionException.class, () -> {
+            mojo.addDomainLoginInformation(new Subject());
+        });
+        assertThat(e.getMessage()).isEqualTo("No frontend <server /> found by the given ID: a.server.id");
     }
 
     /**
@@ -460,11 +457,13 @@ public class BaseCclMojoTest {
 
             LogOutputStreamProxy proxy = null;
             CclLogFileOutputStream logStream = null;
-            for (final OutputStream stream : delegateStreams)
-                if (stream instanceof LogOutputStreamProxy)
+            for (final OutputStream stream : delegateStreams) {
+                if (stream instanceof LogOutputStreamProxy) {
                     proxy = (LogOutputStreamProxy) stream;
-                else if (stream instanceof CclLogFileOutputStream)
+                } else if (stream instanceof CclLogFileOutputStream) {
                     logStream = (CclLogFileOutputStream) stream;
+                }
+            }
 
             assertThat(proxy).isNotNull();
             assertThat(proxy.getLogProxy().getLog()).isSameAs(log);
@@ -522,9 +521,11 @@ public class BaseCclMojoTest {
             assertThat(delegateStreams).isNotEmpty();
 
             CclLogFileOutputStream logStream = null;
-            for (final OutputStream stream : delegateStreams)
-                if (stream instanceof CclLogFileOutputStream)
+            for (final OutputStream stream : delegateStreams) {
+                if (stream instanceof CclLogFileOutputStream) {
                     logStream = (CclLogFileOutputStream) stream;
+                }
+            }
 
             assertThat(logStream).isNotNull();
         } finally {
@@ -558,9 +559,11 @@ public class BaseCclMojoTest {
             assertThat(delegateStreams).isNotEmpty();
 
             LogOutputStreamProxy logStream = null;
-            for (final OutputStream stream : delegateStreams)
-                if (stream instanceof LogOutputStreamProxy)
+            for (final OutputStream stream : delegateStreams) {
+                if (stream instanceof LogOutputStreamProxy) {
                     logStream = (LogOutputStreamProxy) stream;
+                }
+            }
 
             assertThat(logStream).isNotNull();
         } finally {
@@ -598,9 +601,11 @@ public class BaseCclMojoTest {
             assertThat(delegateStreams).isNotEmpty();
 
             LogOutputStreamProxy logStream = null;
-            for (final OutputStream stream : delegateStreams)
-                if (stream instanceof LogOutputStreamProxy)
+            for (final OutputStream stream : delegateStreams) {
+                if (stream instanceof LogOutputStreamProxy) {
                     logStream = (LogOutputStreamProxy) stream;
+                }
+            }
 
             assertThat(logStream).isNotNull();
         } finally {
@@ -695,6 +700,7 @@ public class BaseCclMojoTest {
         public StubCclMojo() {
         }
 
+        @Override
         public void execute() {
         }
     }

@@ -1,13 +1,12 @@
 package com.cerner.ccl.j4ccl.impl.adders;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import java.io.File;
 
 import org.junit.Test;
-
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 /**
  * Unit tests for {@link AbstractCompilerAdder}.
@@ -16,7 +15,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
  *
  */
 
-public class AbstractCompilerAdderTest extends AbstractUnitTest {
+public class AbstractCompilerAdderTest {
     private final ConcreteAdder adder = new ConcreteAdder();
 
     /**
@@ -34,9 +33,10 @@ public class AbstractCompilerAdderTest extends AbstractUnitTest {
      */
     @Test
     public void testAddDependencyNullFile() {
-        expect(NullPointerException.class);
-        expect("Dependent file cannot be a null reference.");
-        adder.addDependency(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            adder.addDependency(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Dependent file cannot be a null reference.");
     }
 
     /**
@@ -65,9 +65,10 @@ public class AbstractCompilerAdderTest extends AbstractUnitTest {
      */
     @Test
     public void testSetListingLocationNullFile() {
-        expect(NullPointerException.class);
-        expect("Listing location cannot be null.");
-        adder.setListingLocation(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            adder.setListingLocation(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Listing location cannot be null.");
     }
 
     /**

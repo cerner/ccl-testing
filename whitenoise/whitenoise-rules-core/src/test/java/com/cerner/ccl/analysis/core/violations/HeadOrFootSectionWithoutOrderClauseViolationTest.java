@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.core.violations;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -24,8 +25,10 @@ public class HeadOrFootSectionWithoutOrderClauseViolationTest
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullFieldName() {
-        expect(IllegalArgumentException.class, "Header/footer field name cannot be null.");
-        new HeadOrFootSectionWithoutOrderClauseViolation(null, lineNumber);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new HeadOrFootSectionWithoutOrderClauseViolation(null, lineNumber);
+        });
+        assertThat(e.getMessage()).isEqualTo("Header/footer field name cannot be null.");
     }
 
     /**

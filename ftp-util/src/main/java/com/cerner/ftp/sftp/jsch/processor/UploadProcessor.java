@@ -39,6 +39,7 @@ public class UploadProcessor implements FileTransferProcessor {
         this.permissions = permissions;
     }
 
+    @Override
     public void run(final ChannelSftp channel) {
         final EtmPoint point = MONITOR.createPoint(getClass().getName() + ": run(ChannelSftp)");
         try {
@@ -54,8 +55,9 @@ public class UploadProcessor implements FileTransferProcessor {
             try {
                 channel.chmod(permissions, remotePath);
             } catch (final SftpException e) {
-                if (!ignoreChmodErrors)
+                if (!ignoreChmodErrors) {
                     throw new TransferException("Failed to chmod uploaded file.", e);
+                }
             }
         } finally {
             point.collect();

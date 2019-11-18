@@ -38,11 +38,13 @@ public class InvalidVariableInitializationViolation implements VariableViolation
      */
     public InvalidVariableInitializationViolation(final String variableName, final String initializationValue,
             final Integer lineNumber) {
-        if (variableName == null)
+        if (variableName == null) {
             throw new IllegalArgumentException("Variable name cannot be null.");
+        }
 
-        if (initializationValue == null)
+        if (initializationValue == null) {
             throw new IllegalArgumentException("Initialization value cannot be null.");
+        }
 
         this.variableName = variableName;
         this.initializationValue = initializationValue;
@@ -51,11 +53,13 @@ public class InvalidVariableInitializationViolation implements VariableViolation
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof InvalidVariableInitializationViolation))
+        if (!(obj instanceof InvalidVariableInitializationViolation)) {
             return false;
+        }
 
         final InvalidVariableInitializationViolation other = (InvalidVariableInitializationViolation) obj;
         return getVariableName().equalsIgnoreCase(other.getVariableName())
@@ -66,6 +70,7 @@ public class InvalidVariableInitializationViolation implements VariableViolation
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -73,6 +78,7 @@ public class InvalidVariableInitializationViolation implements VariableViolation
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return getVariableName() + " is improperly intitialized to the value '" + getInitializationValue() + "'";
     }
@@ -80,6 +86,7 @@ public class InvalidVariableInitializationViolation implements VariableViolation
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "If the value used to initialize a variable does not match a type that CCL's declarations can tolerate, this can result in a runtime error.";
     }
@@ -87,6 +94,7 @@ public class InvalidVariableInitializationViolation implements VariableViolation
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }
@@ -94,6 +102,7 @@ public class InvalidVariableInitializationViolation implements VariableViolation
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getVariableName() {
         return variableName;
     }

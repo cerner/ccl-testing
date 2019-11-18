@@ -2,20 +2,16 @@ package com.cerner.ccl.testing.maven.ccl.reports.common;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.assertions.MapAssert.entry;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.cerner.ccl.testing.maven.ccl.reports.common.CCLCoverageProgram;
-import com.cerner.ccl.testing.maven.ccl.reports.common.CoverageLine;
-import com.cerner.ccl.testing.maven.ccl.reports.common.CoveredStatus;
 import com.cerner.ccl.testing.maven.ccl.reports.common.CCLProgram.ProgramLine;
 
 /**
@@ -27,12 +23,6 @@ import com.cerner.ccl.testing.maven.ccl.reports.common.CCLProgram.ProgramLine;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CoverageLineTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     @Mock
     private ProgramLine programLine;
     @Mock
@@ -53,9 +43,10 @@ public class CoverageLineTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullProgramLine() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Line cannot be null.");
-        new CoverageLine(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CoverageLine(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Line cannot be null.");
     }
 
     /**
@@ -73,9 +64,10 @@ public class CoverageLineTest {
      */
     @Test
     public void testAddTestCoverageNullCoverage() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("The covered status cannot be null.");
-        line.addTestCoverage(program, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            line.addTestCoverage(program, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("The covered status cannot be null.");
     }
 
     /**
@@ -83,9 +75,10 @@ public class CoverageLineTest {
      */
     @Test
     public void testAddTestCoverageNullProgram() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Coverage program cannot be null.");
-        line.addTestCoverage(null, CoveredStatus.COVERED);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            line.addTestCoverage(null, CoveredStatus.COVERED);
+        });
+        assertThat(e.getMessage()).isEqualTo("Coverage program cannot be null.");
     }
 
     /**

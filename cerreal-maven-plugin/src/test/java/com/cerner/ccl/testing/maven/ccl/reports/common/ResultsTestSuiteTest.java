@@ -1,6 +1,7 @@
 package com.cerner.ccl.testing.maven.ccl.reports.common;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -12,16 +13,12 @@ import java.util.List;
 
 import org.apache.maven.reporting.MavenReportException;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.cerner.ccl.testing.maven.ccl.reports.AbstractCCLMavenReport;
-import com.cerner.ccl.testing.maven.ccl.reports.common.ResultsTestCase;
-import com.cerner.ccl.testing.maven.ccl.reports.common.ResultsTestSuite;
 
 /**
  * Unit tests for {@link ResultsTestSuite}.
@@ -33,11 +30,6 @@ import com.cerner.ccl.testing.maven.ccl.reports.common.ResultsTestSuite;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { AbstractCCLMavenReport.class, ResultsTestCase.class, ResultsTestSuite.class })
 public class ResultsTestSuiteTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
     private ResultsTestSuite suite;
     private List<ResultsTestCase> cases;
 
@@ -121,9 +113,10 @@ public class ResultsTestSuiteTest {
         final File directory = mock(File.class);
         when(directory.exists()).thenReturn(Boolean.FALSE);
 
-        expected.expect(MavenReportException.class);
-        expected.expectMessage("The specified test-results directory is invalid");
-        new ResultsTestSuite(directory);
+        MavenReportException e = assertThrows(MavenReportException.class, () -> {
+            new ResultsTestSuite(directory);
+        });
+        assertThat(e.getMessage()).isEqualTo("The specified test-results directory is invalid");
     }
 
     /**
@@ -139,9 +132,10 @@ public class ResultsTestSuiteTest {
         when(directory.exists()).thenReturn(Boolean.TRUE);
         when(directory.isDirectory()).thenReturn(Boolean.FALSE);
 
-        expected.expect(MavenReportException.class);
-        expected.expectMessage("The specified test-results directory is invalid");
-        new ResultsTestSuite(directory);
+        MavenReportException e = assertThrows(MavenReportException.class, () -> {
+            new ResultsTestSuite(directory);
+        });
+        assertThat(e.getMessage()).isEqualTo("The specified test-results directory is invalid");
     }
 
     /**
@@ -211,7 +205,7 @@ public class ResultsTestSuiteTest {
      * @throws Exception
      *             If any errors occur while setting up the directory/case mappings.
      */
-    private void setUpDirectories(File[] directories, ResultsTestCase[] cases) throws Exception {
+    private void setUpDirectories(final File[] directories, final ResultsTestCase[] cases) throws Exception {
         assert directories.length == cases.length;
         final File indicatorFile = mock(File.class);
 

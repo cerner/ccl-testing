@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.data.record;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -24,9 +25,10 @@ public class RecordIncludeTest extends AbstractBeanUnitTest<RecordInclude> {
      */
     @Test
     public void testConstructNullFilename() {
-        expect(IllegalArgumentException.class);
-        expect("Filename cannot be null.");
-        new RecordInclude(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new RecordInclude(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Filename cannot be null.");
     }
 
     /**

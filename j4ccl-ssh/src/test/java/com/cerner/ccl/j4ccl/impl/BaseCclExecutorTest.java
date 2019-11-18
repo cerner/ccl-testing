@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.impl;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -30,7 +31,6 @@ import com.cerner.ccl.j4ccl.impl.adders.ScriptDropAdderImpl;
 import com.cerner.ccl.j4ccl.impl.adders.ScriptExecutionAdderImpl;
 import com.cerner.ccl.j4ccl.impl.commands.ScriptExecutionCommand;
 import com.cerner.ccl.j4ccl.impl.util.OutputStreamConfiguration;
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 import com.cerner.ccl.j4ccl.ssh.CclCommandTerminal;
 
 /**
@@ -44,7 +44,7 @@ import com.cerner.ccl.j4ccl.ssh.CclCommandTerminal;
 @RunWith(PowerMockRunner.class)
 @PrepareOnlyThisForTest(value = { DynamicCompilerAdderImpl.class, ScriptCompilerAdderImpl.class,
         CclCommandTerminal.class, BaseCclExecutor.class })
-public class BaseCclExecutorTest extends AbstractUnitTest {
+public class BaseCclExecutorTest {
     private static final TerminalProperties basicTerminalProperties = TerminalProperties.getNewBuilder()
             .setOsPromptPattern("osPromptPattern").build();
     @Mock
@@ -87,9 +87,10 @@ public class BaseCclExecutorTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructionRequiresCommandQueue() {
-        expect(NullPointerException.class);
-        expect("Command queue cannot be null.");
-        new BaseCclExecutor(TerminalProperties.getGlobalTerminalProperties(), null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new BaseCclExecutor(TerminalProperties.getGlobalTerminalProperties(), null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Command queue cannot be null.");
     }
 
     /**
@@ -120,15 +121,16 @@ public class BaseCclExecutorTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testAddDynamicCompilerNotFile() throws Exception {
-        expect(IllegalArgumentException.class);
-        expect("Given file pointer is not actually a file.");
         final File file = mock(File.class);
         when(file.isFile()).thenReturn(false);
 
         final DynamicCompilerAdderImpl adder = mock(DynamicCompilerAdderImpl.class);
         whenNew(DynamicCompilerAdderImpl.class).withArguments(file, queue).thenReturn(adder);
 
-        final DynamicCompilerAdderImpl returnedAdder = executor.addDynamicCompiler(file);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            final DynamicCompilerAdderImpl returnedAdder = executor.addDynamicCompiler(file);
+        });
+        assertThat(e.getMessage()).isEqualTo("Given file pointer is not actually a file.");
     }
 
     /**
@@ -136,9 +138,10 @@ public class BaseCclExecutorTest extends AbstractUnitTest {
      */
     @Test
     public void testAddDynamicCompilerNullFile() {
-        expect(NullPointerException.class);
-        expect("File cannot be null.");
-        executor.addDynamicCompiler(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            executor.addDynamicCompiler(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("File cannot be null.");
     }
 
     /**
@@ -165,11 +168,12 @@ public class BaseCclExecutorTest extends AbstractUnitTest {
      */
     @Test
     public void testAddScriptCompilerNotFile() {
-        expect(IllegalArgumentException.class);
-        expect("Given file pointer is not actually a file.");
         final File file = mock(File.class);
         when(file.isFile()).thenReturn(Boolean.FALSE);
-        executor.addScriptCompiler(file);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            executor.addScriptCompiler(file);
+        });
+        assertThat(e.getMessage()).isEqualTo("Given file pointer is not actually a file.");
     }
 
     /**
@@ -177,9 +181,10 @@ public class BaseCclExecutorTest extends AbstractUnitTest {
      */
     @Test
     public void testAddScriptCompilerNullFile() {
-        expect(NullPointerException.class);
-        expect("File cannot be null.");
-        executor.addScriptCompiler(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            executor.addScriptCompiler(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("File cannot be null.");
     }
 
     /**
@@ -206,9 +211,10 @@ public class BaseCclExecutorTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testAddScriptDropperBlankScriptName() {
-        expect(IllegalArgumentException.class);
-        expect("Script name cannot be blank.");
-        final ScriptDropAdder returnedAdder = executor.addScriptDropper("");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            final ScriptDropAdder returnedAdder = executor.addScriptDropper("");
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be blank.");
     }
 
     /**
@@ -217,9 +223,10 @@ public class BaseCclExecutorTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testAddScriptDropperNullScriptName() {
-        expect(NullPointerException.class);
-        expect("Script name cannot be null.");
-        final ScriptDropAdder returnedAdder = executor.addScriptDropper(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            final ScriptDropAdder returnedAdder = executor.addScriptDropper(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**
@@ -243,9 +250,10 @@ public class BaseCclExecutorTest extends AbstractUnitTest {
      */
     @Test
     public void testAddScriptExecutionBlankName() {
-        expect(IllegalArgumentException.class);
-        expect("Script name cannot be blank.");
-        executor.addScriptExecution("");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            executor.addScriptExecution("");
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be blank.");
     }
 
     /**
@@ -253,10 +261,10 @@ public class BaseCclExecutorTest extends AbstractUnitTest {
      */
     @Test
     public void testAddScriptExecutionNullName() {
-        expect(NullPointerException.class);
-        expect("Script name cannot be null.");
-        executor.addScriptExecution(null);
-
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            executor.addScriptExecution(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**
@@ -265,9 +273,10 @@ public class BaseCclExecutorTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullCommandQueue() {
-        expect(NullPointerException.class);
-        expect("Command queue cannot be null.");
-        new BaseCclExecutor(null, null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new BaseCclExecutor(null, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Command queue cannot be null.");
     }
 
     /**

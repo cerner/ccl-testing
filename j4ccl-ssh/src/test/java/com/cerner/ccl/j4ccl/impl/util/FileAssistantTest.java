@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.util;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -16,7 +17,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.cerner.ccl.j4ccl.impl.data.Environment;
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 /**
  * Unit test of {@link FileAssistant}.
@@ -27,7 +27,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { Environment.class, FileAssistant.class, ScriptRegistrar.class })
-public class FileAssistantTest extends AbstractUnitTest {
+public class FileAssistantTest {
     private final String cclSource = "cclsource";
     private final String cerTemp = "cer_temp";
     private final String cerProc = "cer_proc";
@@ -62,9 +62,10 @@ public class FileAssistantTest extends AbstractUnitTest {
      */
     @Test
     public void testCreateRemotePathNullFile() {
-        expect(NullPointerException.class);
-        expect("Local file cannot be null.");
-        FileAssistant.createRemotePath(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            FileAssistant.createRemotePath(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Local file cannot be null.");
     }
 
     /**
@@ -75,9 +76,10 @@ public class FileAssistantTest extends AbstractUnitTest {
         final File notFile = mock(File.class);
         when(notFile.exists()).thenReturn(Boolean.TRUE);
 
-        expect(IllegalArgumentException.class);
-        expect("File must be an actual file.");
-        FileAssistant.createRemotePath(notFile, mock(Environment.class));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            FileAssistant.createRemotePath(notFile, mock(Environment.class));
+        });
+        assertThat(e.getMessage()).isEqualTo("File must be an actual file.");
     }
 
     /**
@@ -88,9 +90,10 @@ public class FileAssistantTest extends AbstractUnitTest {
      */
     @Test
     public void testCreateRemotePathNullEnvironment() throws Exception {
-        expect(NullPointerException.class);
-        expect("Environment cannot be null.");
-        FileAssistant.createRemotePath(localFile, null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            FileAssistant.createRemotePath(localFile, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Environment cannot be null.");
     }
 
     /**

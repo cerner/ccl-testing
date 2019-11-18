@@ -1,6 +1,7 @@
 package com.cerner.ccl.cdoc.velocity.navigation;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -24,9 +25,10 @@ public class NavigationTest extends AbstractBeanUnitTest<Navigation> {
      */
     @Test
     public void testConstructNullAnchorText() {
-        expect(IllegalArgumentException.class);
-        expect("Anchor text cannot be null.");
-        new Navigation(null, destination);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new Navigation(null, destination);
+        });
+        assertThat(e.getMessage()).isEqualTo("Anchor text cannot be null.");
     }
 
     /**
@@ -34,9 +36,10 @@ public class NavigationTest extends AbstractBeanUnitTest<Navigation> {
      */
     @Test
     public void testConstructNullDestination() {
-        expect(IllegalArgumentException.class);
-        expect("Destination cannot be null.");
-        new Navigation(anchorText, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new Navigation(anchorText, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Destination cannot be null.");
     }
 
     /**

@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.settings.Profile;
@@ -31,10 +30,6 @@ import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.MavenInvocationException;
 import org.apache.maven.shared.invoker.PrintStreamHandler;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -59,50 +54,9 @@ public class PluginITest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
-    private Properties originalSystemProperties = null;
     private final List<String> compileGoal = Arrays.asList(new String[] { "clean", "compile" });
     private final List<String> validateGoal = Collections.singletonList("validate");
     private final List<String> testGoal = Arrays.asList(new String[] { "clean", "compile", "test" });
-
-    /**
-     * One time initialization.
-     *
-     * @throws Exception
-     *             Not expected.
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-        // TODO: is this necessary?
-        // TODO: does it need to be cleaned up?
-        final ResourceBundle systemPropsBundle = ResourceBundle.getBundle("system");
-        System.setProperty("maven.home", systemPropsBundle.getString("maven.home"));
-    }
-
-    /**
-     * Pre-test initialization
-     */
-    @Before
-    public void setUp() {
-        // TODO: this seems pointless.
-        originalSystemProperties = System.getProperties();
-    }
-
-    /**
-     * post test cleanup.
-     */
-    @After
-    public void tearDown() {
-        if (originalSystemProperties != null) {
-            System.setProperties(originalSystemProperties);
-        }
-    }
-
-    /**
-     * One time cleanup.
-     */
-    @AfterClass
-    public static void tearDownAfterClass() {
-    }
 
     /**
      * Test a compile failure caused by an if with no endif in the {@code compilation-error-build-failure} project.
@@ -220,6 +174,23 @@ public class PluginITest {
         assertThat(result.getExitCode()).isZero();
         assertThat(containsText(logFile, "sending command (envset"))
                 .as("expect logFile to not contain any envset commands.").isFalse();
+    }
+
+    /**
+     * If the {@code ccl-skipEnvset} property is set, then there should be no envset command issued.
+     *
+     * @throws Exception
+     *             If any errors occur during the test run.
+     */
+    @Test
+    public void testSkipProcessing() throws Exception {
+        final File logFile = getLogFile();
+        final InvocationRequest request = getInvocationRequest("successful-build", testGoal, logFile);
+
+        request.getProperties().put("ccl-skipProcessing", "true");
+        final InvocationResult result = new DefaultInvoker().execute(request);
+        assertThat(result.getExecutionException()).isNull();
+        assertThat(result.getExitCode()).isZero();
     }
 
     /**

@@ -34,11 +34,13 @@ public class NulltermViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof NulltermViolation))
+        if (!(obj instanceof NulltermViolation)) {
             return false;
+        }
 
         final NulltermViolation other = (NulltermViolation) obj;
         return getLineNumber().equals(other.getLineNumber());
@@ -47,6 +49,7 @@ public class NulltermViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -54,6 +57,7 @@ public class NulltermViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "uar_srvsetstring() param3 missing nullterm() wrapping";
     }
@@ -61,6 +65,7 @@ public class NulltermViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "When using vc strings as input into a UAR, the nullterm function should be wrapped around the variable. "
                 + "Garbage characters get injected in CCL when using SRV_UAR calls without the nullterm() usage.";
@@ -69,6 +74,7 @@ public class NulltermViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

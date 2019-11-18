@@ -1,5 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.adders;
 
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
@@ -13,7 +15,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.cerner.ccl.j4ccl.impl.CommandQueue;
 import com.cerner.ccl.j4ccl.impl.commands.DropScriptCommand;
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 /**
  * Unit tests for {@link ScriptDropAdderImpl}.
@@ -24,7 +25,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { DropScriptCommand.class, ScriptDropAdderImpl.class })
-public class ScriptDropAdderImplTest extends AbstractUnitTest {
+public class ScriptDropAdderImplTest {
     private final String scriptName = "a.script.name";
     @Mock
     private CommandQueue queue;
@@ -44,9 +45,10 @@ public class ScriptDropAdderImplTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructBlankScriptName() {
-        expect(IllegalArgumentException.class);
-        expect("Script name cannot be blank.");
-        new ScriptDropAdderImpl("", queue);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptDropAdderImpl("", queue);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be blank.");
     }
 
     /**
@@ -55,9 +57,10 @@ public class ScriptDropAdderImplTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullCommandQueue() {
-        expect(NullPointerException.class);
-        expect("Command queue cannot be null.");
-        new ScriptDropAdderImpl(scriptName, null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new ScriptDropAdderImpl(scriptName, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Command queue cannot be null.");
     }
 
     /**
@@ -66,9 +69,10 @@ public class ScriptDropAdderImplTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullScriptName() {
-        expect(NullPointerException.class);
-        expect("Script name cannot be null.");
-        new ScriptDropAdderImpl(null, queue);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new ScriptDropAdderImpl(null, queue);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**

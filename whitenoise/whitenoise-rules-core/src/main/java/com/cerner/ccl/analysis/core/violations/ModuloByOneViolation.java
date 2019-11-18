@@ -31,11 +31,13 @@ public class ModuloByOneViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof ModuloByOneViolation))
+        if (!(obj instanceof ModuloByOneViolation)) {
             return false;
+        }
 
         final ModuloByOneViolation other = (ModuloByOneViolation) obj;
         return getLineNumber().equals(other.getLineNumber());
@@ -44,6 +46,7 @@ public class ModuloByOneViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -51,6 +54,7 @@ public class ModuloByOneViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Call to MOD function with divisor of one which always returns zero";
     }
@@ -58,6 +62,7 @@ public class ModuloByOneViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "When using the modulo function with a divisor of one, the resulting value will always be zero. Inspect the modulo "
                 + "function call to ensure that it is coded as intended";
@@ -66,6 +71,7 @@ public class ModuloByOneViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

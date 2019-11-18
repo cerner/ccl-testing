@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.subroutine;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -53,9 +54,10 @@ public class SubroutineArgumentTest extends AbstractBeanUnitTest<SubroutineArgum
      */
     @Test
     public void testConstructNullName() {
-        expect(IllegalArgumentException.class);
-        expect("Name cannot be null.");
-        new SubroutineArgument(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SubroutineArgument(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.documentation;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.Collections;
 import java.util.List;
@@ -50,9 +51,10 @@ public class FieldTest extends AbstractBeanUnitTest<Field> {
      */
     @Test
     public void testConstructNullName() {
-        expect(IllegalArgumentException.class);
-        expect("Name cannot be null.");
-        new Field(null, description, true, values, codeSets);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new Field(null, description, true, values, codeSets);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**

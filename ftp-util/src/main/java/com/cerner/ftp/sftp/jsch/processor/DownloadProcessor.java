@@ -36,6 +36,7 @@ public class DownloadProcessor implements FileTransferProcessor {
         this.request = request;
     }
 
+    @Override
     public void run(final ChannelSftp channel) {
         final EtmPoint point = MONITOR.createPoint(getClass().getName() + ": run(ChannelSftp)");
 

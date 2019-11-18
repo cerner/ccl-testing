@@ -27,6 +27,7 @@ public class FloatArgument implements Argument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getCommandLineValue() {
         return value;
     }

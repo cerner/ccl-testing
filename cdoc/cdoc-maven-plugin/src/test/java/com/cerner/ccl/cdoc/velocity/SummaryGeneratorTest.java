@@ -1,5 +1,7 @@
 package com.cerner.ccl.cdoc.velocity;
 
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -20,7 +22,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.cdoc.AbstractUnitTest;
 import com.cerner.ccl.cdoc.mojo.data.Documentation;
 
 /**
@@ -32,7 +33,7 @@ import com.cerner.ccl.cdoc.mojo.data.Documentation;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { SummaryGenerator.class, VelocityContext.class })
-public class SummaryGeneratorTest extends AbstractUnitTest {
+public class SummaryGeneratorTest {
     private SummaryGenerator generator;
     @Mock
     private VelocityEngine engine;
@@ -92,9 +93,10 @@ public class SummaryGeneratorTest extends AbstractUnitTest {
      */
     @Test
     public void testGenerateNullCssDirectory() throws Exception {
-        expect(IllegalArgumentException.class);
-        expect("CSS directory cannot be null.");
-        generator.generate(project, documentation, null, writer);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            generator.generate(project, documentation, null, writer);
+        });
+        assertThat(e.getMessage()).isEqualTo("CSS directory cannot be null.");
     }
 
     /**
@@ -105,9 +107,10 @@ public class SummaryGeneratorTest extends AbstractUnitTest {
      */
     @Test
     public void testGenerateNullDocumentation() throws Exception {
-        expect(IllegalArgumentException.class);
-        expect("Documentation cannot be null.");
-        generator.generate(project, null, cssDirectory, writer);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            generator.generate(project, null, cssDirectory, writer);
+        });
+        assertThat(e.getMessage()).isEqualTo("Documentation cannot be null.");
     }
 
     /**
@@ -118,9 +121,10 @@ public class SummaryGeneratorTest extends AbstractUnitTest {
      */
     @Test
     public void testGenerateNullProject() throws Exception {
-        expect(IllegalArgumentException.class);
-        expect("Maven project cannot be null.");
-        generator.generate(null, documentation, cssDirectory, writer);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            generator.generate(null, documentation, cssDirectory, writer);
+        });
+        assertThat(e.getMessage()).isEqualTo("Maven project cannot be null.");
     }
 
     /**
@@ -131,9 +135,10 @@ public class SummaryGeneratorTest extends AbstractUnitTest {
      */
     @Test
     public void testGenerateNullWriter() throws Exception {
-        expect(IllegalArgumentException.class);
-        expect("Destination writer cannot be null.");
-        generator.generate(project, documentation, cssDirectory, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            generator.generate(project, documentation, cssDirectory, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Destination writer cannot be null.");
     }
 
     /**

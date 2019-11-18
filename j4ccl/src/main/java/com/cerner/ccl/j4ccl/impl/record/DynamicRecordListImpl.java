@@ -48,47 +48,57 @@ public class DynamicRecordListImpl implements DynamicRecordList {
      *            A {@link RecordImplFactory} object that can create {@link Record} objects.
      */
     DynamicRecordListImpl(final Structure structure, final Record parent, final RecordImplFactory recordFactory) {
-        if (structure == null)
+        if (structure == null) {
             throw new NullPointerException("Structure cannot be null.");
+        }
 
-        if (parent == null)
+        if (parent == null) {
             throw new NullPointerException("Parent record cannot be null.");
+        }
 
         this.structure = structure;
         this.parent = parent;
         this.recordFactory = recordFactory;
     }
 
+    @Override
     public Record addItem() {
         final Record element = recordFactory.createNestedRecord(structure, parent);
         records.add(element);
         return element;
     }
 
+    @Override
     public List<Record> getAll() {
         return Collections.unmodifiableList(records);
     }
 
+    @Override
     public Record get(final int index) {
         return records.get(index);
     }
 
+    @Override
     public int getSize() {
         return records.size();
     }
 
+    @Override
     public Structure getStructure() {
         return structure;
     }
 
+    @Override
     public void removeItem(final Record item) {
         records.remove(item);
     }
 
+    @Override
     public void removeItem(final int index) {
         records.remove(index);
     }
 
+    @Override
     public Iterator<Record> iterator() {
         return records.iterator();
     }

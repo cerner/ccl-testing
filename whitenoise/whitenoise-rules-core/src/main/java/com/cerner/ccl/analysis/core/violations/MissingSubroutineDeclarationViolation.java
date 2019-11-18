@@ -34,8 +34,9 @@ public class MissingSubroutineDeclarationViolation implements SubroutineViolatio
      *             If the given subroutine name is {@code null}.
      */
     public MissingSubroutineDeclarationViolation(final String subroutineName, final Integer lineNumber) {
-        if (subroutineName == null)
+        if (subroutineName == null) {
             throw new IllegalArgumentException("Subroutine name cannot be null.");
+        }
 
         this.subroutineName = subroutineName;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -43,11 +44,13 @@ public class MissingSubroutineDeclarationViolation implements SubroutineViolatio
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (!(obj instanceof MissingSubroutineDeclarationViolation))
+        if (!(obj instanceof MissingSubroutineDeclarationViolation)) {
             return false;
+        }
 
         final MissingSubroutineDeclarationViolation other = (MissingSubroutineDeclarationViolation) obj;
         return getSubroutineName().equalsIgnoreCase(other.getSubroutineName())
@@ -57,6 +60,7 @@ public class MissingSubroutineDeclarationViolation implements SubroutineViolatio
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -64,6 +68,7 @@ public class MissingSubroutineDeclarationViolation implements SubroutineViolatio
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return getSubroutineName() + " has no explicit DECLARE statement";
     }
@@ -71,6 +76,7 @@ public class MissingSubroutineDeclarationViolation implements SubroutineViolatio
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "Subroutines without declarations cannot enforce typing of parameters and lead to ambiguity about the inputs and outputs of a subroutine.";
     }
@@ -78,6 +84,7 @@ public class MissingSubroutineDeclarationViolation implements SubroutineViolatio
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }
@@ -85,6 +92,7 @@ public class MissingSubroutineDeclarationViolation implements SubroutineViolatio
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getSubroutineName() {
         return subroutineName;
     }

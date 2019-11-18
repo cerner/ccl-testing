@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.mojo.exclusions.filters;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -11,17 +12,16 @@ import com.cerner.ccl.analysis.data.SubroutineViolation;
 import com.cerner.ccl.analysis.data.VariableViolation;
 import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
-import com.cerner.ccl.analysis.mojo.AbstractUnitTest;
 import com.cerner.ccl.analysis.mojo.exclusions.filters.ViolationFilterChain.Builder;
 
 /**
  * Unit tests for {@link ViolationFilterChain}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
-public class ViolationFilterChainTest extends AbstractUnitTest {
+public class ViolationFilterChainTest {
     private final Builder builder = ViolationFilterChain.build();
 
     /**
@@ -46,9 +46,10 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
     @Test
     public void testExcludeNullScriptName() {
         final ViolationFilterChain chain = builder.build();
-        expect(IllegalArgumentException.class);
-        expect("Script name cannot be null.");
-        chain.exclude(null, mock(Violation.class));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            chain.exclude(null, mock(Violation.class));
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**
@@ -57,9 +58,10 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
     @Test
     public void testExcludeNullViolation() {
         final ViolationFilterChain chain = builder.build();
-        expect(IllegalArgumentException.class);
-        expect("Violation cannot be null.");
-        chain.exclude("a_script", null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            chain.exclude("a_script", null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Violation cannot be null.");
     }
 
     /**
@@ -93,9 +95,10 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
      */
     @Test
     public void testWithScriptNameNullName() {
-        expect(IllegalArgumentException.class);
-        expect("Script name cannot be null.");
-        builder.withScriptName(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            builder.withScriptName(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**
@@ -117,9 +120,10 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
      */
     @Test
     public void testWithVariableNameNullName() {
-        expect(IllegalArgumentException.class);
-        expect("Variable name cannot be null.");
-        builder.withVariableName(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            builder.withVariableName(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Variable name cannot be null.");
     }
 
     /**
@@ -141,9 +145,10 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
      */
     @Test
     public void testWithSubroutineNameNullName() {
-        expect(IllegalArgumentException.class);
-        expect("Subroutine name cannot be null.");
-        builder.withSubroutineName(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            builder.withSubroutineName(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Subroutine name cannot be null.");
     }
 
     /**
@@ -165,9 +170,10 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
      */
     @Test
     public void testWithViolationIdNullId() {
-        expect(IllegalArgumentException.class);
-        expect("Violation ID cannot be null.");
-        builder.withViolationId(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            builder.withViolationId(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Violation ID cannot be null.");
     }
 
     /**
@@ -176,8 +182,9 @@ public class ViolationFilterChainTest extends AbstractUnitTest {
     @Test
     public void testWithViolationIdUnqualifiedId() {
         final String unqualified = "unqualifiedName";
-        expect(IllegalArgumentException.class);
-        expect("Violation ID must be fully qualified name: " + unqualified);
-        builder.withViolationId(unqualified);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            builder.withViolationId(unqualified);
+        });
+        assertThat(e.getMessage()).isEqualTo("Violation ID must be fully qualified name: " + unqualified);
     }
 }

@@ -33,43 +33,53 @@ public class FixedLengthListFieldImpl extends AbstractField {
      *             If the given field name or structure is {@code null}.
      */
     public FixedLengthListFieldImpl(final String fieldName, final Structure structure, final int listSize) {
-        if (fieldName == null)
+        if (fieldName == null) {
             throw new NullPointerException("Field name cannot be null.");
+        }
 
-        if (structure == null)
+        if (structure == null) {
             throw new NullPointerException("Structure cannot be null.");
+        }
 
-        if (listSize < 0)
+        if (listSize < 0) {
             throw new ArrayIndexOutOfBoundsException("List size cannot be less than 0.");
+        }
 
-        if (fieldName.trim().length() == 0)
+        if (fieldName.trim().length() == 0) {
             throw new IllegalArgumentException("Field name cannot be blank.");
+        }
 
         this.fieldName = fieldName;
         this.structure = structure;
         this.listSize = listSize;
     }
 
+    @Override
     public long getDataLength() {
         throw new UnsupportedOperationException("Fixed-length lists are not primitives.");
     }
 
+    @Override
     public String getDeclaration() {
         return getName() + " [" + getListSize() + "]";
     }
 
+    @Override
     public int getListSize() {
         return listSize;
     }
 
+    @Override
     public String getName() {
         return fieldName;
     }
 
+    @Override
     public Structure getStructure() {
         return structure;
     }
 
+    @Override
     public DataType getType() {
         return DataType.LIST;
     }

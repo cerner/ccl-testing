@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.record;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -27,9 +28,10 @@ public class StructureFieldTest extends AbstractBeanUnitTest<StructureField> {
      */
     @Test
     public void testConstructNullName() {
-        expect(IllegalArgumentException.class);
-        expect("Name cannot be null.");
-        new StructureField(null, level, dataType);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new StructureField(null, level, dataType);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**
@@ -37,9 +39,10 @@ public class StructureFieldTest extends AbstractBeanUnitTest<StructureField> {
      */
     @Test
     public void testConstructZeroLevel() {
-        expect(IllegalArgumentException.class);
-        expect("Level cannot be less than 1: " + Integer.toString(0));
-        new StructureField(name, 0, dataType);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new StructureField(name, 0, dataType);
+        });
+        assertThat(e.getMessage()).isEqualTo("Level cannot be less than 1: " + Integer.toString(0));
     }
 
     /**

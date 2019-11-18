@@ -10,9 +10,9 @@ import com.cerner.ccl.analysis.mojo.exclusions.filters.ViolationFilterChain.Viol
 /**
  * A {@link ViolationFilter} that will filter out a violation by line number. If the violation has no
  * {@link Violation#getLineNumber() line number} associated with it, then this filter will not mark it as excluded.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 public class LineNumberFilter implements ViolationFilter {
@@ -21,7 +21,7 @@ public class LineNumberFilter implements ViolationFilter {
 
     /**
      * Create a line number filter.
-     * 
+     *
      * @param lineNumber
      *            The number of the line by which to filter out a violation.
      */
@@ -32,12 +32,15 @@ public class LineNumberFilter implements ViolationFilter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean exclude(final String scriptName, final Violation violation) {
-        if (scriptName == null)
+        if (scriptName == null) {
             throw new IllegalArgumentException("Script name cannot be null.");
+        }
 
-        if (violation == null)
+        if (violation == null) {
             throw new IllegalArgumentException("Violation cannot be null.");
+        }
 
         if (violation.getLineNumber() == null) {
             LOGGER.warn(

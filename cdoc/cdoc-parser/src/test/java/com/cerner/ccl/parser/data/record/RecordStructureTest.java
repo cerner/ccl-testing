@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.data.record;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import java.util.Arrays;
@@ -47,9 +48,10 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
      */
     @Test
     public void testConstructNullMembers() {
-        expect(IllegalArgumentException.class);
-        expect("Members cannot be null.");
-        new RecordStructure(name, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new RecordStructure(name, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Members cannot be null.");
     }
 
     /**
@@ -57,9 +59,10 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
      */
     @Test
     public void testConstructNullName() {
-        expect(IllegalArgumentException.class);
-        expect("Name cannot be null.");
-        new RecordStructure(null, members);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new RecordStructure(null, members);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**
@@ -135,8 +138,8 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
         final RecordStructureField field = mock(RecordStructureField.class);
         final AbstractParentRecordStructureMember list = mock(AbstractParentRecordStructureMember.class);
         final RecordStructure toRetrieve = new RecordStructure(name, Arrays.asList(field, list));
-        assertThat(toRetrieve.getRootLevelMember(0)).isEqualTo(field);
-        assertThat(toRetrieve.getRootLevelMember(1)).isEqualTo(list);
+        assertThat(toRetrieve.<RecordStructureField> getRootLevelMember(0)).isEqualTo(field);
+        assertThat(toRetrieve.<RecordStructureField> getRootLevelMember(1)).isEqualTo(list);
     }
 
     /**

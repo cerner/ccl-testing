@@ -1,6 +1,7 @@
 package com.cerner.ccl.cdoc.mojo;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,7 +36,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.cdoc.AbstractUnitTest;
 import com.cerner.ccl.cdoc.mojo.CDocReportMojoTest.CssCopyRecordingMojo.CopyInvocation;
 import com.cerner.ccl.cdoc.mojo.CDocReportMojoTest.ExecutionRecordingMojo.WriteInvocation;
 import com.cerner.ccl.cdoc.mojo.data.Documentation;
@@ -61,7 +61,7 @@ import com.cerner.ccl.parser.text.TextParser;
 @PrepareForTest(value = { CDocReportMojo.class, CharSet.class, Documentation.class, File.class, FileOutputStream.class,
         FileUtils.class, IncludeDocGenerator.class, OutputStreamWriter.class, ScriptDocGenerator.class,
         SummaryGenerator.class })
-public class CDocReportMojoTest extends AbstractUnitTest {
+public class CDocReportMojoTest {
     @Mock
     private TextParser textParser;
     @Mock
@@ -107,9 +107,10 @@ public class CDocReportMojoTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullDetailsParser() {
-        expect(IllegalArgumentException.class);
-        expect("Script execution details parser cannot be null.");
-        new CDocReportMojo(textParser, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CDocReportMojo(textParser, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script execution details parser cannot be null.");
     }
 
     /**
@@ -117,9 +118,10 @@ public class CDocReportMojoTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullTextParser() {
-        expect(IllegalArgumentException.class);
-        expect("Text parser cannot be null.");
-        new CDocReportMojo(null, detailsParser);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CDocReportMojo(null, detailsParser);
+        });
+        assertThat(e.getMessage()).isEqualTo("Text parser cannot be null.");
     }
 
     /**
@@ -455,12 +457,8 @@ public class CDocReportMojoTest extends AbstractUnitTest {
         final Documentation doc = mock(Documentation.class);
         when(doc.getDestinationFilename()).thenReturn(filename);
 
-        Writer writer = null;
-        try {
-            writer = mojo.getWriter(doc);
+        try (Writer writer = mojo.getWriter(doc)) {
             IOUtils.write(testData.getBytes("utf-8"), writer, "utf-8");
-        } finally {
-            IOUtils.closeQuietly(writer);
         }
 
         assertThat(expectedFile).exists();
@@ -969,8 +967,9 @@ public class CDocReportMojoTest extends AbstractUnitTest {
 
         @Override
         List<Documentation> toDocumentation(final List<File> files) {
-            if (!docs.containsKey(files))
+            if (!docs.containsKey(files)) {
                 throw new IllegalArgumentException("No documentation found for files: " + files);
+            }
 
             return docs.get(files);
         }

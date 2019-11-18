@@ -1,5 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.adders;
 
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,7 +23,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.cerner.ccl.j4ccl.impl.CommandQueue;
 import com.cerner.ccl.j4ccl.impl.commands.ScriptCompilerCommand;
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 /**
  * Unit tests for {@link ScriptCompilerAdderImpl}.
@@ -32,7 +33,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { ScriptCompilerAdderImpl.class, ScriptCompilerCommand.class, FileUtils.class })
-public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
+public class ScriptCompilerAdderImplTest {
     @Mock
     private CommandQueue queue;
 
@@ -59,9 +60,10 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
         when(notPrg.getName()).thenReturn("not_prg.inc");
         StringBuilder sbProgramCode = new StringBuilder();
 
-        expect(IllegalArgumentException.class);
-        expect("Source code file must have a .prg extension: not_prg.inc");
-        new ScriptCompilerAdderImpl(notPrg, queue);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptCompilerAdderImpl(notPrg, queue);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source code file must have a .prg extension: not_prg.inc");
     }
 
     /**
@@ -70,10 +72,11 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullCommandQueue() {
-        expect(NullPointerException.class);
-        expect("Command queue cannot be null.");
         File sourceCodeFile = mock(File.class);
-        new ScriptCompilerAdderImpl(sourceCodeFile, null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new ScriptCompilerAdderImpl(sourceCodeFile, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Command queue cannot be null.");
     }
 
     /**
@@ -82,9 +85,10 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullSourceCodeFile() {
-        expect(NullPointerException.class);
-        expect("Source code cannot be null.");
-        new ScriptCompilerAdderImpl(null, queue);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new ScriptCompilerAdderImpl(null, queue);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source code cannot be null.");
     }
 
     /**
@@ -151,9 +155,10 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
         final File file = mock(File.class);
         when(file.getName()).thenReturn("NotLowerCase.prg");
 
-        expect(IllegalArgumentException.class);
-        expect("Source code file name must be all lower case: NotLowerCase.prg");
-        new ScriptCompilerAdderImpl(file, queue);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptCompilerAdderImpl(file, queue);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source code file name must be all lower case: NotLowerCase.prg");
     }
 
     /**
@@ -170,9 +175,11 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
         mockStatic(FileUtils.class);
         when(FileUtils.readFileToString(file, Charset.forName("utf-8"))).thenReturn("create program a_script");
 
-        expect(IllegalArgumentException.class);
-        expect("Source code file name must match generated program name: some_script.prg");
-        new ScriptCompilerAdderImpl(file, queue);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptCompilerAdderImpl(file, queue);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("Source code file name must match generated program name: some_script.prg");
     }
 
     /**
@@ -208,9 +215,10 @@ public class ScriptCompilerAdderImplTest extends AbstractUnitTest {
         when(FileUtils.readFileToString(file, Charset.forName("utf-8")))
                 .thenReturn("this is not really a script file.");
 
-        expect(IllegalArgumentException.class);
-        expect("Source code must create a program: some_script.prg");
-        new ScriptCompilerAdderImpl(file, queue);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptCompilerAdderImpl(file, queue);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source code must create a program: some_script.prg");
     }
 
     /**

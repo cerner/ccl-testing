@@ -34,8 +34,9 @@ public class FreedRecordStructureViolation implements RecordStructureViolation {
      *             If any of the given objects, except for the line number, are {@code null}.
      */
     public FreedRecordStructureViolation(final String recordStructureName, final Integer lineNumber) {
-        if (recordStructureName == null)
+        if (recordStructureName == null) {
             throw new IllegalArgumentException("Record structure name cannot be null.");
+        }
 
         this.recordStructureName = recordStructureName;
         this.lineNumber = lineNumber != null ? lineNumber : 0;
@@ -43,17 +44,20 @@ public class FreedRecordStructureViolation implements RecordStructureViolation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof FreedRecordStructureViolation))
+        if (!(obj instanceof FreedRecordStructureViolation)) {
             return false;
+        }
 
         final FreedRecordStructureViolation other = (FreedRecordStructureViolation) obj;
         return getRecordStructureName().equalsIgnoreCase(other.getRecordStructureName())
                 && getLineNumber().equals(other.getLineNumber());
     }
 
+    @Override
     public String getRecordStructureName() {
         return recordStructureName;
     }
@@ -61,6 +65,7 @@ public class FreedRecordStructureViolation implements RecordStructureViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -68,6 +73,7 @@ public class FreedRecordStructureViolation implements RecordStructureViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "Record [" + recordStructureName + "] was unnecessarily freed";
     }
@@ -75,6 +81,7 @@ public class FreedRecordStructureViolation implements RecordStructureViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return "Record structures do not need to be freed. The memory they consume is freed automatically when the structure goes out of scope. "
                 + "If the structure you are freeing was declared by a parent script, this free statement could maliciously free the record while the "
@@ -85,6 +92,7 @@ public class FreedRecordStructureViolation implements RecordStructureViolation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

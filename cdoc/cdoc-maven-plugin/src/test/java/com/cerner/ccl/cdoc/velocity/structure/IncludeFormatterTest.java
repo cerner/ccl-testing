@@ -1,6 +1,7 @@
 package com.cerner.ccl.cdoc.velocity.structure;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,7 +19,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.cdoc.AbstractUnitTest;
 import com.cerner.ccl.parser.data.record.RecordInclude;
 
 /**
@@ -30,7 +30,7 @@ import com.cerner.ccl.parser.data.record.RecordInclude;
 @SuppressWarnings("unused")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { IncludeFormatter.class, StringWriter.class, VelocityContext.class })
-public class IncludeFormatterTest extends AbstractUnitTest {
+public class IncludeFormatterTest {
     @Mock
     private VelocityEngine engine;
     @Mock
@@ -57,9 +57,10 @@ public class IncludeFormatterTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullEngine() throws Exception {
-        expect(IllegalArgumentException.class);
-        expect("Engine cannot be null.");
-        new IncludeFormatter(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new IncludeFormatter(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Engine cannot be null.");
     }
 
     /**

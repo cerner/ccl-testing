@@ -1,5 +1,7 @@
 package com.cerner.ccl.testing.maven.ccl.reports.common;
 
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -10,15 +12,11 @@ import java.io.File;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import com.cerner.ccl.testing.maven.ccl.reports.common.ReportErrorLogger;
 
 /**
  * Unit tests for {@link ReportErrorLogger}.
@@ -30,12 +28,6 @@ import com.cerner.ccl.testing.maven.ccl.reports.common.ReportErrorLogger;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { File.class, FileUtils.class, ReportErrorLogger.class })
 public class ReportErrorLoggerTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     @Mock
     private File logDirectory;
     @Mock
@@ -61,9 +53,10 @@ public class ReportErrorLoggerTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullLogDirectory() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Log directory cannot be null.");
-        new ReportErrorLogger(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ReportErrorLogger(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Log directory cannot be null.");
     }
 
     /**

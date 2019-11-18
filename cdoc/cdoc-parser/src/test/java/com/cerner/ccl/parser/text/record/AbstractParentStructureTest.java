@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.record;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import org.apache.commons.lang.StringUtils;
@@ -27,9 +28,10 @@ public class AbstractParentStructureTest extends AbstractBeanUnitTest<AbstractPa
      */
     @Test
     public void testAddChildMemberNullChild() {
-        expect(IllegalArgumentException.class);
-        expect("Child cannot be null.");
-        list.addChildMember(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            list.addChildMember(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Child cannot be null.");
     }
 
     /**
@@ -37,9 +39,10 @@ public class AbstractParentStructureTest extends AbstractBeanUnitTest<AbstractPa
      */
     @Test
     public void testConstructNullName() {
-        expect(IllegalArgumentException.class);
-        expect("Name cannot be null.");
-        new ConcreteStructure(null, level);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ConcreteStructure(null, level);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**
@@ -47,9 +50,10 @@ public class AbstractParentStructureTest extends AbstractBeanUnitTest<AbstractPa
      */
     @Test
     public void testConstructZeroLevel() {
-        expect(IllegalArgumentException.class);
-        expect("Level cannot be less than 1: " + Integer.toString(0));
-        new ConcreteStructure(name, 0);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ConcreteStructure(name, 0);
+        });
+        assertThat(e.getMessage()).isEqualTo("Level cannot be less than 1: " + Integer.toString(0));
     }
 
     /**
@@ -85,8 +89,8 @@ public class AbstractParentStructureTest extends AbstractBeanUnitTest<AbstractPa
         list.addChildMember(second);
 
         assertThat(list.getChildMemberCount()).isEqualTo(2);
-        assertThat(list.getChildMember(0)).isEqualTo(first);
-        assertThat(list.getChildMember(1)).isEqualTo(second);
+        assertThat(list.<StructureMember> getChildMember(0)).isEqualTo(first);
+        assertThat(list.<StructureMember> getChildMember(1)).isEqualTo(second);
     }
 
     /**

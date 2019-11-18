@@ -1,13 +1,12 @@
 package com.cerner.ccl.analysis.data;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * Unit tests for {@link ViolationId}.
@@ -17,12 +16,6 @@ import org.junit.rules.ExpectedException;
 
 @SuppressWarnings("unused")
 public class ViolationIdTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private final String namespace = "testNamespace";
     private final String identifier = "identifier";
     private final ViolationId violationId = new ViolationId(namespace, identifier);
@@ -32,9 +25,10 @@ public class ViolationIdTest {
      */
     @Test
     public void testConstructBlankIdentifier() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Invalid namespaced identifier; given identifier was [ ]");
-        new ViolationId(namespace, " ");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ViolationId(namespace, " ");
+        });
+        assertThat(e.getMessage()).isEqualTo("Invalid namespaced identifier; given identifier was [ ]");
     }
 
     /**
@@ -42,9 +36,10 @@ public class ViolationIdTest {
      */
     @Test
     public void testConstructBlankNamespace() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Invalid namespace; given namespace was [ ]");
-        new ViolationId(" ", identifier);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ViolationId(" ", identifier);
+        });
+        assertThat(e.getMessage()).isEqualTo("Invalid namespace; given namespace was [ ]");
     }
 
     /**
@@ -52,9 +47,10 @@ public class ViolationIdTest {
      */
     @Test
     public void testConstructNullIdentifier() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Invalid namespaced identifier; given identifier was [<null>]");
-        new ViolationId(namespace, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ViolationId(namespace, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Invalid namespaced identifier; given identifier was [<null>]");
     }
 
     /**
@@ -62,9 +58,10 @@ public class ViolationIdTest {
      */
     @Test
     public void testConstructNullNamespace() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Invalid namespace; given namespace was [<null>]");
-        new ViolationId(null, identifier);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ViolationId(null, identifier);
+        });
+        assertThat(e.getMessage()).isEqualTo("Invalid namespace; given namespace was [<null>]");
     }
 
     /**

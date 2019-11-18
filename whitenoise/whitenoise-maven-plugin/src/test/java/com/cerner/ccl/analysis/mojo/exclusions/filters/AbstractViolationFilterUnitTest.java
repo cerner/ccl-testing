@@ -1,31 +1,33 @@
 package com.cerner.ccl.analysis.mojo.exclusions.filters;
 
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import org.junit.Test;
 
 import com.cerner.ccl.analysis.data.Violation;
-import com.cerner.ccl.analysis.mojo.AbstractUnitTest;
 import com.cerner.ccl.analysis.mojo.exclusions.filters.ViolationFilterChain.ViolationFilter;
 
 /**
  * Skeleton definition of a class used to test {@link ViolationFilter} implementations.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  * @param <V>
  *            The type of {@link ViolationFilter} to be tested.
  */
 
-public abstract class AbstractViolationFilterUnitTest<V extends ViolationFilter> extends AbstractUnitTest {
+public abstract class AbstractViolationFilterUnitTest<V extends ViolationFilter> {
     /**
      * Testing for exclusion with a {@code null} script name should fail.
      */
     @Test
     public void testExcludeNullScriptName() {
-        expect(IllegalArgumentException.class);
-        expect("Script name cannot be null.");
-        getViolationFilter().exclude(null, mock(Violation.class));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            getViolationFilter().exclude(null, mock(Violation.class));
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**
@@ -33,14 +35,15 @@ public abstract class AbstractViolationFilterUnitTest<V extends ViolationFilter>
      */
     @Test
     public void testExcludeNullViolation() {
-        expect(IllegalArgumentException.class);
-        expect("Violation cannot be null.");
-        getViolationFilter().exclude("script.name", null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            getViolationFilter().exclude("script.name", null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Violation cannot be null.");
     }
 
     /**
      * Retrieve the {@link ViolationFilter} to be tested.
-     * 
+     *
      * @return A {@link ViolationFilter} to be tested.
      */
     protected abstract V getViolationFilter();

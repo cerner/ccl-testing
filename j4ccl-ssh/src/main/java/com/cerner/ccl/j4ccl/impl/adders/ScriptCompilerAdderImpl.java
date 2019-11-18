@@ -59,7 +59,8 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
             Matcher m = p.matcher(sourceCode);
             if (m.find()) {
                 String programName = m.group(1);
-                if (!programName.toLowerCase().equals(sourceCodeFile.getName().replaceAll("\\.prg", ""))) {
+                if (!programName.toLowerCase(Locale.getDefault())
+                        .equals(sourceCodeFile.getName().replaceAll("\\.prg", ""))) {
                     throw new IllegalArgumentException(
                             "Source code file name must match generated program name: " + sourceCodeFile.getName());
                 }
@@ -74,6 +75,7 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
         this.queue = queue;
     }
 
+    @Override
     public ScriptCompilerAdderImpl withDebugModeEnabled(final boolean debugModeEnabled) {
         setDoDebugCompile(debugModeEnabled);
         return this;
@@ -82,6 +84,7 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
     /**
      * {@inheritDoc}
      */
+    @Override
     public ScriptCompilerAdderImpl withDependency(final File file) {
         addDependency(file);
         return this;
@@ -90,6 +93,7 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
     /**
      * {@inheritDoc}
      */
+    @Override
     public ScriptCompilerAdderImpl withListingOutput(final File file) {
         setListingLocation(file);
         return this;
@@ -98,6 +102,7 @@ public class ScriptCompilerAdderImpl extends AbstractCompilerAdder
     /**
      * {@inheritDoc}
      */
+    @Override
     public void commit() {
         queue.addInCclSessionCommand(
                 new ScriptCompilerCommand(sourceCodeFile, getDependencies(), getListingLocation(), doDebugCompile()));

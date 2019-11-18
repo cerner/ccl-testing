@@ -87,8 +87,9 @@ public final class RecordImpl implements Record {
     RecordImpl(final String name, final Structure structure, final Record parent,
             final RecordListImplFactory fixedListFactory, final DynamicRecordListImplFactory varListFactory,
             final RecordImplFactory recordFactory) {
-        if (structure == null)
+        if (structure == null) {
             throw new NullPointerException("Structure must not be null.");
+        }
 
         this.name = name;
         this.structure = structure;
@@ -99,10 +100,12 @@ public final class RecordImpl implements Record {
         this.recordFactory = recordFactory;
 
         // Initialize field values
-        for (final Field field : structure.getFields())
+        for (final Field field : structure.getFields()) {
             values.put(field.getName().toUpperCase(Locale.getDefault()), getDefaultValue(field));
+        }
     }
 
+    @Override
     public String getDeclaration() {
         final StringBuilder builder = new StringBuilder();
 
@@ -113,14 +116,17 @@ public final class RecordImpl implements Record {
         return builder.toString();
     }
 
+    @Override
     public DynamicRecordList getDynamicList(final String fieldName) {
         return (DynamicRecordList) getValue(fieldName, DataType.DYNAMIC_LIST);
     }
 
+    @Override
     public short getI2(final String fieldName) {
         return (short) getI4(fieldName);
     }
 
+    @Override
     public boolean getI2Boolean(final String fieldName) {
         final short value = getI2(fieldName);
         switch (value) {
@@ -134,97 +140,121 @@ public final class RecordImpl implements Record {
         }
     }
 
+    @Override
     public int getI4(final String fieldName) {
         return ((Number) getValue(fieldName, DataType.I2, DataType.I4)).intValue();
     }
 
+    @Override
     public String getChar(final String fieldName) {
         return (String) getValue(fieldName, DataType.CHARACTER);
     }
 
+    @Override
     public Date getDQ8(final String fieldName) {
         return (Date) getValue(fieldName, DataType.DQ8);
     }
 
+    @Override
     public double getF8(final String fieldName) {
         return ((Double) getValue(fieldName, DataType.F8)).doubleValue();
     }
 
+    @Override
     public RecordList getList(final String fieldName) {
         return (RecordList) getValue(fieldName, DataType.LIST);
     }
 
+    @Override
     public String getName() {
         return name == null ? "(anonymous)" : name;
     }
 
+    @Override
     public int getNestedLevel() {
         return level;
     }
 
+    @Override
     public Record getRecord(final String fieldName) {
         return (Record) getValue(fieldName, DataType.RECORD);
     }
 
+    @Override
     public Structure getStructure() {
         return structure;
     }
 
+    @Override
     public DataType getType(final String fieldName) {
-        if (!hasMember(fieldName))
+        if (!hasMember(fieldName)) {
             throw new IllegalArgumentException("Field not found: " + fieldName);
+        }
 
         return structure.getType(fieldName);
     }
 
+    @Override
     public String getVC(final String fieldName) {
         return (String) getValue(fieldName, DataType.VC);
     }
 
+    @Override
     public boolean hasMember(final String fieldName) {
         return structure.hasMember(fieldName);
     }
 
+    @Override
     public boolean isRoot() {
         return parent == null;
     }
 
+    @Override
     public void setChar(final String fieldName, final String value) {
         final long dataLength = getStructure().getField(fieldName).getDataLength();
-        if (value.length() > dataLength)
+        if (value.length() > dataLength) {
             throw new ArrayIndexOutOfBoundsException(
                     String.format("String data length exceeds maximum data length: %s > %s",
                             Integer.toString(value.length()), Long.toString(dataLength)));
+        }
         setValue(fieldName, value, DataType.CHARACTER);
     }
 
+    @Override
     public void setDQ8(final String fieldName, final Date value) {
         setValue(fieldName, value, DataType.DQ8);
     }
 
+    @Override
     public void setI2(final String fieldName, final short value) {
         setI4(fieldName, value);
     }
 
+    @Override
     public void setI2(final String fieldName, final boolean value) {
-        if (value)
+        if (value) {
             setI2(fieldName, (short) 1);
-        else
+        } else {
             setI2(fieldName, (short) 0);
+        }
     }
 
+    @Override
     public void setI4(final String fieldName, final int value) {
-        if (getType(fieldName).equals(DataType.I2))
+        if (getType(fieldName).equals(DataType.I2)) {
             validateShortValue(value);
+        }
 
         final Integer valueToSet = Integer.valueOf(value);
         setValue(fieldName, valueToSet, DataType.I2, DataType.I4);
     }
 
+    @Override
     public void setF8(final String fieldName, final double value) {
         setValue(fieldName, Double.valueOf(value), DataType.F8);
     }
 
+    @Override
     public void setVC(final String fieldName, final String value) {
         setValue(fieldName, value, DataType.VC);
     }
@@ -233,8 +263,9 @@ public final class RecordImpl implements Record {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
 
-        if (level == 0)
+        if (level == 0) {
             builder.append(getName()).append("\n");
+        }
 
         for (final Entry<String, Object> entry : values.entrySet()) {
             String fieldName = entry.getKey();
@@ -351,13 +382,15 @@ public final class RecordImpl implements Record {
     private void validateField(final String fieldName, final DataType... expectedTypes) {
         final Structure structure = getStructure();
 
-        if (!structure.hasMember(fieldName))
+        if (!structure.hasMember(fieldName)) {
             throw new IllegalArgumentException("Field " + fieldName + " not found in " + getName());
+        }
 
         final Field field = structure.getField(fieldName);
-        if (!Arrays.asList(expectedTypes).contains(field.getType()))
+        if (!Arrays.asList(expectedTypes).contains(field.getType())) {
             throw new IllegalArgumentException(
                     "Field " + fieldName + " does not match the expected type: " + Arrays.toString(expectedTypes));
+        }
     }
 
     /**
@@ -369,8 +402,9 @@ public final class RecordImpl implements Record {
      *             If the given int value is less than {@value Short#MIN_VALUE} or greater than {@link Short#MAX_VALUE}.
      */
     private void validateShortValue(final int value) {
-        if (value < Short.MIN_VALUE || value > Short.MAX_VALUE)
+        if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
             throw new IllegalArgumentException(String.format("Short value exceeds bounds; %d < %d || %d > %d", value,
                     Short.MIN_VALUE, value, Short.MAX_VALUE));
+        }
     }
 }

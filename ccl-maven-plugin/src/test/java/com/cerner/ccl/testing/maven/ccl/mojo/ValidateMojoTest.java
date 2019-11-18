@@ -1,10 +1,12 @@
 package com.cerner.ccl.testing.maven.ccl.mojo;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
@@ -22,9 +24,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
@@ -35,9 +35,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.cerner.ccl.j4ccl.CclExecutor;
 import com.cerner.ccl.j4ccl.adders.ScriptExecutionAdder;
 import com.cerner.ccl.j4ccl.record.Record;
-import com.cerner.ccl.testing.maven.ccl.mojo.BaseCclMojo;
-import com.cerner.ccl.testing.maven.ccl.mojo.ValidateMojo;
-import com.cerner.ccl.testing.maven.ccl.mojo.ValidationRule;
 
 /**
  * Unit tests for {@link ValidateMojo}.
@@ -48,12 +45,6 @@ import com.cerner.ccl.testing.maven.ccl.mojo.ValidationRule;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { DefaultArtifactVersion.class, SAXBuilder.class, ValidateMojo.class, VersionRange.class })
 public class ValidateMojoTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     @Mock
     private ValidationRule validationRule;
     @Mock
@@ -92,10 +83,11 @@ public class ValidateMojoTest {
     public void testValidateFrameworkOutOfRange() throws Exception {
         final String actualVersion = "1.14838384748";
         final String expectedVersionRange = "[3,23)";
-        expected.expect(MojoFailureException.class);
-        expected.expectMessage("Unexpected CCL testing framework version: version " + actualVersion
+        MojoFailureException e = assertThrows(MojoFailureException.class, () -> {
+            testFrameworkVersionValidation(false, actualVersion, expectedVersionRange);
+        });
+        assertThat(e.getMessage()).isEqualTo("Unexpected CCL testing framework version: version " + actualVersion
                 + " is not in the range " + expectedVersionRange);
-        testFrameworkVersionValidation(false, actualVersion, expectedVersionRange);
     }
 
     /**
@@ -112,7 +104,7 @@ public class ValidateMojoTest {
         mojo.setLog(log);
 
         mojo.execute();
-        verifyZeroInteractions(executor);
+        verifyNoInteractions(executor);
         verify(log).info("Validation is skipped.");
     }
 
@@ -237,9 +229,11 @@ public class ValidateMojoTest {
         /**
          * {@inheritDoc}
          */
+        @Override
         public ScriptExecutionAdder answer(final InvocationOnMock invocation) throws Throwable {
-            if (invocation.getArguments()[1] instanceof Record)
+            if (invocation.getArguments()[1] instanceof Record) {
                 ((Record) invocation.getArguments()[1]).setVC("STATE", state);
+            }
             return adder;
         }
 

@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -10,9 +11,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * Unit Test for the TerminalProperties class
@@ -48,12 +47,6 @@ public class TerminalPropertiesTest {
         DEFAULT_CCL_LOGIN_SUCCESS_PROMPT_PATTERN.setAccessible(true);
         DEFAULT_CCL_LOGIN_FAILURE_PROMPT_PATTERNS.setAccessible(true);
     }
-
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
 
     /**
      * Confirms that the default patterns compile and match things they are expected to match.
@@ -113,18 +106,20 @@ public class TerminalPropertiesTest {
      * Confirms that an exception is thrown if an OS prompt pattern is not provided.
      */
     public void testOSPromptPatternRequiredNotNull() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("An OS prompt pattern must be provided");
-        TerminalProperties.getNewBuilder().build();
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            TerminalProperties.getNewBuilder().build();
+        });
+        assertThat(e.getMessage()).isEqualTo("An OS prompt pattern must be provided");
     }
 
     /**
      * Confirms that an exception is thrown if a non-empty OS prompt pattern is not provided.
      */
     public void testOSPromptPatternRequiredNotEmpty() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("An OS prompt pattern must be provided");
-        TerminalProperties.getNewBuilder().setOsPromptPattern("").build();
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            TerminalProperties.getNewBuilder().setOsPromptPattern("").build();
+        });
+        assertThat(e.getMessage()).isEqualTo("An OS prompt pattern must be provided");
     }
 
     /**
@@ -666,6 +661,7 @@ public class TerminalPropertiesTest {
     /**
      * Confirm that equals returns false when passed something that is not a TerminalProperties.
      */
+    @SuppressWarnings("unlikely-arg-type")
     @Test
     public void testEqualsWithNonTerminalProperties() {
         final TerminalProperties terminalProperties = TerminalProperties.getNewBuilder()

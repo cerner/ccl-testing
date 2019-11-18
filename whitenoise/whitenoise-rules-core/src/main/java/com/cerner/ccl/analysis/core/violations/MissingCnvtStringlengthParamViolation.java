@@ -34,11 +34,13 @@ public class MissingCnvtStringlengthParamViolation implements Violation {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
+        }
 
-        if (!(obj instanceof MissingCnvtStringlengthParamViolation))
+        if (!(obj instanceof MissingCnvtStringlengthParamViolation)) {
             return false;
+        }
 
         final MissingCnvtStringlengthParamViolation other = (MissingCnvtStringlengthParamViolation) obj;
         return getLineNumber().equals(other.getLineNumber());
@@ -47,6 +49,7 @@ public class MissingCnvtStringlengthParamViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getLineNumber() {
         return lineNumber;
     }
@@ -54,6 +57,7 @@ public class MissingCnvtStringlengthParamViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationDescription() {
         return "cnvtstring() found without length param";
     }
@@ -61,6 +65,7 @@ public class MissingCnvtStringlengthParamViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getViolationExplanation() {
         return ""
                 + "The use of cnvtstring() without length param is discouraged. The CNVTSTRING() output defaults to 11 characters ,"
@@ -71,6 +76,7 @@ public class MissingCnvtStringlengthParamViolation implements Violation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ViolationId getViolationId() {
         return VIOLATION_ID;
     }

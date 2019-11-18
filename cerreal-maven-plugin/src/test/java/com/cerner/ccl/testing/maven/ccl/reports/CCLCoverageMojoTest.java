@@ -2,6 +2,7 @@ package com.cerner.ccl.testing.maven.ccl.reports;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.assertions.MapAssert.entry;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -24,9 +25,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.reporting.MavenReportException;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -48,12 +47,6 @@ import com.cerner.ccl.testing.maven.ccl.reports.common.ReportErrorLogger;
 @PrepareForTest(value = { AbstractCCLMavenReport.class, CCLCoverageMojo.class, CCLCoverageReportGenerator.class,
         FileUtils.class, ReportErrorLogger.class })
 public class CCLCoverageMojoTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     @Mock
     private Log log;
     @Mock
@@ -357,10 +350,12 @@ public class CCLCoverageMojoTest {
         final File testResultsDirectory = mock(File.class);
         when(testResultsDirectory.listFiles()).thenReturn(new File[] { testResultDirectory });
 
-        expected.expect(MavenReportException.class);
-        expected.expectMessage("Failed to get the test program object for test folder " + testResultDirectoryName);
-        mojo.loadCoverage(testResultsDirectory, Collections.<String, CCLCoverageProgram> emptyMap(),
-                Collections.<String, CCLCoverageProgram> emptyMap());
+        MavenReportException e = assertThrows(MavenReportException.class, () -> {
+            mojo.loadCoverage(testResultsDirectory, Collections.<String, CCLCoverageProgram> emptyMap(),
+                    Collections.<String, CCLCoverageProgram> emptyMap());
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("Failed to get the test program object for test folder " + testResultDirectoryName);
     }
 
     /**
@@ -405,9 +400,11 @@ public class CCLCoverageMojoTest {
         when(FileUtils.readFileToString(programCoverageFile, "utf-8"))
                 .thenReturn("this is just to prevent this call from failing");
 
-        expected.expect(MavenReportException.class);
-        expected.expectMessage("Expected a corresponding program listing for the coverage file " + programAbsolutePath);
-        mojo.loadCoverage(testResultsDirectory, Collections.<String, CCLCoverageProgram> emptyMap(), testPrograms);
+        MavenReportException e = assertThrows(MavenReportException.class, () -> {
+            mojo.loadCoverage(testResultsDirectory, Collections.<String, CCLCoverageProgram> emptyMap(), testPrograms);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("Expected a corresponding program listing for the coverage file " + programAbsolutePath);
     }
 
     /**

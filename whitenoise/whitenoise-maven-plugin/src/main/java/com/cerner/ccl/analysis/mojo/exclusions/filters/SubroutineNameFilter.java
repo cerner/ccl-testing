@@ -17,9 +17,9 @@ import com.cerner.ccl.analysis.mojo.exclusions.filters.ViolationFilterChain.Viol
  * <li>If none of these hold true, then no comparison is made and the violation is not excluded.</li>
  * </ol>
  * The comparison of subroutine names is case-insensitive.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 public class SubroutineNameFilter extends AbstractPropertyReflectingFilter {
@@ -27,15 +27,16 @@ public class SubroutineNameFilter extends AbstractPropertyReflectingFilter {
 
     /**
      * Create a filter that filters by subroutine name.
-     * 
+     *
      * @param subroutineName
      *            The name of the subroutine by which to filter.
      * @throws IllegalArgumentException
      *             If the given subroutine name is {@code null}.
      */
     public SubroutineNameFilter(final String subroutineName) {
-        if (subroutineName == null)
+        if (subroutineName == null) {
             throw new IllegalArgumentException("Subroutine name cannot be null.");
+        }
 
         this.subroutineName = subroutineName;
     }
@@ -43,15 +44,19 @@ public class SubroutineNameFilter extends AbstractPropertyReflectingFilter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean exclude(final String scriptName, final Violation violation) {
-        if (scriptName == null)
+        if (scriptName == null) {
             throw new IllegalArgumentException("Script name cannot be null.");
+        }
 
-        if (violation == null)
+        if (violation == null) {
             throw new IllegalArgumentException("Violation cannot be null.");
+        }
 
-        if (violation instanceof SubroutineViolation)
+        if (violation instanceof SubroutineViolation) {
             return subroutineName.equalsIgnoreCase(((SubroutineViolation) violation).getSubroutineName());
+        }
 
         final String internalValue = getInternalValue(violation, "subroutineName");
         return subroutineName.equalsIgnoreCase(internalValue);

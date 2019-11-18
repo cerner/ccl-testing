@@ -1,8 +1,9 @@
 package com.cerner.ftp.jsch.impl;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -14,9 +15,7 @@ import java.io.File;
 import java.net.URI;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -41,12 +40,6 @@ import com.jcraft.jsch.UserInfo;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ CachedConnection.class, JSch.class })
 public class CachedConnectionTest {
-    /**
-     * A {@link Rule} to facilitate checking for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     private static final String KEY_SALT = "key.salt";
@@ -301,9 +294,10 @@ public class CachedConnectionTest {
         whenNew(JSch.class).withNoArguments().thenReturn(jsch);
         when(jsch.getSession(USERNAME, SERVER_ADDRESS.getPath(), 22)).thenThrow(new JSchException());
 
-        expected.expect(RuntimeException.class);
-        expected.expectMessage("Failed to establish connection with username/password authentication.");
-        new CachedConnection(USERNAME, PASSWORD, SERVER_ADDRESS, librarian);
+        RuntimeException e = assertThrows(RuntimeException.class, () -> {
+            new CachedConnection(USERNAME, PASSWORD, SERVER_ADDRESS, librarian);
+        });
+        assertThat(e.getMessage()).isEqualTo("Failed to establish connection with username/password authentication.");
     }
 
     /**
@@ -319,9 +313,10 @@ public class CachedConnectionTest {
         whenNew(JSch.class).withNoArguments().thenReturn(jsch);
         doThrow(new JSchException()).when(jsch).addIdentity(anyString());
 
-        expected.expect(RuntimeException.class);
-        expected.expectMessage("Failed to establish connection with private key authentication.");
-        new CachedConnection(USERNAME, KEY_SALT, privateKey, SERVER_ADDRESS, librarian);
+        RuntimeException e = assertThrows(RuntimeException.class, () -> {
+            new CachedConnection(USERNAME, KEY_SALT, privateKey, SERVER_ADDRESS, librarian);
+        });
+        assertThat(e.getMessage()).isEqualTo("Failed to establish connection with private key authentication.");
     }
 
     /**

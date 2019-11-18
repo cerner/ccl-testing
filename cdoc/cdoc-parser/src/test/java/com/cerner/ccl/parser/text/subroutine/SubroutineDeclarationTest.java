@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.subroutine;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -8,9 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -25,12 +24,6 @@ import com.cerner.ccl.parser.data.DataTyped;
 
 @SuppressWarnings("unused")
 public class SubroutineDeclarationTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private final String subroutineName = "i am the subroutine name";
     private final String arg1Name = "arg1.Name";
     private final String arg2Name = "arg2.Name";
@@ -59,9 +52,10 @@ public class SubroutineDeclarationTest {
      */
     @Test
     public void testConstructNullName() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Name cannot be null.");
-        new SubroutineDeclaration(null, returnType, Collections.<SubroutineArgumentDeclaration> emptyList());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SubroutineDeclaration(null, returnType, Collections.<SubroutineArgumentDeclaration> emptyList());
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**
@@ -69,9 +63,10 @@ public class SubroutineDeclarationTest {
      */
     @Test
     public void testConstructNullArguments() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Arguments cannot be null.");
-        new SubroutineDeclaration(subroutineName, returnType, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SubroutineDeclaration(subroutineName, returnType, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Arguments cannot be null.");
     }
 
     /**

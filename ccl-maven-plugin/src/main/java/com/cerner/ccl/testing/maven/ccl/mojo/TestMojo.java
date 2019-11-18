@@ -177,6 +177,7 @@ public class TestMojo extends BaseCclMojo {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (skipTest) {
             getLog().info("Skipping test goal");
@@ -264,6 +265,7 @@ public class TestMojo extends BaseCclMojo {
                     .withReplace("cclutReply", reply).withAuthentication(true).commit();
 
             Subject.doAs(subject, new PrivilegedAction<Void>() {
+                @Override
                 public Void run() {
                     getLog().info("");
                     getLog().info("executing test case " + testFile.getName());

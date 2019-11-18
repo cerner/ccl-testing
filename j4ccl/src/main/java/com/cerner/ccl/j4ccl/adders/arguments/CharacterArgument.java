@@ -19,13 +19,15 @@ public class CharacterArgument implements Argument {
      *             If the given value is {@code null}.
      */
     public CharacterArgument(final String value) {
-        if (value == null)
+        if (value == null) {
             throw new IllegalArgumentException("Value cannot be null.");
+        }
 
         final boolean hasSingleQuote = value.contains("'");
-        if (hasSingleQuote && value.contains("\""))
+        if (hasSingleQuote && value.contains("\"")) {
             throw new IllegalArgumentException(
                     "This does not support strings containing both single quote and double quotation marks.");
+        }
 
         this.value = hasSingleQuote ? "\"" + value + "\"" : "'" + value + "'";
     }
@@ -33,6 +35,7 @@ public class CharacterArgument implements Argument {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getCommandLineValue() {
         return value;
     }

@@ -1,21 +1,21 @@
 package com.cerner.ccl.parser.text.documentation.parser;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
 import com.cerner.ccl.parser.data.EnumeratedValue;
 import com.cerner.ccl.parser.exception.InvalidDocumentationException;
 
 /**
  * Unit tests for {@link EnumeratedValueParser}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
-public class EnumeratedValueParserTest extends AbstractUnitTest {
+public class EnumeratedValueParserTest {
     private final EnumeratedValueParser parser = new EnumeratedValueParser();
 
     /**
@@ -91,9 +91,10 @@ public class EnumeratedValueParserTest extends AbstractUnitTest {
     @Test
     public void testParseQuotationsNoClosing() {
         final String line = "@value \"no closing quote\"\"";
-        expect(InvalidDocumentationException.class);
-        expect("Unable to find closing quotation of field value: " + line);
-        parser.parseElement(line);
+        InvalidDocumentationException e = assertThrows(InvalidDocumentationException.class, () -> {
+            parser.parseElement(line);
+        });
+        assertThat(e.getMessage()).isEqualTo("Unable to find closing quotation of field value: " + line);
     }
 
     /**

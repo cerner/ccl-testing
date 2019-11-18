@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.subroutine;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -22,9 +23,10 @@ public class SubroutineArgumentDeclarationTest extends AbstractBeanUnitTest<Subr
      */
     @Test
     public void testConstructByRefNullName() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Name cannot be null.");
-        new SubroutineArgumentDeclaration(null, true, DataType.DQ8);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SubroutineArgumentDeclaration(null, true, DataType.DQ8);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**
@@ -32,9 +34,10 @@ public class SubroutineArgumentDeclarationTest extends AbstractBeanUnitTest<Subr
      */
     @Test
     public void testConstructByValNullName() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Name cannot be null.");
-        new SubroutineArgumentDeclaration(null, DataType.F8);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SubroutineArgumentDeclaration(null, DataType.F8);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**
@@ -42,9 +45,10 @@ public class SubroutineArgumentDeclarationTest extends AbstractBeanUnitTest<Subr
      */
     @Test
     public void testConstructUntypedNullName() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Name cannot be null.");
-        new SubroutineArgumentDeclaration(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SubroutineArgumentDeclaration(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**

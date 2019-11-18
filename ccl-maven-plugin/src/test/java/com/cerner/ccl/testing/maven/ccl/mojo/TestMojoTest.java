@@ -1,6 +1,7 @@
 package com.cerner.ccl.testing.maven.ccl.mojo;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -20,9 +21,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -58,12 +57,6 @@ import com.cerner.ccl.testing.maven.ccl.util.factory.TestResultWriterFactory;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { CclUnitRecordFactory.class, TestMojo.class, CclExecutor.class })
 public class TestMojoTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private static final TestResultWriterFactory RESULT_WRITER_FACTORY = new MockResultWriterFactory();
     private static final ProgramListingWriterFactory LISTING_WRITER_FACTORY = new MockListingWriterFactory();
     private static final TestResultScannerFactory RESULT_SCANNER_FACTORY = new MockResultScannerFactory();
@@ -147,8 +140,9 @@ public class TestMojoTest {
         final TestMojo mojo = new TestMojo(RESULT_WRITER_FACTORY, LISTING_WRITER_FACTORY, scannerFactory);
         setParameters(mojo);
 
-        expected.expect(TestFailureException.class);
-        mojo.execute();
+        assertThrows(TestFailureException.class, () -> {
+            mojo.execute();
+        });
     }
 
     /**
@@ -177,6 +171,7 @@ public class TestMojoTest {
 
         // Build the script execution adder
         final ScriptExecutionAdder adder = mock(ScriptExecutionAdder.class, new Answer<ScriptExecutionAdder>() {
+            @Override
             public ScriptExecutionAdder answer(final InvocationOnMock invocation) throws Throwable {
                 return (ScriptExecutionAdder) invocation.getMock();
             }
@@ -199,9 +194,10 @@ public class TestMojoTest {
         final TestMojo mojo = new TestMojo(RESULT_WRITER_FACTORY, LISTING_WRITER_FACTORY, RESULT_SCANNER_FACTORY);
         setParameters(mojo);
 
-        expected.expect(MojoFailureException.class);
-        expected.expectMessage("CCL Testing Framework has reported a failure: " + expectedErrorMessage);
-        mojo.execute();
+        MojoFailureException e = assertThrows(MojoFailureException.class, () -> {
+            mojo.execute();
+        });
+        assertThat(e.getMessage()).isEqualTo("CCL Testing Framework has reported a failure: " + expectedErrorMessage);
     }
 
     /**
@@ -501,6 +497,7 @@ public class TestMojoTest {
         public ExecutionAdderReplyWriter() {
         }
 
+        @Override
         public Object answer(final InvocationOnMock invocation) throws Throwable {
             if (!"withReplace".equals(invocation.getMethod().getName())) {
                 return adder;
@@ -548,6 +545,7 @@ public class TestMojoTest {
         public ExecutionAdderRequestArchiver() {
         }
 
+        @Override
         public Object answer(final InvocationOnMock invocation) throws Throwable {
             if (!"withReplace".equals(invocation.getMethod().getName())) {
                 return adder;

@@ -17,7 +17,6 @@ import org.apache.commons.lang.StringUtils;
 import org.jdom2.Document;
 import org.junit.Test;
 
-import com.cerner.ccl.analysis.core.violations.internal.AbstractUnitTest;
 import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.jdom.JdomAnalysisRule.Delegate;
 
@@ -27,7 +26,7 @@ import com.cerner.ccl.analysis.jdom.JdomAnalysisRule.Delegate;
  * @author Jeff Wiedemann
  */
 
-public class VerifyGetCheckedViolationsTest extends AbstractUnitTest {
+public class VerifyGetCheckedViolationsTest {
 
     /**
      * This unit test will iterate through all of the registered rules and call the getCheckedViolations routine. It
@@ -77,7 +76,7 @@ public class VerifyGetCheckedViolationsTest extends AbstractUnitTest {
         }
     }
 
-    private static URL getClassLocation(Class<?> c) {
+    private static URL getClassLocation(final Class<?> c) {
         URL url = c.getResource(c.getSimpleName() + ".class");
         if (url == null) {
             return null;

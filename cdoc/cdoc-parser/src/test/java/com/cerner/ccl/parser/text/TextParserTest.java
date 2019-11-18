@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +13,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
 import com.cerner.ccl.parser.data.CclScript;
 import com.cerner.ccl.parser.data.DataType;
 import com.cerner.ccl.parser.data.ScriptDocumentation;
@@ -28,7 +28,7 @@ import com.cerner.ccl.parser.data.subroutine.Subroutine;
  * @see TextParserITest
  */
 
-public class TextParserTest extends AbstractUnitTest {
+public class TextParserTest {
     private final TextParser parser = new TextParser();
 
     /**
@@ -36,9 +36,10 @@ public class TextParserTest extends AbstractUnitTest {
      */
     @Test
     public void testParseNullObjectName() {
-        expect(IllegalArgumentException.class);
-        expect("Object name cannot be null.");
-        parser.parseCclScript(null, Collections.<String> emptyList());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            parser.parseCclScript(null, Collections.<String> emptyList());
+        });
+        assertThat(e.getMessage()).isEqualTo("Object name cannot be null.");
     }
 
     /**
@@ -46,9 +47,10 @@ public class TextParserTest extends AbstractUnitTest {
      */
     @Test
     public void testParseNullSource() {
-        expect(IllegalArgumentException.class);
-        expect("Source cannot be null.");
-        parser.parseCclScript("an_object_name", null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            parser.parseCclScript("an_object_name", null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source cannot be null.");
     }
 
     /**
@@ -174,35 +176,38 @@ public class TextParserTest extends AbstractUnitTest {
 
         assertThat(subroutines.get(0).getName()).isEqualTo("declared_subroutine_doc");
         assertThat(subroutines.get(0).getDescription()).isEqualTo("This is a declared subroutine with documentation.");
-        assertThat(subroutines.get(0).getReturnDataType()).isEqualTo(new SimpleDataTyped(DataType.I4));
+        assertThat(subroutines.get(0).<SimpleDataTyped> getReturnDataType())
+                .isEqualTo(new SimpleDataTyped(DataType.I4));
         assertThat(subroutines.get(0).getReturnDataDescription()).isEqualTo("Some I4 value.");
 
         assertThat(subroutines.get(1).getName()).isEqualTo("get_birth_dt_tm");
         assertThat(subroutines.get(1).getDescription()).isEqualTo(
                 "This is a simple subroutine declared in-line that has its documentation wrapped in leading stars.");
-        assertThat(subroutines.get(1).getReturnDataType()).isEqualTo(null);
+        assertThat(subroutines.get(1).<SimpleDataTyped> getReturnDataType()).isEqualTo(null);
         assertThat(subroutines.get(1).getReturnDataDescription()).isEmpty();
 
         assertThat(subroutines.get(2).getName()).isEqualTo("declared_subroutine_no_doc");
         assertThat(subroutines.get(2).getDescription()).isEmpty();
-        assertThat(subroutines.get(2).getReturnDataType()).isEqualTo(new SimpleDataTyped(DataType.VC));
+        assertThat(subroutines.get(2).<SimpleDataTyped> getReturnDataType())
+                .isEqualTo(new SimpleDataTyped(DataType.VC));
         assertThat(subroutines.get(2).getReturnDataDescription()).isEmpty();
 
         assertThat(subroutines.get(3).getName()).isEqualTo("get_last_name");
         assertThat(subroutines.get(3).getDescription()).isEqualTo(
                 "This is a subroutine declared in-line without leading stars in its documentation. It also has scope!");
-        assertThat(subroutines.get(3).getReturnDataType()).isEqualTo(new SimpleDataTyped(DataType.VC));
+        assertThat(subroutines.get(3).<SimpleDataTyped> getReturnDataType())
+                .isEqualTo(new SimpleDataTyped(DataType.VC));
         assertThat(subroutines.get(3).getReturnDataDescription()).isEqualTo("The last name of the person found");
 
         assertThat(subroutines.get(4).getName()).isEqualTo("undeclared_subroutine_no_doc");
         assertThat(subroutines.get(4).getDescription()).isEmpty();
-        assertThat(subroutines.get(4).getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
+        assertThat(subroutines.get(4).<SimpleDataTyped> getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
         assertThat(subroutines.get(4).getReturnDataDescription()).isEmpty();
 
         assertThat(subroutines.get(5).getName()).isEqualTo("get_ssn");
         assertThat(subroutines.get(5).getDescription())
                 .isEqualTo("This subroutine has no declaration, so the information about it will be severely limited.");
-        assertThat(subroutines.get(5).getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
+        assertThat(subroutines.get(5).<SimpleDataTyped> getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
         assertThat(subroutines.get(5).getReturnDataDescription()).isEqualTo("The given person's SSN.");
     }
 }

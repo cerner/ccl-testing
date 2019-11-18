@@ -1,14 +1,13 @@
 package com.cerner.ccl.parser.text.data.util;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
-
-import com.cerner.ccl.parser.AbstractUnitTest;
 
 /**
  * Unit tests for {@link DocumentationParserSupport}.
@@ -17,7 +16,7 @@ import com.cerner.ccl.parser.AbstractUnitTest;
  *
  */
 
-public class DocumentationParserSupportTest extends AbstractUnitTest {
+public class DocumentationParserSupportTest {
     private final DocumentationParserSupport support = new DocumentationParserSupport();
 
     /**
@@ -34,8 +33,10 @@ public class DocumentationParserSupportTest extends AbstractUnitTest {
      */
     @Test
     public void testIsCommentCloseNullLine() {
-        expectNullLineFailure();
-        support.isCommentClose(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            support.isCommentClose(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Line cannot be null.");
     }
 
     /**
@@ -52,8 +53,10 @@ public class DocumentationParserSupportTest extends AbstractUnitTest {
      */
     @Test
     public void testIsCommentStartNullLine() {
-        expectNullLineFailure();
-        support.isCommentStart(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            support.isCommentStart(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Line cannot be null.");
     }
 
     /**
@@ -79,8 +82,10 @@ public class DocumentationParserSupportTest extends AbstractUnitTest {
      */
     @Test
     public void testIsTagOpenNullLine() {
-        expectNullLineFailure();
-        support.isTagOpen(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            support.isTagOpen(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Line cannot be null.");
     }
 
     /**
@@ -102,8 +107,10 @@ public class DocumentationParserSupportTest extends AbstractUnitTest {
      */
     @Test
     public void testIsTerminatingTagOpenNullLine() {
-        expectNullLineFailure();
-        support.isTerminatingTagOpen(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            support.isTerminatingTagOpen(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Line cannot be null.");
     }
 
     /**
@@ -127,16 +134,9 @@ public class DocumentationParserSupportTest extends AbstractUnitTest {
      */
     @Test
     public void testNormalizeNullLine() {
-        expectNullLineFailure();
-        support.normalize(null);
-    }
-
-    /**
-     * Set the expectation of the throwing of an {@link IllegalArgumentException} with the message "Line cannot be
-     * null."
-     */
-    private void expectNullLineFailure() {
-        expect(IllegalArgumentException.class);
-        expect("Line cannot be null.");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            support.normalize(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Line cannot be null.");
     }
 }

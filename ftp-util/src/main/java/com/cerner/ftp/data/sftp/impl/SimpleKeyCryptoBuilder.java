@@ -49,17 +49,20 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
 
     @Override
     public KeyCryptoProduct build() {
-        for (final Attribute a : Attribute.values())
-            if (!isSet(a))
+        for (final Attribute a : Attribute.values()) {
+            if (!isSet(a)) {
                 throw new IllegalStateException("Unset attribute: " + a.toString());
+            }
+        }
 
         return new KeyCryptoProductImpl(username, keySalt, privateKey, serverAddress);
     }
 
     @Override
     public KeyCryptoBuilder setKeySalt(final String keySalt) {
-        if (keySalt == null)
+        if (keySalt == null) {
             throw new NullPointerException("Key salt cannot be null.");
+        }
 
         this.keySalt = keySalt;
         markAsSet(Attribute.KEY_SALT);
@@ -68,8 +71,9 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
 
     @Override
     public KeyCryptoBuilder setPrivateKey(final URI privateKey) {
-        if (privateKey == null)
+        if (privateKey == null) {
             throw new NullPointerException("Private key location cannot be null.");
+        }
 
         this.privateKey = privateKey;
         markAsSet(Attribute.PRIVATE_KEY);
@@ -78,8 +82,9 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
 
     @Override
     public KeyCryptoBuilder setServerAddress(final URI serverAddress) {
-        if (serverAddress == null)
+        if (serverAddress == null) {
             throw new NullPointerException("Server address cannot be null.");
+        }
 
         this.serverAddress = serverAddress;
         markAsSet(Attribute.SERVER_ADDRESS);
@@ -88,8 +93,9 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
 
     @Override
     public KeyCryptoBuilder setUsername(final String username) {
-        if (username == null)
+        if (username == null) {
             throw new NullPointerException("Username cannot be null.");
+        }
 
         this.username = username;
         markAsSet(Attribute.USERNAME);
@@ -152,6 +158,7 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
         /**
          * {@inheritDoc}
          */
+        @Override
         public String getKeySalt() {
             return keySalt;
         }
@@ -159,6 +166,7 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
         /**
          * {@inheritDoc}
          */
+        @Override
         public URI getPrivateKey() {
             return privateKey;
         }
@@ -166,6 +174,7 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
         /**
          * {@inheritDoc}
          */
+        @Override
         public URI getServerAddress() {
             return serverAddress;
         }
@@ -173,6 +182,7 @@ public class SimpleKeyCryptoBuilder extends KeyCryptoBuilder {
         /**
          * {@inheritDoc}
          */
+        @Override
         public String getUsername() {
             return username;
         }
