@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.mojo.exclusions.filters;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -12,7 +13,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import com.cerner.ccl.analysis.data.Violation;
 import com.cerner.ccl.analysis.data.ViolationId;
-import com.cerner.ccl.analysis.mojo.AbstractUnitTest;
 
 /**
  * Unit tests for {@link ViolationIdFilter}.
@@ -22,7 +22,7 @@ import com.cerner.ccl.analysis.mojo.AbstractUnitTest;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class ViolationIdFilterTest extends AbstractUnitTest {
+public class ViolationIdFilterTest {
     private ViolationIdFilter filter;
     @Mock
     private ViolationId violationId;
@@ -43,9 +43,10 @@ public class ViolationIdFilterTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullViolationId() {
-        expect("Violation ID cannot be null.");
-        expect(IllegalArgumentException.class);
-        new ViolationIdFilter(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ViolationIdFilter(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Violation ID cannot be null.");
     }
 
     /**
@@ -72,9 +73,10 @@ public class ViolationIdFilterTest extends AbstractUnitTest {
      */
     @Test
     public void testExcludeNullScriptName() {
-        expect(IllegalArgumentException.class);
-        expect("Script name cannot be null.");
-        filter.exclude(null, violation);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            filter.exclude(null, violation);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**
@@ -82,8 +84,9 @@ public class ViolationIdFilterTest extends AbstractUnitTest {
      */
     @Test
     public void testExcludeNullViolation() {
-        expect(IllegalArgumentException.class);
-        expect("Violation cannot be null.");
-        filter.exclude("script.name", null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            filter.exclude("script.name", null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Violation cannot be null.");
     }
 }

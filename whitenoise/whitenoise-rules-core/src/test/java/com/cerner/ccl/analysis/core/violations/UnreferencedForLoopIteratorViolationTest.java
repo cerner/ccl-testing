@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.core.violations;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -23,8 +24,10 @@ public class UnreferencedForLoopIteratorViolationTest
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullIterator() {
-        expect(IllegalArgumentException.class, "Iterator cannot be null.");
-        new UnreferencedForLoopIteratorViolation(null, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new UnreferencedForLoopIteratorViolation(null, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Iterator cannot be null.");
     }
 
     /**
@@ -53,7 +56,7 @@ public class UnreferencedForLoopIteratorViolationTest
     }
 
     @Override
-    protected UnreferencedForLoopIteratorViolation createViolation(Integer lineNumber) {
+    protected UnreferencedForLoopIteratorViolation createViolation(final Integer lineNumber) {
         return new UnreferencedForLoopIteratorViolation(iterator, lineNumber);
     }
 

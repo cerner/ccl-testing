@@ -1,11 +1,10 @@
 package com.cerner.ccl.j4ccl.impl.jaas;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.SerializationUtils;
 import org.junit.Test;
-
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 /**
  * Unit tests for {@link MillenniumDomainPasswordCredential}.
@@ -14,7 +13,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
  *
  */
 
-public class MillenniumDomainPasswordCredentialTest extends AbstractUnitTest {
+public class MillenniumDomainPasswordCredentialTest {
     private final String password = "1337hax0r";
     private final MillenniumDomainPasswordCredential credential = new MillenniumDomainPasswordCredential(password);
 
@@ -24,9 +23,10 @@ public class MillenniumDomainPasswordCredentialTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructNullPassword() {
-        expect(NullPointerException.class);
-        expect("Password cannot be null.");
-        new MillenniumDomainPasswordCredential(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new MillenniumDomainPasswordCredential(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Password cannot be null.");
     }
 
     /**

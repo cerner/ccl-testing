@@ -1,6 +1,7 @@
 package com.cerner.ccl.cdoc.mojo.data;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -48,9 +49,10 @@ public class DocumentationTest extends AbstractBeanUnitTest<Documentation> {
      */
     @Test
     public void testConstructNullSourceFile() {
-        expect(IllegalArgumentException.class);
-        expect("Source file cannot be null.");
-        new Documentation(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new Documentation(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source file cannot be null.");
     }
 
     /**
@@ -87,9 +89,10 @@ public class DocumentationTest extends AbstractBeanUnitTest<Documentation> {
     @Test
     public void testConstructUnrecognizedFiletype() {
         final File textFile = new File("target/unrecognized.text");
-        expect(IllegalArgumentException.class);
-        expect("Unrecognized file type: " + textFile.getAbsolutePath());
-        new Documentation(textFile);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new Documentation(textFile);
+        });
+        assertThat(e.getMessage()).isEqualTo("Unrecognized file type: " + textFile.getAbsolutePath());
     }
 
     /**

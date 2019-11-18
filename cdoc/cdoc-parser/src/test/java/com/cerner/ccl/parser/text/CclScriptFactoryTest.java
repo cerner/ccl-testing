@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
 import com.cerner.ccl.parser.data.CclScript;
 import com.cerner.ccl.parser.data.ScriptDocumentation;
 import com.cerner.ccl.parser.data.record.RecordStructure;
@@ -20,14 +19,14 @@ import com.cerner.ccl.parser.data.subroutine.Subroutine;
 
 /**
  * Unit tests for {@link CclScriptFactory}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { CclScript.class, CclScriptFactory.class, ScriptDocumentation.class })
-public class CclScriptFactoryTest extends AbstractUnitTest {
+public class CclScriptFactoryTest {
     private final CclScriptFactory factory = new CclScriptFactory();
     private final String objectName = "object_name";
     @Mock
@@ -37,7 +36,7 @@ public class CclScriptFactoryTest extends AbstractUnitTest {
 
     /**
      * Test the building of a CCL script object.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -53,7 +52,7 @@ public class CclScriptFactoryTest extends AbstractUnitTest {
 
     /**
      * Test the building of a CCL script with {@code null} top-level documentation.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */

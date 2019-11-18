@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.mojo.exclusions.filters;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.codehaus.plexus.util.StringUtils;
 import org.junit.Test;
@@ -30,9 +31,10 @@ public class ScriptNameFilterTest extends AbstractViolationFilterUnitTest<Script
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullScriptName() {
-        expect(IllegalArgumentException.class);
-        expect("Script name cannot be null.");
-        new ScriptNameFilter(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptNameFilter(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**

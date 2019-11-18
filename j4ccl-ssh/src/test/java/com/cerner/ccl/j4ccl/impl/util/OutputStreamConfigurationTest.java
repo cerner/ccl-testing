@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.util;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.io.OutputStream;
 
@@ -11,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.cerner.ccl.j4ccl.enums.OutputType;
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 /**
  * Unit tests for {@link OutputStreamConfiguration}.
@@ -21,7 +21,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class OutputStreamConfigurationTest extends AbstractUnitTest {
+public class OutputStreamConfigurationTest {
     private final OutputType type = OutputType.CCL_SESSION;
     @Mock
     private OutputStream stream;
@@ -41,9 +41,10 @@ public class OutputStreamConfigurationTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructNullOutputStream() {
-        expect(NullPointerException.class);
-        expect("Output stream cannot be null.");
-        new OutputStreamConfiguration(null, type);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new OutputStreamConfiguration(null, type);
+        });
+        assertThat(e.getMessage()).isEqualTo("Output stream cannot be null.");
     }
 
     /**
@@ -52,9 +53,10 @@ public class OutputStreamConfigurationTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructNullOutputType() {
-        expect(NullPointerException.class);
-        expect("Output type cannot be null.");
-        new OutputStreamConfiguration(stream, null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new OutputStreamConfiguration(stream, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Output type cannot be null.");
     }
 
     /**

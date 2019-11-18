@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.core.violations.internal;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -9,9 +10,9 @@ import com.cerner.ccl.analysis.data.SubroutineViolation;
 
 /**
  * Skeleton definition of a test for {@link SubroutineViolation} objects. This provides common tests for these objects.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  * @param <T>
  *            The type of {@link SubroutineViolation} to be tested.
  */
@@ -25,8 +26,10 @@ public abstract class AbstractSubroutineViolationTest<T extends SubroutineViolat
      */
     @Test
     public void testConstructNullSubroutineName() {
-        expect(IllegalArgumentException.class, "Subroutine name cannot be null.");
-        createViolation(null, lineNumber);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            createViolation(null, lineNumber);
+        });
+        assertThat(e.getMessage()).isEqualTo("Subroutine name cannot be null.");
     }
 
     /**
@@ -61,13 +64,13 @@ public abstract class AbstractSubroutineViolationTest<T extends SubroutineViolat
     }
 
     @Override
-    protected T createViolation(Integer lineNumber) {
+    protected T createViolation(final Integer lineNumber) {
         return createViolation(subroutineName, lineNumber);
     }
 
     /**
      * Create an instance of the violation.
-     * 
+     *
      * @param subroutineName
      *            The subroutine name.
      * @param lineNumber

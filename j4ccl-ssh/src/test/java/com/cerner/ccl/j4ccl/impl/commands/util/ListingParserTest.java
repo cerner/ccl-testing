@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.commands.util;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,9 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -38,12 +37,6 @@ import etm.core.monitor.EtmPoint;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(PointFactory.class)
 public class ListingParserTest {
-    /**
-     * A {@link Rule} to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private final ListingParser parser = new ListingParser();
 
     /**
@@ -86,8 +79,9 @@ public class ListingParserTest {
         final StringBuilder messageBuilder = new StringBuilder(secondError.size());
         final Iterator<String> secondErrorIt = secondError.iterator();
         messageBuilder.append(secondErrorIt.next());
-        while (secondErrorIt.hasNext())
+        while (secondErrorIt.hasNext()) {
             messageBuilder.append(String.format("%n%s", secondErrorIt.next()));
+        }
 
         assertThat(errorsIt.next().getMessage()).isEqualTo(messageBuilder.toString().trim());
         verify(point).collect();
@@ -152,8 +146,9 @@ public class ListingParserTest {
      */
     @Test
     public void testNullFile() throws Exception {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Listing cannot be null.");
-        parser.parseListing(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            parser.parseListing(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Listing cannot be null.");
     }
 }

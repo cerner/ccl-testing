@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.util;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -8,9 +9,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 import java.util.Enumeration;
 
 import org.apache.commons.discovery.tools.Service;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -25,12 +24,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = Service.class)
 public class CclResourceUploaderTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     /**
      * Test the retrieval of an uploader.
      */
@@ -60,8 +53,9 @@ public class CclResourceUploaderTest {
         mockStatic(Service.class);
         when(Service.providers(CclResourceUploader.class)).thenReturn(uploaders);
 
-        expected.expect(IllegalStateException.class);
-        expected.expectMessage("No implementations found of: " + CclResourceUploader.class.getName());
-        CclResourceUploader.getUploader();
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> {
+            CclResourceUploader.getUploader();
+        });
+        assertThat(e.getMessage()).isEqualTo("No implementations found of: " + CclResourceUploader.class.getName());
     }
 }

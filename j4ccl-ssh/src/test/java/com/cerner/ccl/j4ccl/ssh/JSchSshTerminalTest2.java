@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.ssh;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -22,9 +23,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
@@ -69,12 +68,6 @@ import expect4j.matches.RegExpMatch;
 @PrepareForTest(value = { JaasUtils.class, JSchSshTerminal.class, TerminalResponse.class, ConnectionPoolFactory.class,
         LoggerFactory.class, PointFactory.class })
 public class JSchSshTerminalTest2 {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private final String username = "username";
     private final String password = "password";
     private final String serverAddress = "http://www.google.com";
@@ -586,8 +579,6 @@ public class JSchSshTerminalTest2 {
      */
     @Test
     public void testExecuteCommandGroupsWithShellConnectFailure() throws Exception {
-        expected.expect(SshException.class);
-        expected.expectMessage("Failed to connect SSH shell.");
         Mockito.doThrow(new JSchException("Huston. We have a problem.")).when(shell).connect();
 
         when(shell.isConnected()).thenReturn(false);
@@ -612,23 +603,26 @@ public class JSchSshTerminalTest2 {
         final Expect4j expect = mock(Expect4j.class);
         whenNew(Expect4j.class).withAnyArguments().thenReturn(expect);
 
-        try {
-            new JSchSshTerminal(pool).executeCommandGroups(commandExpectationGroups);
-        } catch (final SshException e) {
-            verify(expect, times(0)).expect(ArgumentMatchers.<List<Match>> any());
-            verify(logger, times(1)).debug(stringCaptor.capture());
-            verify(logger, times(2)).debug(stringCaptor.capture(), commandExpectationGroupCaptor.capture());
-            final List<String> logMessages = stringCaptor.getAllValues();
-            final List<CommandExpectationGroup> expectationGroups = commandExpectationGroupCaptor.getAllValues();
-            assertThat(logMessages.get(0)).isEqualTo("entering JSchSshTerminal.executeCommandGroups");
-            assertThat(logMessages.get(1)).isEqualTo("commandExpectationGroup: {};");
-            assertThat(logMessages.get(2)).isEqualTo("commandExpectationGroup: {};");
-            assertThat(expectationGroups.get(0)).isEqualTo(commandExpectationGroups.get(0));
-            assertThat(expectationGroups.get(1)).isEqualTo(commandExpectationGroups.get(1));
-            verify(conn).close();
-            verify(shell, times(0)).disconnect();
-            throw e;
-        }
+        SshException e = assertThrows(SshException.class, () -> {
+            try {
+                new JSchSshTerminal(pool).executeCommandGroups(commandExpectationGroups);
+            } catch (final SshException ex) {
+                verify(expect, times(0)).expect(ArgumentMatchers.<List<Match>> any());
+                verify(logger, times(1)).debug(stringCaptor.capture());
+                verify(logger, times(2)).debug(stringCaptor.capture(), commandExpectationGroupCaptor.capture());
+                final List<String> logMessages = stringCaptor.getAllValues();
+                final List<CommandExpectationGroup> expectationGroups = commandExpectationGroupCaptor.getAllValues();
+                assertThat(logMessages.get(0)).isEqualTo("entering JSchSshTerminal.executeCommandGroups");
+                assertThat(logMessages.get(1)).isEqualTo("commandExpectationGroup: {};");
+                assertThat(logMessages.get(2)).isEqualTo("commandExpectationGroup: {};");
+                assertThat(expectationGroups.get(0)).isEqualTo(commandExpectationGroups.get(0));
+                assertThat(expectationGroups.get(1)).isEqualTo(commandExpectationGroups.get(1));
+                verify(conn).close();
+                verify(shell, times(0)).disconnect();
+                throw ex;
+            }
+        });
+        assertThat(e.getMessage()).isEqualTo("Failed to connect SSH shell.");
     }
 
     /**

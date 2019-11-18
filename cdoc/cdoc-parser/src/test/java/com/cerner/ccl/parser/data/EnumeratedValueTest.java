@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.data;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -33,9 +34,10 @@ public class EnumeratedValueTest extends AbstractBeanUnitTest<EnumeratedValue> {
      */
     @Test
     public void testConstructNullValue() {
-        expect(IllegalArgumentException.class);
-        expect("Value cannot be null.");
-        new EnumeratedValue(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new EnumeratedValue(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Value cannot be null.");
     }
 
     /**

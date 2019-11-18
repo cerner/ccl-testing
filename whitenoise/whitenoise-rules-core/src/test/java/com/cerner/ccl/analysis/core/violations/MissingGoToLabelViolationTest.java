@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.core.violations;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -22,8 +23,10 @@ public class MissingGoToLabelViolationTest extends AbstractViolationTest<Missing
      */
     @Test
     public void testConstructNullLabelName() {
-        expect(IllegalArgumentException.class, "Label name cannot be null.");
-        new MissingGoToLabelViolation(null, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new MissingGoToLabelViolation(null, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Label name cannot be null.");
     }
 
     /**
@@ -50,7 +53,7 @@ public class MissingGoToLabelViolationTest extends AbstractViolationTest<Missing
     }
 
     @Override
-    protected MissingGoToLabelViolation createViolation(Integer lineNumber) {
+    protected MissingGoToLabelViolation createViolation(final Integer lineNumber) {
         return new MissingGoToLabelViolation(goToLabel, lineNumber);
     }
 

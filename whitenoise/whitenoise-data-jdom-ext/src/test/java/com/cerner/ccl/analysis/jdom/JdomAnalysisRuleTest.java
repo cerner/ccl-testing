@@ -25,6 +25,7 @@ import org.jdom2.input.SAXBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -40,6 +41,7 @@ import com.cerner.ccl.analysis.jdom.JdomAnalysisRule.Delegate;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { JdomAnalysisRule.class, SAXBuilder.class, Service.class, StringReader.class })
+@PowerMockIgnore({ "javax.management.*", "com.sun.org.apache.xerces.*", "javax.xml.*", "org.xml.*" })
 public class JdomAnalysisRuleTest {
 
     /**

@@ -1,10 +1,9 @@
 package com.cerner.ccl.parser.text.subroutine;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import com.cerner.ccl.parser.exception.InvalidSubroutineException;
 
@@ -13,18 +12,12 @@ import com.cerner.ccl.parser.exception.InvalidSubroutineException;
  * <p>
  * There is a case of parsing the argument list when there is no opening parenthesis; this case cannot be tested, as the
  * cause of it (a lack of an opening parenthesis) first causes the parsing of the subroutine name to fail.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 public class SubroutineDefinitionParserTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private final SubroutineDefinitionParser parser = new SubroutineDefinitionParser();
 
     /**
@@ -43,9 +36,11 @@ public class SubroutineDefinitionParserTest {
     @Test
     public void testParseNoClosingParenthesis() {
         final String subroutineDefinition = "subroutine no_closing_paren(arg1";
-        expected.expect(InvalidSubroutineException.class);
-        expected.expectMessage("Unable to find closing parenthesis after open parenthesis: " + subroutineDefinition);
-        parser.parse(subroutineDefinition);
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            parser.parse(subroutineDefinition);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("Unable to find closing parenthesis after open parenthesis: " + subroutineDefinition);
     }
 
     /**
@@ -54,9 +49,11 @@ public class SubroutineDefinitionParserTest {
     @Test
     public void testParseNoOpeningParenthesis() {
         final String subroutineDefinition = "subroutine no_open_parenthesis";
-        expected.expect(InvalidSubroutineException.class);
-        expected.expectMessage("Unable to find opening parenthesis in definition: " + subroutineDefinition);
-        parser.parse(subroutineDefinition);
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            parser.parse(subroutineDefinition);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("Unable to find opening parenthesis in definition: " + subroutineDefinition);
     }
 
     /**
@@ -65,9 +62,11 @@ public class SubroutineDefinitionParserTest {
     @Test
     public void testParseNoSubroutineKeyword() {
         final String subroutineDefinition = "no_subroutine_keyword";
-        expected.expect(InvalidSubroutineException.class);
-        expected.expectMessage("Unable to retrieve subroutine name from definition: " + subroutineDefinition);
-        parser.parse(subroutineDefinition);
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            parser.parse(subroutineDefinition);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("Unable to retrieve subroutine name from definition: " + subroutineDefinition);
     }
 
     /**
@@ -85,9 +84,10 @@ public class SubroutineDefinitionParserTest {
      */
     @Test
     public void testParseNullDefinition() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Subroutine definition cannot be null.");
-        parser.parse(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            parser.parse(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Subroutine definition cannot be null.");
     }
 
     /**
@@ -96,8 +96,10 @@ public class SubroutineDefinitionParserTest {
     @Test
     public void testParsePrecedingOpenParenthesis() {
         final String subroutineDefinition = "(subroutine preceding_parenthesis(";
-        expected.expect(InvalidSubroutineException.class);
-        expected.expectMessage("Opening parenthesis precedes the subroutine keyword: " + subroutineDefinition);
-        parser.parse(subroutineDefinition);
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            parser.parse(subroutineDefinition);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("Opening parenthesis precedes the subroutine keyword: " + subroutineDefinition);
     }
 }

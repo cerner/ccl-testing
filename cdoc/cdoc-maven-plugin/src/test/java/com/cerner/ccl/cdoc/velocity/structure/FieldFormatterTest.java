@@ -1,6 +1,7 @@
 package com.cerner.ccl.cdoc.velocity.structure;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,7 +20,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.cdoc.AbstractUnitTest;
 import com.cerner.ccl.parser.data.record.RecordStructureField;
 
 /**
@@ -31,7 +31,7 @@ import com.cerner.ccl.parser.data.record.RecordStructureField;
 @SuppressWarnings("unused")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { FieldFormatter.class, Random.class, StringWriter.class, VelocityContext.class })
-public class FieldFormatterTest extends AbstractUnitTest {
+public class FieldFormatterTest {
     @Mock
     private Template template;
     @Mock
@@ -61,9 +61,10 @@ public class FieldFormatterTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullEngine() throws Exception {
-        expect(IllegalArgumentException.class);
-        expect("Engine cannot be null.");
-        new FieldFormatter(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new FieldFormatter(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Engine cannot be null.");
     }
 
     /**

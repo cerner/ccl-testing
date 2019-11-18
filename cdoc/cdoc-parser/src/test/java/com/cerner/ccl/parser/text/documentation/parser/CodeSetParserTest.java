@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.documentation.parser;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
@@ -9,20 +10,19 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
 import com.cerner.ccl.parser.data.CodeSet;
 import com.cerner.ccl.parser.exception.InvalidDocumentationException;
 
 /**
  * Unit tests for {@link CodeSetParser}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { CodeSet.class, CodeSetParser.class })
-public class CodeSetParserTest extends AbstractUnitTest {
+public class CodeSetParserTest {
     private final CodeSetParser parser = new CodeSetParser();
 
     /**
@@ -36,7 +36,7 @@ public class CodeSetParserTest extends AbstractUnitTest {
 
     /**
      * Test the parsing of a code set.
-     * 
+     *
      * @throws Exception
      *             If any exceptions occur during the test run.
      */
@@ -53,7 +53,7 @@ public class CodeSetParserTest extends AbstractUnitTest {
 
     /**
      * Test parsing when only a code set number is provided.
-     * 
+     *
      * @throws Exception
      *             If any exceptions occur during the test run.
      */
@@ -73,8 +73,9 @@ public class CodeSetParserTest extends AbstractUnitTest {
     @Test
     public void testParseNoFirstSpace() {
         final String codeSet = "@codeSet237";
-        expect(InvalidDocumentationException.class);
-        expect("No space found in code set definition: " + codeSet);
-        parser.parseElement(codeSet);
+        InvalidDocumentationException e = assertThrows(InvalidDocumentationException.class, () -> {
+            parser.parseElement(codeSet);
+        });
+        assertThat(e.getMessage()).isEqualTo("No space found in code set definition: " + codeSet);
     }
 }

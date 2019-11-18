@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +13,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
 import com.cerner.ccl.parser.data.CclScript;
 import com.cerner.ccl.parser.data.DataType;
 import com.cerner.ccl.parser.data.ScriptDocumentation;
@@ -28,7 +28,7 @@ import com.cerner.ccl.parser.data.subroutine.Subroutine;
  * @see TextParserITest
  */
 
-public class TextParserTest extends AbstractUnitTest {
+public class TextParserTest {
     private final TextParser parser = new TextParser();
 
     /**
@@ -36,9 +36,10 @@ public class TextParserTest extends AbstractUnitTest {
      */
     @Test
     public void testParseNullObjectName() {
-        expect(IllegalArgumentException.class);
-        expect("Object name cannot be null.");
-        parser.parseCclScript(null, Collections.<String> emptyList());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            parser.parseCclScript(null, Collections.<String> emptyList());
+        });
+        assertThat(e.getMessage()).isEqualTo("Object name cannot be null.");
     }
 
     /**
@@ -46,9 +47,10 @@ public class TextParserTest extends AbstractUnitTest {
      */
     @Test
     public void testParseNullSource() {
-        expect(IllegalArgumentException.class);
-        expect("Source cannot be null.");
-        parser.parseCclScript("an_object_name", null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            parser.parseCclScript("an_object_name", null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source cannot be null.");
     }
 
     /**

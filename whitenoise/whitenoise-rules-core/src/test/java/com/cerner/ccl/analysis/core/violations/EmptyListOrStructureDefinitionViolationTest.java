@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.core.violations;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -23,8 +24,10 @@ public class EmptyListOrStructureDefinitionViolationTest
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullFieldName() {
-        expect(IllegalArgumentException.class, "Field name cannot be null.");
-        new EmptyListOrStructureDefinitionViolation("okay", null, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new EmptyListOrStructureDefinitionViolation("okay", null, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Field name cannot be null.");
     }
 
     /**
@@ -57,7 +60,8 @@ public class EmptyListOrStructureDefinitionViolationTest
     }
 
     @Override
-    protected EmptyListOrStructureDefinitionViolation createViolation(String recordStructureName, Integer lineNumber) {
+    protected EmptyListOrStructureDefinitionViolation createViolation(final String recordStructureName,
+            final Integer lineNumber) {
         return new EmptyListOrStructureDefinitionViolation(recordStructureName, fieldName, lineNumber);
     }
 

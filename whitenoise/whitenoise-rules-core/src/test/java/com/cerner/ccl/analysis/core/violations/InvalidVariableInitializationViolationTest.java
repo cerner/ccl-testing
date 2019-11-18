@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.core.violations;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -24,8 +25,10 @@ public class InvalidVariableInitializationViolationTest
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullInitializationValue() {
-        expect(IllegalArgumentException.class, "Initialization value cannot be null.");
-        new InvalidVariableInitializationViolation(variableName, null, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new InvalidVariableInitializationViolation(variableName, null, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Initialization value cannot be null.");
     }
 
     /**

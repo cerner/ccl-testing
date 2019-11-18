@@ -20,7 +20,6 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.analysis.internal.AbstractUnitTest;
 import com.cerner.ccl.j4ccl.CclExecutor;
 import com.cerner.ccl.j4ccl.adders.ScriptCompilerAdder;
 
@@ -34,7 +33,7 @@ import com.cerner.ccl.j4ccl.adders.ScriptCompilerAdder;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { CclExecutor.class, FileOutputStream.class, IOUtils.class, OutputStreamWriter.class,
         TranslatorCompiler.class })
-public class TranslatorCompilerTest extends AbstractUnitTest {
+public class TranslatorCompilerTest {
     /**
      * Test the execution of the compilation of the translation script.
      *

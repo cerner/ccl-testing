@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.smoosh;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,9 +14,9 @@ import com.cerner.ccl.parser.text.smoosh.internal.AbstractIndexedSmoosherUnitTes
 
 /**
  * Unit tests for {@link SubroutineDefinitionHeaderSmoosher}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 public class SubroutineDefinitionHeaderSmoosherTest
@@ -47,9 +48,10 @@ public class SubroutineDefinitionHeaderSmoosherTest
     @Test
     public void testSmooshNoClose() {
         final List<String> text = Collections.singletonList("subroutine incomplete_sub (");
-        expect(InvalidSubroutineException.class);
-        expect("Unable to find close to subroutine definition: " + text.get(0));
-        smoosher.smoosh(0, text);
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            smoosher.smoosh(0, text);
+        });
+        assertThat(e.getMessage()).isEqualTo("Unable to find close to subroutine definition: " + text.get(0));
     }
 
     /**

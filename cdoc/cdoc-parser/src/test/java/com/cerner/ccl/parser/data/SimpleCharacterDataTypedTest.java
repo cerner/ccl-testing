@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.data;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
@@ -23,9 +24,10 @@ public class SimpleCharacterDataTypedTest extends AbstractBeanUnitTest<SimpleCha
      */
     @Test
     public void testConstructZeroDataLength() {
-        expect(IllegalArgumentException.class);
-        expect("Data length cannot be less than 1: " + Integer.toString(0));
-        new SimpleCharacterDataTyped(0);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SimpleCharacterDataTyped(0);
+        });
+        assertThat(e.getMessage()).isEqualTo("Data length cannot be less than 1: " + Integer.toString(0));
     }
 
     /**

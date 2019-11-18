@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.core.violations;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -24,8 +25,10 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolationTest
      */
     @Test
     public void testConstructBlankSeqResultVariable() {
-        expect(IllegalArgumentException.class, "seqResultVariable cannot be null or empty");
-        new LargeSequenceStoredToNonFloatingPointNumberViolation(" ", attemptedStoreVariable, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new LargeSequenceStoredToNonFloatingPointNumberViolation(" ", attemptedStoreVariable, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("seqResultVariable cannot be null or empty");
     }
 
     /**
@@ -33,8 +36,10 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolationTest
      */
     @Test
     public void testConstructBlankStoreVariable() {
-        expect(IllegalArgumentException.class, "attemptedStoreVariable cannot be null or empty");
-        new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, " ", null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, " ", null);
+        });
+        assertThat(e.getMessage()).isEqualTo("attemptedStoreVariable cannot be null or empty");
     }
 
     /**
@@ -42,8 +47,10 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolationTest
      */
     @Test
     public void testConstructNulleqResultVariable() {
-        expect(IllegalArgumentException.class, "seqResultVariable cannot be null or empty");
-        new LargeSequenceStoredToNonFloatingPointNumberViolation(null, attemptedStoreVariable, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new LargeSequenceStoredToNonFloatingPointNumberViolation(null, attemptedStoreVariable, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("seqResultVariable cannot be null or empty");
     }
 
     /**
@@ -51,8 +58,10 @@ public class LargeSequenceStoredToNonFloatingPointNumberViolationTest
      */
     @Test
     public void testConstructNullStoreVariable() {
-        expect(IllegalArgumentException.class, "attemptedStoreVariable cannot be null or empty");
-        new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, null, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new LargeSequenceStoredToNonFloatingPointNumberViolation(seqResultVariable, null, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("attemptedStoreVariable cannot be null or empty");
     }
 
     /**

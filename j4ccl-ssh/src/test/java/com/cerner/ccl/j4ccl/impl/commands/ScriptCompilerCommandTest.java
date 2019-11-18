@@ -1,8 +1,9 @@
 package com.cerner.ccl.j4ccl.impl.commands;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,7 +30,6 @@ import com.cerner.ccl.j4ccl.TerminalProperties;
 import com.cerner.ccl.j4ccl.impl.commands.util.CompileErrorValidator;
 import com.cerner.ccl.j4ccl.impl.data.Environment;
 import com.cerner.ccl.j4ccl.impl.util.AuthHelper;
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 import com.cerner.ccl.j4ccl.ssh.CclCommandTerminal;
 import com.cerner.ccl.j4ccl.ssh.JSchSshTerminal;
 import com.cerner.ccl.j4ccl.util.CclResourceUploader;
@@ -53,7 +53,7 @@ import etm.core.monitor.EtmPoint;
 @PrepareForTest(value = { AuthHelper.class, CclResourceUploader.class, CompileErrorValidator.class, Downloader.class,
         Environment.class, FileRequestFactory.class, JSchSshTerminal.class, ScriptCompilerCommand.class,
         SftpDownloader.class, PointFactory.class })
-public class ScriptCompilerCommandTest extends AbstractUnitTest {
+public class ScriptCompilerCommandTest {
     @Mock
     private File sourceCodeLocation;
     @Mock
@@ -78,9 +78,10 @@ public class ScriptCompilerCommandTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullDependencies() {
-        expect(IllegalArgumentException.class);
-        expect("Dependencies cannot be null.");
-        new ScriptCompilerCommand(sourceCodeLocation, null, localListingFile, false);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptCompilerCommand(sourceCodeLocation, null, localListingFile, false);
+        });
+        assertThat(e.getMessage()).isEqualTo("Dependencies cannot be null.");
     }
 
     /**
@@ -89,9 +90,10 @@ public class ScriptCompilerCommandTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullSourceCodeLocation() {
-        expect(IllegalArgumentException.class);
-        expect("Source code location cannot be null.");
-        new ScriptCompilerCommand(null, dependencies, localListingFile, false);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptCompilerCommand(null, dependencies, localListingFile, false);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source code location cannot be null.");
     }
 
     /**

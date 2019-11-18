@@ -33,7 +33,6 @@ import com.cerner.ccl.j4ccl.impl.CommandQueue;
 import com.cerner.ccl.j4ccl.impl.commands.DropScriptCommand;
 import com.cerner.ccl.j4ccl.impl.commands.ScriptCompilerCommand;
 import com.cerner.ccl.j4ccl.impl.util.ScriptRegistrar;
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 /**
  * Unit tests for {@link DynamicCompilerAdderImpl}.
@@ -45,7 +44,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { DynamicCompilerAdderImpl.class, DropScriptCommand.class, File.class, FileUtils.class,
         ScriptCompilerCommand.class, ScriptRegistrar.class })
-public class DynamicCompilerAdderImplPowerMockTest extends AbstractUnitTest {
+public class DynamicCompilerAdderImplPowerMockTest {
     private final String sourceCodeFileName = "source.code.inc";
     @Mock
     private CommandQueue queue;

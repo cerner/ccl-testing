@@ -4,7 +4,7 @@ import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.assertions.MapAssert.entry;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
@@ -101,7 +101,7 @@ public class CclResourceUploaderImplTest {
         final Map<File, URI> uploadMap = cclUploader.upload();
         assertThat(uploadMap).isNotNull();
         assertThat(uploadMap).isEmpty();
-        verifyZeroInteractions(uploader);
+        verifyNoInteractions(uploader);
         verify(jetmMock).collect();
     }
 }

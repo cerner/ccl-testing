@@ -2,9 +2,7 @@ package com.cerner.ccl.j4ccl.adders.arguments;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * Unit tests for {@link FloatArgument}.
@@ -14,12 +12,6 @@ import org.junit.rules.ExpectedException;
  */
 
 public class FloatArgumentTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     /**
      * Verify that the string representation of a floating value has at least one decimal place to signify to CCL that
      * it is, indeed, a floating point value.

@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.util;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.verify;
 
 import java.io.OutputStream;
@@ -11,8 +12,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
-
 /**
  * Unit tests for {@link OutputStreamProxy}.
  *
@@ -21,7 +20,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class OutputStreamProxyTest extends AbstractUnitTest {
+public class OutputStreamProxyTest {
     @Mock
     private OutputStream proxied;
     private OutputStreamProxy proxy;
@@ -37,12 +36,13 @@ public class OutputStreamProxyTest extends AbstractUnitTest {
     /**
      * Construction with a {@code null} {@link OutputStream} should fail.
      */
-    @SuppressWarnings({ "resource", "unused" })
+    @SuppressWarnings({ "unused" })
     @Test
     public void testConstructNullOutputStream() {
-        expect(NullPointerException.class);
-        expect("Output stream cannot be null.");
-        new OutputStreamProxy(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new OutputStreamProxy(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Output stream cannot be null.");
     }
 
     /**

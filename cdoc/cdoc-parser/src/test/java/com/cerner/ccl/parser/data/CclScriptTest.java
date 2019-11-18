@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.data;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import java.util.Collections;
@@ -52,9 +53,10 @@ public class CclScriptTest extends AbstractBeanUnitTest<CclScript> {
      */
     @Test
     public void testConstructNullScriptDocumentation() {
-        expect(IllegalArgumentException.class);
-        expect("Script documentation cannot be null.");
-        new CclScript(scriptName, null, subroutines, recordStructures);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CclScript(scriptName, null, subroutines, recordStructures);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script documentation cannot be null.");
     }
 
     /**
@@ -62,9 +64,10 @@ public class CclScriptTest extends AbstractBeanUnitTest<CclScript> {
      */
     @Test
     public void testConstructNullScriptName() {
-        expect(IllegalArgumentException.class);
-        expect("Script name cannot be null.");
-        new CclScript(null, documentation, subroutines, recordStructures);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CclScript(null, documentation, subroutines, recordStructures);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**
@@ -72,9 +75,10 @@ public class CclScriptTest extends AbstractBeanUnitTest<CclScript> {
      */
     @Test
     public void testConstructNullRecordStructures() {
-        expect(IllegalArgumentException.class);
-        expect("Record structures cannot be null.");
-        new CclScript(scriptName, documentation, subroutines, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CclScript(scriptName, documentation, subroutines, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Record structures cannot be null.");
     }
 
     /**
@@ -82,9 +86,10 @@ public class CclScriptTest extends AbstractBeanUnitTest<CclScript> {
      */
     @Test
     public void testConstructNullSubroutines() {
-        expect(IllegalArgumentException.class);
-        expect("Subroutines cannot be null.");
-        new CclScript(scriptName, documentation, null, recordStructures);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CclScript(scriptName, documentation, null, recordStructures);
+        });
+        assertThat(e.getMessage()).isEqualTo("Subroutines cannot be null.");
     }
 
     /**

@@ -1,17 +1,18 @@
 package com.cerner.ccl.parser.text.documentation.parser;
 
-import org.junit.Test;
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
+import org.junit.Test;
 
 /**
  * Unit tests for {@link DocumentationParser}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
-public class DocumentationParserTest extends AbstractUnitTest {
+public class DocumentationParserTest {
     private final DocumentationParser parser = new DocumentationParser();
 
     /**
@@ -19,8 +20,9 @@ public class DocumentationParserTest extends AbstractUnitTest {
      */
     @Test
     public void testCanParseNullLine() {
-        expect(IllegalArgumentException.class);
-        expect("Line cannot be null.");
-        parser.canParse(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            parser.canParse(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Line cannot be null.");
     }
 }

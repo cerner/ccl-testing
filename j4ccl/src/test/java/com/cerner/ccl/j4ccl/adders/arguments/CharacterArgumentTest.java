@@ -1,10 +1,9 @@
 package com.cerner.ccl.j4ccl.adders.arguments;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * Unit tests for {@link CharacterArgument}.
@@ -15,20 +14,15 @@ import org.junit.rules.ExpectedException;
 
 public class CharacterArgumentTest {
     /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
-    /**
      * Construction with a {@code null} value should fail.
      */
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullValue() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Value cannot be null.");
-        new CharacterArgument(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CharacterArgument(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Value cannot be null.");
     }
 
     /**
@@ -37,10 +31,11 @@ public class CharacterArgumentTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructBadQuotationMarks() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage(
-                "This does not support strings containing both single quote and double quotation marks.");
-        new CharacterArgument("'\"");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new CharacterArgument("'\"");
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("This does not support strings containing both single quote and double quotation marks.");
     }
 
     /**

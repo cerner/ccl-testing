@@ -4,7 +4,7 @@
     <artifactId>whitenoise-maven-plugin</artifactId>
     <version>2.6-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
-    <name>Maven Whitenoise Plugin</name>
+    <name>Whitenoise Maven Plugin</name>
     <description>A plugin to perform static analysis of CCL code</description>
     <url>https://github.com/cerner/ccl-testing</url>
     <scm>
@@ -58,10 +58,11 @@
         <plugin.api.version>3.6.2</plugin.api.version>
         <surefire.version>3.0.0-M3</surefire.version>
 
+        <changes.plugin.version>2.12.1</changes.plugin.version>
         <jdk.source.version>1.8</jdk.source.version>
         <jdk.target.version>1.8</jdk.target.version>
-        <slf4j.version>2.0.0-alpha0</slf4j.version>
-        <powermock.version>2.0.2</powermock.version>
+        <slf4j.version>2.0.0-alpha1</slf4j.version>
+        <powermock.version>2.0.4</powermock.version>
     </properties>
     <build>
         <extensions>
@@ -118,8 +119,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.version}</version>
                 <configuration>
-                    <argLine>-Xmx1024m</argLine>
-                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <argLine>-Xmx1024m -Dfile.encoding=${project.build.sourceEncoding} ${jacocoSurefireArgLine}</argLine>
                     <excludes>
                         <exclude>**/*ITest.java</exclude>
                         <exclude>**/*$*.java</exclude>
@@ -131,8 +131,7 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${surefire.version}</version>
                 <configuration>
-                    <argLine>-Xmx1024m</argLine>
-                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <argLine>-Xmx1024m -Dfile.encoding=${project.build.sourceEncoding} ${jacocoFailsafeArgLine}</argLine>
                     <includes>
                         <include>**/*ITest.java</include>
                     </includes>
@@ -146,6 +145,57 @@
                             <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.5</version>
+                <executions>
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${sonar.jacoco.reportPath}</destFile>
+                            <propertyName>jacocoSurefireArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unit-test-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <append>true</append>
+                            <dataFile>${sonar.jacoco.reportPath}</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>pre-integration-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${sonar.jacoco.reportPath}</destFile>
+                            <propertyName>jacocoFailsafeArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>integration-test-report</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <append>true</append>
+                            <dataFile>${sonar.jacoco.reportPath}</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -196,7 +246,7 @@
             <plugin>
                 <groupId>io.takari.maven.plugins</groupId>
                 <artifactId>takari-lifecycle-plugin</artifactId>
-                <version>1.13.4</version>
+                <version>1.13.9</version>
                 <executions>
                     <execution>
                         <id>testProperties</id>
@@ -518,6 +568,14 @@
             <version>2.3.0.1</version>
         </dependency>
         <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.4.0-b180830.0438</version>
+<!--
+            <version>2.3.2</version>
+-->            
+        </dependency>
+        <dependency>
             <groupId>org.apache.maven.doxia</groupId>
             <artifactId>doxia-sink-api</artifactId>
             <version>${doxiaVersion}</version>
@@ -584,7 +642,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13-beta-3</version>
+            <version>4.13-rc-1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -596,7 +654,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -684,16 +742,12 @@
                 <version>2.20.1</version>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <quiet>true</quiet>
-                </configuration>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
                 <reportSets>
                     <reportSet>
                         <reports>
-                            <report>cobertura</report>
+                            <report>report</report>
                         </reports>
                     </reportSet>
                 </reportSets>

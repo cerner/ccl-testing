@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.data.record;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.Collections;
 import java.util.List;
@@ -79,9 +80,10 @@ public class RecordStructureFieldTest extends AbstractBeanUnitTest<RecordStructu
      */
     @Test
     public void testConstructNullName() {
-        expect(IllegalArgumentException.class);
-        expect("Name cannot be null.");
-        new RecordStructureField(null, 1, DataType.DQ8);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new RecordStructureField(null, 1, DataType.DQ8);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**
@@ -89,9 +91,10 @@ public class RecordStructureFieldTest extends AbstractBeanUnitTest<RecordStructu
      */
     @Test
     public void testConstructZeroLevel() {
-        expect(IllegalArgumentException.class);
-        expect("Level cannot be less than 1: " + Integer.toString(0));
-        new RecordStructureField(name, 0, dataType);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new RecordStructureField(name, 0, dataType);
+        });
+        assertThat(e.getMessage()).isEqualTo("Level cannot be less than 1: " + Integer.toString(0));
     }
 
     /**

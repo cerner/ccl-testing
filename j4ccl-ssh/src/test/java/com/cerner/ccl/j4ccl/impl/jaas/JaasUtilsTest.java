@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.jaas;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import java.security.Principal;
@@ -10,8 +11,6 @@ import javax.security.auth.Subject;
 
 import org.junit.Test;
 
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
-
 /**
  * Unit tests for {@link JaasUtils}.
  *
@@ -19,7 +18,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
  *
  */
 
-public class JaasUtilsTest extends AbstractUnitTest {
+public class JaasUtilsTest {
     /**
      * Test the retrieval of the current subject.
      */
@@ -39,9 +38,10 @@ public class JaasUtilsTest extends AbstractUnitTest {
      */
     @Test
     public void testGetCurrentSubjectNoSubject() {
-        expect(IllegalStateException.class);
-        expect("No subject found in current context.");
-        JaasUtils.getCurrentSubject();
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> {
+            JaasUtils.getCurrentSubject();
+        });
+        assertThat(e.getMessage()).isEqualTo("No subject found in current context.");
     }
 
     /**
@@ -66,16 +66,17 @@ public class JaasUtilsTest extends AbstractUnitTest {
      */
     @Test
     public void testGetPrincipalNoPrincipals() {
-        expect(IllegalArgumentException.class);
-        expect("Incorrect number of principals of type " + Principal.class.getCanonicalName() + " on subject: "
-                + Integer.toString(0));
-        Subject.doAs(new Subject(), new PrivilegedAction<Void>() {
-            @Override
-            public Void run() {
-                JaasUtils.getPrincipal(Principal.class);
-                return null;
-            }
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            Subject.doAs(new Subject(), new PrivilegedAction<Void>() {
+                @Override
+                public Void run() {
+                    JaasUtils.getPrincipal(Principal.class);
+                    return null;
+                }
+            });
         });
+        assertThat(e.getMessage()).isEqualTo("Incorrect number of principals of type "
+                + Principal.class.getCanonicalName() + " on subject: " + Integer.toString(0));
     }
 
     /**
@@ -83,9 +84,10 @@ public class JaasUtilsTest extends AbstractUnitTest {
      */
     @Test
     public void testGetPrincipalNullPrincipalClass() {
-        expect(IllegalArgumentException.class);
-        expect("Principal class cannot be null.");
-        JaasUtils.getPrincipal(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            JaasUtils.getPrincipal(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Principal class cannot be null.");
     }
 
     /**
@@ -109,16 +111,17 @@ public class JaasUtilsTest extends AbstractUnitTest {
      */
     @Test
     public void testGetPrivateCredentialNoCredential() {
-        expect(IllegalArgumentException.class);
-        expect("Incorrect number of private credentials of type " + Integer.class.getCanonicalName() + " on subject : "
-                + Integer.toString(0));
-        Subject.doAs(new Subject(), new PrivilegedAction<Void>() {
-            @Override
-            public Void run() {
-                JaasUtils.getPrivateCredential(Integer.class);
-                return null;
-            }
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            Subject.doAs(new Subject(), new PrivilegedAction<Void>() {
+                @Override
+                public Void run() {
+                    JaasUtils.getPrivateCredential(Integer.class);
+                    return null;
+                }
+            });
         });
+        assertThat(e.getMessage()).isEqualTo("Incorrect number of private credentials of type "
+                + Integer.class.getCanonicalName() + " on subject : " + Integer.toString(0));
     }
 
     /**
@@ -126,9 +129,10 @@ public class JaasUtilsTest extends AbstractUnitTest {
      */
     @Test
     public void testGetPrivateCredentialNullClass() {
-        expect(IllegalArgumentException.class);
-        expect("Credential class cannot be null.");
-        JaasUtils.getPrivateCredential(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            JaasUtils.getPrivateCredential(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Credential class cannot be null.");
     }
 
     /**
@@ -158,8 +162,9 @@ public class JaasUtilsTest extends AbstractUnitTest {
      */
     @Test
     public void testHasPrincipalNullClass() {
-        expect(IllegalArgumentException.class);
-        expect("Principal class cannot be null.");
-        JaasUtils.hasPrincipal(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            JaasUtils.hasPrincipal(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Principal class cannot be null.");
     }
 }

@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.subroutine;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
@@ -27,9 +28,10 @@ public class SubroutineCharacterArgumentTest extends AbstractBeanUnitTest<Subrou
      */
     @Test
     public void testConstructZeroDataLength() {
-        expect(IllegalArgumentException.class);
-        expect("Data length must be at least 1: " + Integer.toString(0));
-        new SubroutineCharacterArgument(name, 0);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SubroutineCharacterArgument(name, 0);
+        });
+        assertThat(e.getMessage()).isEqualTo("Data length must be at least 1: " + Integer.toString(0));
     }
 
     /**

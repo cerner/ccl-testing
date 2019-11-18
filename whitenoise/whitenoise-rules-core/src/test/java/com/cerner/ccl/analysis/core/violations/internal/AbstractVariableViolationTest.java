@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.core.violations.internal;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -9,9 +10,9 @@ import com.cerner.ccl.analysis.data.VariableViolation;
 
 /**
  * Skeleton of test for an implementation of {@link VariableViolation}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  * @param <T>
  *            The implementation of {@link VariableViolation} to be tested.
  */
@@ -25,8 +26,10 @@ public abstract class AbstractVariableViolationTest<T extends VariableViolation>
      */
     @Test
     public void testConstructNullVariableName() {
-        expect(IllegalArgumentException.class, "Variable name cannot be null.");
-        createViolation(null, lineNumber);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            createViolation(null, lineNumber);
+        });
+        assertThat(e.getMessage()).isEqualTo("Variable name cannot be null.");
     }
 
     /**
@@ -61,13 +64,13 @@ public abstract class AbstractVariableViolationTest<T extends VariableViolation>
     }
 
     @Override
-    protected T createViolation(Integer lineNumber) {
+    protected T createViolation(final Integer lineNumber) {
         return createViolation(variableName, lineNumber);
     }
 
     /**
      * Create a violation.
-     * 
+     *
      * @param variableName
      *            The name of the variable.
      * @param lineNumber

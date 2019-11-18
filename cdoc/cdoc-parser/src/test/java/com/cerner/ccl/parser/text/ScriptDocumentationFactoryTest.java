@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -11,7 +12,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
 import com.cerner.ccl.parser.text.documentation.parser.ScriptDocumentationParser;
 
 /**
@@ -22,7 +22,7 @@ import com.cerner.ccl.parser.text.documentation.parser.ScriptDocumentationParser
  */
 
 @SuppressWarnings("unused")
-public class ScriptDocumentationFactoryTest extends AbstractUnitTest {
+public class ScriptDocumentationFactoryTest {
     @Mock
     private ScriptDocumentationParser parser;
     private ScriptDocumentationFactory factory;
@@ -41,9 +41,10 @@ public class ScriptDocumentationFactoryTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullParser() {
-        expect(IllegalArgumentException.class);
-        expect("Parser cannot be null.");
-        new ScriptDocumentationFactory(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptDocumentationFactory(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Parser cannot be null.");
     }
 
     /**

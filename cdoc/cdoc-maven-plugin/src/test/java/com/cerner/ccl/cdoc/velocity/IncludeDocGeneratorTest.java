@@ -1,6 +1,7 @@
 package com.cerner.ccl.cdoc.velocity;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -14,7 +15,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.cdoc.AbstractUnitTest;
 import com.cerner.ccl.cdoc.script.ScriptExecutionDetails;
 import com.cerner.ccl.cdoc.velocity.navigation.Navigation;
 import com.cerner.ccl.parser.data.IncludeFile;
@@ -27,7 +27,7 @@ import com.cerner.ccl.parser.data.record.RecordStructure;
  *
  */
 @SuppressWarnings("unused")
-public class IncludeDocGeneratorTest extends AbstractUnitTest {
+public class IncludeDocGeneratorTest {
     @Mock
     private IncludeFile includeFile;
     @Mock
@@ -54,9 +54,10 @@ public class IncludeDocGeneratorTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullIncludeFile() {
-        expect(IllegalArgumentException.class);
-        expect("Include file cannot be null.");
-        new IncludeDocGenerator(null, cssDirectory, details, writer, backNavigation);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new IncludeDocGenerator(null, cssDirectory, details, writer, backNavigation);
+        });
+        assertThat(e.getMessage()).isEqualTo("Include file cannot be null.");
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.data;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
@@ -23,9 +24,10 @@ public class ScriptArgumentTest extends AbstractBeanUnitTest<ScriptArgument> {
      */
     @Test
     public void testConstructNullDescription() {
-        expect(IllegalArgumentException.class);
-        expect("Description cannot be null.");
-        new ScriptArgument(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptArgument(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Description cannot be null.");
     }
 
     /**

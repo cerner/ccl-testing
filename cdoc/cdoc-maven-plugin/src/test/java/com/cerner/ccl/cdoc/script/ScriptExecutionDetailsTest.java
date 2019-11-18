@@ -1,6 +1,7 @@
 package com.cerner.ccl.cdoc.script;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import java.util.Collections;
@@ -28,9 +29,10 @@ public class ScriptExecutionDetailsTest extends AbstractBeanUnitTest<ScriptExecu
      */
     @Test
     public void testConstructNullExecutedScripts() {
-        expect(IllegalArgumentException.class);
-        expect("Executed scripts cannot be null.");
-        new ScriptExecutionDetails(null, warnings);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptExecutionDetails(null, warnings);
+        });
+        assertThat(e.getMessage()).isEqualTo("Executed scripts cannot be null.");
     }
 
     /**
@@ -38,9 +40,10 @@ public class ScriptExecutionDetailsTest extends AbstractBeanUnitTest<ScriptExecu
      */
     @Test
     public void testConstructNullWarnings() {
-        expect(IllegalArgumentException.class);
-        expect("Warnings cannot be null.");
-        new ScriptExecutionDetails(executedScripts, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ScriptExecutionDetails(executedScripts, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Warnings cannot be null.");
     }
 
     /**

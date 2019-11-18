@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
@@ -16,7 +17,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.parser.AbstractUnitTest;
 import com.cerner.ccl.parser.data.IncludeDocumentation;
 import com.cerner.ccl.parser.text.smoosh.DocumentationBlockIndexedSmoosher;
 
@@ -30,7 +30,7 @@ import com.cerner.ccl.parser.text.smoosh.DocumentationBlockIndexedSmoosher;
 @SuppressWarnings("unused")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { IncludeDocumentation.class, IncludeDocumentationFactory.class })
-public class IncludeDocumentationFactoryTest extends AbstractUnitTest {
+public class IncludeDocumentationFactoryTest {
     @Mock
     private DocumentationBlockIndexedSmoosher smoosher;
     private IncludeDocumentationFactory factory;
@@ -48,9 +48,10 @@ public class IncludeDocumentationFactoryTest extends AbstractUnitTest {
      */
     @Test
     public void testConstructNullSmoosher() {
-        expect(IllegalArgumentException.class);
-        expect("Smoosher cannot be null.");
-        new IncludeDocumentationFactory(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new IncludeDocumentationFactory(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Smoosher cannot be null.");
     }
 
     /**

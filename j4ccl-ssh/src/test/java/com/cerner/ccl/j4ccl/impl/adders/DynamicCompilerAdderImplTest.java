@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.adders;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -26,7 +27,6 @@ import com.cerner.ccl.j4ccl.impl.CommandQueue;
 import com.cerner.ccl.j4ccl.impl.commands.DropScriptCommand;
 import com.cerner.ccl.j4ccl.impl.commands.ScriptCompilerCommand;
 import com.cerner.ccl.j4ccl.impl.util.ScriptRegistrar;
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 /**
  * Unit tests for {@link DynamicCompilerAdderImpl}.
@@ -38,7 +38,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { DropScriptCommand.class, File.class, FileUtils.class, ScriptCompilerCommand.class,
         ScriptRegistrar.class, DynamicCompilerAdderImpl.class })
-public class DynamicCompilerAdderImplTest extends AbstractUnitTest {
+public class DynamicCompilerAdderImplTest {
     private final String sourceCodeFileName = "source.code.inc";
     @Mock
     private CommandQueue queue;
@@ -67,9 +67,10 @@ public class DynamicCompilerAdderImplTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testContructNullCommandQueue() {
-        expect(NullPointerException.class);
-        expect("Command queue cannot be null.");
-        new DynamicCompilerAdderImpl(sourceCodeFile, null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new DynamicCompilerAdderImpl(sourceCodeFile, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Command queue cannot be null.");
     }
 
     /**
@@ -78,9 +79,10 @@ public class DynamicCompilerAdderImplTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullFile() {
-        expect(NullPointerException.class);
-        expect("Source code cannot be null.");
-        new DynamicCompilerAdderImpl(null, queue);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new DynamicCompilerAdderImpl(null, queue);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source code cannot be null.");
     }
 
     /**
@@ -106,9 +108,10 @@ public class DynamicCompilerAdderImplTest extends AbstractUnitTest {
         final File prgFile = mock(File.class);
         when(prgFile.getName()).thenReturn("test.prg");
 
-        expect(IllegalArgumentException.class);
-        expect("Source code file must be a .INC or .SUB file.");
-        new DynamicCompilerAdderImpl(prgFile, queue);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new DynamicCompilerAdderImpl(prgFile, queue);
+        });
+        assertThat(e.getMessage()).isEqualTo("Source code file must be a .INC or .SUB file.");
     }
 
     /**
@@ -130,9 +133,10 @@ public class DynamicCompilerAdderImplTest extends AbstractUnitTest {
      */
     @Test
     public void testWithScriptNameBlankName() {
-        expect(IllegalArgumentException.class);
-        expect("Script name cannot be blank.");
-        adder.withScriptName("");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            adder.withScriptName("");
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be blank.");
     }
 
     /**
@@ -140,9 +144,10 @@ public class DynamicCompilerAdderImplTest extends AbstractUnitTest {
      */
     @Test
     public void testWithScriptNameNullName() {
-        expect(NullPointerException.class);
-        expect("Script name cannot be null.");
-        adder.withScriptName(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            adder.withScriptName(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**
@@ -179,9 +184,10 @@ public class DynamicCompilerAdderImplTest extends AbstractUnitTest {
         final StringBuilder nameBuilder = new StringBuilder();
         nameBuilder.append(StringUtils.repeat("a", 31));
 
-        expect(IllegalArgumentException.class);
-        expect("Script name exceeds max length: 31 > 30");
-        adder.withScriptName(nameBuilder.toString());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            adder.withScriptName(nameBuilder.toString());
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name exceeds max length: 31 > 30");
     }
 
     /**

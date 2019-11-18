@@ -1,5 +1,8 @@
 package com.cerner.ccl.parser.data;
 
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
+
 import org.junit.Test;
 
 import com.cerner.ccl.parser.AbstractBeanUnitTest;
@@ -18,9 +21,10 @@ public class SimpleDataTypedTest extends AbstractBeanUnitTest<SimpleDataTyped> {
      */
     @Test
     public void testConstructNullDataType() {
-        expect(IllegalArgumentException.class);
-        expect("Data type cannot be null.");
-        new SimpleDataTyped(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SimpleDataTyped(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Data type cannot be null.");
     }
 
     @Override

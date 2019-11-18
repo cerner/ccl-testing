@@ -1,35 +1,27 @@
 package com.cerner.ccl.testing.maven.ccl.reports.common;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import com.cerner.ccl.testing.maven.ccl.reports.common.CoveredStatus;
 
 /**
  * Unit tests for {@link CoveredStatus}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 public class CoveredStatusTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     /**
      * All statuses should be resolvable by their own character representation.
      */
     @Test
     public void testForCharacterRepresentation() {
-        for (CoveredStatus status : CoveredStatus.values())
+        for (CoveredStatus status : CoveredStatus.values()) {
             assertThat(status).isEqualTo(CoveredStatus.forCharacterRepresentation(status.getCharacterRepresentation()));
+        }
     }
 
     /**
@@ -39,9 +31,10 @@ public class CoveredStatusTest {
     @Test
     public void testForCharacterRepresentationCaseSensitive() {
         final String toSearch = StringUtils.swapCase(CoveredStatus.COVERED.getCharacterRepresentation());
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Unknown character representation: " + toSearch);
-        CoveredStatus.forCharacterRepresentation(toSearch);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            CoveredStatus.forCharacterRepresentation(toSearch);
+        });
+        assertThat(e.getMessage()).isEqualTo("Unknown character representation: " + toSearch);
     }
 
     /**
@@ -50,8 +43,9 @@ public class CoveredStatusTest {
     @Test
     public void testForCharacterRepresentationUnknown() {
         final String toSearch = getClass().getCanonicalName();
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Unknown character representation: " + toSearch);
-        CoveredStatus.forCharacterRepresentation(toSearch);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            CoveredStatus.forCharacterRepresentation(toSearch);
+        });
+        assertThat(e.getMessage()).isEqualTo("Unknown character representation: " + toSearch);
     }
 }

@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.record;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
@@ -24,9 +25,10 @@ public class FixedLengthStructureListTest extends AbstractBeanUnitTest<FixedLeng
      */
     @Test
     public void testConstructNegativeListSize() {
-        expect(IllegalArgumentException.class);
-        expect("List size cannot be negative: " + Integer.toBinaryString(-1));
-        new FixedLengthStructureList(name, 1, -1);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new FixedLengthStructureList(name, 1, -1);
+        });
+        assertThat(e.getMessage()).isEqualTo("List size cannot be negative: " + Integer.toBinaryString(-1));
     }
 
     /**

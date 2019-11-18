@@ -1,12 +1,11 @@
 package com.cerner.ccl.parser.text.subroutine;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import com.cerner.ccl.parser.data.DataType;
 import com.cerner.ccl.parser.data.SimpleCharacterDataTyped;
@@ -23,11 +22,6 @@ import com.cerner.ccl.parser.exception.InvalidSubroutineException;
  */
 
 public class SubroutineDeclarationParserTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
     private final SubroutineDeclarationParser parser = new SubroutineDeclarationParser();
 
     /**
@@ -117,9 +111,10 @@ public class SubroutineDeclarationParserTest {
      */
     @Test
     public void testParseMissingArgumentEquals() {
-        expected.expect(InvalidSubroutineException.class);
-        expected.expectMessage("Invalid argument definition: birth_dt_tm dq8");
-        parser.parse("declare no_equals(person_id = f8,birth_dt_tm dq8) = null");
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            parser.parse("declare no_equals(person_id = f8,birth_dt_tm dq8) = null");
+        });
+        assertThat(e.getMessage()).isEqualTo("Invalid argument definition: birth_dt_tm dq8");
     }
 
     /**
@@ -141,10 +136,12 @@ public class SubroutineDeclarationParserTest {
     @Test
     public void testParseNoDeclareKeyword() {
         final String subroutineDeclaration = "no_declare(person_id = f8)";
-        expected.expect(InvalidSubroutineException.class);
-        expected.expectMessage("SubroutineDeclarationParser.parse inovked with an invalid subroutine declaration: "
-                + subroutineDeclaration);
-        parser.parse(subroutineDeclaration);
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            parser.parse(subroutineDeclaration);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("SubroutineDeclarationParser.parse inovked with an invalid subroutine declaration: "
+                        + subroutineDeclaration);
     }
 
     /**
@@ -153,9 +150,11 @@ public class SubroutineDeclarationParserTest {
     @Test
     public void testParseNoOpenParenthesis() {
         final String subroutineDeclaration = "declare no_open_paren";
-        expected.expect(InvalidSubroutineException.class);
-        expected.expectMessage("No opening parenthesis found in subroutine declaration: " + subroutineDeclaration);
-        parser.parse(subroutineDeclaration);
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            parser.parse(subroutineDeclaration);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("No opening parenthesis found in subroutine declaration: " + subroutineDeclaration);
     }
 
     /**
@@ -164,9 +163,10 @@ public class SubroutineDeclarationParserTest {
     @Test
     public void testParseNoReturnType() {
         final String subroutineDeclaration = "declare no_return_type(null)";
-        expected.expect(InvalidSubroutineException.class);
-        expected.expectMessage("No return data type found within declaration: " + subroutineDeclaration);
-        parser.parse(subroutineDeclaration);
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            parser.parse(subroutineDeclaration);
+        });
+        assertThat(e.getMessage()).isEqualTo("No return data type found within declaration: " + subroutineDeclaration);
     }
 
     /**
@@ -185,9 +185,10 @@ public class SubroutineDeclarationParserTest {
      */
     @Test
     public void testParseNullDeclaration() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Subroutine declaration cannot be null.");
-        parser.parse(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            parser.parse(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Subroutine declaration cannot be null.");
     }
 
     /**
@@ -197,10 +198,12 @@ public class SubroutineDeclarationParserTest {
     @Test
     public void testParsePrecedingOpenParenthesis() {
         final String subroutineDeclaration = "(declare preceding_open_paren(person_id = f8)";
-        expected.expect(InvalidSubroutineException.class);
-        expected.expectMessage("SubroutineDeclarationParser.parse inovked with an invalid subroutine declaration: "
-                + subroutineDeclaration);
-        parser.parse(subroutineDeclaration);
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            parser.parse(subroutineDeclaration);
+        });
+        assertThat(e.getMessage())
+                .isEqualTo("SubroutineDeclarationParser.parse inovked with an invalid subroutine declaration: "
+                        + subroutineDeclaration);
     }
 
     /**

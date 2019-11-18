@@ -15,7 +15,7 @@ import com.cerner.ccl.analysis.data.Violation;
  *            The type of violation to be tested.
  */
 
-public abstract class AbstractViolationTest<T extends Violation> extends AbstractUnitTest {
+public abstract class AbstractViolationTest<T extends Violation> {
     private final Integer lineNumber = Integer.valueOf(23);
 
     /**

@@ -2,6 +2,7 @@ package com.cerner.ccl.j4ccl.impl.commands.util;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.assertions.MapAssert.entry;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -10,9 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import com.cerner.ccl.j4ccl.adders.arguments.Argument;
 import com.cerner.ccl.j4ccl.record.Record;
@@ -25,12 +24,6 @@ import com.cerner.ccl.j4ccl.record.Record;
  */
 
 public class ScriptExecutionBuilderTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private static final String SCRIPT_NAME = "script_name";
     private final ScriptExecutionBuilder builder = ScriptExecutionBuilder.getBuilder(SCRIPT_NAME);
 
@@ -52,9 +45,10 @@ public class ScriptExecutionBuilderTest {
      */
     @Test
     public void testAddWithReplaceBlankName() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Record name cannot be blank.");
-        builder.addWithReplace("  ", mock(Record.class));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            builder.addWithReplace("  ", mock(Record.class));
+        });
+        assertThat(e.getMessage()).isEqualTo("Record name cannot be blank.");
     }
 
     /**
@@ -62,9 +56,10 @@ public class ScriptExecutionBuilderTest {
      */
     @Test
     public void testAddWithReplaceNullName() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Record name cannot be null.");
-        builder.addWithReplace(null, mock(Record.class));
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            builder.addWithReplace(null, mock(Record.class));
+        });
+        assertThat(e.getMessage()).isEqualTo("Record name cannot be null.");
     }
 
     /**
@@ -72,9 +67,10 @@ public class ScriptExecutionBuilderTest {
      */
     @Test
     public void testAddWithReplaceNullRecord() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Record cannot be null.");
-        builder.addWithReplace("request", null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            builder.addWithReplace("request", null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Record cannot be null.");
     }
 
     /**
@@ -113,12 +109,13 @@ public class ScriptExecutionBuilderTest {
 
         // Validate the REPLACE commands
         final List<String> replaceCommands = commands.subList(1, 3);
-        if (replaceCommands.get(0).equals(requestFirst.get(0)))
+        if (replaceCommands.get(0).equals(requestFirst.get(0))) {
             assertThat(replaceCommands).isEqualTo(requestFirst);
-        else if (replaceCommands.get(0).equals(replyFirst.get(0)))
+        } else if (replaceCommands.get(0).equals(replyFirst.get(0))) {
             assertThat(replaceCommands).isEqualTo(replyFirst);
-        else
+        } else {
             fail("First line of replace commands does not match any known value: " + replaceCommands.get(0));
+        }
     }
 
     /**
@@ -190,12 +187,13 @@ public class ScriptExecutionBuilderTest {
 
         // Validate the REPLACE commands
         final List<String> replaceCommands = commands.subList(3, 5);
-        if (replaceCommands.get(0).equals(requestFirst.get(0)))
+        if (replaceCommands.get(0).equals(requestFirst.get(0))) {
             assertThat(replaceCommands).isEqualTo(requestFirst);
-        else if (replaceCommands.get(0).equals(replyFirst.get(0)))
+        } else if (replaceCommands.get(0).equals(replyFirst.get(0))) {
             assertThat(replaceCommands).isEqualTo(replyFirst);
-        else
+        } else {
             fail("First line of replace commands does not match any known value: " + replaceCommands.get(0));
+        }
     }
 
     /**
@@ -212,9 +210,10 @@ public class ScriptExecutionBuilderTest {
      */
     @Test
     public void testGetBuilderNullScriptName() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Script name cannot be null.");
-        ScriptExecutionBuilder.getBuilder(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            ScriptExecutionBuilder.getBuilder(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be null.");
     }
 
     /**
@@ -222,9 +221,10 @@ public class ScriptExecutionBuilderTest {
      */
     @Test
     public void testGetBuilderBlankScriptName() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Script name cannot be blank.");
-        ScriptExecutionBuilder.getBuilder(" ");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            ScriptExecutionBuilder.getBuilder(" ");
+        });
+        assertThat(e.getMessage()).isEqualTo("Script name cannot be blank.");
     }
 
     /**
@@ -232,8 +232,9 @@ public class ScriptExecutionBuilderTest {
      */
     @Test
     public void testWithArgumentsNullList() {
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Arguments cannot be null.");
-        builder.withArguments(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            builder.withArguments(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Arguments cannot be null.");
     }
 }

@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.subroutine;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,9 +10,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * Unit tests for {@link SubroutineDefinition}.
@@ -22,11 +21,6 @@ import org.junit.rules.ExpectedException;
 
 @SuppressWarnings("unused")
 public class SubroutineDefinitionTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
     private final String subroutineName = "a name";
     private final List<String> argumentNames = Arrays.asList("a", "b", "c");
     private SubroutineDefinition definition;
@@ -44,9 +38,10 @@ public class SubroutineDefinitionTest {
      */
     @Test
     public void testConstructNullArgumentNames() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Argument names cannot be null.");
-        new SubroutineDefinition(subroutineName, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SubroutineDefinition(subroutineName, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Argument names cannot be null.");
     }
 
     /**
@@ -54,9 +49,10 @@ public class SubroutineDefinitionTest {
      */
     @Test
     public void testConstructNullName() {
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Name cannot be null.");
-        new SubroutineDefinition(null, argumentNames);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SubroutineDefinition(null, argumentNames);
+        });
+        assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
     /**

@@ -14,7 +14,7 @@ import org.junit.Test;
  *            The type of bean to be tested.
  */
 
-public abstract class AbstractBeanUnitTest<T> extends AbstractUnitTest {
+public abstract class AbstractBeanUnitTest<T> {
     /**
      * A bean should be equal to another bean of the same properties.
      */

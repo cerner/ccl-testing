@@ -189,12 +189,11 @@ public class CDocReportMojo extends AbstractMavenReport {
 
         final List<Documentation> docs = toDocumentation(scriptFiles);
         if (docs.size() == 1) {
-            final Writer indexWriter = getIndexWriter();
-            try {
+            try (final Writer indexWriter = getIndexWriter()) {
                 writeObjectDocumentation(cssDirectory, docs.get(0), indexWriter,
                         new Navigation("Back to Maven Site", "./project-reports.html"));
-            } finally {
-                IOUtils.closeQuietly(indexWriter);
+            } catch (IOException e) {
+                getLog().info(e.getMessage());
             }
         } else {
             copyCss(cssDirectory, "script-doc-summary.css");
@@ -230,17 +229,13 @@ public class CDocReportMojo extends AbstractMavenReport {
      */
     void copyCss(final File cssDirectory, final String cssFilename) throws MavenReportException {
         final File cssFile = new File(cssDirectory, cssFilename);
-        final InputStream scriptCssStream = getClass().getResourceAsStream("/css/" + cssFilename);
-        Writer scriptCssOutput = null;
-        try {
-            scriptCssOutput = new OutputStreamWriter(new FileOutputStream(cssFile),
-                    Charset.forName(getOutputEncoding()));
+
+        try (final InputStream scriptCssStream = getClass().getResourceAsStream("/css/" + cssFilename);
+                Writer scriptCssOutput = new OutputStreamWriter(new FileOutputStream(cssFile),
+                        Charset.forName(getOutputEncoding()));) {
             IOUtils.copy(scriptCssStream, scriptCssOutput, "utf-8");
         } catch (final IOException e) {
             throw new MavenReportException("Failed to copy summary CSS file: " + cssFilename, e);
-        } finally {
-            IOUtils.closeQuietly(scriptCssOutput);
-            IOUtils.closeQuietly(scriptCssStream);
         }
     }
 
@@ -414,12 +409,10 @@ public class CDocReportMojo extends AbstractMavenReport {
     void writeDocumentationSummary(final File cssDirectory, final List<Documentation> documentation)
             throws MavenReportException {
         final SummaryGenerator generator = new SummaryGenerator();
-        Writer destination = null;
-        try {
-            destination = getIndexWriter();
+        try (Writer destination = getIndexWriter()) {
             generator.generate(getProject(), documentation, cssDirectory, destination);
-        } finally {
-            IOUtils.closeQuietly(destination);
+        } catch (IOException e) {
+            getLog().error(e.getMessage());
         }
     }
 
@@ -442,11 +435,10 @@ public class CDocReportMojo extends AbstractMavenReport {
          * Parse the scripts and generate the output
          */
         for (final Documentation doc : documentation) {
-            final Writer writer = getWriter(doc);
-            try {
+            try (final Writer writer = getWriter(doc)) {
                 writeObjectDocumentation(cssDirectory, doc, writer, backNavigation);
-            } finally {
-                IOUtils.closeQuietly(writer);
+            } catch (IOException e) {
+                getLog().error(e.getMessage());
             }
         }
     }

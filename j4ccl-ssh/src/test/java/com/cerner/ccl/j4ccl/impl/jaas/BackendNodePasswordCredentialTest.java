@@ -1,11 +1,10 @@
 package com.cerner.ccl.j4ccl.impl.jaas;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.SerializationUtils;
 import org.junit.Test;
-
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 
 /**
  * Unit tests for {@link BackendNodePasswordCredential}.
@@ -14,7 +13,7 @@ import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
  *
  */
 
-public class BackendNodePasswordCredentialTest extends AbstractUnitTest {
+public class BackendNodePasswordCredentialTest {
     private final String password = "pass.word";
     private final BackendNodePasswordCredential credential = new BackendNodePasswordCredential(password);
 
@@ -24,9 +23,10 @@ public class BackendNodePasswordCredentialTest extends AbstractUnitTest {
     @Test
     @SuppressWarnings("unused")
     public void testConstructNullPassword() {
-        expect(NullPointerException.class);
-        expect("Password cannot be null.");
-        new BackendNodePasswordCredential(null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            new BackendNodePasswordCredential(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Password cannot be null.");
     }
 
     /**

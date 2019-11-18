@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.mojo.exclusions.filters;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -30,9 +31,10 @@ public class SubroutineNameFilterTest extends AbstractViolationFilterUnitTest<Su
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullSubroutineName() {
-        expect(IllegalArgumentException.class);
-        expect("Subroutine name cannot be null.");
-        new SubroutineNameFilter(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SubroutineNameFilter(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Subroutine name cannot be null.");
     }
 
     /**

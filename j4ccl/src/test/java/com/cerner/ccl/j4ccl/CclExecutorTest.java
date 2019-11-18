@@ -1,6 +1,7 @@
 package com.cerner.ccl.j4ccl;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -8,9 +9,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 import java.util.Enumeration;
 
 import org.apache.commons.discovery.tools.Service;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -25,12 +24,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = Service.class)
 public class CclExecutorTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     /**
      * Test the retrieval of service providers.
      */
@@ -61,8 +54,9 @@ public class CclExecutorTest {
         mockStatic(Service.class);
         when(Service.providers(CclExecutor.class)).thenReturn(executorEnum);
 
-        expected.expect(IllegalStateException.class);
-        expected.expectMessage("No implementations found of: " + CclExecutor.class.getName());
-        CclExecutor.getExecutor();
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> {
+            CclExecutor.getExecutor();
+        });
+        assertThat(e.getMessage()).isEqualTo("No implementations found of: " + CclExecutor.class.getName());
     }
 }

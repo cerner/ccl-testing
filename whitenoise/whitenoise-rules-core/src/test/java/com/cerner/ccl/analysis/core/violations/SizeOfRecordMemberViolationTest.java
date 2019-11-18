@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.core.violations;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -22,8 +23,10 @@ public class SizeOfRecordMemberViolationTest extends AbstractViolationTest<SizeO
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullOption() {
-        expect(IllegalArgumentException.class, "Option cannot be null.");
-        new SizeOfRecordMemberViolation(null, null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new SizeOfRecordMemberViolation(null, null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Option cannot be null.");
     }
 
     /**
@@ -39,7 +42,7 @@ public class SizeOfRecordMemberViolationTest extends AbstractViolationTest<SizeO
     }
 
     @Override
-    protected SizeOfRecordMemberViolation createViolation(Integer lineNumber) {
+    protected SizeOfRecordMemberViolation createViolation(final Integer lineNumber) {
         return new SizeOfRecordMemberViolation(option, lineNumber);
     }
 

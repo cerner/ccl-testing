@@ -1,5 +1,7 @@
 package com.cerner.ccl.j4ccl.impl.commands;
 
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -19,7 +21,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.cerner.ccl.j4ccl.exception.CclCommandException;
-import com.cerner.ccl.j4ccl.internal.AbstractUnitTest;
 import com.cerner.ccl.j4ccl.ssh.CclCommandTerminal;
 import com.cerner.ccl.j4ccl.ssh.JSchSshTerminal;
 import com.cerner.ccl.j4ccl.ssh.exception.SshException;
@@ -37,7 +38,7 @@ import etm.core.monitor.EtmPoint;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { CclCommandException.class, DropScriptCommand.class, JSchSshTerminal.class,
         PointFactory.class })
-public class DropScriptCommandTest extends AbstractUnitTest {
+public class DropScriptCommandTest {
     private final String scriptName = "script.name";
     private DropScriptCommand command;
 
@@ -55,9 +56,10 @@ public class DropScriptCommandTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructBlankScriptName() {
-        expect(IllegalArgumentException.class);
-        expect("Invalid script name; given script name was []");
-        new DropScriptCommand("");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new DropScriptCommand("");
+        });
+        assertThat(e.getMessage()).isEqualTo("Invalid script name; given script name was []");
     }
 
     /**
@@ -66,9 +68,10 @@ public class DropScriptCommandTest extends AbstractUnitTest {
     @SuppressWarnings("unused")
     @Test
     public void testConstructNullScriptName() {
-        expect(IllegalArgumentException.class);
-        expect("Invalid script name; given script name was [<null>]");
-        new DropScriptCommand(null);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new DropScriptCommand(null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Invalid script name; given script name was [<null>]");
     }
 
     /**
@@ -110,8 +113,9 @@ public class DropScriptCommandTest extends AbstractUnitTest {
         doThrow(new SshException("uh-oh!")).when(cclTerminal).executeCommands(ArgumentMatchers.<JSchSshTerminal> any(),
                 ArgumentMatchers.<List<String>> any(), anyBoolean());
 
-        expect(CclCommandException.class);
-        expect("Dropping script " + scriptName + " failed.");
-        command.run(cclTerminal);
+        CclCommandException e = assertThrows(CclCommandException.class, () -> {
+            command.run(cclTerminal);
+        });
+        assertThat(e.getMessage()).isEqualTo("Dropping script " + scriptName + " failed.");
     }
 }

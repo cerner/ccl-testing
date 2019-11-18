@@ -1,6 +1,7 @@
 package com.cerner.ccl.parser.text.smoosh;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,9 +47,10 @@ public class InlineSubroutineDeclarationSmoosherTest
     @Test
     public void testSmooshNoClose() {
         final List<String> text = Arrays.asList("subroutine (incomplete_sub (arg1=i4, arg2=i4)=", "null");
-        expect(InvalidSubroutineException.class);
-        expect("Unable to find close to subroutine definition: " + text.get(0));
-        smoosher.smoosh(0, text);
+        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
+            smoosher.smoosh(0, text);
+        });
+        assertThat(e.getMessage()).startsWith("Unable to find close to subroutine definition: " + text.get(0));
     }
 
     /**

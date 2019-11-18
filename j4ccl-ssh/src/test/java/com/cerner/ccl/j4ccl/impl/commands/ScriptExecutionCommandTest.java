@@ -2,7 +2,8 @@ package com.cerner.ccl.j4ccl.impl.commands;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.assertions.MapAssert.entry;
-import static org.mockito.Matchers.eq;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,9 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -47,12 +46,6 @@ import etm.core.monitor.EtmPoint;
 @PrepareForTest(value = { JSchSshTerminal.class, RecordDataExtractor.class, ScriptExecutionBuilder.class,
         ScriptExecutionCommand.class, PointFactory.class })
 public class ScriptExecutionCommandTest {
-    /**
-     * A {@link Rule} used to test for thrown exceptions.
-     */
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
-
     private final String scriptName = "script_name";
     @Mock
     private List<Argument> arguments;
@@ -92,9 +85,10 @@ public class ScriptExecutionCommandTest {
     @Test
     public void testAddWithReplaceBlankName() {
         final ScriptExecutionCommand command = new ScriptExecutionCommand(scriptName, arguments, false);
-        expected.expect(IllegalArgumentException.class);
-        expected.expectMessage("Record name cannot be blank.");
-        command.addWithReplace("  ", mock(Record.class));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            command.addWithReplace("  ", mock(Record.class));
+        });
+        assertThat(e.getMessage()).isEqualTo("Record name cannot be blank.");
     }
 
     /**
@@ -103,9 +97,10 @@ public class ScriptExecutionCommandTest {
     @Test
     public void testAddWithReplaceNullName() {
         final ScriptExecutionCommand command = new ScriptExecutionCommand(scriptName, arguments, false);
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Record name cannot be null.");
-        command.addWithReplace(null, mock(Record.class));
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            command.addWithReplace(null, mock(Record.class));
+        });
+        assertThat(e.getMessage()).isEqualTo("Record name cannot be null.");
     }
 
     /**
@@ -114,9 +109,10 @@ public class ScriptExecutionCommandTest {
     @Test
     public void testAddWithReplaceNullRecord() {
         final ScriptExecutionCommand command = new ScriptExecutionCommand(scriptName, arguments, false);
-        expected.expect(NullPointerException.class);
-        expected.expectMessage("Record cannot be null.");
-        command.addWithReplace("reply", null);
+        NullPointerException e = assertThrows(NullPointerException.class, () -> {
+            command.addWithReplace("reply", null);
+        });
+        assertThat(e.getMessage()).isEqualTo("Record cannot be null.");
     }
 
     /**

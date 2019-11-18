@@ -1,6 +1,7 @@
 package com.cerner.ccl.analysis.core.violations.internal;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -9,9 +10,9 @@ import com.cerner.ccl.analysis.data.RecordStructureViolation;
 
 /**
  * A skeleton definition of a test for a {@link RecordStructureViolation} implementation.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  * @param <T>
  *            The {@link RecordStructureViolation} implementation to be tested.
  */
@@ -26,8 +27,10 @@ public abstract class AbstractRecordStructureViolationTest<T extends RecordStruc
      */
     @Test
     public void testConstructNullRecordStructureName() {
-        expect(IllegalArgumentException.class, "Record structure name cannot be null.");
-        createViolation(null, lineNumber);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            createViolation(null, lineNumber);
+        });
+        assertThat(e.getMessage()).isEqualTo("Record structure name cannot be null.");
     }
 
     /**
@@ -62,13 +65,13 @@ public abstract class AbstractRecordStructureViolationTest<T extends RecordStruc
     }
 
     @Override
-    protected T createViolation(Integer lineNumber) {
+    protected T createViolation(final Integer lineNumber) {
         return createViolation(recordStructureName, lineNumber);
     }
 
     /**
      * Create a violation.
-     * 
+     *
      * @param recordStructureName
      *            The name of the record structure.
      * @param lineNumber
