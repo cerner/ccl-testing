@@ -58,7 +58,8 @@ prevents the identification of undeclared variables. Here are some known example
 
 Code Coverage Problems
 ===
-To see code coverage, [specifyDebugCcl](ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md#specifyDebugCcl) must be false for CCL versions prior to 8.13.0.
+To see code coverage, [specifyDebugCcl](ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md#specifyDebugCcl) must be false for CCL versions prior to 8.13.0 and must not be
+false for later versions.
 
 Legacy Upgrades
 ===
