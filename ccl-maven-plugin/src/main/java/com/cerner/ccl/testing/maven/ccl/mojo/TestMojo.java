@@ -258,7 +258,6 @@ public class TestMojo extends BaseCclMojo {
                 getLog().debug("Executing " + CCL_UNIT_PROGRAM + " on " + host + " (" + environment + ")");
             }
 
-            // TODO: Add integration tests that fail if not done this way.
             Subject subject = getSubject();
             final CclExecutor cclExecutor = createCclExecutor();
             cclExecutor.addScriptExecution(CCL_UNIT_PROGRAM).withReplace("cclutRequest", request)

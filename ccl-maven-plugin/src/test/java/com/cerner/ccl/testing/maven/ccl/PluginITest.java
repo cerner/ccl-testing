@@ -177,7 +177,7 @@ public class PluginITest {
     }
 
     /**
-     * If the {@code ccl-skipEnvset} property is set, then there should be no envset command issued.
+     * If the {@code ccl-skipProcessing} is set, then all processing should be skipped without error.
      *
      * @throws Exception
      *             If any errors occur during the test run.
@@ -191,6 +191,95 @@ public class PluginITest {
         final InvocationResult result = new DefaultInvoker().execute(request);
         assertThat(result.getExecutionException()).isNull();
         assertThat(result.getExitCode()).isZero();
+        assertThat(containsText(logFile, "[INFO] Skipping process-resources goal")).isTrue();
+        assertThat(containsText(logFile, "[INFO] Skipping compile goal")).isTrue();
+        assertThat(containsText(logFile, "[INFO] Skipping process-test-resources goal")).isTrue();
+        assertThat(containsText(logFile, "[INFO] Skipping test-compile goal")).isTrue();
+    }
+
+    /**
+     * If the {@code ccl-skipProcessResources} is set, then process resources should be skipped without error.
+     *
+     * @throws Exception
+     *             If any errors occur during the test run.
+     */
+    @Test
+    public void testSkipProcessResources() throws Exception {
+        final File logFile = getLogFile();
+        final InvocationRequest request = getInvocationRequest("successful-build", testGoal, logFile);
+
+        request.getProperties().put("ccl-skipProcessResources", "true");
+        final InvocationResult result = new DefaultInvoker().execute(request);
+        assertThat(result.getExecutionException()).isNull();
+        assertThat(result.getExitCode()).isZero();
+        assertThat(containsText(logFile, "[INFO] Skipping process-resources goal")).isTrue();
+        assertThat(containsText(logFile, "[INFO] Skipping compile goal")).isFalse();
+        assertThat(containsText(logFile, "[INFO] Skipping process-test-resources goal")).isFalse();
+        assertThat(containsText(logFile, "[INFO] Skipping test-compile goal")).isFalse();
+    }
+
+    /**
+     * If the {@code ccl-skipCompile} is set, then the compile should be skipped without error.
+     *
+     * @throws Exception
+     *             If any errors occur during the test run.
+     */
+    @Test
+    public void testSkipCompile() throws Exception {
+        final File logFile = getLogFile();
+        final InvocationRequest request = getInvocationRequest("successful-build", testGoal, logFile);
+
+        request.getProperties().put("ccl-skipCompile", "true");
+        final InvocationResult result = new DefaultInvoker().execute(request);
+        assertThat(result.getExecutionException()).isNull();
+        assertThat(result.getExitCode()).isZero();
+        assertThat(containsText(logFile, "[INFO] Skipping process-resources goal")).isFalse();
+        assertThat(containsText(logFile, "[INFO] Skipping compile goal")).isTrue();
+        assertThat(containsText(logFile, "[INFO] Skipping process-test-resources goal")).isFalse();
+        assertThat(containsText(logFile, "[INFO] Skipping test-compile goal")).isFalse();
+    }
+
+    /**
+     * If the {@code ccl-skipProcessTestResources} is set, then processing of test resources should be skipped without
+     * error.
+     *
+     * @throws Exception
+     *             If any errors occur during the test run.
+     */
+    @Test
+    public void testSkipProcessTestResources() throws Exception {
+        final File logFile = getLogFile();
+        final InvocationRequest request = getInvocationRequest("successful-build", testGoal, logFile);
+
+        request.getProperties().put("ccl-skipProcessTestResources", "true");
+        final InvocationResult result = new DefaultInvoker().execute(request);
+        assertThat(result.getExecutionException()).isNull();
+        assertThat(result.getExitCode()).isZero();
+        assertThat(containsText(logFile, "[INFO] Skipping process-resources goal")).isFalse();
+        assertThat(containsText(logFile, "[INFO] Skipping compile goal")).isFalse();
+        assertThat(containsText(logFile, "[INFO] Skipping process-test-resources goal")).isTrue();
+        assertThat(containsText(logFile, "[INFO] Skipping test-compile goal")).isFalse();
+    }
+
+    /**
+     * If the {@code ccl-skipTestComple} is set, then test compilation should be skipped without error.
+     *
+     * @throws Exception
+     *             If any errors occur during the test run.
+     */
+    @Test
+    public void testSkipTestCompile() throws Exception {
+        final File logFile = getLogFile();
+        final InvocationRequest request = getInvocationRequest("successful-build", testGoal, logFile);
+
+        request.getProperties().put("ccl-skipTestCompile", "true");
+        final InvocationResult result = new DefaultInvoker().execute(request);
+        assertThat(result.getExecutionException()).isNull();
+        assertThat(result.getExitCode()).isZero();
+        assertThat(containsText(logFile, "[INFO] Skipping process-resources goal")).isFalse();
+        assertThat(containsText(logFile, "[INFO] Skipping compile goal")).isFalse();
+        assertThat(containsText(logFile, "[INFO] Skipping process-test-resources goal")).isFalse();
+        assertThat(containsText(logFile, "[INFO] Skipping test-compile goal")).isTrue();
     }
 
     /**
