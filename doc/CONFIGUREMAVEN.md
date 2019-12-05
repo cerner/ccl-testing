@@ -1,4 +1,10 @@
-# Configuring maven for CCL Unit
+# Configuring Maven for CCL Unit
+
+## Contents
+[Maven Settings](#maven-settings)  
+[Password Security](#password-security)  
+
+## Maven Settings
 
 Apache Maven is a software build system. Refer to the [Apache Maven][apache-maven] website to learn more about it and specifically
 the [downloading maven] instructions if you do not already have it installed.
@@ -22,7 +28,8 @@ settings.xml. If you do not already have a user-level settings.xml file, there i
 Otherwise just merge the new values into your existing file.
 
 <b>SSH keys</b> can be used to access a backend host which supports it (since ccl-maven-plugin version 3.3 and whitenoise-maven-plugin version 2.6).
-The ccl-keyFile property should only be supplied if using SSH key authentication. In that case, the public key file must reside in the same directory 
+The ccl-keyFile property should only be supplied if using SSH key authentication. In that case, the value should be the full path to the private key
+file using `/` as the path separator and the public key file must reside in the same directory 
 and have the same name as the private key file but with a .pub extension. The private key can be passphrase protected. 
 The configured password for the backend host (via hostCredentialsId or hostPassword) will be used for the passphrase. 
 See [linode.com][linode] or [ssh.com] for an explanation of SSH public/private keys and setting them up. 
@@ -46,7 +53,7 @@ See [linode.com][linode] or [ssh.com] for an explanation of SSH public/private k
   </servers>
   <profiles>
     <profile>
-        <id>domain-name-+-node-name</id>
+        <id>the-profile-id</id>
         <properties>
             <ccl-host>node-name</ccl-host>
             <ccl-environment>environment-name</ccl-environment>
@@ -63,7 +70,7 @@ See [linode.com][linode] or [ssh.com] for an explanation of SSH public/private k
 
 The ids can be anything, but it is convenient to use the HNAM domain name or the HNAM domain together with the backend node name for the profile id, 
 the HNAM domain name for the front-end-server-id and the back-end node name for the back-end-server-id. 
-A single settings.xml can house the configuration for multiple nodes and domains. A `-P<profile-id>` command argument will decide which get used.
+A single settings.xml can house the configuration for multiple nodes and domains. Providing the command argument `-P<profile-id>` dictates which profile gets used.
 
 Specifically, `mvn <maven command> -Psome-profile-id` will perform `<maven command>` using the values defined for the profile with the id `some-profile-id`.
 
