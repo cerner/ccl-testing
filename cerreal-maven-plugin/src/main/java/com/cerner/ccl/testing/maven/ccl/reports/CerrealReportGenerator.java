@@ -445,7 +445,8 @@ public class CerrealReportGenerator {
         while (maskTextResponse.recheckLine() || maskTextResponse.continueLine()) {
             if (maskTextResponse.continueLine()) {
                 int validLength = maskTextResponse.getResponse().endsWith("\\")
-                        ? maskTextResponse.getResponse().length() - 1 : maskTextResponse.getResponse().length();
+                        ? maskTextResponse.getResponse().length() - 1
+                        : maskTextResponse.getResponse().length();
                 assertStatementMasked = maskTextResponse.getResponse().substring(0, validLength)
                         + testCase.getSourceByLineNumber(++endLineNumber);
             } else {
@@ -548,7 +549,8 @@ public class CerrealReportGenerator {
             logger.trace("masking the response: {}", response);
             if (maskTextResponse.continueLine()) {
                 int validLength = maskTextResponse.getResponse().endsWith("\\")
-                        ? maskTextResponse.getResponse().length() - 1 : maskTextResponse.getResponse().length();
+                        ? maskTextResponse.getResponse().length() - 1
+                        : maskTextResponse.getResponse().length();
                 response = maskTextResponse.getResponse().substring(0, validLength)
                         + testCase.getSourceByLineNumber(++finalLineNumber);
             } else {
@@ -673,8 +675,9 @@ public class CerrealReportGenerator {
      *            A {@link TestResult} representing the result of the test.
      */
     private void resultIcon(final Sink sink, final String classname, final TestResult result) {
-        String imageName = result == TestResult.PASSED ? "images/icon_success_sml.gif" : result == TestResult.ERRORED
-                ? "images/icon_error_sml.gif" : result == TestResult.FAILED ? "images/icon_warning_sml.gif" : "";
+        String imageName = result == TestResult.PASSED ? "images/icon_success_sml.gif"
+                : result == TestResult.ERRORED ? "images/icon_error_sml.gif"
+                        : result == TestResult.FAILED ? "images/icon_warning_sml.gif" : "";
         SinkEventAttributeSet attrs = new SinkEventAttributeSet();
         attrs.addAttribute(SinkEventAttributes.ALT, "");
         attrs.addAttribute(SinkEventAttributes.CLASS, classname);

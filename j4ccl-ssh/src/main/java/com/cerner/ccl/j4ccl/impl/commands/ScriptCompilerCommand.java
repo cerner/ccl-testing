@@ -91,7 +91,8 @@ public class ScriptCompilerCommand extends AbstractCclCommand {
 
             final String listingOutputFilename = createListingOutputFilename(objectName);
             final File finalListingDestination = localListingDestination == null
-                    ? createTemporaryFile(listingOutputFilename) : localListingDestination;
+                    ? createTemporaryFile(listingOutputFilename)
+                    : localListingDestination;
 
             final Environment environment = Environment.getEnvironment();
             final URI listingTargetLocation = URI.create(environment.getCerTemp() + "/" + listingOutputFilename);

@@ -32,6 +32,7 @@ import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePasswordCredential;
 import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePrincipal;
 import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPasswordCredential;
 import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPrincipal;
+import com.cerner.ccl.j4ccl.impl.jaas.PrivateKeyPrincipal;
 import com.cerner.ccl.testing.maven.ccl.util.CclLogFileOutputStream;
 import com.cerner.ccl.testing.maven.ccl.util.DelegatingOutputStream;
 import com.cerner.ccl.testing.maven.ccl.util.LogOutputStreamProxy;
@@ -96,6 +97,16 @@ public abstract class BaseCclMojo extends AbstractMojo {
      */
     @Parameter(property = "ccl-hostCredentialsId")
     protected String hostCredentialsId;
+
+    /**
+     * The full path to an ssh private key file to use for authenticating to the remote host using "/" as the separator.
+     * The corresponding public key file must reside in the same directory and have the same name with a .pub extension.
+     * The configured host password will be used as the passphrase.
+     *
+     * @since 3.3
+     */
+    @Parameter(property = "ccl-keyFile")
+    protected String keyFile;
 
     /**
      * The username for contacting the host.
@@ -305,6 +316,9 @@ public abstract class BaseCclMojo extends AbstractMojo {
             } catch (final SecDispatcherException e) {
                 throw new MojoExecutionException("Failed to decrypt user password.", e);
             }
+        }
+        if (!isEmpty(keyFile)) {
+            subject.getPrincipals().add(new PrivateKeyPrincipal(keyFile));
         }
     }
 

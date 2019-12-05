@@ -52,6 +52,7 @@ import com.cerner.ccl.j4ccl.CclExecutor;
 import com.cerner.ccl.j4ccl.TerminalProperties;
 import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePasswordCredential;
 import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePrincipal;
+import com.cerner.ccl.j4ccl.impl.jaas.PrivateKeyPrincipal;
 
 /**
  * A mojo to generate static analysis reports on CCL code.
@@ -122,6 +123,16 @@ public class WhitenoiseMojo extends AbstractMavenReport {
      */
     @Parameter(property = "ccl-hostCredentialsId")
     protected String hostCredentialsId;
+
+    /**
+     * The full path to an ssh private key file to use for authenticating to the remote host using "/" as the separator.
+     * The corresponding public key file must reside in the same directory and have the same name with a .pub extension.
+     * The configured host password will be used as the passphrase.
+     *
+     * @since 2.6
+     */
+    @Parameter(property = "ccl-keyFile")
+    protected String keyFile;
 
     /**
      * A {@link SecDispatcher} used to decrypt encrypted passwords supplied via a {@code &lt;server /&gt;} setting in
@@ -571,6 +582,9 @@ public class WhitenoiseMojo extends AbstractMavenReport {
             } catch (final SecDispatcherException e) {
                 throw new MavenReportException("Failed to decrypt user password.", e);
             }
+        }
+        if (!isEmpty(keyFile)) {
+            subject.getPrincipals().add(new PrivateKeyPrincipal(keyFile));
         }
         return subject;
     }

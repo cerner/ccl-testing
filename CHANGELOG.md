@@ -5,6 +5,7 @@
 * Fix [#23](https://github.com/cerner/ccl-testing/issues/23) skip processing configurations not working.
 
 ### Enhancements
+* Add support for SSH public key authentication.
 * Allow passed test cases, tests and/or asserts to be hidden in the cerreal report.
 
 ## 2019-02-18

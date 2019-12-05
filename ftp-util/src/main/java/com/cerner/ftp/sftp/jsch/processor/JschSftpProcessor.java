@@ -43,10 +43,11 @@ public abstract class JschSftpProcessor {
      *             If the given product is not a {@link KeyCryptoProduct} or {@link UserPassProduct} object.
      */
     public static JschSftpProcessor getProcessor(final FtpProduct product) {
-        if (product instanceof UserPassProduct)
-            return new UserPassSftpProcessor((UserPassProduct) product, ConnectionPoolFactory.getInstance());
-        else if (product instanceof KeyCryptoProduct)
+        if (product instanceof KeyCryptoProduct) {
             return new KeyCryptoSftpProcessor((KeyCryptoProduct) product, ConnectionPoolFactory.getInstance());
+        } else if (product instanceof UserPassProduct) {
+            return new UserPassSftpProcessor((UserPassProduct) product, ConnectionPoolFactory.getInstance());
+        }
 
         throw new IllegalArgumentException(
                 "Invalid product type: " + (product == null ? "null" : product.getClass().getName()));
@@ -123,8 +124,9 @@ public abstract class JschSftpProcessor {
     private void process(final Collection<? extends FileTransferProcessor> queue) {
         final EtmPoint point = MONITOR.createPoint(getClass().getName() + ": process(Collection)");
         try {
-            if (queue.isEmpty())
+            if (queue.isEmpty()) {
                 return;
+            }
 
             ChannelSftp channel = null;
             Connection conn = null;
@@ -134,17 +136,20 @@ public abstract class JschSftpProcessor {
                 channel = conn.getSFtp();
                 channel.connect();
 
-                for (final FileTransferProcessor request : queue)
+                for (final FileTransferProcessor request : queue) {
                     request.run(channel);
+                }
 
             } catch (final JSchException e) {
                 throw new ConnectionException("Failed to establish SSH connection.", e);
             } finally {
-                if (channel != null)
+                if (channel != null) {
                     channel.disconnect();
+                }
 
-                if (conn != null)
+                if (conn != null) {
                     conn.close();
+                }
             }
         } finally {
             point.collect();

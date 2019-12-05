@@ -102,9 +102,11 @@ public class VariableDeclaredButNotUsedRules extends TimedDelegate {
             // namespace
             // and not(ancestor::IS.[NAME[@text='THE_NAME' and not(preceding-sibling::*)]]) //only for PUBLIC namespace
             // ]
-            String nakedCheck = namespace.equals("PUBLIC") ? " and not(ancestor::Z_SET.[NAME[@text='" + simpleName
-                    + "' and not(preceding-sibling::*)]]) and not(ancestor::IS.[NAME[@text='" + simpleName
-                    + "' and not(preceding-sibling::*)]])" : "";
+            String nakedCheck = namespace.equals("PUBLIC")
+                    ? " and not(ancestor::Z_SET.[NAME[@text='" + simpleName
+                            + "' and not(preceding-sibling::*)]]) and not(ancestor::IS.[NAME[@text='" + simpleName
+                            + "' and not(preceding-sibling::*)]])"
+                    : "";
             usages.addAll(selectNodes("//NAME[@text='" + simpleName
                     + "' and parent::NAMESPACE.[NAME[position()=1 and @text='" + namespace
                     + "'] and NAME[position()=2 and @text='" + simpleName

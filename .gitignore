@@ -22,3 +22,4 @@ secring.gpg
 sun-jaxb.episode
 jaxb
 dependency-reduced-pom.xml
+mvn.log
