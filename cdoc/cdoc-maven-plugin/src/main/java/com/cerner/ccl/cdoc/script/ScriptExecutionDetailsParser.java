@@ -42,8 +42,9 @@ public class ScriptExecutionDetailsParser {
 
                 final int executeEndPos = normalized.indexOf("execute ") + "execute ".length();
                 final int nextSpacePos = normalized.indexOf(' ', executeEndPos + 1);
-                final String scriptName = StringUtils.trim((String) (nextSpacePos < 0
-                        ? normalized.substring(executeEndPos) : normalized.subSequence(executeEndPos, nextSpacePos)))
+                final String scriptName = StringUtils
+                        .trim((String) (nextSpacePos < 0 ? normalized.substring(executeEndPos)
+                                : normalized.subSequence(executeEndPos, nextSpacePos)))
                         .toLowerCase(Locale.US);
                 executedScripts.add(scriptName);
             }

@@ -218,6 +218,14 @@ See [maven version range] for more details.
 - (string) Specifies the target HNAM domain.
  - optional (see [caveat]).
  
+## keyFile
+- (string) The full path to an SSH private key file using "/" for the path delimiter.
+ - since 3.3
+ - optional
+ - If specified, SSH private key authentication will be used to access the remote host.
+ - The configured host password (via hostCredentialsId or hostPassword) will be used as a passphrase.
+ - The public key file must reside in the same directory and have the same name with a .pub extension.
+
 ## hostCredentialsId
 - (string) Specifies a server id defining credentials for the remote host.
  - The preferred method for specifying host credentials
@@ -229,16 +237,22 @@ See [maven version range] for more details.
  - optional (see [caveat]).
 
 ## hostUsername
-- (string) Alternate way to specify the remote host user. Ignored if hostCredentialsId is provided.
+- (string) Alternate way to specify the remote host user. 
+ - Ignored if hostCredentialsId is provided.
 
 ## hostPassword
-- (string) Alternate way to specify the remote host password. Does not support encryption. Ignored if hostCredentialsId is provided.
+- (string) Alternate way to specify the remote host password. 
+ - Does not support encryption. 
+ - Ignored if hostCredentialsId is provided.
 
 ## domainUsername
-- (string) Alternate way to specify the HNAM domain user. Ignored if hostCredentialsId is provided.
+- (string) Alternate way to specify the HNAM domain user. 
+ - Ignored if hostCredentialsId is provided.
 
 ## domainPassword
-- (string) Alternate way to specify the HNAM domain password. Does not support encryption. Ignored if hostCredentialsId is provided.
+- (string) Alternate way to specify the HNAM domain password. 
+ - Does not support encryption. 
+ - Ignored if hostCredentialsId is provided.
 
 Domain Credentials Caveat
 ===

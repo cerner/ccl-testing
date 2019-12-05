@@ -1,6 +1,5 @@
 package com.cerner.ftp.jsch.impl;
 
-import java.io.File;
 import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
@@ -162,31 +161,6 @@ public class CachedConnection implements Connection {
     }
 
     /**
-     * Create a session using username/password authentication.
-     *
-     * @param username
-     *            The username.
-     * @param password
-     *            The password.
-     * @param serverAddress
-     *            A {@link URI} object representing the location of the remote server.
-     * @return A {@link Session} object representing a connection to the remote server.
-     */
-    private Session createSession(final String username, final String password, final URI serverAddress) {
-        JSch.setLogger(new JschLogger());
-        final JSch jsch = new JSch();
-        try {
-            JSch.setConfig("PreferredAuthentications", "password");
-            final Session session = jsch.getSession(username, serverAddress.getPath(), 22);
-            session.setUserInfo(new SimpleUserInfo(password, null));
-            session.connect();
-            return session;
-        } catch (final JSchException e) {
-            throw new RuntimeException("Failed to establish connection with username/password authentication.", e);
-        }
-    }
-
-    /**
      * JSch Logger
      *
      * @author Fred Eckertson
@@ -250,6 +224,31 @@ public class CachedConnection implements Connection {
     }
 
     /**
+     * Create a session using username/password authentication.
+     *
+     * @param username
+     *            The username.
+     * @param password
+     *            The password.
+     * @param serverAddress
+     *            A {@link URI} object representing the location of the remote server.
+     * @return A {@link Session} object representing a connection to the remote server.
+     */
+    private Session createSession(final String username, final String password, final URI serverAddress) {
+        JSch.setLogger(new JschLogger());
+        final JSch jsch = new JSch();
+        try {
+            JSch.setConfig("PreferredAuthentications", "password");
+            final Session session = jsch.getSession(username, serverAddress.getPath(), 22);
+            session.setUserInfo(new SimpleUserInfo(password, null));
+            session.connect();
+            return session;
+        } catch (final JSchException e) {
+            throw new RuntimeException("Failed to establish connection with username/password authentication.", e);
+        }
+    }
+
+    /**
      * Create a session using username/private key authentication.
      *
      * @param username
@@ -267,7 +266,7 @@ public class CachedConnection implements Connection {
         final JSch jsch = new JSch();
         try {
             JSch.setConfig("PreferredAuthentications", "publickey");
-            jsch.addIdentity(new File(privateKeyLocation).getAbsolutePath());
+            jsch.addIdentity(privateKeyLocation.toString());
             final Session session = jsch.getSession(username, serverAddress.getPath(), 22);
             session.setUserInfo(new SimpleUserInfo(null, salt));
             session.connect();
@@ -343,5 +342,4 @@ public class CachedConnection implements Connection {
         public void showMessage(final String message) {
         }
     }
-
 }

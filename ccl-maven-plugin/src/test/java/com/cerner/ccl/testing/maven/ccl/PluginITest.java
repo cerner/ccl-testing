@@ -30,6 +30,7 @@ import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.MavenInvocationException;
 import org.apache.maven.shared.invoker.PrintStreamHandler;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -54,9 +55,30 @@ public class PluginITest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
-    private final List<String> compileGoal = Arrays.asList(new String[] { "clean", "compile" });
-    private final List<String> validateGoal = Collections.singletonList("validate");
-    private final List<String> testGoal = Arrays.asList(new String[] { "clean", "compile", "test" });
+    private static final List<String> compileGoal = Arrays.asList(new String[] { "clean", "compile" });
+    private static List<String> validateGoal = Collections.singletonList("validate");
+    private static List<String> testGoal = Arrays.asList(new String[] { "clean", "compile", "test" });
+
+    private static final File logDirectory = new File("target/logs/" + PluginITest.class.getSimpleName());
+
+    /**
+     * One time test initialization
+     *
+     * @throws Exception
+     *             Unexpected.
+     */
+    @BeforeClass
+    public static void setupOnce() throws Exception {
+        if (!logDirectory.exists()) {
+            try {
+                FileUtils.forceMkdir(logDirectory);
+            } catch (final IOException e) {
+                throw new RuntimeException("Failed to create log directory.", e);
+            }
+        }
+        // some tests fail if successful-build is not compiled or its test resources are unavailable.
+        executeMaven("successful-build", testGoal, new File(logDirectory, "setupOnce.log"));
+    }
 
     /**
      * Test a compile failure caused by an if with no endif in the {@code compilation-error-build-failure} project.
@@ -573,8 +595,7 @@ public class PluginITest {
         assertThat(result.getExecutionException()).isNull();
         assertThat(result.getExitCode()).isZero();
 
-        // Verify that only test results were written out for the
-        // "cclplugin_do_run" test
+        // Verify that only test results were written out for the "cclplugin_do_run" test
         final File testResultsDirectory = new File(getProjectDirectory("specify-test"), "target/test-results");
         final File[] childrenDirectory = testResultsDirectory.listFiles();
         assertThat(childrenDirectory).hasSize(2);
@@ -662,15 +683,6 @@ public class PluginITest {
      * @return A {@link File} representing a location to which the Maven invocation can write its output.
      */
     private File getLogFile() {
-        final File logDirectory = new File("target/logs/" + getClass().getSimpleName());
-        if (!logDirectory.exists()) {
-            try {
-                FileUtils.forceMkdir(logDirectory);
-            } catch (final IOException e) {
-                throw new RuntimeException("Failed to create log directory.", e);
-            }
-        }
-
         return new File(logDirectory, testName.getMethodName() + ".log");
     }
 
@@ -689,8 +701,8 @@ public class PluginITest {
      * @throws FileNotFoundException
      *             Bad things might happen
      */
-    private InvocationRequest getInvocationRequest(final String projectId, final List<String> goals, final File logFile)
-            throws FileNotFoundException, URISyntaxException {
+    private static InvocationRequest getInvocationRequest(final String projectId, final List<String> goals,
+            final File logFile) throws FileNotFoundException, URISyntaxException {
         return getInvocationRequest(projectId, goals, logFile, null);
     }
 
@@ -710,8 +722,8 @@ public class PluginITest {
      * @throws FileNotFoundException
      *             Bad things might happen
      */
-    private InvocationRequest getInvocationRequest(final String projectId, final List<String> goals, final File logFile,
-            final File settingsFile) throws FileNotFoundException, URISyntaxException {
+    private static InvocationRequest getInvocationRequest(final String projectId, final List<String> goals,
+            final File logFile, final File settingsFile) throws FileNotFoundException, URISyntaxException {
         File userConfigurationFile = settingsFile != null ? settingsFile
                 : FileUtils.getFile(new File(System.getProperty("user.home")), ".m2", "settings.xml");
 
@@ -740,7 +752,7 @@ public class PluginITest {
      * @throws MavenInvocationException
      *             Bad things might happen
      */
-    private InvocationResult executeMaven(final String projectId, final List<String> goals, final File logFile)
+    private static InvocationResult executeMaven(final String projectId, final List<String> goals, final File logFile)
             throws FileNotFoundException, URISyntaxException, MavenInvocationException {
         InvocationRequest request = getInvocationRequest(projectId, goals, logFile);
         return new DefaultInvoker().execute(request);
@@ -758,8 +770,8 @@ public class PluginITest {
      *             If converting the {@link URL} representing the file on the classpath cannot be converted into a
      *             {@link URI}.
      */
-    private File getPom(final String path) throws FileNotFoundException, URISyntaxException {
-        final URL resourceUrl = getClass().getResource("/test-projects/" + path);
+    private static File getPom(final String path) throws FileNotFoundException, URISyntaxException {
+        final URL resourceUrl = PluginITest.class.getResource("/test-projects/" + path);
         if (resourceUrl == null) {
             throw new FileNotFoundException("Resource not found: " + path);
         }

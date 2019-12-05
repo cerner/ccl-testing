@@ -87,7 +87,8 @@ public class SubroutineDeclarationRules extends TimedDelegate {
                     || definedSubroutines.containsKey("PUBLIC::" + subroutineName)) {
                 // Find the invocation statement that matches the implementation name
                 final Element matchingSubroutineDefined = definedSubroutines.containsKey(subroutineName)
-                        ? definedSubroutines.get(subroutineName) : definedSubroutines.get("PUBLIC::" + subroutineName);
+                        ? definedSubroutines.get(subroutineName)
+                        : definedSubroutines.get("PUBLIC::" + subroutineName);
 
                 final Element matchingSubroutineInvocation = subroutineInvocation.getChild("CALL.");
 

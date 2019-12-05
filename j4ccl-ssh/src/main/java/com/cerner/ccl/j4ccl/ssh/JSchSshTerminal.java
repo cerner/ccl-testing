@@ -21,6 +21,7 @@ import com.cerner.ccl.j4ccl.TerminalProperties;
 import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePasswordCredential;
 import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePrincipal;
 import com.cerner.ccl.j4ccl.impl.jaas.JaasUtils;
+import com.cerner.ccl.j4ccl.impl.jaas.PrivateKeyPrincipal;
 import com.cerner.ccl.j4ccl.ssh.exception.SshException;
 import com.cerner.ccl.j4ccl.ssh.exception.SshExpectationException;
 import com.cerner.ccl.j4ccl.ssh.exception.SshTimeoutException;
@@ -79,8 +80,9 @@ public class JSchSshTerminal {
      *            A {@link ConnectionPool} from which connections are to be retrieved.
      */
     public JSchSshTerminal(final ConnectionPool pool) {
-        if (pool == null)
+        if (pool == null) {
             throw new NullPointerException("Connection pool cannot be null.");
+        }
 
         this.pool = pool;
     }
@@ -103,8 +105,9 @@ public class JSchSshTerminal {
         }
         final EtmPoint point = PointFactory.getPoint(getClass(), "executeCommandGroups");
         try {
-            if (commandExpectationGroups.isEmpty())
+            if (commandExpectationGroups.isEmpty()) {
                 return new TerminalResponse(0, "");
+            }
             Connection connection = null;
             ChannelShell shell = null;
 
@@ -201,8 +204,9 @@ public class JSchSshTerminal {
                         }
                         expect.send(command);
                         expect.send("\r");
-                        final int expectVal = command.isEmpty() ? 0 : isCclExecuteCommand(command)
-                                ? expect.expect(cclExecuteExpectationPatterns) : expect.expect(lstPattern);
+                        final int expectVal = command.isEmpty() ? 0
+                                : isCclExecuteCommand(command) ? expect.expect(cclExecuteExpectationPatterns)
+                                        : expect.expect(lstPattern);
                         if (expectVal < 0) {
                             logger.debug("The expectation result was {} for command {} with patterns {}",
                                     translateExpectVal(expectVal), commandDisplay,
@@ -323,7 +327,11 @@ public class JSchSshTerminal {
             final BackendNodePrincipal principal = JaasUtils.getPrincipal(BackendNodePrincipal.class);
             final BackendNodePasswordCredential passwordCredential = JaasUtils
                     .getPrivateCredential(BackendNodePasswordCredential.class);
-
+            if (JaasUtils.hasPrincipal(PrivateKeyPrincipal.class)) {
+                PrivateKeyPrincipal keyPrincipal = JaasUtils.getPrincipal(PrivateKeyPrincipal.class);
+                return pool.getConnection(principal.getUsername(), passwordCredential.getPassword(),
+                        URI.create(keyPrincipal.getName()), URI.create(principal.getHostname()));
+            }
             return pool.getConnection(principal.getUsername(), passwordCredential.getPassword(),
                     URI.create(principal.getHostname()));
         } finally {

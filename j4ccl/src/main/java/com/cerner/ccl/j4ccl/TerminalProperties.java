@@ -49,9 +49,11 @@ public class TerminalProperties {
         }
         osPromptPattern = builder.osPromptPattern;
         cclPromptPattern = builder.cclPromptPattern != null && !builder.cclPromptPattern.isEmpty()
-                ? builder.cclPromptPattern : DEFAULT_CCL_PROMPT_PATTERN;
+                ? builder.cclPromptPattern
+                : DEFAULT_CCL_PROMPT_PATTERN;
         cclLoginPromptPattern = builder.cclLoginPromptPattern != null && !builder.cclLoginPromptPattern.isEmpty()
-                ? builder.cclLoginPromptPattern : DEFAULT_CCL_LOGIN_PROMPT_PATTERN;
+                ? builder.cclLoginPromptPattern
+                : DEFAULT_CCL_LOGIN_PROMPT_PATTERN;
         cclLoginSuccessPromptPattern = builder.cclLoginSuccessPromptPattern != null
                 && !builder.cclLoginSuccessPromptPattern.isEmpty() ? builder.cclLoginSuccessPromptPattern
                         : DEFAULT_CCL_LOGIN_SUCCESS_PROMPT_PATTERN;

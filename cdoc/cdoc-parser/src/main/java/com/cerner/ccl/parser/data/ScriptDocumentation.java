@@ -42,7 +42,8 @@ public class ScriptDocumentation implements Described {
         this.description = description == null ? "" : description;
         this.boundTransaction = boundTransaction;
         this.scriptArguments = scriptArguments == null || scriptArguments.isEmpty()
-                ? Collections.<ScriptArgument> emptyList() : Collections.unmodifiableList(scriptArguments);
+                ? Collections.<ScriptArgument> emptyList()
+                : Collections.unmodifiableList(scriptArguments);
     }
 
     @Override
