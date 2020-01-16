@@ -596,6 +596,9 @@ public class WhitenoiseMojo extends AbstractMavenReport {
         if (!isEmpty(keyFile)) {
             subject.getPrincipals().add(new PrivateKeyPrincipal(keyFile));
         }
+        if (cclsourcePath != null) {
+            System.setProperty("ccl-cclsource", cclsourcePath);
+        }
         return subject;
     }
 
