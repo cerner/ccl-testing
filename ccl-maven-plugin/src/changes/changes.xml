@@ -8,7 +8,7 @@
                 Support SSH public key authentication.
             </action>
             <action dev="fred eckertson" issue="" type="fix" system="JIRA">
-                Skip over kerberos authentication username/password authentication.
+                Skip kerberos authentication and use username/password authentication.
             </action>
             <action dev="fred eckertson" issue="" type="add" system="JIRA">
                 Support transerring source files to a different location than $CCLSOURCE.

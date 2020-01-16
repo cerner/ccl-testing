@@ -8,7 +8,7 @@
                 Remove pom data duplicated in the parent pom.
             </action>
             <action dev="fred eckertson" issue="" type="add" system="JIRA">
-                Upgrade to jsch-util .
+                Upgrade to jsch-util.
             </action>
         </release>
         <release version="1.2-SNAPSHOT" date="TBD">
