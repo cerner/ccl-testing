@@ -13,7 +13,7 @@
       <plugin>
         <groupId>com.cerner.ccl.testing</groupId>
         <artifactId>ccl-maven-plugin</artifactId>
-        <version>3.2</version>
+        <version>3.3</version>
         <extensions>true</extensions>
         <configuration>
           <logFile>${project.build.directory}/output.log</logFile>
@@ -81,17 +81,17 @@
       <plugin>
         <groupId>com.cerner.ccl.testing</groupId>
         <artifactId>cerreal-maven-plugin</artifactId>
-        <version>2.1</version>
+        <version>2.2</version>
       </plugin>
       <plugin>
         <groupId>com.cerner.ccl.whitenoise</groupId>
         <artifactId>whitenoise-maven-plugin</artifactId>
-        <version>2.5</version>
+        <version>2.6</version>
       </plugin>
       <plugin>
         <groupId>com.cerner.ccl.cdoc</groupId>
         <artifactId>cdoc-maven-plugin</artifactId>
-        <version>1.2</version>
+        <version>1.3</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -101,7 +101,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>3.3</version>
+        <version>3.8.2</version>
       </plugin>
     </plugins>
   </reporting>
