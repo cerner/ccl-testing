@@ -14,7 +14,7 @@
     <name>CCL Maven Plugin</name>
     <description>A Maven plugin used to compile and test CCL code.</description>
     <properties>
-      <plugin.api.version>3.6.2</plugin.api.version>
+      <plugin.api.version>3.6.3</plugin.api.version>
       <plugin.api-tools.version>3.6.0</plugin.api-tools.version>
     </properties>
     <scm>

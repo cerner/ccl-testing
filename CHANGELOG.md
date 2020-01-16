@@ -1,12 +1,20 @@
 # ccl-testing Change Log
 
+## 2020-01-17
+* ccl-maven-plugin **3.3**
+* cerreal-maven-plugin **2.2**
+
 ### Corrections
 * Fix [#30](https://github.com/cerner/ccl-testing/issues/30) credentials prompt displayed if gss-api-authentication enabled.
 * Fix [#23](https://github.com/cerner/ccl-testing/issues/23) skip processing configurations not working.
 
 ### Enhancements
 * Add support for SSH public key authentication.
+* Allow source code to be transferred to a location other than $CCLSOURCE
 * Allow passed test cases, tests and/or asserts to be hidden in the cerreal report.
+
+### Miscellaneous
+* Update dependencies for all components.
 
 ## 2019-02-18
 * whitenoise-maven-plugin **2.5**
@@ -50,7 +58,7 @@
 * Fixed the integration tests to honor the configured osPromptPattern.
 * Fixed cdoc to not bomb on record structure definions which continue at the same level where an include file left off.
 
-### Miscelaneous
+### Miscellaneous
 * Fail a script file upload if the file name is not lower case or the created object name does not match the file name.
   - The whitenoise and cerreal reports are inaccurate in those situations.
 * Changed the default osPromptPattern to `user:enviroment@host:[^\r\n]*(\r|\n)+#\s*`
@@ -111,7 +119,7 @@ which then got expanded to the last argument of the last command.
 * Addressed all findbugs issues and compiler warnings.
 * Fixed an issue where a record structure date field having a zero value would cause an exception to be thrown.
 
-### Miscelaneous
+### Miscellaneous
 * Changed `maven-X-plugin` to `X-maven-plugin` for each maven plugin to satisfy [maven3 restrictions on plugin naming][plugin-naming].
 * Added additional ccl-maven-plugin output to help identify the source of the problem when it has build failures.
 * Changed the names of some ccl-maven-plugin settings and adopted a uniform naming convention for the associated property.

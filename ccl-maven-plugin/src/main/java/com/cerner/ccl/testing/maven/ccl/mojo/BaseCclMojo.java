@@ -80,6 +80,16 @@ public abstract class BaseCclMojo extends AbstractMojo {
     protected String environment;
 
     /**
+     * A logical or the full path to the back-end directory to which source files will be transferred. The host user
+     * must have read/write access to the directory. Defaults to $CCLSOURCE.
+     *
+     *
+     * @since 3.3
+     */
+    @Parameter(property = "ccl-cclsource", required = false)
+    protected String cclsourcePath;
+
+    /**
      * The DNS name or IP address of the remote server on which the goals of this plugin will be executed.
      *
      */
@@ -319,6 +329,9 @@ public abstract class BaseCclMojo extends AbstractMojo {
         }
         if (!isEmpty(keyFile)) {
             subject.getPrincipals().add(new PrivateKeyPrincipal(keyFile));
+        }
+        if (cclsourcePath != null) {
+            System.setProperty("ccl-cclsource", cclsourcePath);
         }
     }
 
