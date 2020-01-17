@@ -85,6 +85,16 @@ public class WhitenoiseMojo extends AbstractMavenReport {
     protected MavenProject project;
 
     /**
+     * A logical or the full path to the back-end directory to which source files will be transferred. The host user
+     * must have read/write access to the directory. Defaults to $CCLSOURCE.
+     *
+     *
+     * @since 3.3
+     */
+    @Parameter(property = "ccl-cclsource", required = false)
+    protected String cclsourcePath;
+
+    /**
      * The username to be used to log into the remote server.
      *
      * @see #hostCredentialsId
@@ -585,6 +595,9 @@ public class WhitenoiseMojo extends AbstractMavenReport {
         }
         if (!isEmpty(keyFile)) {
             subject.getPrincipals().add(new PrivateKeyPrincipal(keyFile));
+        }
+        if (cclsourcePath != null) {
+            System.setProperty("ccl-cclsource", cclsourcePath);
         }
         return subject;
     }

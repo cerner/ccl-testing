@@ -75,6 +75,12 @@ CCL test cases do not fail fast, but if set to true, the maven build will fail f
  - default:
     - `true`
 
+## cclsource
+- (string) Either the full path or a logical specifying the backend directory to which source files will be transferred. Useful only for compiling at this time.
+Additional work is needed to relax the requirement that unit tests reside in $CCLSOURCE.
+ - since 3.3
+ - default: $CCLSOURCE
+
 ## specifyDebugCcl
 - (true/false) Causes the plugin to use the new CCL executable cclora_dbg rather than the the original CCL executable cclora which has been 
 modified to no longer produce debug or code coverage data. If the target domain does not yet have the cclora_dbg executable, then the plugin will 

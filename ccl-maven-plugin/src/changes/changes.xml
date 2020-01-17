@@ -3,6 +3,33 @@
         <title>ccl-maven-plugin Changes Report</title>
     </properties>
     <body>
+        <release version="3.3" date="2020-01-17">
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Support SSH public key authentication.
+            </action>
+            <action dev="fred eckertson" issue="" type="fix" system="JIRA">
+                Skip kerberos authentication and use username/password authentication.
+            </action>
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Support transerring source files to a different location than $CCLSOURCE.
+            </action>
+        </release>
+        <release version="3.2" date="2019-02-16">
+            <action dev="fred eckertson" issue="" type="fix" system="JIRA">
+                Correct issue in the regex used to ensure the name of a program file matches the compiled object name.
+            </action>
+        </release>
+        <release version="3.1" date="2019-02-11">
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Fail early if a source file name is not all lower case.
+            </action>
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Fail early if a program source file name does not match the compiled object name.
+            </action>
+            <action dev="fred eckertson" issue="" type="add" system="JIRA">
+                Change the default osPromptPattern.
+            </action>
+        </release>
         <release version="3.0" date="2018-07-04">
             <action dev="fred eckertson" issue="" type="add" system="JIRA">
                 Upgrade j4ccl-ssh to version 4.0 providing Linux support, skipping CCL login when compiling scripts and optionally skipping envset.

@@ -53,15 +53,18 @@ public class Environment {
         final BackendNodePrincipal principal = JaasUtils.getPrincipal(BackendNodePrincipal.class);
 
         final String environmentName = principal.getEnvironmentName();
-        if (environmentName == null)
+        if (environmentName == null) {
             throw new NullPointerException("Environment name cannot be null.");
+        }
 
-        if (StringUtils.isBlank(environmentName))
+        if (StringUtils.isBlank(environmentName)) {
             throw new IllegalArgumentException("Environment name cannot be blank.");
+        }
 
         final String normalizedName = environmentName.toLowerCase(Locale.getDefault());
-        if (CACHE.containsKey(normalizedName))
+        if (CACHE.containsKey(normalizedName)) {
             return CACHE.get(normalizedName);
+        }
 
         final Environment env = new Environment(environmentName);
         CACHE.put(normalizedName, env);
@@ -92,7 +95,10 @@ public class Environment {
             try (StringReader reader = new StringReader(envData)) {
                 PropertyResourceBundle bundle = new PropertyResourceBundle(reader);
                 cclUserDir = bundle.getString("CCLUSERDIR");
-                cclSource = bundle.getString("CCLSOURCE");
+                String cclSourceProperty = System.getProperty("ccl-cclsource");
+                cclSource = cclSourceProperty != null && !cclSourceProperty.matches("\\$.*")
+                        ? System.getProperty("ccl-cclsource")
+                        : bundle.getString("CCLSOURCE");
                 cerTemp = bundle.getString("cer_temp");
                 cerProc = bundle.getString("cer_proc");
                 cerInstall = bundle.getString("cer_install");
@@ -189,6 +195,10 @@ public class Environment {
                 commandExpectationGroups.add(commandExpectationGroup);
             }
 
+            String sourceLogical = System.getProperty("ccl-cclsource");
+            if (sourceLogical == null || !sourceLogical.matches("\\$.*")) {
+                sourceLogical = "$CCLSOURCE";
+            }
             commandExpectationGroup = new CommandExpectationGroup();
             commandExpectationGroup.addCommand("echo 'ENV CAPTURE START'");
             commandExpectationGroup.addExpectation("[^']ENV CAPTURE START[^']");
@@ -210,7 +220,7 @@ public class Environment {
             commandExpectationGroups.add(commandExpectationGroup);
 
             commandExpectationGroup = new CommandExpectationGroup();
-            commandExpectationGroup.addCommand("echo '||CCLSOURCE='$CCLSOURCE'||'");
+            commandExpectationGroup.addCommand("echo '||CCLSOURCE='" + sourceLogical + "'||'");
             commandExpectationGroup.addExpectation("[^']||CCLSOURCE=[^\\|]*||[^']");
             commandExpectationGroups.add(commandExpectationGroup);
 

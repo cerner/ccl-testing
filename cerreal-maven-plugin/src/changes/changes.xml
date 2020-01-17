@@ -5,6 +5,16 @@
         <title>cerreal-maven-plugin Changes Report</title>
     </properties>
     <body>
+        <release version="2.2" date="2020-01-17">
+            <action dev="fred eckertson" type="fix">
+                Allow passed test cases, tests and/or asserts to be hidden in the cerreal report.
+            </action>
+        </release>
+        <release version="2.1" date="2019-02-01">
+            <action dev="fred eckertson" type="fix">
+                Update the 'without includes' coverage report to work correctly when multiple includes are included consecutively.
+            </action>
+        </release>
         <release version="2.0.0" date="2017-07-07">
             <action dev="fred eckertson">
                 Fix the code coverage report to show 0.0% and red rather than NaN and green when there is no coverage data.

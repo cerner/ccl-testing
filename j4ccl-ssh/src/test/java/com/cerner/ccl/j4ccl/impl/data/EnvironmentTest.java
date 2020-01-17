@@ -124,9 +124,11 @@ public class EnvironmentTest {
         when(JaasUtils.getPrincipal(BackendNodePrincipal.class)).thenReturn(backendPrincipal);
         when(backendPrincipal.getEnvironmentName()).thenReturn(getEnvironmentName());
 
-        final String envData = !testName.getMethodName().equals("testConstructMissingLogical")
-                ? loadEnvResource("/property/environment.properties")
-                : loadEnvResource("/property/environment-no-ccluserdir.properties");
+        final String envData = testName.getMethodName().equals("testConstructMissingLogical")
+                ? loadEnvResource("/property/environment-no-ccluserdir.properties")
+                : testName.getMethodName().equals("testGetCclSourceLogicalOverride")
+                        ? loadEnvResource("/property/environment-source-logical.properties")
+                        : loadEnvResource("/property/environment.properties");
         final TerminalResponse trIgnored = new TerminalResponse(0, "");
         final TerminalResponse trEnv = new TerminalResponse(0, envData);
 
@@ -210,6 +212,40 @@ public class EnvironmentTest {
     public void testGetCclSource() throws Exception {
         final Environment env = Environment.getEnvironment();
         assertThat(env.getCclSource()).isEqualTo(CCLSOURCE);
+    }
+
+    /**
+     * Test of {@link Environment#getCclSource()} when overridden with a logical.
+     *
+     * @throws Exception
+     *             If any errors occur during the test run.
+     */
+    @Test
+    public void testGetCclSourceLogicalOverride() throws Exception {
+        BackendNodePrincipal backendPrincipalSourceLogicalOverride = mock(BackendNodePrincipal.class);
+        when(JaasUtils.getPrincipal(BackendNodePrincipal.class)).thenReturn(backendPrincipalSourceLogicalOverride);
+        when(backendPrincipalSourceLogicalOverride.getEnvironmentName()).thenReturn("SourceLogicalOverride");
+        System.setProperty("ccl-cclsource", "$ALTERNATE_CCLSOURCE");
+        final Environment env = Environment.getEnvironment();
+        System.clearProperty("ccl-cclsource");
+        assertThat(env.getCclSource()).isEqualTo("/alternate_cer_script");
+    }
+
+    /**
+     * Test of {@link Environment#getCclSource()} when overridden with a path.
+     *
+     * @throws Exception
+     *             If any errors occur during the test run.
+     */
+    @Test
+    public void testGetCclSourcePathOverride() throws Exception {
+        BackendNodePrincipal backendPrincipalSourcePathOverride = mock(BackendNodePrincipal.class);
+        when(JaasUtils.getPrincipal(BackendNodePrincipal.class)).thenReturn(backendPrincipalSourcePathOverride);
+        when(backendPrincipalSourcePathOverride.getEnvironmentName()).thenReturn("SourcePathOverride");
+        System.setProperty("ccl-cclsource", "/path/to/alternate/source");
+        final Environment env = Environment.getEnvironment();
+        System.clearProperty("ccl-cclsource");
+        assertThat(env.getCclSource()).isEqualTo("/path/to/alternate/source");
     }
 
     /**

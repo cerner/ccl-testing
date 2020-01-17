@@ -1,7 +1,8 @@
 # whitenoise-maven-plugin
 
 A maven reporting plugin for performing a static analysis of CCL code and displaying the results. Normally it is used in conjunction with [ccl-maven-plugin],
-but it can be used standalone. It has the same prerequisite [maven configuration][maven-configuration] and many of the same [troubleshooting steps][troubleshooting-steps].
+but it can be used standalone. It has the same prerequisite [maven configuration][maven-configuration] and many of the same [options][ccl-maven-plugin-options] and
+[troubleshooting steps][troubleshooting-steps].
 
 ![][sample-output-0]
 
@@ -13,7 +14,7 @@ Usage
       <plugin>
         <groupId>com.cerner.ccl.whitenoise</groupId>
         <artifactId>whitenoise-maven-plugin</artifactId>
-        <version>2.5</version>
+        <version>2.6</version>
         <extensions>true</extensions>
       </plugin>
     </plugins>
@@ -22,7 +23,7 @@ Usage
 
 Configuration Options
 ===
-Execute `mvn help:describe -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-maven-plugin -Ddetail=true` for a description of all available parameters. 
+Execute `mvn help:describe -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-maven-plugin -Ddetail=true` for a description of all available options.
 
 Options of note include
 
@@ -113,6 +114,7 @@ For convenience, the profile should set that property.
 ```
 
 [ccl-maven-plugin]: ../../ccl-maven-plugin/README.md
+[ccl-maven-plugin-options]: ../../ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md
 [maven-configuration]: ../../doc/CONFIGUREMAVEN.md
 [x-path]: https://developer.mozilla.org/en-US/docs/Web/XPath
 [violation-class]: ../whitenoise-data/src/main/java/com/cerner/ccl/analysis/data/Violation.java

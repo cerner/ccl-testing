@@ -3,6 +3,14 @@
         <title>SSH 4 J4CCL Changes Report</title>
     </properties>
     <body>
+        <release version="4.1" date="2019-02-11">
+            <action dev="fred eckertson" issue="" type="add">
+                Fail a source file upload if the file name is not all lower case.
+            </action>
+            <action dev="fred eckertson" issue="" type="add">
+                Fail a script source file upload if the file name does not match the object name.
+            </action>
+        </release>
         <release version="4.0" date="2018-07-04">
             <action dev="fred eckertson" issue="" type="add" system="JIRA">
                 Support Linux devices.

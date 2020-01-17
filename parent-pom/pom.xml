@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cerner.ccl</groupId>
     <artifactId>ccltesting-parent-pom</artifactId>
-    <version>2.2-SNAPSHOT</version>
+    <version>2.3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>CCL Testing Parent POM</name>
     <description>A POM that provides general-use artifacts for all projects in the CCL Testing group</description>
@@ -58,10 +58,9 @@
         <changes.plugin.version>2.12.1</changes.plugin.version>
         <plugin.plugin.version>3.4</plugin.plugin.version>
         <mockito-all.version>2.0.2-beta</mockito-all.version>
-        <mockito.version>3.1.0</mockito.version>
+        <mockito.version>3.2.4</mockito.version>
         <powermock.version>2.0.4</powermock.version>
-        <spring.version.0>5.1.11.RELEASE</spring.version.0>
-        <spring.version>5.2.1.RELEASE</spring.version>
+        <spring.version>5.2.3.RELEASE</spring.version>
         <slf4j.version>2.0.0-alpha1</slf4j.version>
         <surefire.version>3.0.0-M3</surefire.version>
 
@@ -638,7 +637,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.13-rc-1</version>
+                <version>4.13</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
