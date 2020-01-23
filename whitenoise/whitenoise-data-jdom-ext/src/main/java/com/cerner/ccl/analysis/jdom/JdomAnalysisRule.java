@@ -50,6 +50,7 @@ import com.cerner.ccl.analysis.exception.AnalysisRuleProvider;
  */
 
 public class JdomAnalysisRule implements AnalysisRule {
+
     /**
      * {@inheritDoc}
      */
@@ -65,8 +66,15 @@ public class JdomAnalysisRule implements AnalysisRule {
             final Enumeration<Delegate> delegates = Service.providers(new SPInterface(Delegate.class, classes, objects),
                     classLoaders);
             if (delegates != null) {
+                String rulesToSkip = System.getProperty("rulesToSkip");
+                if (rulesToSkip != null) {
+                    rulesToSkip = ".*(" + rulesToSkip.replace(",", "|") + ")";
+                }
                 while (delegates.hasMoreElements()) {
-                    violations.addAll(delegates.nextElement().analyze());
+                    Delegate delegate = delegates.nextElement();
+                    if (rulesToSkip == null || !delegate.getClass().getName().matches(rulesToSkip)) {
+                        violations.addAll(delegate.analyze());
+                    }
                 }
             }
         } catch (final JDOMException | IOException e) {

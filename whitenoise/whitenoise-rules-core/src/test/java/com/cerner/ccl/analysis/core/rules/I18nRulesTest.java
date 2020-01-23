@@ -30,7 +30,7 @@ public class I18nRulesTest extends AbstractJDomTest {
         final Set<Violation> violations = new I18nRules(toDocument("duplicate-keys.xml")).doMeasuredAnalysis();
         assertThat(violations).hasSize(1);
 
-        assertThat(violations).contains(new DuplicateI18nKeyViolation(10, "Val1"));
+        assertThat(violations).contains(new DuplicateI18nKeyViolation(15, "Val1"));
 
     }
 }
