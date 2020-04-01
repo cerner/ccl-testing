@@ -170,6 +170,16 @@ public class WhitenoiseMojo extends AbstractMavenReport {
     protected long expectationTimeout;
 
     /**
+     * When set to {@code true}, causes this plugin to not issue an envset to the environment in each session. This is
+     * an unnecessary performance price if the default environment for the supplied credentials is the target
+     * environment.
+     *
+     * @since 3.0
+     */
+    @Parameter(property = "ccl-skipEnvset", defaultValue = "false")
+    protected boolean skipEnvset;
+
+    /**
      * A regular expression that will match the back end operating system prompt for the configured user. This is used
      * to recognize when the back end operating system has finished processing and is ready for another command The
      * following value is constructed by default: "$ccl-domainUsername:ccl-environment@$ccl-host:[^@gt;]*@gt;\s*"
@@ -306,7 +316,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
 
         try {
             final Subject subject = getSubject();
-            TerminalProperties.setGlobalTerminalProperties(TerminalProperties.getNewBuilder()
+            TerminalProperties.setGlobalTerminalProperties(TerminalProperties.getNewBuilder().setSkipEnvset(skipEnvset)
                     .setOsPromptPattern(osPromptPattern != null && !osPromptPattern.isEmpty() ? osPromptPattern
                             : TerminalProperties.constructDefaultOsPromptPattern(hostAddress, environmentName,
                                     defaultOSPromptUsername))
