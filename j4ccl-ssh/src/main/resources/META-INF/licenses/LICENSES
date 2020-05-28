@@ -12,10 +12,10 @@ http://www.apache.org/licenses/LICENSE-2.0.html
 * ehcache-core
 * ezmorph
 * ftp-util
+* gson
 * j4ccl
 * joda-time
 * jsch-util
-* json-lib
 
 BSD License
 http://www.opensource.org/licenses/bsd-license.php

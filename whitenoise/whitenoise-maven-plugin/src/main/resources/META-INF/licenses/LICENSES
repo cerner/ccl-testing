@@ -12,12 +12,12 @@ http://www.apache.org/licenses/LICENSE-2.0.html
 * ehcache-core
 * ezmorph
 * ftp-util
+* gson
 * j4ccl
 * j4ccl-ssh
 * jdom
 * joda-time
 * jsch-util
-* json-lib
 * maven-artifact
 * maven-model
 * maven-plugin-api
