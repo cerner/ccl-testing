@@ -224,7 +224,7 @@ public class CclCommandTerminalTest {
         assertThat(commandExpectationGroups.get(1).getCommands()).isEqualTo(Arrays.asList("ccl"));
         assertThat(commandExpectationGroups.get(1).getExpectations()).isEqualTo(Arrays.asList("cclLoginPromptPattern"));
         assertThat(commandExpectationGroups.get(2).getCommands()).isEqualTo(Arrays.asList("", ""));
-        assertThat(commandExpectationGroups.get(3).getCommands()).isEqualTo(Arrays.asList("reset"));
+        assertThat(commandExpectationGroups.get(3).getCommands()).isEqualTo(Arrays.asList("reset", "%t"));
         assertThat(commandExpectationGroups.get(3).getExpectations()).isEqualTo(Arrays.asList("cclPromptPattern"));
         assertThat(commandExpectationGroups.get(4).getCommands())
                 .isEqualTo(Arrays.asList("set width 132 go", command1));
@@ -273,7 +273,7 @@ public class CclCommandTerminalTest {
         assertThat(commandExpectationGroups.get(4).getExpectations())
                 .isEqualTo(Arrays.asList("cclLoginSuccessPromptPattern", "pattern1", "pattern2"));
         assertThat(commandExpectationGroups.get(5).getCommands()).isEqualTo(Arrays.asList("", ""));
-        assertThat(commandExpectationGroups.get(6).getCommands()).isEqualTo(Arrays.asList("reset"));
+        assertThat(commandExpectationGroups.get(6).getCommands()).isEqualTo(Arrays.asList("reset", "%t"));
         assertThat(commandExpectationGroups.get(6).getExpectations()).isEqualTo(Arrays.asList("cclPromptPattern"));
         assertThat(commandExpectationGroups.get(7).getCommands())
                 .isEqualTo(Arrays.asList("set width 132 go", command1));
@@ -341,7 +341,7 @@ public class CclCommandTerminalTest {
         assertThat(commandExpectationGroups.get(4).getExpectations())
                 .isEqualTo(Arrays.asList("cclLoginSuccessPromptPattern", "pattern1", "pattern2"));
         assertThat(commandExpectationGroups.get(5).getCommands()).isEqualTo(Arrays.asList("", ""));
-        assertThat(commandExpectationGroups.get(6).getCommands()).isEqualTo(Arrays.asList("reset"));
+        assertThat(commandExpectationGroups.get(6).getCommands()).isEqualTo(Arrays.asList("reset", "%t"));
         assertThat(commandExpectationGroups.get(6).getExpectations()).isEqualTo(Arrays.asList("cclPromptPattern"));
         assertThat(commandExpectationGroups.get(7).getCommands())
                 .isEqualTo(Arrays.asList("set width 132 go", command1, command2, command3));
@@ -384,7 +384,7 @@ public class CclCommandTerminalTest {
         assertThat(commandExpectationGroups.get(0).getCommands()).isEqualTo(Arrays.asList("envset " + environmentName));
         assertThat(commandExpectationGroups.get(1).getCommands()).isEqualTo(Arrays.asList("$cer_exe/cclora_dbg"));
         assertThat(commandExpectationGroups.get(2).getCommands()).isEqualTo(Arrays.asList("", ""));
-        assertThat(commandExpectationGroups.get(3).getCommands()).isEqualTo(Arrays.asList("reset"));
+        assertThat(commandExpectationGroups.get(3).getCommands()).isEqualTo(Arrays.asList("reset", "%t"));
         assertThat(commandExpectationGroups.get(4).getCommands())
                 .isEqualTo(Arrays.asList("set width 132 go", CclCommandTerminal.CCL_OUTPUT_START_COMMAND,
                         "a command go", CclCommandTerminal.CCL_OUTPUT_END_COMMAND));
@@ -424,7 +424,7 @@ public class CclCommandTerminalTest {
         assertThat(commandExpectationGroups.get(0).getCommands()).isEqualTo(Arrays.asList("envset " + environmentName));
         assertThat(commandExpectationGroups.get(1).getCommands()).isEqualTo(Arrays.asList("$cer_exe/cclora_dbg"));
         assertThat(commandExpectationGroups.get(2).getCommands()).isEqualTo(Arrays.asList("", ""));
-        assertThat(commandExpectationGroups.get(3).getCommands()).isEqualTo(Arrays.asList("reset"));
+        assertThat(commandExpectationGroups.get(3).getCommands()).isEqualTo(Arrays.asList("reset", "%t"));
         assertThat(commandExpectationGroups.get(4).getCommands())
                 .isEqualTo(Arrays.asList("set width 132 go", "a command go"));
         assertThat(commandExpectationGroups.get(5).getCommands()).isEqualTo(Arrays.asList("exit"));
