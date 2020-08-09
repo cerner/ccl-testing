@@ -194,6 +194,8 @@ public class CclCommandTerminal {
         final CommandExpectationGroup commandExpectationGroup = new CommandExpectationGroup();
         // This will ensure commands are not sent until the CCL prompt appears.
         commandExpectationGroup.addCommand("reset");
+        // This places CCL in "line mode" so that wide characters are interpreted correctly.
+        commandExpectationGroup.addCommand("%t");
         commandExpectationGroup.addExpectation(terminalProperties.getCclPromptPattern());
         return commandExpectationGroup;
     }
