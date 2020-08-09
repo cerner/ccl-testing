@@ -1,5 +1,12 @@
 # ccl-testing Change Log
 
+## TBD
+* j4ccl-ssh **4.5**
+
+### Corrections
+* Fix [#44](https://github.com/cerner/ccl-testing/issues/44) loss of precision when deserializing F8 values on reply message.
+
+
 ## 2020-01-17
 * ccl-maven-plugin **3.3**
 * cerreal-maven-plugin **2.2**

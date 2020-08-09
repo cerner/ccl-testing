@@ -254,10 +254,10 @@ public class RecordWriterTest {
      */
     @Test
     public void testPutFromJsonF8() {
-        final String json = "{\"REPLY\":{\"" + F8_FIELD.getName() + "\":2.025000}}";
+        final String json = "{\"REPLY\":{\"" + F8_FIELD.getName() + "\":6546546542.025000}}";
         final Record record = mockRecord("REPLY", mockStructure(F8_FIELD));
         RecordWriter.putFromJson(json, record);
-        verify(record, times(1)).setF8(F8_FIELD.getName(), 2.025);
+        verify(record, times(1)).setF8(F8_FIELD.getName(), 6546546542.025);
     }
 
     /**
