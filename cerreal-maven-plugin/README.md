@@ -8,7 +8,7 @@ Usage
   <reporting>
     <plugins>
       <plugin>
-        <groupId>com.cerner.ccl.ccltesting</groupId>
+        <groupId>com.cerner.ccl.testing</groupId>
         <artifactId>cerreal-maven-plugin</artifactId>
         <version>2.2</version>
         <extensions>true</extensions>

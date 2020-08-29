@@ -11,7 +11,6 @@ Usage
         <groupId>com.cerner.ccl.cdoc</groupId>
         <artifactId>cdoc-maven-plugin</artifactId>
         <version>1.3</version>
-        <extensions>true</extensions>
       </plugin>
     </plugins>
   </reporting>

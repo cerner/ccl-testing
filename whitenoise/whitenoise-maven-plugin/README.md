@@ -15,7 +15,6 @@ Usage
         <groupId>com.cerner.ccl.whitenoise</groupId>
         <artifactId>whitenoise-maven-plugin</artifactId>
         <version>2.6</version>
-        <extensions>true</extensions>
       </plugin>
     </plugins>
   </reporting>
