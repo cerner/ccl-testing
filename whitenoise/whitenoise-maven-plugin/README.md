@@ -64,6 +64,11 @@ whitenoise report in tandem with or shortly after running the unit tests using [
  - default:
     - `${project.build.directory}/whitenoise/`
 
+**rulesToIgnore**
+- (string) A comma delimited list of class names for rules to skip. Useful to temporarily avoid a defective rule causing errors till the rule can be fixed.
+The class names are converted to regular expressions with leading wild cards. Collisions can be avoided with fullly qualified class names.
+ - since 2.7
+
 
 Developer Notes
 ===

@@ -36,16 +36,15 @@ public class I18nRules extends TimedDelegate {
     protected Set<Violation> doMeasuredAnalysis() throws JDOMException {
         final Set<Violation> violations = new HashSet<Violation>();
         final Map<String, Element> i18nKeys = new HashMap<String, Element>();
-        final List<Element> uarGetMessages = selectNodesByName("CALL.", "[NAME/@text = 'UAR_I18NGETMESSAGE']");
+        final List<Element> uarGetMessages = selectNodesByName("CALL.", "[NAME[1]/@text = 'UAR_I18NGETMESSAGE']");
 
         for (final Element uarGetMessage : uarGetMessages) {
             String i18nKey = uarGetMessage.getChildren().get(2).getAttributeValue("text");
             String i18nText = uarGetMessage.getChildren().get(3).getAttributeValue("text");
 
             if (i18nKey != null && i18nText != null) {
-                // The i18n key has not been added to the collection yet, so there is no violation to add. So add the
-                // element to
-                // the map and finish
+                // The i18n key has not been added to the collection yet, so there is no violation to add.
+                // Add the element to the map and finish.
                 if (i18nKeys.get(i18nKey) == null) {
                     i18nKeys.put(i18nKey, uarGetMessage.getChildren().get(3));
                     continue;
