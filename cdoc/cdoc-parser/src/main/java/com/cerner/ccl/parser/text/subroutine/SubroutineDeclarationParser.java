@@ -64,7 +64,7 @@ public class SubroutineDeclarationParser {
     private SubroutineArgumentDeclaration parseArgument(final String argumentDefinition) {
         final int equalsPos = argumentDefinition.indexOf('=');
         if (equalsPos < 0) {
-            throw new InvalidSubroutineException("Invalid argument definition: " + argumentDefinition);
+            return new SubroutineArgumentDeclaration(argumentDefinition.trim(), false, DataType.UNKNOWN);
         }
 
         final String argumentName = argumentDefinition.substring(0, equalsPos).trim();
@@ -203,7 +203,7 @@ public class SubroutineDeclarationParser {
      * @param declaration
      * @return The souroutine header.
      */
-    private String reduceDeclaration(String declaration) {
+    private String reduceDeclaration(final String declaration) {
         Pattern inlinePattern = Pattern.compile("subroutine\\s*\\x28(.*)", Pattern.CASE_INSENSITIVE);
         Matcher inlineMatcher = inlinePattern.matcher(declaration);
         if (inlineMatcher.matches()) {
