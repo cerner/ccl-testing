@@ -107,14 +107,40 @@ public class SubroutineDeclarationParserTest {
     }
 
     /**
-     * If the equals sign that indicates that data type of the argument is missing, then parsing should fail.
+     * If the equals sign that indicates that data type of the argument is missing, then parsing should return a by
+     * value argument with unknown data type.
      */
     @Test
-    public void testParseMissingArgumentEquals() {
-        InvalidSubroutineException e = assertThrows(InvalidSubroutineException.class, () -> {
-            parser.parse("declare no_equals(person_id = f8,birth_dt_tm dq8) = null");
-        });
-        assertThat(e.getMessage()).isEqualTo("Invalid argument definition: birth_dt_tm dq8");
+    public void testParseMissingArgumentEqualsDeclared() {
+        final SubroutineDeclaration declaration = parser.parse(
+                "declare getDisplayDetails(SourceRec, schEventIdRec, appointmentType = i4(ref)) = null with protect");
+        final List<SubroutineArgumentDeclaration> arguments = declaration.getArguments();
+        assertThat(arguments.get(0).getName()).isEqualTo("SourceRec");
+        assertThat(arguments.get(0).isByRef()).isEqualTo(false);
+        assertThat(arguments.get(0).getDataType()).isEqualTo(DataType.UNKNOWN);
+
+        assertThat(arguments.get(1).getName()).isEqualTo("schEventIdRec");
+        assertThat(arguments.get(1).isByRef()).isEqualTo(false);
+        assertThat(arguments.get(1).getDataType()).isEqualTo(DataType.UNKNOWN);
+
+        assertThat(arguments.get(2).getName()).isEqualTo("appointmentType");
+        assertThat(arguments.get(2).isByRef()).isEqualTo(true);
+        assertThat(arguments.get(2).getDataType()).isEqualTo(DataType.I4);
+
+        final SubroutineDeclaration inlineDeclaration = parser.parse(
+                "subroutine(getDisplayDetails(SourceRec, schEventIdRec, appointmentType = vc) = null with protect)");
+        final List<SubroutineArgumentDeclaration> inlineArguments = inlineDeclaration.getArguments();
+        assertThat(inlineArguments.get(0).getName()).isEqualTo("SourceRec");
+        assertThat(inlineArguments.get(0).isByRef()).isEqualTo(false);
+        assertThat(inlineArguments.get(0).getDataType()).isEqualTo(DataType.UNKNOWN);
+
+        assertThat(inlineArguments.get(1).getName()).isEqualTo("schEventIdRec");
+        assertThat(inlineArguments.get(1).isByRef()).isEqualTo(false);
+        assertThat(inlineArguments.get(1).getDataType()).isEqualTo(DataType.UNKNOWN);
+
+        assertThat(inlineArguments.get(2).getName()).isEqualTo("appointmentType");
+        assertThat(inlineArguments.get(2).isByRef()).isEqualTo(false);
+        assertThat(inlineArguments.get(2).getDataType()).isEqualTo(DataType.VC);
     }
 
     /**

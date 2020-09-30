@@ -87,7 +87,11 @@ public enum DataType {
     /**
      * A 14-byte time stamp with time zone.
      */
-    DM14;
+    DM14,
+    /**
+     * Unknown datatype.
+     */
+    UNKNOWN;
 
     /**
      * Resolve a data type declaration to an enumeration.
