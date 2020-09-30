@@ -1,24 +1,32 @@
 # ccl-testing Change Log
 
 ## TBD
+* ccl-maven-plugin **3.4**
+* whitenoise-maven-plugin **2.7**
 * j4ccl-ssh **4.5**
 
 ### Corrections
+* Fix [#26](https://github.com/cerner/ccl-testing/issues/26) Whitenoise fails on calls to uar_i18nGetMessage.
+* Fix [#41](https://github.com/cerner/ccl-testing/issues/41) Whitenoise does not honor skipEnvset.
 * Fix [#44](https://github.com/cerner/ccl-testing/issues/44) loss of precision when deserializing F8 values on reply message.
+* Fix [#47](https://github.com/cerner/ccl-testing/issues/47) Wide characters cannot be set to CCL running on a Linux back end.
 
+### Enhancements
+* Add the ability to skip broken whitenoise rules [#26](https://github.com/cerner/ccl-testing/issues/26).
 
 ## 2020-01-17
 * ccl-maven-plugin **3.3**
 * cerreal-maven-plugin **2.2**
+* whitenoise-maven-plugin **2.6**
 
 ### Corrections
 * Fix [#30](https://github.com/cerner/ccl-testing/issues/30) credentials prompt displayed if gss-api-authentication enabled.
 * Fix [#23](https://github.com/cerner/ccl-testing/issues/23) skip processing configurations not working.
 
 ### Enhancements
-* Add support for SSH public key authentication.
-* Allow source code to be transferred to a location other than $CCLSOURCE
-* Allow passed test cases, tests and/or asserts to be hidden in the cerreal report.
+* Add support for SSH public key authentication [(37)](https://github.com/cerner/ccl-testing/pull/37).
+* Allow source code to be transferred to a location other than $CCLSOURCE [(38)](https://github.com/cerner/ccl-testing/pull/38).
+* Allow passed test cases, tests and/or asserts to be hidden in the cerreal report [(25)](https://github.com/cerner/ccl-testing/pull/25).
 
 ### Miscellaneous
 * Update dependencies for all components.
