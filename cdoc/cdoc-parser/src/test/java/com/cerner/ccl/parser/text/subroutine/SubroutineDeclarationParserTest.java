@@ -656,4 +656,22 @@ public class SubroutineDeclarationParserTest {
         assertThat(arg35Declaration.getDataType()).isEqualTo(DataType.DM14);
         assertThat(arg35Declaration.isByRef()).isTrue();
     }
+
+    /**
+     * Verify that subroutine declarations with trailing comments can be parsed
+     */
+    @Test
+    public void testTrailingComments() {
+        final SubroutineDeclaration declaration = parser.parse(
+                "declare commented_subroutine(/*param one*/name = vc, /*param two*/id = f8) = i2 with protect ;trailing comment");
+        assertThat(declaration.getName()).isEqualTo("commented_subroutine");
+        final List<SubroutineArgumentDeclaration> arguments = declaration.getArguments();
+        assertThat(arguments.get(0).getName()).isEqualTo("name");
+        assertThat(arguments.get(0).getDataType()).isEqualTo(DataType.VC);
+        assertThat(arguments.get(0).isByRef()).isEqualTo(false);
+        assertThat(arguments.get(1).getName()).isEqualTo("id");
+        assertThat(arguments.get(1).getDataType()).isEqualTo(DataType.F8);
+        assertThat(arguments.get(1).isByRef()).isEqualTo(false);
+        assertThat(declaration.getReturnType().getDataType()).isEqualTo(DataType.I2);
+    }
 }
