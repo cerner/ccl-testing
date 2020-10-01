@@ -72,7 +72,7 @@ public class SubroutineDefinitionHeaderSmoosher implements IndexedSmoosher<Strin
         try {
             endingIndex = startingIndex;
 
-            final String firstLine = list.get(startingIndex).trim();
+            final String firstLine = uncomment(list.get(startingIndex)).trim();
             if (isDefinitionClose(firstLine)) {
                 return firstLine;
             }
@@ -82,7 +82,7 @@ public class SubroutineDefinitionHeaderSmoosher implements IndexedSmoosher<Strin
             int iterator = startingIndex + 1;
             for (final int size = list.size(); iterator < size; iterator++) {
                 endingIndex = iterator;
-                final String currentLine = list.get(iterator);
+                final String currentLine = uncomment(list.get(iterator));
                 hasClose = isDefinitionClose(currentLine);
 
                 definitionBuilder.append(" ").append(currentLine.trim());
@@ -114,4 +114,14 @@ public class SubroutineDefinitionHeaderSmoosher implements IndexedSmoosher<Strin
         return line.contains(")");
     }
 
+    /**
+     * Removes in-line and trailing comments from a line of code.
+     *
+     * @param line
+     *            The line of code.
+     * @return The uncommented line.
+     */
+    private String uncomment(final String line) {
+        return line.replaceAll("\\/\\*.*?\\*\\/", "").replaceAll(";.*", "");
+    }
 }

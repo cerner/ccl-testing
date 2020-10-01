@@ -74,7 +74,7 @@ public class InlineSubroutineDeclarationSmoosher implements IndexedSmoosher<Stri
         try {
             endingIndex = startingIndex;
 
-            final String firstLine = list.get(startingIndex).trim();
+            final String firstLine = uncomment(list.get(startingIndex)).trim();
             int leftCount = matchCount(firstLine, PATTERN_LEFT_PAREN);
             int rightCount = matchCount(firstLine, PATTERN_RIGTH_PAREN);
 
@@ -86,7 +86,7 @@ public class InlineSubroutineDeclarationSmoosher implements IndexedSmoosher<Stri
             int iterator = startingIndex + 1;
             for (final int size = list.size(); iterator < size; iterator++) {
                 endingIndex = iterator;
-                final String currentLine = list.get(iterator);
+                final String currentLine = uncomment(list.get(iterator));
                 leftCount += matchCount(currentLine, PATTERN_LEFT_PAREN);
                 rightCount += matchCount(currentLine, PATTERN_RIGTH_PAREN);
 
@@ -119,5 +119,16 @@ public class InlineSubroutineDeclarationSmoosher implements IndexedSmoosher<Stri
      */
     private int matchCount(final String source, final String expression) {
         return source.split(expression, -1).length - 1;
+    }
+
+    /**
+     * Removes in-line and trailing comments from a line of code.
+     *
+     * @param line
+     *            The line of code.
+     * @return The uncommented line.
+     */
+    private String uncomment(final String line) {
+        return line.replaceAll("\\/\\*.*?\\*\\/", "").replaceAll(";.*", "");
     }
 }

@@ -65,7 +65,7 @@ public class SubroutineDefinitionParser {
                             + subroutineDefinition);
         }
 
-        final int closeParenPos = subroutineDefinition.indexOf(')', openParenPos);
+        final int closeParenPos = subroutineDefinition.lastIndexOf(')');
         if (closeParenPos < 0) {
             throw new InvalidSubroutineException(
                     "Unable to find closing parenthesis after open parenthesis: " + subroutineDefinition);

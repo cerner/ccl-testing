@@ -227,7 +227,6 @@ public class SubroutineDeclarationParser {
      * @return The uncommented declaration.
      */
     private String uncommentDeclaration(final String declaration) {
-        return declaration.replaceAll("\\/\\*.*?\\*\\/", "").replaceAll(";.*", "");
-
+        return declaration.replaceAll("\\/\\*.*?\\*\\/", "").replaceAll("(?m);.*$", "").replaceAll("(\r|\n)", "");
     }
 }
