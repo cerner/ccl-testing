@@ -164,7 +164,7 @@ public class TextParser {
                         currentLine = endingIndex - 1;
                     }
                 } else if (inlineSubroutineDefinitionSmoosher.canSmoosh(line)) {
-                    final String rawHeaderText = subroutineDeclarationSmoosher.smoosh(currentLine, source);
+                    final String rawHeaderText = inlineSubroutineDefinitionSmoosher.smoosh(currentLine, source);
                     final String headerText = rawHeaderText.replaceFirst(PATTERN_LEFT_PAREN, " ").substring(0,
                             rawHeaderText.length() - 1);
                     final String declarationText = Pattern.compile("subroutine", Pattern.CASE_INSENSITIVE)
@@ -187,7 +187,7 @@ public class TextParser {
                     }
                     lastDocumentation = null;
 
-                    final int endingIndex = subroutineDeclarationSmoosher.getEndingIndex();
+                    final int endingIndex = inlineSubroutineDefinitionSmoosher.getEndingIndex();
                     if (endingIndex > currentLine) {
                         currentLine = endingIndex - 1;
                     }

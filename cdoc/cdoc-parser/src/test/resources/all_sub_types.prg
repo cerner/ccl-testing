@@ -171,5 +171,41 @@ record test (
         return(ssn)
     end
 
-end
-go
+    declare untyped_variables(one, two, three) = i2 with protect
+    /**
+      a subroutine with untyped variables.
+    */
+    subroutine untyped_variables(one, two, three)
+      null
+    end
+
+    /**
+      an inline subroutine with untyped variables.
+    */
+    subroutine (untyped_variables_inline(one, two, three) = i2 with protect)
+        null
+    end
+
+    declare commented_multiline(/*param one*/one = vc(ref), ;this is split over serveral lines
+        /*param two*/two = i4, /*param three*/three = f8,
+        /*param four*/four = dq8 ;) = vc
+         ) = w8 ; this is the last line
+    /**
+      a multiline subroutine littered with comments.
+    */
+    subroutine commented_multiline(/*one*/one, /*two*/two,
+      /*three*/three, four)
+        null
+    end
+
+    /**
+      an inline multiline subroutine littered with comments.
+    */
+    subroutine (commented_multiline_inline(/*param one*/one = vc, ;this is split over serveral lines
+        /*param two*/two = i4(ref), /*param three*/three = f8,
+        /*param four*/four = dq8 ;) = vc
+         ) = i4 ; penultimate line
+         ) ; ultimate line
+        null
+    end
+end go

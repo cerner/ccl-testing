@@ -85,7 +85,7 @@ public class SubroutineDeclarationSmoosher implements IndexedSmoosher<String> {
         try {
             endingIndex = startingIndex;
 
-            final String firstLine = list.get(startingIndex);
+            final String firstLine = uncomment(list.get(startingIndex));
             if (isSubroutineDeclarationClose(firstLine)) {
                 return firstLine;
             }
@@ -96,7 +96,7 @@ public class SubroutineDeclarationSmoosher implements IndexedSmoosher<String> {
             for (final int size = list.size(); iterator < size; iterator++) {
                 endingIndex = iterator;
 
-                final String currentLine = list.get(iterator);
+                final String currentLine = uncomment(list.get(iterator));
                 hasClose = isSubroutineDeclarationClose(currentLine);
 
                 declarationBuilder.append(" ").append(currentLine.trim());
@@ -131,5 +131,16 @@ public class SubroutineDeclarationSmoosher implements IndexedSmoosher<String> {
          * ")=" from the portion declaring the return type.
          */
         return line.replaceAll(" ", "").contains(")=");
+    }
+
+    /**
+     * Removes in-line and trailing comments from a line of code.
+     *
+     * @param line
+     *            The line of code.
+     * @return The uncommented line.
+     */
+    private String uncomment(final String line) {
+        return line.replaceAll("\\/\\*.*?\\*\\/", "").replaceAll(";.*", "");
     }
 }

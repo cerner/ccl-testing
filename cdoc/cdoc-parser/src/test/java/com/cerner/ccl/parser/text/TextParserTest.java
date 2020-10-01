@@ -172,7 +172,7 @@ public class TextParserTest {
         assertThat(recordStructures.get(4).getRootLevelMemberCount()).isEqualTo(1);
         assertThat(recordStructures.get(4).getRootLevelMember(0).getName()).isEqualTo("char_field");
 
-        assertThat(subroutines.size()).isEqualTo(6);
+        assertThat(subroutines.size()).isEqualTo(10);
 
         assertThat(subroutines.get(0).getName()).isEqualTo("declared_subroutine_doc");
         assertThat(subroutines.get(0).getDescription()).isEqualTo("This is a declared subroutine with documentation.");
@@ -209,5 +209,72 @@ public class TextParserTest {
                 .isEqualTo("This subroutine has no declaration, so the information about it will be severely limited.");
         assertThat(subroutines.get(5).<SimpleDataTyped> getReturnDataType()).isEqualTo(Subroutine.UNKNOWN_RETURN_TYPE);
         assertThat(subroutines.get(5).getReturnDataDescription()).isEqualTo("The given person's SSN.");
+
+        assertThat(subroutines.get(6).getName()).isEqualTo("untyped_variables");
+        assertThat(subroutines.get(6).getDescription()).isEqualTo("a subroutine with untyped variables.");
+        assertThat(subroutines.get(6).<SimpleDataTyped> getReturnDataType())
+                .isEqualTo(new SimpleDataTyped(DataType.I2));
+        assertThat(subroutines.get(6).getArguments().size()).isEqualTo(3);
+        assertThat(subroutines.get(6).getArguments().get(0).getName()).isEqualTo("one");
+        assertThat(subroutines.get(6).getArguments().get(0).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(6).getArguments().get(0).getDataType()).isEqualTo(DataType.UNKNOWN);
+        assertThat(subroutines.get(6).getArguments().get(1).getName()).isEqualTo("two");
+        assertThat(subroutines.get(6).getArguments().get(1).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(6).getArguments().get(1).getDataType()).isEqualTo(DataType.UNKNOWN);
+        assertThat(subroutines.get(6).getArguments().get(2).getName()).isEqualTo("three");
+        assertThat(subroutines.get(6).getArguments().get(2).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(6).getArguments().get(2).getDataType()).isEqualTo(DataType.UNKNOWN);
+
+        assertThat(subroutines.get(7).getName()).isEqualTo("untyped_variables_inline");
+        assertThat(subroutines.get(7).getDescription()).isEqualTo("an inline subroutine with untyped variables.");
+        assertThat(subroutines.get(7).<SimpleDataTyped> getReturnDataType())
+                .isEqualTo(new SimpleDataTyped(DataType.I2));
+        assertThat(subroutines.get(7).getArguments().size()).isEqualTo(3);
+        assertThat(subroutines.get(7).getArguments().get(0).getName()).isEqualTo("one");
+        assertThat(subroutines.get(7).getArguments().get(0).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(7).getArguments().get(0).getDataType()).isEqualTo(DataType.UNKNOWN);
+        assertThat(subroutines.get(7).getArguments().get(1).getName()).isEqualTo("two");
+        assertThat(subroutines.get(7).getArguments().get(1).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(7).getArguments().get(1).getDataType()).isEqualTo(DataType.UNKNOWN);
+        assertThat(subroutines.get(7).getArguments().get(2).getName()).isEqualTo("three");
+        assertThat(subroutines.get(7).getArguments().get(2).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(7).getArguments().get(2).getDataType()).isEqualTo(DataType.UNKNOWN);
+
+        assertThat(subroutines.get(8).getName()).isEqualTo("commented_multiline");
+        assertThat(subroutines.get(8).getDescription()).isEqualTo("a multiline subroutine littered with comments.");
+        assertThat(subroutines.get(8).<SimpleDataTyped> getReturnDataType())
+                .isEqualTo(new SimpleDataTyped(DataType.W8));
+        assertThat(subroutines.get(8).getArguments().size()).isEqualTo(4);
+        assertThat(subroutines.get(8).getArguments().get(0).getName()).isEqualTo("one");
+        assertThat(subroutines.get(8).getArguments().get(0).isByRef()).isEqualTo(true);
+        assertThat(subroutines.get(8).getArguments().get(0).getDataType()).isEqualTo(DataType.VC);
+        assertThat(subroutines.get(8).getArguments().get(1).getName()).isEqualTo("two");
+        assertThat(subroutines.get(8).getArguments().get(1).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(8).getArguments().get(1).getDataType()).isEqualTo(DataType.I4);
+        assertThat(subroutines.get(8).getArguments().get(2).getName()).isEqualTo("three");
+        assertThat(subroutines.get(8).getArguments().get(2).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(8).getArguments().get(2).getDataType()).isEqualTo(DataType.F8);
+        assertThat(subroutines.get(8).getArguments().get(3).getName()).isEqualTo("four");
+        assertThat(subroutines.get(8).getArguments().get(3).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(8).getArguments().get(3).getDataType()).isEqualTo(DataType.DQ8);
+
+        assertThat(subroutines.get(9).getName()).isEqualTo("commented_multiline_inline");
+        assertThat(subroutines.get(9).getDescription())
+                .isEqualTo("an inline multiline subroutine littered with comments.");
+        assertThat(subroutines.get(9).<SimpleDataTyped> getReturnDataType())
+                .isEqualTo(new SimpleDataTyped(DataType.I4));
+        assertThat(subroutines.get(9).getArguments().size()).isEqualTo(4);
+        assertThat(subroutines.get(9).getArguments().get(0).getName()).isEqualTo("one");
+        assertThat(subroutines.get(9).getArguments().get(0).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(9).getArguments().get(0).getDataType()).isEqualTo(DataType.VC);
+        assertThat(subroutines.get(9).getArguments().get(1).getName()).isEqualTo("two");
+        assertThat(subroutines.get(9).getArguments().get(1).isByRef()).isEqualTo(true);
+        assertThat(subroutines.get(9).getArguments().get(1).getDataType()).isEqualTo(DataType.I4);
+        assertThat(subroutines.get(9).getArguments().get(2).getName()).isEqualTo("three");
+        assertThat(subroutines.get(9).getArguments().get(2).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(9).getArguments().get(2).getDataType()).isEqualTo(DataType.F8);
+        assertThat(subroutines.get(9).getArguments().get(3).getName()).isEqualTo("four");
+        assertThat(subroutines.get(9).getArguments().get(3).isByRef()).isEqualTo(false);
+        assertThat(subroutines.get(9).getArguments().get(3).getDataType()).isEqualTo(DataType.DQ8);
     }
 }

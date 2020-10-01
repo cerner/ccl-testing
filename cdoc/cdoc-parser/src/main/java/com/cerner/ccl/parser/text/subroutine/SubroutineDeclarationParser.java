@@ -43,7 +43,7 @@ public class SubroutineDeclarationParser {
         }
 
         final EtmPoint point = PointFactory.getPoint(getClass(), "parse(String)");
-        String reducedDeclaration = reduceDeclaration(declaration.trim());
+        String reducedDeclaration = reduceDeclaration(uncommentDeclaration(declaration).trim());
         try {
             return new SubroutineDeclaration(parseName(declaration, reducedDeclaration),
                     parseReturnType(declaration, reducedDeclaration), parseArguments(reducedDeclaration));
@@ -201,7 +201,7 @@ public class SubroutineDeclarationParser {
      * </pre>
      *
      * @param declaration
-     * @return The souroutine header.
+     * @return The subroutine header.
      */
     private String reduceDeclaration(final String declaration) {
         Pattern inlinePattern = Pattern.compile("subroutine\\s*\\x28(.*)", Pattern.CASE_INSENSITIVE);
@@ -217,5 +217,16 @@ public class SubroutineDeclarationParser {
         }
         throw new InvalidSubroutineException(
                 "SubroutineDeclarationParser.parse inovked with an invalid subroutine declaration: " + declaration);
+    }
+
+    /**
+     * Removes in-line and trailing comments from a subroutine declaration
+     *
+     * @param declaration
+     *            The subroutine declaration.
+     * @return The uncommented declaration.
+     */
+    private String uncommentDeclaration(final String declaration) {
+        return declaration.replaceAll("\\/\\*.*?\\*\\/", "").replaceAll("(?m);.*$", "").replaceAll("(\r|\n)", "");
     }
 }
