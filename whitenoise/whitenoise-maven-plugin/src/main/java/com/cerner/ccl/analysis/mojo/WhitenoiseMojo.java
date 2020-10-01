@@ -192,7 +192,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
     /**
      * The source directory from which CCL code is to be read.
      */
-    @Parameter(property = "ccl-sourceDirectory", defaultValue = "src/main/ccl", required = true)
+    @Parameter(property = "ccl-sourceDirectory", defaultValue = "${project.basedir}/src/main/ccl", required = true)
     protected File sourceDirectory;
 
     /**
@@ -202,7 +202,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
      * sufficiently-recent time relative to the generation of this report, then consider changing this parameter to
      * {@code true}.
      */
-    @Parameter(defaultValue = "false", property = "doCompile", required = true)
+    @Parameter(defaultValue = "false", property = "doCompile")
     protected boolean doCompile;
 
     /**
@@ -211,7 +211,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
      *
      * @since 2.2
      */
-    @Parameter(defaultValue = "false", property = "outputRawData", required = true)
+    @Parameter(defaultValue = "false", property = "outputRawData")
     protected boolean outputRawData;
 
     /**
@@ -219,11 +219,11 @@ public class WhitenoiseMojo extends AbstractMavenReport {
      *
      * @since 2.2
      */
-    @Parameter(defaultValue = "${project.build.directory}/whitenoise/", property = "whitenoiseDataDirectory", required = true)
+    @Parameter(defaultValue = "${project.build.directory}/whitenoise/", property = "whitenoiseDataDirectory")
     protected File dataDirectory;
 
     /**
-     * The location of the file of filters that can be optionally excluded from the report.
+     * The location of a filter file specifying violations to exclude from the report.
      */
     @Parameter()
     private File filterFile;
@@ -347,8 +347,9 @@ public class WhitenoiseMojo extends AbstractMavenReport {
                         }
                     });
 
+            int filteredViolationCount = 0;
             if (filterFile != null) {
-                final ViolationFilterEngine filterEngine = new ViolationFilterEngine(getExclusions());
+                final ViolationFilterEngine filterEngine = new ViolationFilterEngine(getExclusions(filterFile));
                 for (final Entry<String, List<Violation>> entry : violations.entrySet()) {
                     System.out.println(entry);
                     final List<Violation> list = entry.getValue();
@@ -356,6 +357,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
                     while (it.hasNext()) {
                         Violation violation = it.next();
                         if (filterEngine.remove(entry.getKey(), violation)) {
+                            filteredViolationCount++;
                             it.remove();
                         }
                     }
@@ -372,8 +374,28 @@ public class WhitenoiseMojo extends AbstractMavenReport {
 
             writeViolations(violations);
 
+            if (filteredViolationCount > 0) {
+                sink.paragraph();
+                sink.bold();
+                if (filteredViolationCount > 1) {
+                    sink.text(String.format("%d violations were filtered out via %s", filteredViolationCount,
+                            filterFile.getName()));
+                } else {
+                    sink.text(String.format("1 violation was filtered out via %s", filterFile.getName()));
+                }
+                sink.bold_();
+                sink.paragraph_();
+
+            }
             for (final Entry<String, List<Violation>> entry : violations.entrySet()) {
                 writeResultTable(sink, entry.getKey(), entry.getValue());
+            }
+            if (violations.isEmpty() && filteredViolationCount == 0) {
+                sink.paragraph();
+                sink.bold();
+                sink.text("No violations were identified");
+                sink.bold_();
+                sink.paragraph_();
             }
         } finally {
 
@@ -525,13 +547,13 @@ public class WhitenoiseMojo extends AbstractMavenReport {
         sink.rawText("</div>");
     }
 
-    private Exclusions getExclusions() throws MavenReportException {
+    private Exclusions getExclusions(final File exclusionsFile) throws MavenReportException {
         try {
             final JAXBContext context = JAXBContext.newInstance(Exclusions.class.getPackage().getName(),
                     Exclusions.class.getClassLoader());
             final Unmarshaller unmarshaller = context.createUnmarshaller();
             @SuppressWarnings("unchecked")
-            final JAXBElement<Exclusions> element = (JAXBElement<Exclusions>) unmarshaller.unmarshal(filterFile);
+            final JAXBElement<Exclusions> element = (JAXBElement<Exclusions>) unmarshaller.unmarshal(exclusionsFile);
             return element.getValue();
         } catch (final Exception e) {
             getLog().error(e);
