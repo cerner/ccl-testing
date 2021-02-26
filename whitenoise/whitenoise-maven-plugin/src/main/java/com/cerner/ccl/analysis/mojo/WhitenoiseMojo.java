@@ -182,7 +182,7 @@ public class WhitenoiseMojo extends AbstractMavenReport {
     /**
      * A regular expression that will match the back end operating system prompt for the configured user. This is used
      * to recognize when the back end operating system has finished processing and is ready for another command The
-     * following value is constructed by default: "$ccl-domainUsername:ccl-environment@$ccl-host:[^@gt;]*@gt;\s*"
+     * following value is constructed by default: "$ccl-domainUsername(:ccl-environment)?@$ccl-host:[^&gt;~#]*[&gt;~#]"
      *
      * @since 2.0
      */

@@ -218,9 +218,9 @@ public abstract class BaseCclMojo extends AbstractMojo {
 
     /**
      * A regular expression that will match the back end operating system prompt for the configured user. This is used
-     * to recognize when the back end operating system has finished processing and is ready for another command The
-     * following value is constructed by default: $ccl-domainUsername:$ccl-environment@$ccl-host:[^\r\n]*(\r|\n)+#\s* or
-     * $ccl-domainUsername:\w*@$ccl-host:[^\r\n]*(\r|\n)+#\s* in case $ccl-host is not specified.
+     * to recognize when the back end operating system has finished processing and is ready for another command. The
+     * following value is constructed by default: $ccl-domainUsername(:$ccl-environment)?@$ccl-host:[^&gt;~#]*[&gt;~#]
+     * or $ccl-domainUsername(:\w*)?@$ccl-host:[^&gt;~#]*[&gt;~#] in case $ccl-host is not specified.
      *
      * @since 3.0
      */

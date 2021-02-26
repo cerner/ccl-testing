@@ -14,6 +14,7 @@
 
 ### Enhancements
 * Add the ability to skip broken whitenoise rules [#26](https://github.com/cerner/ccl-testing/issues/26).
+* Changed the default osPrompPattern to user(:environment)?@host:[^>~#]*[>~#] which is simpler and mathes all currently known OS prompt recommendations.
 
 ## 2020-01-17
 * ccl-maven-plugin **3.3**

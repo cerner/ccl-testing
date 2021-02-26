@@ -52,7 +52,7 @@
 
         <jdk.source.version>1.8</jdk.source.version>
         <jdk.target.version>1.8</jdk.target.version>
-        <powermock.version>2.0.7</powermock.version>
+        <powermock.version>2.0.9</powermock.version>
         <plugin.api.version>3.6.3</plugin.api.version>
         <ccl.maven.plugin.version>3.4-SNAPSHOT</ccl.maven.plugin.version>
         <surefire.version>3.0.0-M3</surefire.version>
@@ -542,7 +542,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
