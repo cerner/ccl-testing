@@ -699,12 +699,12 @@ public class TerminalPropertiesTest {
     @Test
     public void testConstructDefaultOsPromptPattern() {
         String prompt = TerminalProperties.constructDefaultOsPromptPattern("host", "environment", "user");
-        assertThat(prompt).isEqualTo("user(:environment)?@host:[^>~#]*[>~#]");
+        assertThat(prompt).isEqualTo("user(:environment)?@host:[^>~#$]*[>~#$]");
 
         prompt = TerminalProperties.constructDefaultOsPromptPattern("host", null, "user");
-        assertThat(prompt).isEqualTo("user(:\\w*)?@host:[^>~#]*[>~#]");
+        assertThat(prompt).isEqualTo("user(:\\w*)?@host:[^>~#$]*[>~#$]");
 
         prompt = TerminalProperties.constructDefaultOsPromptPattern("host", "", "user");
-        assertThat(prompt).isEqualTo("user(:\\w*)?@host:[^>~#]*[>~#]");
+        assertThat(prompt).isEqualTo("user(:\\w*)?@host:[^>~#$]*[>~#$]");
     }
 }

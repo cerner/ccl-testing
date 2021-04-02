@@ -32,6 +32,13 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
     private File programListingsDirectory;
 
     /**
+     * A boolean flag indicating whether to include code coverage for test case source files in the code coverage
+     * report.
+     */
+    @Parameter(defaultValue = "true", property = "ccl-includeTestCaseSourceCoverage")
+    protected boolean includeTestCaseSourceCoverage;
+
+    /**
      * Requires that the test-results and program-listings folders be present before the report can be generated.
      */
     @Override
@@ -103,7 +110,7 @@ public class CCLCoverageMojo extends AbstractCCLMavenReport {
 
         // Generate the coverage report given the source and test programs
         new CCLCoverageReportGenerator(outputDirectory, testPrograms.values(), sourcePrograms.values(), e)
-                .generateReport();
+                .withTestCaseSourceCoverage(includeTestCaseSourceCoverage).generateReport();
     }
 
     /**

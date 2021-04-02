@@ -30,6 +30,7 @@ public class CCLCoverageReportGenerator {
     private final Collection<CCLCoverageProgram> testPrograms;
     private final Collection<CCLCoverageProgram> sourcePrograms;
     private final ReportErrorLogger errorLogger;
+    private boolean includeTestCaseSourceCoverage;
 
     /**
      * Create a report generator.
@@ -49,6 +50,17 @@ public class CCLCoverageReportGenerator {
         this.sourcePrograms = sourcePrograms;
         this.testPrograms = testPrograms;
         this.errorLogger = errorLogger;
+        this.includeTestCaseSourceCoverage = true;
+    }
+
+    /**
+     * Specify whether to include code coverage for test case source code in the coverage report.
+     *
+     * @oaram include A boolean value indicating whether to include the coverage (true) or not (false).
+     */
+    public CCLCoverageReportGenerator withTestCaseSourceCoverage(final boolean include) {
+        this.includeTestCaseSourceCoverage = include;
+        return this;
     }
 
     /**
@@ -114,10 +126,12 @@ public class CCLCoverageReportGenerator {
             createProgramReport(p, null, true);
             createProgramReport(p, null, false);
 
-            for (CCLCoverageProgram tp : testPrograms) {
-                if (p.wasTestedBy(tp)) {
-                    createProgramReport(p, tp, true);
-                    createProgramReport(p, tp, false);
+            if (includeTestCaseSourceCoverage) {
+                for (CCLCoverageProgram tp : testPrograms) {
+                    if (p.wasTestedBy(tp)) {
+                        createProgramReport(p, tp, true);
+                        createProgramReport(p, tp, false);
+                    }
                 }
             }
         }
@@ -255,6 +269,8 @@ public class CCLCoverageReportGenerator {
         StringBuilder xml = new StringBuilder();
 
         xml.append("<coverageSummary>");
+        xml.append("<skipTestSourceCoverage>").append(!includeTestCaseSourceCoverage)
+                .append("</skipTestSourceCoverage>");
 
         xml.append("<testPrograms>");
         for (CCLCoverageProgram p : testPrograms) {
@@ -317,7 +333,6 @@ public class CCLCoverageReportGenerator {
         xml.append("</sourcePrograms>");
 
         xml.append("</coverageSummary>");
-
         return xml.toString();
     }
 

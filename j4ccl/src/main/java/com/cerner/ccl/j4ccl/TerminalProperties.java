@@ -206,8 +206,8 @@ public class TerminalProperties {
 
     /**
      * Constructs the default OS prompt pattern corresponding to a host, environment and username, viz.,
-     * user(:environment)?@host:[^&gt;~#]*[&gt;~#] or user(:\w*)?@host:[^&gt;~#]*[&gt;~#] if an environment value is not
-     * provided.
+     * user(:environment)?@host:[^&gt;~#$]*[&gt;~#$] or user(:\w*)?@host:[^&gt;~#$]*[&gt;~#$] if an environment value is
+     * not provided.
      *
      * @param host
      *            The host.
@@ -221,7 +221,7 @@ public class TerminalProperties {
             final String username) {
         return new StringBuilder().append(username).append("(:")
                 .append(environment != null && !environment.isEmpty() ? environment : "\\w*").append(")?@").append(host)
-                .append(":").append("[^>~#]*[>~#]").toString();
+                .append(":").append("[^>~#$]*[>~#$]").toString();
 
     }
 

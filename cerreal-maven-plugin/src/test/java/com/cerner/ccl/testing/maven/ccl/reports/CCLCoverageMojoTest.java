@@ -28,6 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
@@ -168,6 +169,7 @@ public class CCLCoverageMojoTest {
         when(programs.values()).thenReturn(programValues);
 
         final CCLCoverageReportGenerator generator = mock(CCLCoverageReportGenerator.class);
+        when(generator.withTestCaseSourceCoverage(Mockito.anyBoolean())).thenReturn(generator);
         whenNew(CCLCoverageReportGenerator.class).withArguments(outputDirectory, testValues, programValues, errorLogger)
                 .thenReturn(generator);
 
@@ -176,6 +178,7 @@ public class CCLCoverageMojoTest {
         injectable.setSourcePrograms(programListingsDirectory, programs);
         injectable.setTestPrograms(testResultsDirectory, testPrograms);
         injectable.setCanGenerateReport(true);
+        injectable.setIncludeTestCaseSourceCoverage(true);
         injectable.executeReport(Locale.getDefault());
         verify(generator).generateReport();
 
@@ -552,6 +555,10 @@ public class CCLCoverageMojoTest {
         private final Map<File, Map<String, CCLCoverageProgram>> testPrograms = new HashMap<File, Map<String, CCLCoverageProgram>>();
         private final List<LoadInvocation> invocations = new ArrayList<LoadInvocation>();
         private boolean canGenerateReport;
+
+        public void setIncludeTestCaseSourceCoverage(final boolean includeTestCaseSourceCoverage) {
+            this.includeTestCaseSourceCoverage = includeTestCaseSourceCoverage;
+        }
 
         @Override
         public boolean canGenerateReport() {

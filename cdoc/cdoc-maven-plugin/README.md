@@ -10,7 +10,7 @@ Usage
       <plugin>
         <groupId>com.cerner.ccl.cdoc</groupId>
         <artifactId>cdoc-maven-plugin</artifactId>
-        <version>1.3</version>
+        <version>1.4</version>
       </plugin>
     </plugins>
   </reporting>

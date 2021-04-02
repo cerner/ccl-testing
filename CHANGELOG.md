@@ -2,8 +2,11 @@
 
 ## TBD
 * ccl-maven-plugin **3.4**
+* cerreal-maven-plugin **2,3**
 * whitenoise-maven-plugin **2.7**
-* j4ccl-ssh **4.5**
+* cdoc-maven-plugin **1.4**
+* j4ccl-ssh **4.4**
+* cclunit-archetype **1.7**
 
 ### Corrections
 * Fix [#26](https://github.com/cerner/ccl-testing/issues/26) Whitenoise fails on calls to uar_i18nGetMessage.
@@ -14,7 +17,8 @@
 
 ### Enhancements
 * Add the ability to skip broken whitenoise rules [#26](https://github.com/cerner/ccl-testing/issues/26).
-* Changed the default osPrompPattern to user(:environment)?@host:[^>~#]*[>~#] which is simpler and mathes all currently known OS prompt recommendations.
+* Add the ablility to skip the generation and dislay of coverage data for unit test case source files.
+* Changed the default osPrompPattern to user(:environment)?@host:[^>~#$]*[>~#$] which is simpler and mathes all currently known OS prompt recommendations.
 
 ## 2020-01-17
 * ccl-maven-plugin **3.3**

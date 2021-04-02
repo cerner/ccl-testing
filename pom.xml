@@ -134,7 +134,6 @@
                 <module>j4ccl</module>
                 <module>j4ccl-ssh</module>
                 <module>jsch-util</module>
-                <module>cclunit-framework-schema-xml</module>
                 <module>ccl-maven-plugin</module>
                 <module>cerreal-maven-plugin</module>
                 <module>whitenoise/whitenoise-parent-pom</module>
@@ -146,7 +145,10 @@
                 <module>cdoc/cdoc-parser</module>
                 <module>cdoc/cdoc-maven-plugin</module>
                 <module>archetype/cclunit-archetype</module>
+<!--                
+                <module>cclunit-framework-schema-xml</module>
                 <module>archetype/cclunit-maven-settings-check-archetype</module>
+-->                
             </modules>
         </profile>
     </profiles>
