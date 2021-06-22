@@ -129,8 +129,9 @@ public class DynamicCompilerAdderImpl extends AbstractCompilerAdder
     }
 
     /**
-     * Create a random object name in which to wrap the *.inc or *.sub file. FIXME: this won't produce unique names if
-     * the user name is long
+     * Create a random object name in which to wrap the *.inc or *.sub file.
+     *
+     * FIXME: this won't produce unique names if the user name is long
      *
      * @return A random script name.
      */

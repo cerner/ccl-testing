@@ -56,7 +56,8 @@ public class CCLCoverageReportGenerator {
     /**
      * Specify whether to include code coverage for test case source code in the coverage report.
      *
-     * @oaram include A boolean value indicating whether to include the coverage (true) or not (false).
+     * @param include
+     *            A boolean value indicating whether to include the coverage (true) or not (false).
      */
     public CCLCoverageReportGenerator withTestCaseSourceCoverage(final boolean include) {
         this.includeTestCaseSourceCoverage = include;
