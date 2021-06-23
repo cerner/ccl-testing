@@ -12,7 +12,7 @@
     <name>J4CCL</name>
     <description>A Java API for executing commands in a CCL prompt on a remote server.</description>
     <properties>
-        <pitest-version>1.2.3</pitest-version>
+        <pitest-version>1.6.7</pitest-version>
     </properties>
     <scm>
         <connection>scm:git:https://github.com/cerner/ccl-testing.git</connection>

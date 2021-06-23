@@ -10,7 +10,7 @@ Usage
       <plugin>
         <groupId>com.cerner.ccl.testing</groupId>
         <artifactId>cerreal-maven-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.3</version>
         <extensions>true</extensions>
       </plugin>
     </plugins>
@@ -20,3 +20,5 @@ Usage
 Configuration Options
 ===
 Execute `mvn help:describe -DgroupId=com.cerner.ccl.testing -DartifactId=cerreal-maven-plugin -Ddetail=true` for a description of all available parameters.
+
+ccl-includeTestCaseSourceCoverage=false to skip the generation and display of coverage data for unit test case source files.

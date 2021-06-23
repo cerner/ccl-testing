@@ -24,7 +24,7 @@ Here is the plugin specification.
   <plugin>
     <groupId>com.cerner.ccl.testing</groupId>
     <artifactId>ccl-maven-plugin</artifactId>
-    <version>3.3</version>
+    <version>3.4</version>
     <extensions>true</extensions>
   </plugin>
 ```

@@ -1,26 +1,26 @@
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl -DartifactId=cclunit-framework-schema-xml -DoldVersion=2.1-SNAPSHOT -DnewVersion=2.1
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl -DartifactId=ccltesting-parent-pom -DoldVersion=2.2-SNAPSHOT -DnewVersion=2.2
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl -DartifactId=cclunit-framework-schema-xml -DoldVersion=2.2-SNAPSHOT -DnewVersion=2.1
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl -DartifactId=ccltesting-parent-pom -DoldVersion=2.3-SNAPSHOT -DnewVersion=2.3
 
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.testing -DartifactId=ccl-maven-plugin -DoldVersion=3.3-SNAPSHOT -DnewVersion=3.3
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.testing -DartifactId=cerreal-maven-plugin -DoldVersion=2.2-SNAPSHOT -DnewVersion=2.2
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-maven-plugin -DoldVersion=2.6-SNAPSHOT -DnewVersion=2.6
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.cdoc -DartifactId=cdoc-maven-plugin -DoldVersion=1.3-SNAPSHOT -DnewVersion=1.3
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.testing -DartifactId=ccl-maven-plugin -DoldVersion=3.4-SNAPSHOT -DnewVersion=3.4
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.testing -DartifactId=cerreal-maven-plugin -DoldVersion=2.3-SNAPSHOT -DnewVersion=2.3
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-maven-plugin -DoldVersion=2.7-SNAPSHOT -DnewVersion=2.7
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.cdoc -DartifactId=cdoc-maven-plugin -DoldVersion=1.4-SNAPSHOT -DnewVersion=1.4
 
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.cdoc -DartifactId=cdoc-parser -DoldVersion=2.2-SNAPSHOT -DnewVersion=2.2
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.cdoc -DartifactId=cdoc-parser -DoldVersion=2.3-SNAPSHOT -DnewVersion=2.3
 
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ftp -DartifactId=ftp-util -DoldVersion=2.1-SNAPSHOT -DnewVersion=2.1
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ftp -DartifactId=jsch-util -DoldVersion=2.1-SNAPSHOT -DnewVersion=2.1
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ftp -DartifactId=ftp-util -DoldVersion=2.2-SNAPSHOT -DnewVersion=2.2
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ftp -DartifactId=jsch-util -DoldVersion=2.2-SNAPSHOT -DnewVersion=2.2
 
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.comm -DartifactId=j4ccl -DoldVersion=3.2-SNAPSHOT -DnewVersion=3.2
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.comm -DartifactId=j4ccl-ssh -DoldVersion=4.3-SNAPSHOT -DnewVersion=4.3
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.comm -DartifactId=j4ccl -DoldVersion=3.3-SNAPSHOT -DnewVersion=3.3
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.comm -DartifactId=j4ccl-ssh -DoldVersion=4.4-SNAPSHOT -DnewVersion=4.4
 
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-parent-pom -DoldVersion=2.1-SNAPSHOT -DnewVersion=2.1
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-data -DoldVersion=2.1-SNAPSHOT -DnewVersion=2.1
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-data-jdom-ext -DoldVersion=2.4-SNAPSHOT -DnewVersion=2.4
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-engine -DoldVersion=2.1-SNAPSHOT -DnewVersion=2.1
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-rules-core -DoldVersion=2.5-SNAPSHOT -DnewVersion=2.5
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-parent-pom -DoldVersion=2.2-SNAPSHOT -DnewVersion=2.2
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-data -DoldVersion=2.2-SNAPSHOT -DnewVersion=2.2
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-data-jdom-ext -DoldVersion=2.5-SNAPSHOT -DnewVersion=2.5
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-engine -DoldVersion=2.2-SNAPSHOT -DnewVersion=2.2
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.whitenoise -DartifactId=whitenoise-rules-core -DoldVersion=2.6-SNAPSHOT -DnewVersion=2.6
 
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.archetype -DartifactId=cclunit-archetype -DoldVersion=1.6-SNAPSHOT -DnewVersion=1.6
-mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.archetype -DartifactId=cclunit-maven-settings-check-archetype -DoldVersion=1.3-SNAPSHOT -DnewVersion=1.3
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.archetype -DartifactId=cclunit-archetype -DoldVersion=1.7-SNAPSHOT -DnewVersion=1.7
+mvn versions:set -DupdateMatchingVersions=false -DgenerateBackupPoms=false -DgroupId=com.cerner.ccl.archetype -DartifactId=cclunit-maven-settings-check-archetype -DoldVersion=1.4-SNAPSHOT -DnewVersion=1.3
 
-mvn versions:set-property -DgenerateBackupPoms=false -Dproperty=ccl.maven.plugin.version -DnewVersion=3.3
+mvn versions:set-property -DgenerateBackupPoms=false -Dproperty=ccl.maven.plugin.version -DnewVersion=3.4

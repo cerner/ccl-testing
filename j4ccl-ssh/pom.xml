@@ -13,7 +13,7 @@
     <name>J4CCL SSH Plugin</name>
     <description>An implementation of J4CCL that uses SSH to execute its commands in a CCL session</description>
     <properties>
-        <pitest-version>1.4.10</pitest-version>
+        <pitest-version>1.6.7</pitest-version>
     </properties>
     <scm>
         <connection>scm:git:https://github.com/cerner/ccl-testing.git</connection>
@@ -124,35 +124,22 @@
                                 <value>-Dfile.encoding=${project.build.sourceEncoding}</value>
                             </jvmArgs>
                             <targetClasses>
-<!--
-    pitest fails when asked to do everything.
-    To work around that, the targetClasses and targetTests are separated into blocks that go together.
-    Use separte runs to generate the mutation coverage reports for each pair of blocks and then combine the results.
--->
-<!--
                                 <param>com.cerner.ccl.j4ccl.impl.adders.*</param>
--->
                                 <param>com.cerner.ccl.j4ccl.ssh.*</param>
-<!--
                                 <param>com.cerner.ccl.j4ccl.impl.*.java</param>
                                 <param>com.cerner.ccl.j4ccl.impl.commands.*</param>
                                 <param>com.cerner.ccl.j4ccl.impl.data.*</param>
                                 <param>com.cerner.ccl.j4ccl.impl.jaas.*</param>
                                 <param>com.cerner.ccl.j4ccl.impl.util.*</param>
--->
                             </targetClasses>
                             <targetTests>
-<!--
                                 <param>com.cerner.ccl.j4ccl.impl.adders.*</param>
--->
                                 <param>com.cerner.ccl.j4ccl.ssh.*</param>
-<!--
                                 <param>com.cerner.ccl.j4ccl.impl.*.java</param>
                                 <param>com.cerner.ccl.j4ccl.impl.commands.*</param>
                                 <param>com.cerner.ccl.j4ccl.impl.data.*</param>
                                 <param>com.cerner.ccl.j4ccl.impl.jaas.*</param>
                                 <param>com.cerner.ccl.j4ccl.impl.util.*</param>
--->
                             </targetTests>
                             <avoidCallsTo>
                                 <avoidCallsTo>com.cerner.system.exception</avoidCallsTo>
