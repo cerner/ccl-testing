@@ -8,6 +8,10 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
         <constructor-arg index="2" value="${ccl-environment}" />
     </bean>
 
+    <bean id="privateKeyPrincipal" class="com.cerner.ccl.j4ccl.impl.jaas.PrivateKeyPrincipal">
+        <constructor-arg index="0" value="#{systemProperties['ccl-keyFile']}" />
+    </bean>
+
     <bean id="backendNodePasswordCredential" class="com.cerner.ccl.j4ccl.impl.jaas.BackendNodePasswordCredential">
         <constructor-arg index="0" value="#{systemProperties['ccl-hostPassword']}" />
     </bean>
@@ -27,6 +31,7 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
             <util:set>
                 <ref bean="millenniumDomainPrincipal" />
                 <ref bean="backendNodePrincipal" />
+                <ref bean="privateKeyPrincipal" />
             </util:set>
         </constructor-arg>
         <constructor-arg index="2">

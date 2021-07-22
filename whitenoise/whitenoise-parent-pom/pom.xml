@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cerner.ccl.whitenoise</groupId>
     <artifactId>whitenoise-parent-pom</artifactId>
-    <version>2.2-SNAPSHOT</version>
+    <version>2.2</version>
     <packaging>pom</packaging>
     <name>Whitenoise Parent POM</name>
     <description>A POM that provides general-use artifacts for all whitenoise components</description>
@@ -607,7 +607,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.10.0</version>
+                <version>2.11.0</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>

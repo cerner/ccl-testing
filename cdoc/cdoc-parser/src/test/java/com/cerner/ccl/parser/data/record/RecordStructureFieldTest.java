@@ -3,27 +3,23 @@ package com.cerner.ccl.parser.data.record;
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 
+import com.cerner.ccl.parser.AbstractBeanUnitTest;
+import com.cerner.ccl.parser.data.CodeSet;
+import com.cerner.ccl.parser.data.DataType;
+import com.cerner.ccl.parser.data.EnumeratedValue;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.parser.AbstractBeanUnitTest;
-import com.cerner.ccl.parser.data.CodeSet;
-import com.cerner.ccl.parser.data.DataType;
-import com.cerner.ccl.parser.data.EnumeratedValue;
-
 /**
  * Unit tests for {@link RecordStructureField}.
  *
  * @author Joshua Hyde
- *
  */
-
 @SuppressWarnings("unused")
 public class RecordStructureFieldTest extends AbstractBeanUnitTest<RecordStructureField> {
     private final String name = "field_Name";
@@ -38,20 +34,16 @@ public class RecordStructureFieldTest extends AbstractBeanUnitTest<RecordStructu
     private List<EnumeratedValue> values;
     private RecordStructureField field;
 
-    /**
-     * Set up the values and code sets for each test.
-     */
+    /** Set up the values and code sets for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         values = Collections.singletonList(value);
         codeSets = Collections.singletonList(codeSet);
         field = new RecordStructureField(name, level, dataType, false, description, codeSets, values);
     }
 
-    /**
-     * Test the construction of a non-fixed-length record structure field.
-     */
+    /** Test the construction of a non-fixed-length record structure field. */
     @Test
     public void testConstruct() {
         assertThat(field.getName()).isEqualTo(name);
@@ -62,9 +54,7 @@ public class RecordStructureFieldTest extends AbstractBeanUnitTest<RecordStructu
         assertThat(field.getValues()).isEqualTo(values);
     }
 
-    /**
-     * Test the construction of a non-fixed-length record structure field with no documentation.
-     */
+    /** Test the construction of a non-fixed-length record structure field with no documentation. */
     @Test
     public void testConstructNoDocumentation() {
         final RecordStructureField field = new RecordStructureField(name, 1, DataType.F8);
@@ -75,9 +65,7 @@ public class RecordStructureFieldTest extends AbstractBeanUnitTest<RecordStructu
         assertThat(field.getValues()).isEmpty();
     }
 
-    /**
-     * Construction of a non-fixed-length-character field with a {@code null} name should fail.
-     */
+    /** Construction of a non-fixed-length-character field with a {@code null} name should fail. */
     @Test
     public void testConstructNullName() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -86,9 +74,7 @@ public class RecordStructureFieldTest extends AbstractBeanUnitTest<RecordStructu
         assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
-    /**
-     * Construction with a zero level should fail.
-     */
+    /** Construction with a zero level should fail. */
     @Test
     public void testConstructZeroLevel() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -108,9 +94,7 @@ public class RecordStructureFieldTest extends AbstractBeanUnitTest<RecordStructu
         assertThat(other).isNotEqualTo(field);
     }
 
-    /**
-     * Two fields with the same name (just different casing) should be equal.
-     */
+    /** Two fields with the same name (just different casing) should be equal. */
     @Test
     public void testEqualsNameCaseInsensitive() {
         final RecordStructureField field = new RecordStructureField(name, 1, DataType.DQ8);
@@ -120,9 +104,7 @@ public class RecordStructureFieldTest extends AbstractBeanUnitTest<RecordStructu
         assertThat(field.hashCode()).isEqualTo(other.hashCode());
     }
 
-    /**
-     * Test the retrieval of the level.
-     */
+    /** Test the retrieval of the level. */
     @Test
     public void testGetLevel() {
         assertThat(field.getLevel()).isEqualTo(level);
@@ -138,5 +120,4 @@ public class RecordStructureFieldTest extends AbstractBeanUnitTest<RecordStructu
         return new RecordStructureField(name, otherBean.getLevel(), otherBean.getDataType(), otherBean.isOptional(),
                 otherBean.getDescription(), otherBean.getCodeSets(), otherBean.getValues());
     }
-
 }

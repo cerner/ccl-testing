@@ -2,24 +2,20 @@ package com.cerner.ccl.parser.text.documentation;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import com.cerner.ccl.parser.AbstractBeanUnitTest;
+import com.cerner.ccl.parser.data.record.InterfaceStructureType;
 import java.util.Collections;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.parser.AbstractBeanUnitTest;
-import com.cerner.ccl.parser.data.record.InterfaceStructureType;
-
 /**
  * Unit tests for {@link RecordStructureDocumentation}.
  *
  * @author Joshua Hyde
- *
  */
-
 public class RecordStructureDocumentationTest extends AbstractBeanUnitTest<RecordStructureDocumentation> {
     private final String description = "i am the description";
     private final InterfaceStructureType structureType = InterfaceStructureType.REPLY;
@@ -28,19 +24,15 @@ public class RecordStructureDocumentationTest extends AbstractBeanUnitTest<Recor
     private List<Field> fields;
     private RecordStructureDocumentation doc;
 
-    /**
-     * Set up the documentation object for each test.
-     */
+    /** Set up the documentation object for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         fields = Collections.singletonList(field);
         doc = new RecordStructureDocumentation(description, structureType, fields);
     }
 
-    /**
-     * Two structures of different structure types should be inequal.
-     */
+    /** Two structures of different structure types should be inequal. */
     @Test
     public void testEqualsDifferentStructureType() {
         final RecordStructureDocumentation other = new RecordStructureDocumentation(description,
@@ -49,9 +41,7 @@ public class RecordStructureDocumentationTest extends AbstractBeanUnitTest<Recor
         assertThat(other).isNotEqualTo(doc);
     }
 
-    /**
-     * Two structures with different fields should be inequal.
-     */
+    /** Two structures with different fields should be inequal. */
     @Test
     public void testEqualsDifferentFields() {
         final RecordStructureDocumentation other = new RecordStructureDocumentation(description, structureType,
@@ -82,17 +72,13 @@ public class RecordStructureDocumentationTest extends AbstractBeanUnitTest<Recor
         assertThat(new RecordStructureDocumentation(description, structureType, null).getFields()).isEmpty();
     }
 
-    /**
-     * Test the retrieval of the fields.
-     */
+    /** Test the retrieval of the fields. */
     @Test
     public void testGetFields() {
         assertThat(doc.getFields()).isEqualTo(fields);
     }
 
-    /**
-     * Test the retrieval of the structure type.
-     */
+    /** Test the retrieval of the structure type. */
     @Test
     public void testGetStructureType() {
         assertThat(doc.getStructureType()).isEqualTo(structureType);
@@ -108,5 +94,4 @@ public class RecordStructureDocumentationTest extends AbstractBeanUnitTest<Recor
         return new RecordStructureDocumentation(otherBean.getDescription(), otherBean.getStructureType(),
                 otherBean.getFields());
     }
-
 }

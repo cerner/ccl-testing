@@ -11,6 +11,9 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
+import com.cerner.ccl.testing.maven.ccl.reports.CCLCoverageMojoTest.InjectableMojo.LoadInvocation;
+import com.cerner.ccl.testing.maven.ccl.reports.common.CCLCoverageProgram;
+import com.cerner.ccl.testing.maven.ccl.reports.common.ReportErrorLogger;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +22,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.maven.plugin.logging.Log;
@@ -27,23 +29,17 @@ import org.apache.maven.reporting.MavenReportException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
-
-import com.cerner.ccl.testing.maven.ccl.reports.CCLCoverageMojoTest.InjectableMojo.LoadInvocation;
-import com.cerner.ccl.testing.maven.ccl.reports.common.CCLCoverageProgram;
-import com.cerner.ccl.testing.maven.ccl.reports.common.ReportErrorLogger;
 
 /**
  * Unit tests for {@link CCLCoverageMojo}.
  *
  * @author Joshua Hyde
- *
  */
-
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { AbstractCCLMavenReport.class, CCLCoverageMojo.class, CCLCoverageReportGenerator.class,
         FileUtils.class, ReportErrorLogger.class })
@@ -169,7 +165,7 @@ public class CCLCoverageMojoTest {
         when(programs.values()).thenReturn(programValues);
 
         final CCLCoverageReportGenerator generator = mock(CCLCoverageReportGenerator.class);
-        when(generator.withTestCaseSourceCoverage(Mockito.anyBoolean())).thenReturn(generator);
+        when(generator.withTestCaseSourceCoverage(ArgumentMatchers.anyBoolean())).thenReturn(generator);
         whenNew(CCLCoverageReportGenerator.class).withArguments(outputDirectory, testValues, programValues, errorLogger)
                 .thenReturn(generator);
 
@@ -207,33 +203,25 @@ public class CCLCoverageMojoTest {
         injectable.executeReport(Locale.getDefault());
     }
 
-    /**
-     * Test the retrieval of the description.
-     */
+    /** Test the retrieval of the description. */
     @Test
     public void testGetDescription() {
         assertThat(mojo.getDescription(Locale.getDefault())).isEqualTo("Reports code coverage for automated CCL tests");
     }
 
-    /**
-     * Test the retrieval of the name.
-     */
+    /** Test the retrieval of the name. */
     @Test
     public void testGetName() {
         assertThat(mojo.getName(Locale.getDefault())).isEqualTo("CCL Coverage Report");
     }
 
-    /**
-     * Test the retrieval of the output name.
-     */
+    /** Test the retrieval of the output name. */
     @Test
     public void testGetOutputName() {
         assertThat(mojo.getOutputName()).isEqualTo("ccl-coverage-report");
     }
 
-    /**
-     * The mojo should indicate itself as an external report.
-     */
+    /** The mojo should indicate itself as an external report. */
     @Test
     public void testIsExternalReport() {
         assertThat(mojo.isExternalReport()).isTrue();
@@ -486,14 +474,12 @@ public class CCLCoverageMojoTest {
      * An extension of {@link CCLCoverageMojo} that delegates the load methods to in-memory stores.
      *
      * @author Joshua Hyde
-     *
      */
     public static class InjectableMojo extends CCLCoverageMojo {
         /**
          * A record of an invocation of {@link InjectableMojo#loadCoverage(File, Map, Map)}.
          *
          * @author Joshua Hyde
-         *
          */
         @SuppressWarnings("javadoc")
         public static class LoadInvocation {
@@ -556,6 +542,12 @@ public class CCLCoverageMojoTest {
         private final List<LoadInvocation> invocations = new ArrayList<LoadInvocation>();
         private boolean canGenerateReport;
 
+        /**
+         * Helper method for setting the includeTestCaseSourceCoverage value.
+         *
+         * @param includeTestCaseSourceCoverage
+         *            The value to set.
+         */
         public void setIncludeTestCaseSourceCoverage(final boolean includeTestCaseSourceCoverage) {
             this.includeTestCaseSourceCoverage = includeTestCaseSourceCoverage;
         }

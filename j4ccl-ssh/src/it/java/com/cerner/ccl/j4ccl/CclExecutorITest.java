@@ -25,6 +25,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -102,6 +103,10 @@ public class CclExecutorITest {
             prop.load(stream);
             String hostCredentialsId = prop.getProperty("ccl-hostCredentialsId");
             String cclCredentialsId = prop.getProperty("ccl-frontendCredentialsId");
+            String keyFile = prop.getProperty("ccl-keyFile");
+            if (keyFile != null && !keyFile.isEmpty()) {
+                System.setProperty("ccl-keyFile", keyFile);
+            }
             if (hostCredentialsId != null && !hostCredentialsId.isEmpty()) {
                 String hostUsername = prop
                         .getProperty(String.format("settings.servers.%s.username", hostCredentialsId));

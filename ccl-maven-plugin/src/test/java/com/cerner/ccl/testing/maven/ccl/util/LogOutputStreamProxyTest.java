@@ -3,33 +3,27 @@ package com.cerner.ccl.testing.maven.ccl.util;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import com.cerner.ccl.testing.maven.ccl.util.LogOutputStreamProxy.LogProxy;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.testing.maven.ccl.util.LogOutputStreamProxy;
-import com.cerner.ccl.testing.maven.ccl.util.LogOutputStreamProxy.LogProxy;
-
 /**
  * Unit tests for {@link LogOutputStreamProxy}.
  *
  * @author Joshua Hyde
- *
  */
 public class LogOutputStreamProxyTest {
     @Mock
     private LogProxy logProxy;
 
-    /**
-     * Pretest initialization
-     */
+    /** Pretest initialization */
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
 
     /**
@@ -43,16 +37,18 @@ public class LogOutputStreamProxyTest {
         final List<String> lines = Arrays.asList("test_one", "test_two", "test_three");
         final LogOutputStreamProxy proxy = new LogOutputStreamProxy(logProxy);
         for (final String line : lines) {
-            for (final char c : line.toCharArray())
+            for (final char c : line.toCharArray()) {
                 proxy.write(c);
+            }
             proxy.write('\n');
         }
 
         /*
          * Verify that the above lines - and ONLY the above lines - were proxied to the Log object
          */
-        for (final String line : lines)
+        for (final String line : lines) {
             verify(logProxy).log(line);
+        }
 
         verifyNoMoreInteractions(logProxy);
         proxy.close();
@@ -68,8 +64,9 @@ public class LogOutputStreamProxyTest {
     public void testFlush() throws Exception {
         final LogOutputStreamProxy proxy = new LogOutputStreamProxy(logProxy);
         final String line = "i am a line";
-        for (final char c : line.toCharArray())
+        for (final char c : line.toCharArray()) {
             proxy.write(c);
+        }
 
         // Verify that nothing's been proxied to the log yet
         verifyNoMoreInteractions(logProxy);
@@ -90,8 +87,9 @@ public class LogOutputStreamProxyTest {
     public void testClose() throws Exception {
         final LogOutputStreamProxy proxy = new LogOutputStreamProxy(logProxy);
         final String line = "i am a line";
-        for (final char c : line.toCharArray())
+        for (final char c : line.toCharArray()) {
             proxy.write(c);
+        }
 
         // Verify that nothing's been proxied to the log yet
         verifyNoMoreInteractions(logProxy);

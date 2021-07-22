@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cerner.ccl.cdoc</groupId>
     <artifactId>cdoc-maven-plugin</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.4</version>
     <packaging>maven-plugin</packaging>
     <name>CDoc Maven Plugin</name>
     <description>A plugin used to generate documentation reports about CCL source code</description>
@@ -53,8 +53,9 @@
         <jdk.source.version>1.8</jdk.source.version>
         <jdk.target.version>1.8</jdk.target.version>
         <powermock.version>2.0.9</powermock.version>
+        <mockito.version>3.11.2</mockito.version>
         <plugin.api.version>3.8.1</plugin.api.version>
-        <ccl.maven.plugin.version>3.4-SNAPSHOT</ccl.maven.plugin.version>
+        <ccl.maven.plugin.version>3.4</ccl.maven.plugin.version>
         <surefire.version>3.0.0-M5</surefire.version>
         <changes.plugin.version>2.12.1</changes.plugin.version>
     </properties>
@@ -477,12 +478,12 @@
         <dependency>
             <groupId>com.cerner.ccl.cdoc</groupId>
             <artifactId>cdoc-parser</artifactId>
-            <version>2.3-SNAPSHOT</version>
+            <version>2.3</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.10.0</version>
+            <version>2.11.0</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -570,14 +571,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito2</artifactId>
-            <version>${powermock.version}</version>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
-            <artifactId>powermock-core</artifactId>
+            <artifactId>powermock-api-mockito2</artifactId>
             <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>

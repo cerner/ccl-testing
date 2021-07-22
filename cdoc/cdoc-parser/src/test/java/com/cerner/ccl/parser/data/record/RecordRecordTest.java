@@ -1,21 +1,17 @@
 package com.cerner.ccl.parser.data.record;
 
+import com.cerner.ccl.parser.AbstractBeanUnitTest;
 import java.util.Collections;
 import java.util.List;
-
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import com.cerner.ccl.parser.AbstractBeanUnitTest;
 
 /**
  * Unit tests for {@link RecordRecord}.
  *
  * @author Joshua Hyde
- *
  */
-
 public class RecordRecordTest extends AbstractBeanUnitTest<RecordRecord> {
     private final String name = "record_name";
     private final String description = "a description";
@@ -24,12 +20,10 @@ public class RecordRecordTest extends AbstractBeanUnitTest<RecordRecord> {
     private List<RecordStructureMember> children;
     private RecordRecord record;
 
-    /**
-     * Set up the record for each test.
-     */
+    /** Set up the record for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         children = Collections.singletonList(child);
         record = new RecordRecord(name, 1, description, children);
     }
@@ -44,5 +38,4 @@ public class RecordRecordTest extends AbstractBeanUnitTest<RecordRecord> {
         return new RecordRecord(otherBean.getName(), otherBean.getLevel(), otherBean.getDescription(),
                 otherBean.getChildren());
     }
-
 }

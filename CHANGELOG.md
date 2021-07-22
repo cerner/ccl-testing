@@ -1,6 +1,6 @@
 # ccl-testing Change Log
 
-## TBD
+## 2020-07-16
 * ccl-maven-plugin **3.4**
 * cerreal-maven-plugin **2,3**
 * whitenoise-maven-plugin **2.7**

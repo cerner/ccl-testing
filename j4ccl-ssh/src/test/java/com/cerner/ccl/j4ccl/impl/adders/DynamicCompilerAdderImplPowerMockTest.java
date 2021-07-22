@@ -8,6 +8,10 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
+import com.cerner.ccl.j4ccl.impl.CommandQueue;
+import com.cerner.ccl.j4ccl.impl.commands.DropScriptCommand;
+import com.cerner.ccl.j4ccl.impl.commands.ScriptCompilerCommand;
+import com.cerner.ccl.j4ccl.impl.util.ScriptRegistrar;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -16,7 +20,6 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,18 +32,11 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.j4ccl.impl.CommandQueue;
-import com.cerner.ccl.j4ccl.impl.commands.DropScriptCommand;
-import com.cerner.ccl.j4ccl.impl.commands.ScriptCompilerCommand;
-import com.cerner.ccl.j4ccl.impl.util.ScriptRegistrar;
-
 /**
  * Unit tests for {@link DynamicCompilerAdderImpl}.
  *
  * @author Joshua Hyde
- *
  */
-
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { DynamicCompilerAdderImpl.class, DropScriptCommand.class, File.class, FileUtils.class,
         ScriptCompilerCommand.class, ScriptRegistrar.class })
@@ -55,12 +51,10 @@ public class DynamicCompilerAdderImplPowerMockTest {
     @Captor
     private ArgumentCaptor<Collection<File>> argumentCaptorFileCollection;
 
-    /**
-     * Set up the adder for each test.
-     */
+    /** Set up the adder for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         when(sourceCodeFile.getName()).thenReturn(sourceCodeFileName);
         adder = new DynamicCompilerAdderImpl(sourceCodeFile, queue);
     }

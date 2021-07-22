@@ -6,31 +6,25 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.testing.maven.ccl.util.DelegatingOutputStream;
-
 /**
  * Unit tests for {@link DelegatingOutputStream}.
  *
  * @author Joshua Hyde
- *
  */
 public class DelegatingOutputStreamTest {
     @Mock
     private FileOutputStream stream;
     private DelegatingOutputStream delegate;
 
-    /**
-     * Create and set up the delegate for each test.
-     */
+    /** Create and set up the delegate for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         delegate = new DelegatingOutputStream();
         delegate.addStream(stream);
     }
@@ -43,11 +37,13 @@ public class DelegatingOutputStreamTest {
      */
     @Test
     public void testWriteInt() throws Exception {
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 10; i++) {
             delegate.write(i);
+        }
 
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 10; i++) {
             verify(stream).write(i);
+        }
 
         verifyNoMoreInteractions(stream);
     }
@@ -90,7 +86,6 @@ public class DelegatingOutputStreamTest {
      * class.
      *
      * @author Joshua Hyde
-     *
      */
     private static class EqualsStream extends OutputStream {
 
@@ -107,9 +102,7 @@ public class DelegatingOutputStreamTest {
             return (object != null && object.getClass().equals(getClass()));
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public int hashCode() {
             return super.hashCode();
@@ -120,7 +113,6 @@ public class DelegatingOutputStreamTest {
      * Stub implementation of {@link OutputStream} that always says it is not equal to the other object.
      *
      * @author Joshua Hyde
-     *
      */
     private static class NotEqualsStream extends OutputStream {
 
@@ -137,13 +129,10 @@ public class DelegatingOutputStreamTest {
             return false;
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        /** {@inheritDoc} */
         @Override
         public int hashCode() {
             return super.hashCode();
         }
     }
-
 }

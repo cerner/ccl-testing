@@ -4,25 +4,21 @@ import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 
+import com.cerner.ccl.parser.AbstractBeanUnitTest;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.parser.AbstractBeanUnitTest;
-
 /**
  * Unit tests for {@link AbstractParentRecordStructureMember}.
  *
  * @author Joshua Hyde
- *
  */
-
 @SuppressWarnings("unused")
 public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTest<AbstractParentRecordStructureMember> {
     private final String name = "list_name";
@@ -33,19 +29,15 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
     private List<RecordStructureMember> children;
     private AbstractParentRecordStructureMember list;
 
-    /**
-     * Set up the list for each test.
-     */
+    /** Set up the list for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         children = Collections.singletonList(child);
         list = new ConcreteStructure(name, level, description, children);
     }
 
-    /**
-     * Construction with a {@code null} list of children should fail.
-     */
+    /** Construction with a {@code null} list of children should fail. */
     @Test
     public void testConstructNullChildren() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -54,9 +46,7 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
         assertThat(e.getMessage()).isEqualTo("Children members cannot be null.");
     }
 
-    /**
-     * Construction with a {@code null} name should fail.
-     */
+    /** Construction with a {@code null} name should fail. */
     @Test
     public void testConstructNullName() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -65,9 +55,7 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
         assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
-    /**
-     * Construction of the member with a 0 level should fail.
-     */
+    /** Construction of the member with a 0 level should fail. */
     @Test
     public void testConstructZeroLevel() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -76,9 +64,7 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
         assertThat(e.getMessage()).isEqualTo("Level cannot be less than 1: " + Integer.toString(0));
     }
 
-    /**
-     * The description should not be considered when determining inequality.
-     */
+    /** The description should not be considered when determining inequality. */
     @Test
     public void testEqualsDifferentDescription() {
         final AbstractParentRecordStructureMember other = new ConcreteStructure(name, 1,
@@ -88,9 +74,7 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
         assertThat(list.hashCode()).isEqualTo(other.hashCode());
     }
 
-    /**
-     * Two lists with different children should not be equal.
-     */
+    /** Two lists with different children should not be equal. */
     @Test
     public void testEqualsDifferentChildren() {
         final AbstractParentRecordStructureMember other = new ConcreteStructure(name, 1, description,
@@ -99,9 +83,7 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
         assertThat(list).isNotEqualTo(other);
     }
 
-    /**
-     * The comparison by name should be case-insensitive.
-     */
+    /** The comparison by name should be case-insensitive. */
     @Test
     public void testEqualsNameCaseInsensitive() {
         final AbstractParentRecordStructureMember other = new ConcreteStructure(StringUtils.swapCase(name), 1,
@@ -111,9 +93,7 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
         assertThat(other.hashCode()).isEqualTo(list.hashCode());
     }
 
-    /**
-     * Test the retrieval of child members.
-     */
+    /** Test the retrieval of child members. */
     @Test
     public void testGetChildMember() {
         final RecordStructureField field = mock(RecordStructureField.class);
@@ -126,25 +106,19 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
         assertThat(parent.<RecordStructureField> getChildMember(1)).isEqualTo(list);
     }
 
-    /**
-     * Test the retrieval of the description.
-     */
+    /** Test the retrieval of the description. */
     @Test
     public void testGetDescription() {
         assertThat(list.getDescription()).isEqualTo(description);
     }
 
-    /**
-     * Test the retrieval of the level.
-     */
+    /** Test the retrieval of the level. */
     @Test
     public void testGetLevel() {
         assertThat(list.getLevel()).isEqualTo(level);
     }
 
-    /**
-     * Test the retrieval of the name.
-     */
+    /** Test the retrieval of the name. */
     @Test
     public void testGetName() {
         assertThat(list.getName()).isEqualTo(name);
@@ -165,7 +139,6 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
      * Concrete implementation of {@link AbstractParentRecordStructureMember} to aid in testing.
      *
      * @author Joshua Hyde
-     *
      */
     private static class ConcreteStructure extends AbstractParentRecordStructureMember {
         /**
@@ -184,7 +157,5 @@ public class AbstractParentRecordStructureMemberTest extends AbstractBeanUnitTes
                 final List<? extends RecordStructureMember> children) {
             super(name, level, description, children);
         }
-
     }
-
 }

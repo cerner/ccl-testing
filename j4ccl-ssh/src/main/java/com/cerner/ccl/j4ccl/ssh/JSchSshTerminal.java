@@ -1,22 +1,5 @@
 package com.cerner.ccl.j4ccl.ssh;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.cerner.ccl.j4ccl.TerminalProperties;
 import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePasswordCredential;
 import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePrincipal;
@@ -32,24 +15,37 @@ import com.google.code.jetm.reporting.ext.PointFactory;
 import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
-
 import etm.core.monitor.EtmPoint;
 import expect4j.Closure;
 import expect4j.Expect4j;
 import expect4j.ExpectState;
 import expect4j.matches.Match;
 import expect4j.matches.RegExpMatch;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+import org.apache.commons.io.FileUtils;
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A wrapper around a {@link JSch} and {@link ChannelShell} object to facilitate submission of commands through an
  * emulated SSH terminal.
  *
  * @author Joshua Hyde
- *
  */
-
 public class JSchSshTerminal {
-    // TODO: either make this pattern configurable or never mind making the cclPromptPattern configurable.
+    // TODO: either make this pattern configurable or never mind making the cclPromptPattern
+    // configurable.
     private static final Pattern REFINED_CCL_PROMPT_PATTERN = Pattern
             .compile("^(\\s{2}[1-9]|\\s[1-9]\\d|[1-9]\\d{2,})\\)$", Pattern.MULTILINE);
     private static final String CCL_EXECUTE_PROMPT_PATTERN_STRING = "\\n\\s{2}1\\)$";
@@ -66,9 +62,7 @@ public class JSchSshTerminal {
 
     private final Logger logger = LoggerFactory.getLogger(JSchSshTerminal.class);
 
-    /**
-     * Create a terminal with no timeout.
-     */
+    /** Create a terminal with no timeout. */
     public JSchSshTerminal() {
         this(ConnectionPoolFactory.getInstance());
     }
@@ -128,7 +122,6 @@ public class JSchSshTerminal {
                     } else {
                         stream = new ByteArrayOutputStream();
                     }
-
                 }
                 shell.setOutputStream(stream);
 
@@ -158,7 +151,8 @@ public class JSchSshTerminal {
                         // end------------------------------");
 
                         String match = expectState.getMatch().replaceAll("(?:\r|\n)", "");
-                        // cclPromptIsSet && pairIndex==0 --> ccl prompt or ccl execute prompt pattern was matched.
+                        // cclPromptIsSet && pairIndex==0 --> ccl prompt or ccl execute prompt pattern was
+                        // matched.
                         if (closureComm.containsKey("cclPromptIsSet") && closureComm.get("cclPromptIsSet")
                                 && expectState.getPairIndex() == 0
                                 && !REFINED_CCL_PROMPT_PATTERN.matcher(match).matches()) {
@@ -251,9 +245,7 @@ public class JSchSshTerminal {
     }
 
     /**
-     * Determines the amount of time to wait on the expectations for different commands.
-     *
-     * <br>
+     * Determines the amount of time to wait on the expectations for different commands. <br>
      * This is a hack. setDefaultTimeout limits how long we wait for the terminal to respond with something that matches
      * our expectations. Unfortunately we have no idea how long the "execute ... go" might take to execute since it
      * could be kicking off a very lengthy test case. In that case we will wait forever. The only reason to ever have a
@@ -329,8 +321,10 @@ public class JSchSshTerminal {
                     .getPrivateCredential(BackendNodePasswordCredential.class);
             if (JaasUtils.hasPrincipal(PrivateKeyPrincipal.class)) {
                 PrivateKeyPrincipal keyPrincipal = JaasUtils.getPrincipal(PrivateKeyPrincipal.class);
-                return pool.getConnection(principal.getUsername(), passwordCredential.getPassword(),
-                        URI.create(keyPrincipal.getName()), URI.create(principal.getHostname()));
+                if (!keyPrincipal.getName().isEmpty()) {
+                    return pool.getConnection(principal.getUsername(), passwordCredential.getPassword(),
+                            URI.create(keyPrincipal.getName()), URI.create(principal.getHostname()));
+                }
             }
             return pool.getConnection(principal.getUsername(), passwordCredential.getPassword(),
                     URI.create(principal.getHostname()));

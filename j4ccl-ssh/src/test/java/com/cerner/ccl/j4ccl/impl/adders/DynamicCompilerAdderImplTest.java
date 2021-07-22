@@ -56,7 +56,7 @@ public class DynamicCompilerAdderImplTest {
      */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         when(sourceCodeFile.getName()).thenReturn(sourceCodeFileName);
         adder = new DynamicCompilerAdderImpl(sourceCodeFile, queue);
     }

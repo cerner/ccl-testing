@@ -8,11 +8,21 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
+import com.cerner.ccl.j4ccl.TerminalProperties;
+import com.cerner.ccl.j4ccl.enums.OutputType;
+import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePrincipal;
+import com.cerner.ccl.j4ccl.impl.jaas.JaasUtils;
+import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPasswordCredential;
+import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPrincipal;
+import com.cerner.ccl.j4ccl.impl.util.CclOutputStreamProxy;
+import com.cerner.ccl.j4ccl.impl.util.OutputStreamConfiguration;
+import com.cerner.ccl.j4ccl.impl.util.OutputStreamProxy;
+import com.google.code.jetm.reporting.ext.PointFactory;
+import etm.core.monitor.EtmPoint;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,26 +36,11 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.cerner.ccl.j4ccl.TerminalProperties;
-import com.cerner.ccl.j4ccl.enums.OutputType;
-import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePrincipal;
-import com.cerner.ccl.j4ccl.impl.jaas.JaasUtils;
-import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPasswordCredential;
-import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPrincipal;
-import com.cerner.ccl.j4ccl.impl.util.CclOutputStreamProxy;
-import com.cerner.ccl.j4ccl.impl.util.OutputStreamConfiguration;
-import com.cerner.ccl.j4ccl.impl.util.OutputStreamProxy;
-import com.google.code.jetm.reporting.ext.PointFactory;
-
-import etm.core.monitor.EtmPoint;
-
 /**
  * Unit tests for {@link CclCommandTerminal}.
  *
  * @author Joshua Hyde
- *
  */
-
 @PowerMockIgnore("javax.security.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = { CclOutputStreamProxy.class, CclCommandTerminal.class, JaasUtils.class,
@@ -74,24 +69,21 @@ public class CclCommandTerminalTest {
 
     @Captor
     private ArgumentCaptor<List<String>> argumentCaptorListString;
+
     @Captor
     private ArgumentCaptor<List<CommandExpectationGroup>> argumentCaptorListCommandExpectationGroup;
 
-    /**
-     * One time initialization
-     */
+    /** One time initialization */
     @BeforeClass
     public static void setupOnce() {
         TerminalProperties.setGlobalTerminalProperties(
                 TerminalProperties.getNewBuilder().setOsPromptPattern(defaultOsPromptPattern).build());
     }
 
-    /**
-     * Set up the principal for each test.
-     */
+    /** Set up the principal for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         when(principal.getEnvironmentName()).thenReturn(environmentName);
         when(principal.getUsername()).thenReturn(userName);
         when(principal.getHostname()).thenReturn(hostName);

@@ -5,34 +5,27 @@ import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.cerner.ccl.cdoc.AbstractBeanUnitTest;
 import java.io.File;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
-
-import com.cerner.ccl.cdoc.AbstractBeanUnitTest;
 
 /**
  * Unit tests for {@link Documentation}.
  *
  * @author Joshua Hyde
- *
  */
 @SuppressWarnings("unused")
 public class DocumentationTest extends AbstractBeanUnitTest<Documentation> {
 
-    /**
-     * Pretest initialization.
-     */
+    /** Pretest initialization. */
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
 
-    /**
-     * Test the construction of documentation for a {@code .INC} file.
-     */
+    /** Test the construction of documentation for a {@code .INC} file. */
     @Test
     public void testConstructIncludeFile() {
         final File includeFile = new File("target/include.inc");
@@ -44,9 +37,7 @@ public class DocumentationTest extends AbstractBeanUnitTest<Documentation> {
         assertThat(doc.getSourceFile()).isEqualTo(includeFile);
     }
 
-    /**
-     * Construction with a {@code null} source file should fail.
-     */
+    /** Construction with a {@code null} source file should fail. */
     @Test
     public void testConstructNullSourceFile() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -55,9 +46,7 @@ public class DocumentationTest extends AbstractBeanUnitTest<Documentation> {
         assertThat(e.getMessage()).isEqualTo("Source file cannot be null.");
     }
 
-    /**
-     * Test the construction of documentation for a {@code .PRG} file.
-     */
+    /** Test the construction of documentation for a {@code .PRG} file. */
     @Test
     public void testConstructScriptFile() {
         final File scriptFile = new File("target/script.prg");
@@ -69,9 +58,7 @@ public class DocumentationTest extends AbstractBeanUnitTest<Documentation> {
         assertThat(doc.getSourceFile()).isEqualTo(scriptFile);
     }
 
-    /**
-     * Test the construction of documentation for a {@code .SUB} file.
-     */
+    /** Test the construction of documentation for a {@code .SUB} file. */
     @Test
     public void testConstructSubFile() {
         final File subFile = new File("target/include.sub");
@@ -83,9 +70,7 @@ public class DocumentationTest extends AbstractBeanUnitTest<Documentation> {
         assertThat(doc.getSourceFile()).isEqualTo(subFile);
     }
 
-    /**
-     * Construction of a documentation object with an unrecognized file extension should fail.
-     */
+    /** Construction of a documentation object with an unrecognized file extension should fail. */
     @Test
     public void testConstructUnrecognizedFiletype() {
         final File textFile = new File("target/unrecognized.text");
@@ -95,9 +80,7 @@ public class DocumentationTest extends AbstractBeanUnitTest<Documentation> {
         assertThat(e.getMessage()).isEqualTo("Unrecognized file type: " + textFile.getAbsolutePath());
     }
 
-    /**
-     * Two documentation objects with different source files should be inequal.
-     */
+    /** Two documentation objects with different source files should be inequal. */
     @Test
     public void testEqualsDifferentSourceFile() {
         final File firstFile = new File("target/file.prg");
@@ -110,9 +93,7 @@ public class DocumentationTest extends AbstractBeanUnitTest<Documentation> {
         assertThat(secondDoc).isNotEqualTo(firstDoc);
     }
 
-    /**
-     * Test the retrieval of the source file.
-     */
+    /** Test the retrieval of the source file. */
     @Test
     public void testGetSourceFile() {
         final File scriptFile = new File("target/script.prg");
@@ -135,5 +116,4 @@ public class DocumentationTest extends AbstractBeanUnitTest<Documentation> {
     protected Documentation newBeanFrom(final Documentation otherBean) {
         return new Documentation(otherBean.getSourceFile());
     }
-
 }

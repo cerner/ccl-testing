@@ -38,7 +38,9 @@
         <module>whitenoise/whitenoise-data</module>
         <module>whitenoise/whitenoise-data-jdom-ext</module>
         <module>whitenoise/whitenoise-rules-core</module>
+<!--
         <module>archetype/cclunit-maven-settings-check-archetype</module>
+-->
     </modules>
     <build>
         <extensions>

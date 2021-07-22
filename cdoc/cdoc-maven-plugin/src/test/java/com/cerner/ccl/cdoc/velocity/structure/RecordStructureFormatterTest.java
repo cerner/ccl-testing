@@ -5,21 +5,19 @@ import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.cerner.ccl.parser.data.record.RecordInclude;
+import com.cerner.ccl.parser.data.record.RecordStructure;
+import com.cerner.ccl.parser.data.record.RecordStructureField;
+import com.cerner.ccl.parser.data.record.RecordStructureList;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.parser.data.record.RecordInclude;
-import com.cerner.ccl.parser.data.record.RecordStructure;
-import com.cerner.ccl.parser.data.record.RecordStructureField;
-import com.cerner.ccl.parser.data.record.RecordStructureList;
-
 /**
  * Unit tests for {@link RecordStructureFormatter}.
  *
  * @author Joshua Hyde
- *
  */
 @SuppressWarnings("unused")
 public class RecordStructureFormatterTest {
@@ -31,18 +29,14 @@ public class RecordStructureFormatterTest {
     private IncludeFormatter includeFormatter;
     private RecordStructureFormatter formatter;
 
-    /**
-     * Set up the formatter for each test.
-     */
+    /** Set up the formatter for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         formatter = new RecordStructureFormatter(fieldFormatter, listFormatter, includeFormatter);
     }
 
-    /**
-     * Construction with a {@code null} {@link FieldFormatter} should fail.
-     */
+    /** Construction with a {@code null} {@link FieldFormatter} should fail. */
     @Test
     public void testConstructNullFieldFormatter() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -51,9 +45,7 @@ public class RecordStructureFormatterTest {
         assertThat(e.getMessage()).isEqualTo("Field formatter cannot be null.");
     }
 
-    /**
-     * Construction with a {@code null} include formatter should fail.
-     */
+    /** Construction with a {@code null} include formatter should fail. */
     @Test
     public void testConstructNullIncludeFormatter() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -62,9 +54,7 @@ public class RecordStructureFormatterTest {
         assertThat(e.getMessage()).isEqualTo("Include formatter cannot be null.");
     }
 
-    /**
-     * Construction with a {@code null} {@link ParentalMemberFormatter} should fail.
-     */
+    /** Construction with a {@code null} {@link ParentalMemberFormatter} should fail. */
     @Test
     public void testConstructNullListFormatter() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {

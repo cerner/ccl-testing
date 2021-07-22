@@ -88,6 +88,10 @@ public class CclResourceUploaderITest {
             prop.load(stream);
             String hostCredentialsId = prop.getProperty("ccl-hostCredentialsId");
             String cclCredentialsId = prop.getProperty("ccl-frontendCredentialsId");
+            String keyFile = prop.getProperty("ccl-keyFile");
+            if (keyFile != null && !keyFile.isEmpty()) {
+                System.setProperty("ccl-keyFile", keyFile);
+            }
             if (hostCredentialsId != null && !hostCredentialsId.isEmpty()) {
                 String hostUsername = prop
                         .getProperty(String.format("settings.servers.%s.username", hostCredentialsId));
