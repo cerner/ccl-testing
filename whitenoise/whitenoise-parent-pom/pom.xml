@@ -60,9 +60,9 @@
         <mockito-all.version>2.0.2-beta</mockito-all.version>
         <mockito.version>3.11.2</mockito.version>
         <powermock.version>2.0.9</powermock.version>
-        <spring.version>5.3.8</spring.version>
+        <spring.version>5.3.9</spring.version>
         <surefire.version>3.0.0-M5</surefire.version>
-        <slf4j.version>2.0.0-alpha1</slf4j.version>
+        <slf4j.version>2.0.0-alpha2</slf4j.version>
         <pitest-version>1.6.7</pitest-version>
 
         <site.path>${project.groupId}/${project.artifactId}/${project.version}</site.path>
