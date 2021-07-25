@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 
 import com.cerner.ccl.testing.maven.ccl.reports.common.internal.jaxb.COVERAGE;
 import com.cerner.ccl.testing.maven.ccl.reports.common.internal.jaxb.LISTING;

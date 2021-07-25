@@ -1,7 +1,28 @@
-package com.cerner.ccl.j4ccl;
+package com.cerner.ccl.j4ccl.itest;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import com.cerner.ccl.j4ccl.CclExecutor;
+import com.cerner.ccl.j4ccl.TerminalProperties;
+import com.cerner.ccl.j4ccl.adders.arguments.CharacterArgument;
+import com.cerner.ccl.j4ccl.adders.arguments.FloatArgument;
+import com.cerner.ccl.j4ccl.adders.arguments.IntegerArgument;
+import com.cerner.ccl.j4ccl.enums.OutputType;
+import com.cerner.ccl.j4ccl.exception.CclCommandException;
+import com.cerner.ccl.j4ccl.impl.jaas.JaasUtils;
+import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPrincipal;
+import com.cerner.ccl.j4ccl.record.Field;
+import com.cerner.ccl.j4ccl.record.Record;
+import com.cerner.ccl.j4ccl.record.RecordList;
+import com.cerner.ccl.j4ccl.record.Structure;
+import com.cerner.ccl.j4ccl.record.StructureBuilder;
+import com.cerner.ccl.j4ccl.record.factory.RecordFactory;
+import com.cerner.ccl.j4ccl.ssh.exception.SshException;
+import com.google.code.jetm.reporting.BindingMeasurementRenderer;
+import com.google.code.jetm.reporting.xml.XmlAggregateBinder;
+import etm.core.configuration.BasicEtmConfigurator;
+import etm.core.configuration.EtmManager;
+import etm.core.monitor.EtmMonitor;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,59 +33,26 @@ import java.nio.charset.Charset;
 import java.security.Principal;
 import java.security.PrivilegedAction;
 import java.security.PrivilegedExceptionAction;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Properties;
-import java.util.Set;
-
 import javax.security.auth.Subject;
-
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.cerner.ccl.j4ccl.adders.arguments.CharacterArgument;
-import com.cerner.ccl.j4ccl.adders.arguments.FloatArgument;
-import com.cerner.ccl.j4ccl.adders.arguments.IntegerArgument;
-import com.cerner.ccl.j4ccl.ssh.exception.SshException;
-import com.cerner.ccl.j4ccl.enums.OutputType;
-import com.cerner.ccl.j4ccl.exception.CclCommandException;
-import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePasswordCredential;
-import com.cerner.ccl.j4ccl.impl.jaas.BackendNodePrincipal;
-import com.cerner.ccl.j4ccl.impl.jaas.JaasUtils;
-import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPasswordCredential;
-import com.cerner.ccl.j4ccl.impl.jaas.MillenniumDomainPrincipal;
-import com.cerner.ccl.j4ccl.record.Field;
-import com.cerner.ccl.j4ccl.record.Record;
-import com.cerner.ccl.j4ccl.record.RecordList;
-import com.cerner.ccl.j4ccl.record.Structure;
-import com.cerner.ccl.j4ccl.record.StructureBuilder;
-import com.cerner.ccl.j4ccl.record.factory.RecordFactory;
-import com.google.code.jetm.reporting.BindingMeasurementRenderer;
-import com.google.code.jetm.reporting.xml.XmlAggregateBinder;
-
-import etm.core.configuration.BasicEtmConfigurator;
-import etm.core.configuration.EtmManager;
-import etm.core.monitor.EtmMonitor;
-
 /**
  * Integration tests for the j4ccl-ssh library.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -78,6 +66,7 @@ public class CclExecutorITest {
     /**
      * A {@link Rule} used to test for thrown exceptions.
      */
+    @SuppressWarnings("deprecation")
     @Rule
     public ExpectedException expected = ExpectedException.none();
 
@@ -85,13 +74,8 @@ public class CclExecutorITest {
     private Subject subject;
     private static EtmMonitor monitor;
 
-    /**
-     * Configure and start the JETM monitor. Set credential properties based on server properties.
-     * 
-     * @throws IOException
-     *             Not expected but sometimes bad things happen.
-     */
     @BeforeClass
+    @SuppressWarnings("javadoc")
     public static void setUpBeforeClass() throws IOException {
         BasicEtmConfigurator.configure();
 
@@ -128,19 +112,14 @@ public class CclExecutorITest {
             if (osPromptPattern == null || osPromptPattern.isEmpty()) {
                 osPromptPattern = TerminalProperties.constructDefaultOsPromptPattern(cclHost, cclDomain, hostUsername);
             }
-            TerminalProperties.setGlobalTerminalProperties(TerminalProperties.getNewBuilder()
-                    .setOsPromptPattern(osPromptPattern)
-                    .setSpecifyDebugCcl(true).setLogfileLocation("target/ccl-log/ITest.log").build());
+            TerminalProperties
+                    .setGlobalTerminalProperties(TerminalProperties.getNewBuilder().setOsPromptPattern(osPromptPattern)
+                            .setSpecifyDebugCcl(true).setLogfileLocation("target/ccl-log/ITest.log").build());
         }
     }
 
-    /**
-     * Write out the results of all of the test runs.
-     * 
-     * @throws Exception
-     *             If any errors occur during the write-out.
-     */
     @AfterClass
+    @SuppressWarnings("javadoc")
     public static void tearDownAfterClass() throws Exception {
         if (monitor != null) {
             monitor.stop();
@@ -159,6 +138,7 @@ public class CclExecutorITest {
     }
 
     @After
+    @SuppressWarnings("javadoc")
     public void teardown() throws Exception {
         FileUtils.copyFile(new File("target/ccl-log/ITest.log"),
                 new File("target/ccl-log/ITest-" + testName.getMethodName() + ".log"));
@@ -166,7 +146,7 @@ public class CclExecutorITest {
 
     /**
      * Verify that compilation and execution of a script succeeds.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -193,7 +173,7 @@ public class CclExecutorITest {
 
     /**
      * Verify that an exception is thrown if the CCL results viewer is displayed by a CCL execution.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -229,7 +209,7 @@ public class CclExecutorITest {
 
     /**
      * Test the default initialization of values.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -253,14 +233,15 @@ public class CclExecutorITest {
         executor.addScriptDropper("j4ccl_test_init").commit();
         Subject.doAs(subject, new ExecutorRunner(executor));
 
-        for (final Field replyField : replyStructure.getFields())
+        for (final Field replyField : replyStructure.getFields()) {
             assertThat(reply.getI2Boolean(replyField.getName()))
                     .as("Field did not match (" + replyField.getName() + ")").isTrue();
+        }
     }
 
     /**
      * Verify that dropping a script works.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -285,7 +266,7 @@ public class CclExecutorITest {
 
     /**
      * Verify that dynamic includes work when a script name is specified.
-     * 
+     *
      * @throws Exception
      *             If an error occurs while running the test.
      */
@@ -307,7 +288,7 @@ public class CclExecutorITest {
 
     /**
      * Test that a script can be executed with a replacement of its record structures.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -328,9 +309,9 @@ public class CclExecutorITest {
     }
 
     /**
-     * Verify that a timeout does not occur when executing a CCL command that generates output similar to the 
-     * CCL prompt but not "  1)".
-     * 
+     * Verify that a timeout does not occur when executing a CCL command that generates output similar to the CCL prompt
+     * but not " 1)".
+     *
      * @throws Exception
      *             Not expected.
      */
@@ -368,7 +349,7 @@ public class CclExecutorITest {
     /**
      * Test the execution of a script with arguments. Implicitly, this also tests the case of using a WITH REPLACE since
      * a reply record structure is used to retrieve the values passed in as arguments.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -411,7 +392,7 @@ public class CclExecutorITest {
 
     /**
      * Test that the full debug mode outputs things outside of the CCL session.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -433,7 +414,7 @@ public class CclExecutorITest {
     /**
      * If a VC variable's data exceeds 132 characters, it should be broken up into a series of concat() calls to handle
      * the excessive length.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -463,7 +444,7 @@ public class CclExecutorITest {
      * read from CCL will not match the string sent in. <br>
      * This test assumes that the platform encoding is non-UTF-8. It will not fail on a UTF-8 platform, but, if you
      * "unfix" the issue verified to be resolved by this test, you will not be able to reproduce the issue.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -488,7 +469,7 @@ public class CclExecutorITest {
 
     /**
      * Get a file located in the same package as this class on the hard disk.
-     * 
+     *
      * @param fileName
      *            The name of the file to be retrieved.
      * @return A {@link File} reference to the desired file.
@@ -501,14 +482,14 @@ public class CclExecutorITest {
 
     /**
      * Get a principal off of the current subject.
-     * 
+     *
      * @param principalClazz
      *            The {@link Class} of the principal to be retrieved.
      * @return The desired principal.
      */
-    @SuppressWarnings("unchecked")
     private <P extends Principal> P getPrincipal(final Class<P> principalClazz) {
-        return (P) Subject.doAs(subject, new PrivilegedAction<P>() {
+        return Subject.doAs(subject, new PrivilegedAction<P>() {
+            @Override
             public P run() {
                 return JaasUtils.getPrincipal(principalClazz);
             }
@@ -516,58 +497,28 @@ public class CclExecutorITest {
     }
 
     /**
-     * Get a private credential off of the current subject.
-     * 
-     * @param credentialClazz
-     *            The {@link Class} of the credential to be retrieved.
-     * @return The desired credential.
-     */
-    @SuppressWarnings("unchecked")
-    private <T> T getPrivateCredential(final Class<T> credentialClazz) {
-        return (T) Subject.doAs(subject, new PrivilegedAction<T>() {
-            public T run() {
-                return JaasUtils.getPrivateCredential(credentialClazz);
-            }
-        });
-    }
-
-    /**
-     * Create a set.
-     * 
-     * @param args
-     *            A varargs to be converted into a set.
-     * @return A {@link Set} created out of the given objects.
-     */
-    @SuppressWarnings("unchecked")
-    private <T> Set<T> asSet(Object... args) {
-        final Set<Object> set = new HashSet<Object>();
-        for (Object arg : args)
-            set.add(arg);
-        return (Set<T>) set;
-    }
-
-    /**
      * A {@link PrivilegedExceptionAction} that runs a given CCL executor.
-     * 
+     *
      * @author Joshua Hyde
-     * 
+     *
      */
     private static class ExecutorRunner implements PrivilegedExceptionAction<Void> {
         private final CclExecutor executor;
 
         /**
          * Create an executor action.
-         * 
+         *
          * @param executor
          *            The {@link CclExecutor} to be ran.
          */
-        public ExecutorRunner(CclExecutor executor) {
+        public ExecutorRunner(final CclExecutor executor) {
             this.executor = executor;
         }
 
         /**
          * {@inheritDoc}
          */
+        @Override
         public Void run() throws Exception {
             executor.execute();
             return null;
