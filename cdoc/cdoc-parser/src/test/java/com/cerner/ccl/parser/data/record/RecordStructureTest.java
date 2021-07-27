@@ -4,25 +4,21 @@ import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 
+import com.cerner.ccl.parser.AbstractBeanUnitTest;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.parser.AbstractBeanUnitTest;
-
 /**
  * Unit tests for {@link RecordStructure}.
  *
  * @author Joshua Hyde
- *
  */
-
 @SuppressWarnings("unused")
 public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
     private final String name = "record_name";
@@ -33,19 +29,15 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
     private List<RecordStructureMember> members;
     private RecordStructure recordStructure;
 
-    /**
-     * Set up the record structure for each test.
-     */
+    /** Set up the record structure for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         members = Collections.singletonList(member);
         recordStructure = new RecordStructure(name, members, description, structureType);
     }
 
-    /**
-     * Construction with a {@code null} list of members should fail.
-     */
+    /** Construction with a {@code null} list of members should fail. */
     @Test
     public void testConstructNullMembers() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -54,9 +46,7 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
         assertThat(e.getMessage()).isEqualTo("Members cannot be null.");
     }
 
-    /**
-     * Construction with a {@code null} name should fail.
-     */
+    /** Construction with a {@code null} name should fail. */
     @Test
     public void testConstructNullName() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -67,9 +57,10 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
 
     /**
      * Inequality should not be driven by any of the following:
+     *
      * <ul>
-     * <li>{@link RecordStructure#getDescription() description}</li>
-     * <li>{@link RecordStructure#getStructureType() structure type}</li>
+     * <li>{@link RecordStructure#getDescription() description}
+     * <li>{@link RecordStructure#getStructureType() structure type}
      * </ul>
      */
     @Test
@@ -103,9 +94,7 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
         assertThat(recordStructure.hashCode()).isEqualTo(other.hashCode());
     }
 
-    /**
-     * If two record structures have different members, then they should be inequal.
-     */
+    /** If two record structures have different members, then they should be inequal. */
     @Test
     public void testEqualsDifferentMembers() {
         final RecordStructure other = new RecordStructure(name,
@@ -114,25 +103,19 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
         assertThat(other).isNotEqualTo(recordStructure);
     }
 
-    /**
-     * Test the retrieval of the description of a record structure.
-     */
+    /** Test the retrieval of the description of a record structure. */
     @Test
     public void testGetDescription() {
         assertThat(recordStructure.getDescription()).isEqualTo(description);
     }
 
-    /**
-     * Test the retrieval of the name of the record structure.
-     */
+    /** Test the retrieval of the name of the record structure. */
     @Test
     public void testGetName() {
         assertThat(recordStructure.getName()).isEqualTo(name);
     }
 
-    /**
-     * Test the retrieval of members of the record structure.
-     */
+    /** Test the retrieval of members of the record structure. */
     @Test
     public void testGetRootLevelMember() {
         final RecordStructureField field = mock(RecordStructureField.class);
@@ -142,25 +125,19 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
         assertThat(toRetrieve.<RecordStructureField> getRootLevelMember(1)).isEqualTo(list);
     }
 
-    /**
-     * Test the retrieval of members from the record structure.
-     */
+    /** Test the retrieval of members from the record structure. */
     @Test
     public void testGetRootLevelMembers() {
         assertThat(recordStructure.getRootLevelMembers()).isEqualTo(members);
     }
 
-    /**
-     * Test the retrieval of the number of record structure members.
-     */
+    /** Test the retrieval of the number of record structure members. */
     @Test
     public void testGetRootLevelMemberCount() {
         assertThat(recordStructure.getRootLevelMemberCount()).isEqualTo(members.size());
     }
 
-    /**
-     * Test the retrieval of the structure type.
-     */
+    /** Test the retrieval of the structure type. */
     @Test
     public void testGetStructureType() {
         assertThat(recordStructure.getStructureType()).isEqualTo(structureType);
@@ -176,5 +153,4 @@ public class RecordStructureTest extends AbstractBeanUnitTest<RecordStructure> {
         return new RecordStructure(otherBean.getName(), otherBean.getRootLevelMembers(), otherBean.getDescription(),
                 otherBean.getStructureType());
     }
-
 }

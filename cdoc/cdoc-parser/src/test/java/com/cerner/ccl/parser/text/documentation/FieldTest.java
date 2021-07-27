@@ -3,26 +3,22 @@ package com.cerner.ccl.parser.text.documentation;
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 
+import com.cerner.ccl.parser.AbstractBeanUnitTest;
+import com.cerner.ccl.parser.data.CodeSet;
+import com.cerner.ccl.parser.data.EnumeratedValue;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.parser.AbstractBeanUnitTest;
-import com.cerner.ccl.parser.data.CodeSet;
-import com.cerner.ccl.parser.data.EnumeratedValue;
-
 /**
  * Unit tests for {@link Field}.
  *
  * @author Joshua Hyde
- *
  */
-
 @SuppressWarnings("unused")
 public class FieldTest extends AbstractBeanUnitTest<Field> {
     private final String name = "a_field";
@@ -35,20 +31,16 @@ public class FieldTest extends AbstractBeanUnitTest<Field> {
     private List<CodeSet> codeSets;
     private Field field;
 
-    /**
-     * Set up the field for each test.
-     */
+    /** Set up the field for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         values = Collections.singletonList(value);
         codeSets = Collections.singletonList(codeSet);
         field = new Field(name, description, false, values, codeSets);
     }
 
-    /**
-     * Construction of a field with a {@code null} name should fail.
-     */
+    /** Construction of a field with a {@code null} name should fail. */
     @Test
     public void testConstructNullName() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -57,9 +49,7 @@ public class FieldTest extends AbstractBeanUnitTest<Field> {
         assertThat(e.getMessage()).isEqualTo("Name cannot be null.");
     }
 
-    /**
-     * Two fields with different code sets should be inequal.
-     */
+    /** Two fields with different code sets should be inequal. */
     @Test
     public void testEqualsDifferentCodeSets() {
         final Field other = new Field(name, description, field.isOptional(), values, Collections.<CodeSet> emptyList());
@@ -67,9 +57,7 @@ public class FieldTest extends AbstractBeanUnitTest<Field> {
         assertThat(other).isNotEqualTo(field);
     }
 
-    /**
-     * Two fields with different names should be inequal.
-     */
+    /** Two fields with different names should be inequal. */
     @Test
     public void testEqualsDifferentName() {
         final Field other = new Field(StringUtils.reverse(name), description, field.isOptional(), values, codeSets);
@@ -77,9 +65,7 @@ public class FieldTest extends AbstractBeanUnitTest<Field> {
         assertThat(other).isNotEqualTo(field);
     }
 
-    /**
-     * Two fields with different optionality should be inequal.
-     */
+    /** Two fields with different optionality should be inequal. */
     @Test
     public void testEqualsDifferentOptionality() {
         final Field other = new Field(name, description, !field.isOptional(), values, codeSets);
@@ -87,9 +73,7 @@ public class FieldTest extends AbstractBeanUnitTest<Field> {
         assertThat(field).isNotEqualTo(other);
     }
 
-    /**
-     * Two fields with different enumerated values should be inequal.
-     */
+    /** Two fields with different enumerated values should be inequal. */
     @Test
     public void testEqualsDifferentValues() {
         final Field other = new Field(name, description, field.isOptional(), Collections.<EnumeratedValue> emptyList(),
@@ -98,9 +82,7 @@ public class FieldTest extends AbstractBeanUnitTest<Field> {
         assertThat(field).isNotEqualTo(other);
     }
 
-    /**
-     * The comparison of names should be case-insensitive.
-     */
+    /** The comparison of names should be case-insensitive. */
     @Test
     public void testEqualsNameCaseInsensitive() {
         final Field other = new Field(StringUtils.swapCase(name), description, field.isOptional(), field.getValues(),
@@ -110,41 +92,31 @@ public class FieldTest extends AbstractBeanUnitTest<Field> {
         assertThat(other.hashCode()).isEqualTo(field.hashCode());
     }
 
-    /**
-     * Test the retrieval of the description.
-     */
+    /** Test the retrieval of the description. */
     @Test
     public void testGetDescription() {
         assertThat(field.getDescription()).isEqualTo(description);
     }
 
-    /**
-     * Test the retrieval of code sets.
-     */
+    /** Test the retrieval of code sets. */
     @Test
     public void testGetCodeSets() {
         assertThat(field.getCodeSets()).isEqualTo(codeSets);
     }
 
-    /**
-     * Test the retrieval of the name.
-     */
+    /** Test the retrieval of the name. */
     @Test
     public void testGetName() {
         assertThat(field.getName()).isEqualTo(name);
     }
 
-    /**
-     * Test the retrieval of the values.
-     */
+    /** Test the retrieval of the values. */
     @Test
     public void testGetValues() {
         assertThat(field.getValues()).isEqualTo(values);
     }
 
-    /**
-     * Test the retrieval of the optionality of the field.
-     */
+    /** Test the retrieval of the optionality of the field. */
     @Test
     public void testIsOptional() {
         assertThat(field.isOptional()).isFalse();
@@ -160,5 +132,4 @@ public class FieldTest extends AbstractBeanUnitTest<Field> {
         return new Field(otherBean.getName(), otherBean.getDescription(), otherBean.isOptional(), otherBean.getValues(),
                 otherBean.getCodeSets());
     }
-
 }

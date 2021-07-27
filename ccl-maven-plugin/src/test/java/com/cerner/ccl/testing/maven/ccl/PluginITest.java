@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.settings.Profile;
 import org.apache.maven.settings.Settings;
@@ -638,7 +637,7 @@ public class PluginITest {
     @Test
     public void testSuccessfulBuildFrontendCredentialsId() throws Exception {
         final File logFile = getLogFile();
-        final InvocationResult result = executeMaven("/successful-build-frontend-credentials-id", compileGoal, logFile);
+        final InvocationResult result = executeMaven("successful-build-frontend-credentials-id", compileGoal, logFile);
         assertThat(result.getExecutionException()).isNull();
         assertThat(result.getExitCode()).isZero();
     }
@@ -652,7 +651,7 @@ public class PluginITest {
     @Test
     public void testSuccessfulBuildHostCredentialsId() throws Exception {
         final File logFile = getLogFile();
-        final InvocationResult result = executeMaven("/successful-build-host-credentials-id", compileGoal, logFile);
+        final InvocationResult result = executeMaven("successful-build-host-credentials-id", compileGoal, logFile);
         assertThat(result.getExecutionException()).isNull();
         assertThat(result.getExitCode()).isZero();
     }

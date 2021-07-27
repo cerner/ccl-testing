@@ -64,7 +64,7 @@ public abstract class AbstractSourceReadingITest {
             throw new FileNotFoundException("Script not found: " + path);
         }
 
-        return FileUtils.readLines(FileUtils.toFile(resourceUrl));
+        return FileUtils.readLines(FileUtils.toFile(resourceUrl), "UTF-8");
     }
 
     /**
@@ -83,6 +83,6 @@ public abstract class AbstractSourceReadingITest {
             throw new FileNotFoundException("Include file not found: " + path);
         }
 
-        return FileUtils.readLines(FileUtils.toFile(resourceUrl));
+        return FileUtils.readLines(FileUtils.toFile(resourceUrl), "UTF-8");
     }
 }

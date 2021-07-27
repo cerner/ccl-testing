@@ -1,7 +1,20 @@
-package com.cerner.ccl.j4ccl;
+package com.cerner.ccl.j4ccl.itest;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import com.cerner.ccl.j4ccl.TerminalProperties;
+import com.cerner.ccl.j4ccl.impl.CclResourceUploaderImpl;
+import com.cerner.ccl.j4ccl.impl.data.Environment;
+import com.cerner.ccl.j4ccl.ssh.CommandExpectationGroup;
+import com.cerner.ccl.j4ccl.ssh.JSchSshTerminal;
+import com.cerner.ccl.j4ccl.ssh.TerminalResponse;
+import com.cerner.ccl.j4ccl.ssh.exception.SshException;
+import com.cerner.ccl.j4ccl.util.CclResourceUploader;
+import com.google.code.jetm.reporting.BindingMeasurementRenderer;
+import com.google.code.jetm.reporting.xml.XmlAggregateBinder;
+import etm.core.configuration.BasicEtmConfigurator;
+import etm.core.configuration.EtmManager;
+import etm.core.monitor.EtmMonitor;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,16 +23,14 @@ import java.net.URISyntaxException;
 import java.security.PrivilegedAction;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
-import java.util.List;
-import java.util.Properties;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Properties;
 import java.util.Set;
-
 import javax.security.auth.Subject;
 import javax.security.auth.login.Configuration;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -33,25 +44,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.cerner.ccl.j4ccl.impl.CclResourceUploaderImpl;
-import com.cerner.ccl.j4ccl.impl.data.Environment;
-import com.cerner.ccl.j4ccl.ssh.CommandExpectationGroup;
-import com.cerner.ccl.j4ccl.ssh.JSchSshTerminal;
-import com.cerner.ccl.j4ccl.ssh.TerminalResponse;
-import com.cerner.ccl.j4ccl.ssh.exception.SshException;
-import com.cerner.ccl.j4ccl.util.CclResourceUploader;
-import com.google.code.jetm.reporting.BindingMeasurementRenderer;
-import com.google.code.jetm.reporting.xml.XmlAggregateBinder;
-
-import etm.core.configuration.BasicEtmConfigurator;
-import etm.core.configuration.EtmManager;
-import etm.core.monitor.EtmMonitor;
-
 /**
  * Integration tests for {@link CclResourceUploaderImpl}.
- * 
+ *
  * @author Joshua Hyde
- * 
+ *
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -72,7 +69,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Configure and start the JETM monitor. Set credential properties based on server properties.
-     * 
+     *
      * @throws IOException
      *             Not expected but sometimes bad things happen.
      */
@@ -88,6 +85,10 @@ public class CclResourceUploaderITest {
             prop.load(stream);
             String hostCredentialsId = prop.getProperty("ccl-hostCredentialsId");
             String cclCredentialsId = prop.getProperty("ccl-frontendCredentialsId");
+            String keyFile = prop.getProperty("ccl-keyFile");
+            if (keyFile != null && !keyFile.isEmpty()) {
+                System.setProperty("ccl-keyFile", keyFile);
+            }
             if (hostCredentialsId != null && !hostCredentialsId.isEmpty()) {
                 String hostUsername = prop
                         .getProperty(String.format("settings.servers.%s.username", hostCredentialsId));
@@ -109,9 +110,9 @@ public class CclResourceUploaderITest {
             if (osPromptPattern == null || osPromptPattern.isEmpty()) {
                 osPromptPattern = TerminalProperties.constructDefaultOsPromptPattern(cclHost, cclDomain, hostUsername);
             }
-            TerminalProperties.setGlobalTerminalProperties(TerminalProperties.getNewBuilder()
-                    .setOsPromptPattern(osPromptPattern)
-                    .setSpecifyDebugCcl(true).setLogfileLocation("target/ccl-log/ITest.log").build());
+            TerminalProperties
+                    .setGlobalTerminalProperties(TerminalProperties.getNewBuilder().setOsPromptPattern(osPromptPattern)
+                            .setSpecifyDebugCcl(true).setLogfileLocation("target/ccl-log/ITest.log").build());
         }
     }
 
@@ -126,7 +127,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Delete every file queued for deletion.
-     * 
+     *
      * @throws Exception
      *             If any errors occur while performing tear-down steps.
      */
@@ -137,10 +138,13 @@ public class CclResourceUploaderITest {
         // Don't leave testing artifacts behind.
         if (!queuedDeletes.isEmpty()) {
             final List<String> commands = new ArrayList<String>(queuedDeletes.size());
-            for (final String path : queuedDeletes)
+            for (final String path : queuedDeletes) {
                 commands.add("rm -f " + path);
+            }
 
             Subject.doAs(subject, new PrivilegedExceptionAction<Void>() {
+                @Override
+                @SuppressWarnings("synthetic-access")
                 public Void run() throws Exception {
                     CclResourceUploaderITest.executeCommandsHelper(commands);
                     return null;
@@ -151,7 +155,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Write out the results of the timing reports.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the write-out.
      */
@@ -183,7 +187,7 @@ public class CclResourceUploaderITest {
 
     /**
      * This test confirms that the verifyFileExistance function actually returns false if the file does not exist.
-     * 
+     *
      * @throws Exception
      *             Not expected.
      */
@@ -194,7 +198,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Test the uploading of a COM script.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -202,6 +206,8 @@ public class CclResourceUploaderITest {
     public void testUploadComFile() throws Exception {
         uploader.queueUpload(getLocalFile("j4ccl_testCom.com"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
+            @Override
+            @SuppressWarnings("synthetic-access")
             public Void run() {
                 uploader.upload();
                 return null;
@@ -213,7 +219,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Verify that an INC file is uploaded to the appropriate location.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test.
      */
@@ -221,6 +227,8 @@ public class CclResourceUploaderITest {
     public void testUploadIncFile() throws Exception {
         uploader.queueUpload(getLocalFile("j4ccl_testinclude.inc"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
+            @Override
+            @SuppressWarnings("synthetic-access")
             public Void run() {
                 uploader.upload();
                 return null;
@@ -232,7 +240,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Test the uploading a Korn shell file.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -240,6 +248,8 @@ public class CclResourceUploaderITest {
     public void testUploadKshFile() throws Exception {
         uploader.queueUpload(getLocalFile("j4ccl_testShell.ksh"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
+            @Override
+            @SuppressWarnings("synthetic-access")
             public Void run() {
                 uploader.upload();
                 return null;
@@ -251,7 +261,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Verify the .PRG files are uploaded to the correct directory.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the upload.
      */
@@ -259,6 +269,8 @@ public class CclResourceUploaderITest {
     public void testUploadPrgFile() throws Exception {
         uploader.queueUpload(getLocalFile("j4ccl_testcompile.prg"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
+            @Override
+            @SuppressWarnings("synthetic-access")
             public Void run() {
                 uploader.upload();
                 return null;
@@ -270,7 +282,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Verify that .SUB files are uploaded to the correct directory.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the upload.
      */
@@ -278,6 +290,8 @@ public class CclResourceUploaderITest {
     public void testUploadSubFile() throws Exception {
         uploader.queueUpload(getLocalFile("j4ccl_testsub.sub"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
+            @Override
+            @SuppressWarnings("synthetic-access")
             public Void run() {
                 uploader.upload();
                 return null;
@@ -289,7 +303,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Test the uploading of a text file.
-     * 
+     *
      * @throws Exception
      *             If any errors occur during the test run.
      */
@@ -297,6 +311,8 @@ public class CclResourceUploaderITest {
     public void testUploadTextFile() throws Exception {
         uploader.queueUpload(getLocalFile("j4ccl_testTextFile.txt"));
         Subject.doAs(subject, new PrivilegedAction<Void>() {
+            @Override
+            @SuppressWarnings("synthetic-access")
             public Void run() {
                 uploader.upload();
                 return null;
@@ -308,11 +324,12 @@ public class CclResourceUploaderITest {
 
     /**
      * Get the current environment within the context of the available subject.
-     * 
+     *
      * @return An {@link Environment}.
      */
     private Environment getEnvironment() {
-        return (Environment) Subject.doAs(subject, new PrivilegedAction<Environment>() {
+        return Subject.doAs(subject, new PrivilegedAction<Environment>() {
+            @Override
             public Environment run() {
                 return Environment.getEnvironment();
             }
@@ -321,7 +338,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Get a file located in the same package as this class on the hard disk.
-     * 
+     *
      * @param fileName
      *            The name of the file to be retrieved.
      * @return A {@link File} reference to the desired file.
@@ -334,7 +351,7 @@ public class CclResourceUploaderITest {
 
     /**
      * Queue a file to be deleted from the remote server.
-     * 
+     *
      * @param path
      *            The path of the file to be deleted.
      */
@@ -345,16 +362,17 @@ public class CclResourceUploaderITest {
     /**
      * Queue a file for download and verify that the file exists on the remote server using the class-level
      * {@link Configuration} object.
-     * 
+     *
      * @param filePath
      *            The file's remote location that is to be verified.
      * @throws SshException
      *             If any errors occur while verifying the file's existence.
      * @throws PrivilegedActionException
      */
-    private void verifyFileExistence(final String filePath, boolean exists) throws PrivilegedActionException {
+    private void verifyFileExistence(final String filePath, final boolean exists) throws PrivilegedActionException {
         queueDeletion(filePath);
-        boolean fileExists = (Boolean) Subject.doAs(subject, new PrivilegedExceptionAction<Boolean>() {
+        boolean fileExists = Subject.doAs(subject, new PrivilegedExceptionAction<Boolean>() {
+            @Override
             public Boolean run() throws Exception {
                 return Boolean.valueOf(FileVerifier.verify(filePath));
             }
@@ -364,14 +382,14 @@ public class CclResourceUploaderITest {
 
     /**
      * An object used to verify that a file exists on a remote server.
-     * 
+     *
      * @author Joshua Hyde
-     * 
+     *
      */
     private static class FileVerifier {
         /**
          * Verify that a file exists on a remote server.
-         * 
+         *
          * @param remoteLocation
          *            The expected location of the file.
          * @return {@code true} if the file exists; {@code false} if otherwise.
@@ -379,17 +397,17 @@ public class CclResourceUploaderITest {
          *             If any errors occur while establishing a connection to the remote server.
          */
         public static boolean verify(final String remoteLocation) throws SshException {
+            @SuppressWarnings("synthetic-access")
             String lsOutput = executeCommandsHelper(Collections.singletonList("ls -l " + remoteLocation)).getOutput();
             return !lsOutput.contains("0653-341") && !lsOutput.contains("No such file or directory");
         }
     }
 
-    private static TerminalResponse executeCommandsHelper (final List<String> commands) throws SshException{
+    private static TerminalResponse executeCommandsHelper(final List<String> commands) throws SshException {
         final List<CommandExpectationGroup> commandExpectationGroups = new ArrayList<CommandExpectationGroup>();
         final CommandExpectationGroup commandExpectationGroup = new CommandExpectationGroup();
         commandExpectationGroup.addCommands(commands);
-        commandExpectationGroup
-                .addExpectation(TerminalProperties.getGlobalTerminalProperties().getOsPromptPattern());
+        commandExpectationGroup.addExpectation(TerminalProperties.getGlobalTerminalProperties().getOsPromptPattern());
         commandExpectationGroups.add(commandExpectationGroup);
 
         return new JSchSshTerminal().executeCommandGroups(commandExpectationGroups);

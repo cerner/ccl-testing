@@ -107,7 +107,7 @@ public class JSchSshTerminalTest2 {
      */
     @Before
     public void setUp() throws IOException {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
 
         final BackendNodePrincipal principal = mock(BackendNodePrincipal.class);
         when(principal.getUsername()).thenReturn(username);

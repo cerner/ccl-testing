@@ -4,41 +4,33 @@ import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.when;
 
+import com.cerner.ccl.parser.text.documentation.parser.ScriptDocumentationParser;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.cerner.ccl.parser.text.documentation.parser.ScriptDocumentationParser;
-
 /**
  * Unit tests for {@link ScriptDocumentationFactory}.
  *
  * @author Joshua Hyde
- *
  */
-
 @SuppressWarnings("unused")
 public class ScriptDocumentationFactoryTest {
     @Mock
     private ScriptDocumentationParser parser;
     private ScriptDocumentationFactory factory;
 
-    /**
-     * Set up the documentation factory for each test.
-     */
+    /** Set up the documentation factory for each test. */
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         factory = new ScriptDocumentationFactory(parser);
     }
 
-    /**
-     * Construction with a {@code null} parser should fail.
-     */
+    /** Construction with a {@code null} parser should fail. */
     @Test
     public void testConstructNullParser() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -47,9 +39,7 @@ public class ScriptDocumentationFactoryTest {
         assertThat(e.getMessage()).isEqualTo("Parser cannot be null.");
     }
 
-    /**
-     * Test the determination of a line's parseability.
-     */
+    /** Test the determination of a line's parseability. */
     @Test
     public void testCanParse() {
         final List<String> source = Arrays.asList("CREATE PROGRAM TEST", "/** doc */");
@@ -71,9 +61,7 @@ public class ScriptDocumentationFactoryTest {
         assertThat(myFactory.parse(3, source).getDescription()).isEqualTo("the script doc");
     }
 
-    /**
-     * If the given index is for the first line, then the documentation cannot be parsed.
-     */
+    /** If the given index is for the first line, then the documentation cannot be parsed. */
     @Test
     public void testCanParseFirstLine() {
         final List<String> source = Arrays.asList("CREATE PROGRAM TEST", "/** doc */");
@@ -91,9 +79,7 @@ public class ScriptDocumentationFactoryTest {
         assertThat(factory.canParse(1, source)).isFalse();
     }
 
-    /**
-     * If the parser cannot parse the line, then the factory cannot parse the line.
-     */
+    /** If the parser cannot parse the line, then the factory cannot parse the line. */
     @Test
     public void testCanParseParserCannotParse() {
         final List<String> source = Arrays.asList("CREATE PROGRAM TEST", "/** doc */");

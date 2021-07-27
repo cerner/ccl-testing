@@ -94,8 +94,9 @@ to do this using the settings.xml file.
 - (regex for host prompt) The plugin uses this to determine when the host is ready to receive a command. 
  - since 3.0
  - default:
-    - `username:environment@host:[^\r\n]*(\r|\n)+#\s*`
-    - `username:\w*@host:[^\r\n]*(\r|\n)+#\s*` if environement not provided
+    - `username(:environment)@host:[^>~#]*[>~#]`
+    - `username:\w*@host:[^>~#]*[>~#]` if environement not provided
+    - changed from `username:environment@host:[^\r\n]*(\r|\n)+#\s*` or `username:\w*@host:[^\r\n]*(\r|\n)+#\s*` in version 3.4
     - changed from `username:environment@host:[^>]*>\s*` or `username:\w*@host:[^>]*>\s*` in version 3.1
 
 

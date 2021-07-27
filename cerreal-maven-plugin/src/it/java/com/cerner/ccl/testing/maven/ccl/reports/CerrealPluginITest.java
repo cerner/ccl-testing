@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.maven.shared.invoker.InvocationResult;

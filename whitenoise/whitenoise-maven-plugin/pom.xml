@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cerner.ccl.whitenoise</groupId>
     <artifactId>whitenoise-maven-plugin</artifactId>
-    <version>2.7-SNAPSHOT</version>
+    <version>2.7</version>
     <packaging>maven-plugin</packaging>
     <name>Whitenoise Maven Plugin</name>
     <description>A plugin to perform static analysis of CCL code</description>
@@ -53,16 +53,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <doxiaVersion>1.9.1</doxiaVersion>
-        <doxiaSitetoolsVersion>1.9.2</doxiaSitetoolsVersion>
-        <plugin.api.version>3.6.3</plugin.api.version>
-        <surefire.version>3.0.0-M3</surefire.version>
+        <doxiaVersion>1.10</doxiaVersion>
+        <doxiaSitetoolsVersion>1.10</doxiaSitetoolsVersion>
+        <plugin.api.version>3.8.1</plugin.api.version>
+        <surefire.version>3.0.0-M5</surefire.version>
 
         <changes.plugin.version>2.12.1</changes.plugin.version>
         <jdk.source.version>1.8</jdk.source.version>
         <jdk.target.version>1.8</jdk.target.version>
-        <slf4j.version>2.0.0-alpha1</slf4j.version>
-        <powermock.version>2.0.7</powermock.version>
+        <slf4j.version>2.0.0-alpha2</slf4j.version>
+        <powermock.version>2.0.9</powermock.version>
+        <pitest-version>1.6.7</pitest-version>
     </properties>
     <build>
         <extensions>
@@ -74,24 +75,21 @@
         </extensions>
         <plugins>
             <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.14.0</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.5.0</version>
                 <executions>
                     <execution>
                         <id>generate-exclusion-objects</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>xjc</goal>
                         </goals>
                         <configuration>
-                            <generateDirectory>${project.build.sourceDirectory}</generateDirectory>
-                            <generatePackage>com.cerner.ccl.analysis.mojo.exclusions.jaxb</generatePackage>
-                            <schemaDirectory>${project.basedir}/src/etc/xsd</schemaDirectory>
-                            <specVersion>2.2</specVersion>
-                            <args>
-                                <param>-npa</param>
-                            </args>
+                            <sources>${project.basedir}/src/etc/xsd</sources>
+                            <outputDirectory>${project.build.sourceDirectory}</outputDirectory>
+                            <clearOutputDir>false</clearOutputDir>
+                            <packageName>com.cerner.ccl.analysis.mojo.exclusions.jaxb</packageName>
                         </configuration>
                     </execution>
                 </executions>
@@ -99,7 +97,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>add-src-it-java</id>
@@ -151,7 +149,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.5</version>
+                <version>0.8.7</version>
                 <executions>
                     <execution>
                         <id>pre-unit-test</id>
@@ -202,7 +200,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M2</version>
+                <version>3.0.0-M3</version>
                 <executions>
                     <execution>
                         <id>enforce-maven-version</id>
@@ -212,7 +210,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>[2.1,4.0)</version>
+                                    <version>[3.6.3,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
                                     <version>[1.8,)</version>
@@ -225,7 +223,7 @@
             <plugin>
                 <groupId>net.revelc.code.formatter</groupId>
                 <artifactId>formatter-maven-plugin</artifactId>
-                <version>2.11.0</version>
+                <version>2.15.0</version>
                 <configuration>
                   <configFile>${project.basedir}/../../ecosystem/eclipse/format-settings.xml</configFile>
                 </configuration>
@@ -249,7 +247,7 @@
             <plugin>
                 <groupId>io.takari.maven.plugins</groupId>
                 <artifactId>takari-lifecycle-plugin</artifactId>
-                <version>1.13.9</version>
+                <version>2.0.0</version>
                 <executions>
                     <execution>
                         <id>testProperties</id>
@@ -263,7 +261,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.6.1</version>
                 <executions>
                     <execution>
                         <id>default-descriptor</id>
@@ -282,7 +280,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>update-autogenerated-files</id>
@@ -294,23 +292,18 @@
                             <target>
                                 <replace dir = "${project.build.sourceDirectory}/com/cerner/ccl/analysis/mojo/exclusions/jaxb">
                                     <include name="**/*.java"/>
-                                    <replaceToken>public class</replaceToken>
-                                    <replaceValue>@SuppressWarnings("all") public class</replaceValue>
+                                    <replaceToken>javax.xml.bind.</replaceToken>
+                                    <replaceValue>jakarta.xml.bind.</replaceValue>
                                 </replace>
                                 <replace dir = "${project.build.sourceDirectory}/com/cerner/ccl/analysis/mojo/exclusions/jaxb">
                                     <include name="**/*.java"/>
-                                    <replaceToken>@SuppressWarnings("all") @SuppressWarnings("all")</replaceToken>
-                                    <replaceValue>@SuppressWarnings("all")</replaceValue>
+                                    <replaceToken>@SuppressWarnings("all") </replaceToken>
+                                    <replaceValue></replaceValue>
                                 </replace>
-                                <replace dir = "${project.build.directory}/generated-sources/plugin">
+                                <replace dir = "${project.build.sourceDirectory}/com/cerner/ccl/analysis/mojo/exclusions/jaxb">
                                     <include name="**/*.java"/>
                                     <replaceToken>public class</replaceToken>
                                     <replaceValue>@SuppressWarnings("all") public class</replaceValue>
-                                </replace>
-                                <replace dir = "${project.build.directory}/generated-sources/plugin">
-                                    <include name="**/*.java"/>
-                                    <replaceToken>@SuppressWarnings("all") @SuppressWarnings("all")</replaceToken>
-                                    <replaceValue>@SuppressWarnings("all")</replaceValue>
                                 </replace>
                             </target>
                         </configuration>
@@ -322,7 +315,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.2.4</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -350,7 +343,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.8.2</version>
+                <version>3.9.1</version>
                 <configuration>
                     <skipDeploy>true</skipDeploy>
                 </configuration>
@@ -370,12 +363,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.8</version>
+                    <version>3.0.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.3.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -400,17 +393,17 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.0.0-M2</version>
+                    <version>3.0.0-M3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.6</version>
+                    <version>3.0.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -420,27 +413,27 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.3.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-plugin-plugin</artifactId>
-                    <version>3.6.0</version>
+                    <version>3.6.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
+                    <version>3.0.0-M4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -450,12 +443,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.8.2</version>
+                    <version>3.9.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -470,7 +463,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
@@ -496,7 +489,7 @@
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
                     <artifactId>formatter-maven-plugin</artifactId>
-                    <version>2.11.0</version>
+                    <version>2.15.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -515,7 +508,7 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.6.0</version>
+            <version>3.6.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -543,37 +536,37 @@
         <dependency>
             <groupId>com.cerner.ccl.comm</groupId>
             <artifactId>j4ccl-ssh</artifactId>
-            <version>4.4-SNAPSHOT</version>
+            <version>4.4</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-data</artifactId>
-            <version>2.2-SNAPSHOT</version>
+            <version>2.2</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-data-jdom-ext</artifactId>
-            <version>2.5-SNAPSHOT</version>
+            <version>2.5</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-engine</artifactId>
-            <version>2.2-SNAPSHOT</version>
+            <version>2.2</version>
         </dependency>
         <dependency>
             <groupId>com.cerner.ccl.whitenoise</groupId>
             <artifactId>whitenoise-rules-core</artifactId>
-            <version>2.6-SNAPSHOT</version>
+            <version>2.6</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-core</artifactId>
-            <version>2.3.0.1</version>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>3.0.1</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>2.4.0-b180830.0438</version>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>3.0.2-b01</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.doxia</groupId>
@@ -638,11 +631,10 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- TEST -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -654,7 +646,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>3.5.13</version>
+            <version>3.11.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -778,7 +770,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.3.0</version>
                 <configuration>
                     <charset>UTF-8</charset>
                     <docencoding>UTF-8</docencoding>
@@ -835,7 +827,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -861,13 +853,66 @@
     </reporting>
     <profiles>
         <profile>
+            <id>pitest</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <version>${pitest-version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>mutationCoverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <timestampedReports>false</timestampedReports>
+                            <targetClasses>
+                                <param>com.cerner.ccl.*</param>
+                            </targetClasses>
+                            <targetTests>
+                                <param>com.cerner.ccl.*</param>
+                            </targetTests>
+                            <avoidCallsTo>
+                                <avoidCallsTo>com.cerner.system.exception</avoidCallsTo>
+                                <avoidCallsTo>com.cerner.system.instrument</avoidCallsTo>
+                                <avoidCallsTo>java.util.logging</avoidCallsTo>
+                                <avoidCallsTo>org.apache.log4j</avoidCallsTo>
+                                <avoidCallsTo>org.slf4j</avoidCallsTo>
+                                <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
+                                <avoidCallsTo>java.lang.System</avoidCallsTo>
+                            </avoidCallsTo>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <version>${pitest-version}</version>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>report</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+        <profile>
             <id>fmt-validate</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>net.revelc.code.formatter</groupId>
                         <artifactId>formatter-maven-plugin</artifactId>
-                        <version>2.11.0</version>
+                        <version>2.15.0</version>
                         <executions>
                             <execution>
                                 <id>fmt-validate</id>
@@ -892,7 +937,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.1.0</version>
+                        <version>3.2.1</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -904,7 +949,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.1.1</version>
+                        <version>3.3.0</version>
                         <executions>
                             <execution>
                                 <goals>

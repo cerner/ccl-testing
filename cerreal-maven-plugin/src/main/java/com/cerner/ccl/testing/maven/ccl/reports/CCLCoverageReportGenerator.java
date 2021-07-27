@@ -1,27 +1,24 @@
 package com.cerner.ccl.testing.maven.ccl.reports;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-import java.util.Locale;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.maven.reporting.MavenReportException;
-
 import com.cerner.ccl.testing.maven.ccl.reports.common.CCLCoverageProgram;
 import com.cerner.ccl.testing.maven.ccl.reports.common.CoverageLine;
 import com.cerner.ccl.testing.maven.ccl.reports.common.CoveredStatus;
 import com.cerner.ccl.testing.maven.ccl.reports.common.ReportErrorLogger;
 import com.cerner.ccl.testing.xsl.XslAPI;
 import com.cerner.ccl.testing.xsl.XslAPIException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
+import java.util.Locale;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.maven.reporting.MavenReportException;
 
 /**
  * A utility class to generate the coverage report.
  *
  * @author Jeff Wiedemann
- *
  */
 
 // TODO: rewrite using jdom or, even better, JAXB?
@@ -30,6 +27,7 @@ public class CCLCoverageReportGenerator {
     private final Collection<CCLCoverageProgram> testPrograms;
     private final Collection<CCLCoverageProgram> sourcePrograms;
     private final ReportErrorLogger errorLogger;
+    private boolean includeTestCaseSourceCoverage;
 
     /**
      * Create a report generator.
@@ -49,6 +47,19 @@ public class CCLCoverageReportGenerator {
         this.sourcePrograms = sourcePrograms;
         this.testPrograms = testPrograms;
         this.errorLogger = errorLogger;
+        this.includeTestCaseSourceCoverage = true;
+    }
+
+    /**
+     * Specify whether to include code coverage for test case source code in the coverage report.
+     *
+     * @param include
+     *            A boolean value indicating whether to include the coverage (true) or not (false).
+     * @return this pointer to support the builder pattern.
+     */
+    public CCLCoverageReportGenerator withTestCaseSourceCoverage(final boolean include) {
+        this.includeTestCaseSourceCoverage = include;
+        return this;
     }
 
     /**
@@ -61,7 +72,8 @@ public class CCLCoverageReportGenerator {
         // Creates the main dashboard view for the code coverage report
         createDashboardFile(new File(outputDirectory.getAbsolutePath() + "/ccl-coverage-report.html"));
 
-        // Creates the various source files displaying coverage for certain scenarios linked from the dashboard
+        // Creates the various source files displaying coverage for certain scenarios linked from the
+        // dashboard
         createSourceCoverageFiles();
 
         // Writes out the css files used by this report to render HTML pages
@@ -114,10 +126,12 @@ public class CCLCoverageReportGenerator {
             createProgramReport(p, null, true);
             createProgramReport(p, null, false);
 
-            for (CCLCoverageProgram tp : testPrograms) {
-                if (p.wasTestedBy(tp)) {
-                    createProgramReport(p, tp, true);
-                    createProgramReport(p, tp, false);
+            if (includeTestCaseSourceCoverage) {
+                for (CCLCoverageProgram tp : testPrograms) {
+                    if (p.wasTestedBy(tp)) {
+                        createProgramReport(p, tp, true);
+                        createProgramReport(p, tp, false);
+                    }
                 }
             }
         }
@@ -220,8 +234,10 @@ public class CCLCoverageReportGenerator {
                 xml.append("</line>");
             } else {
                 if (!l.getSourceCodeOrigin().equals(lastOrigin)) {
-                    // Include a bogus program line for the %i include and give it a status of not covered. After
-                    // that, all lines from that include will be skipped until the origin is reverted back to the main
+                    // Include a bogus program line for the %i include and give it a status of not covered.
+                    // After
+                    // that, all lines from that include will be skipped until the origin is reverted back to
+                    // the main
                     // source program
                     xml.append("<line>");
                     writeElement(xml, "number", l.getLineNumber());
@@ -243,6 +259,7 @@ public class CCLCoverageReportGenerator {
      * Creates an XML representation of all programs, and tests which have been tested and what the code coverage for
      * those tests are. The XML is returned in the following format
      *
+     * <p>
      * coverageSummary testPrograms testProgram name totalLines coverage covered notCovered linkURL sourcePrograms
      * sourceProgram name withIncludes totalLines coverage aggregate covered notCovered linkURL tests test name covered
      * notCovered linkURL withoutIncludes totalLines coverage aggregate covered notCovered linkURL tests test name
@@ -255,6 +272,8 @@ public class CCLCoverageReportGenerator {
         StringBuilder xml = new StringBuilder();
 
         xml.append("<coverageSummary>");
+        xml.append("<skipTestSourceCoverage>").append(!includeTestCaseSourceCoverage)
+                .append("</skipTestSourceCoverage>");
 
         xml.append("<testPrograms>");
         for (CCLCoverageProgram p : testPrograms) {
@@ -317,7 +336,6 @@ public class CCLCoverageReportGenerator {
         xml.append("</sourcePrograms>");
 
         xml.append("</coverageSummary>");
-
         return xml.toString();
     }
 

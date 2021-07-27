@@ -26,7 +26,7 @@ public abstract class AbstractFileReaderITest {
      *             If any errors occur while reading the file.
      */
     protected List<String> readResource(final String path) throws IOException {
-        return FileUtils.readLines(toFile(path), Charset.forName("utf-8"));
+        return FileUtils.readLines(toFile(path), "UTF-8");
     }
 
     /**

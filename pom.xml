@@ -33,12 +33,14 @@
         <module>j4ccl</module>
         <module>cdoc/cdoc-parser</module>
         <module>cdoc/cdoc-maven-plugin</module>
-        <module>cclunit-framework-schema-xml</module>
         <module>whitenoise/whitenoise-parent-pom</module>
         <module>whitenoise/whitenoise-data</module>
         <module>whitenoise/whitenoise-data-jdom-ext</module>
         <module>whitenoise/whitenoise-rules-core</module>
+<!--
         <module>archetype/cclunit-maven-settings-check-archetype</module>
+        <module>cclunit-framework-schema-xml</module>
+-->
     </modules>
     <build>
         <extensions>
@@ -62,7 +64,7 @@
             <plugin>
                 <groupId>net.revelc.code.formatter</groupId>
                 <artifactId>formatter-maven-plugin</artifactId>
-                <version>2.11.0</version>
+                <version>2.15.0</version>
                 <executions>
                     <execution>
                         <id>fmt-format</id>
@@ -83,7 +85,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.8.2</version>
+                <version>3.9.1</version>
                 <configuration>
                     <skipDeploy>true</skipDeploy>
                 </configuration>
@@ -116,7 +118,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.8.2</version>
+                <version>3.9.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -134,7 +136,6 @@
                 <module>j4ccl</module>
                 <module>j4ccl-ssh</module>
                 <module>jsch-util</module>
-                <module>cclunit-framework-schema-xml</module>
                 <module>ccl-maven-plugin</module>
                 <module>cerreal-maven-plugin</module>
                 <module>whitenoise/whitenoise-parent-pom</module>
@@ -146,7 +147,10 @@
                 <module>cdoc/cdoc-parser</module>
                 <module>cdoc/cdoc-maven-plugin</module>
                 <module>archetype/cclunit-archetype</module>
+<!--                
+                <module>cclunit-framework-schema-xml</module>
                 <module>archetype/cclunit-maven-settings-check-archetype</module>
+-->                
             </modules>
         </profile>
     </profiles>
