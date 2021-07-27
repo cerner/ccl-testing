@@ -12,12 +12,12 @@
 * Fix [#26](https://github.com/cerner/ccl-testing/issues/26) Whitenoise fails on calls to uar_i18nGetMessage.
 * Fix [#28](https://github.com/cerner/ccl-testing/issues/28) CDoc plugin requires subroutine arguments to be typed.
 * Fix [#41](https://github.com/cerner/ccl-testing/issues/41) Whitenoise does not honor skipEnvset.
-* Fix [#44](https://github.com/cerner/ccl-testing/issues/44) loss of precision when deserializing F8 values on reply message.
+* Fix [#44](https://github.com/cerner/ccl-testing/issues/44) Loss of precision when deserializing F8 values on reply message.
 * Fix [#47](https://github.com/cerner/ccl-testing/issues/47) Wide characters cannot be set to CCL running on a Linux back end.
 
 ### Enhancements
 * Add the ability to skip broken whitenoise rules [#26](https://github.com/cerner/ccl-testing/issues/26).
-* Add the ablility to skip the generation and dislay of coverage data for unit test case source files.
+* Add the ablility to skip the generation and display of coverage data for unit test case source files.
 * Changed the default osPrompPattern to user(:environment)?@host:[^>~#$]*[>~#$] which is simpler and mathes all currently known OS prompt recommendations.
 
 ## 2020-01-17
