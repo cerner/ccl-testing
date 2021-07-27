@@ -204,17 +204,17 @@
                         <phase>process-test-sources</phase>
                         <configuration>
                             <target>
-                                <replace dir = "${project.build.testSourceDirectory}/com/cerner/ccl/testing/maven/ccl/reports/common/internal/jaxb">
+                                <replace dir = "${project.build.directory}/generated-test-sources">
                                     <include name="**/*.java"/>
                                     <replaceToken>javax.xml.bind.</replaceToken>
                                     <replaceValue>jakarta.xml.bind.</replaceValue>
                                 </replace>
-                                <replace dir = "${project.build.testSourceDirectory}/com/cerner/ccl/testing/maven/ccl/reports/common/internal/jaxb">
+                                <replace dir = "${project.build.directory}/generated-test-sources">
                                     <include name="**/*.java"/>
                                     <replaceToken>@SuppressWarnings("all") </replaceToken>
                                     <replaceValue></replaceValue>
                                 </replace>
-                                <replace dir = "${project.build.testSourceDirectory}/com/cerner/ccl/testing/maven/ccl/reports/common/internal/jaxb">
+                                <replace dir = "${project.build.directory}/generated-test-sources">
                                     <include name="**/*.java"/>
                                     <replaceToken>public class</replaceToken>
                                     <replaceValue>@SuppressWarnings("all") public class</replaceValue>
@@ -237,8 +237,6 @@
                         </goals>
                         <configuration>
                             <testSources>${project.build.directory}/schemas</testSources>
-                            <outputDirectory>${project.build.testSourceDirectory}</outputDirectory>
-                            <clearOutputDir>false</clearOutputDir>
                             <packageName>com.cerner.ccl.testing.maven.ccl.reports.common.internal.jaxb</packageName>
                         </configuration>
                     </execution>
@@ -294,13 +292,11 @@
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <scope>test</scope>
             <version>3.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
-            <scope>test</scope>
             <version>3.0.2-b01</version>
         </dependency>
         <dependency>
