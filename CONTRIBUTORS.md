@@ -1,5 +1,7 @@
 * Cerner Corporation
-* Fred Ecketson [@feckerston][fred-eckertson]
+* Jeff Wiedemann
+* Joshua Hyde
+* Fred Eckertson [@feckerston][fred-eckertson]
 * Bill Pennington [@bill.pennington][bill-pennington]
 * Nick Feldmann [@runningguy84][nicholas-feldmann]
 * Joshua Kuestersteffen [@jkuester][joshua-kuestersteffen]
