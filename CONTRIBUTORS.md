@@ -1,10 +1,10 @@
 * Cerner Corporation
-* Jeff Wiedemann
-* Joshua Hyde
 * Fred Eckertson [@feckerston][fred-eckertson]
-* Bill Pennington [@bill.pennington][bill-pennington]
 * Nick Feldmann [@runningguy84][nicholas-feldmann]
+* Joshua Hyde
+* Bill Pennington [@bill.pennington][bill-pennington]
 * Joshua Kuestersteffen [@jkuester][joshua-kuestersteffen]
+* Jeff Wiedemann
 
 [fred-eckertson]: https://github.com/feckertson
 [bill-pennington]: https://github.com/bill.pennington
