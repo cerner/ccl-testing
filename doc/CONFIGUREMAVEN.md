@@ -32,7 +32,10 @@ The ccl-keyFile property should only be supplied if using SSH key authentication
 file using `/` as the path separator and the public key file must reside in the same directory 
 and have the same name as the private key file but with a .pub extension. The private key can be passphrase protected. 
 The configured password for the backend host (via hostCredentialsId or hostPassword) will be used for the passphrase. 
-See [linode.com][linode] or [ssh.com] for an explanation of SSH public/private keys and setting them up. 
+See [linode.com][linode] or [ssh.com] for an explanation of SSH public/private keys and setting them up.  
+Only **PEM** format is supported by the version of JCraft currently used. Try regenerating the key using `-m PEM` if  
+you see the error `com.jcraft.jsch.JSchException: invalid privatekey`.
+
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
