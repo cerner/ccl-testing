@@ -17,8 +17,8 @@ Be sure the [prompt patterns] are correct. The plugin uses them to decide when t
 If a pattern does not match the actual prompt, the plugin will either hang indefinitely or time out waiting for the prompt. On the other hand, 
 if a prompt pattern ends up matching output that is not actually the OS prompt, the plugin could send a command before the back end is ready to receive it. 
 
-Passing the `-X` command argument to maven will cause the plugin to output to stdout
-exactly what is being sent to the back end and what response is being expected. Search the output for `commandExpectationGroup:` which will be followed by two lists,
+Use maven's `-X` command argument to see 
+exactly what is sent to the back, what response is expected and wht response is received. Add `> some_file_path` to dump the output to a file. Search the output for `commandExpectationGroup:` which will be followed by two lists,
 the commands sent to the back end and the regular expressions used to decide when the back end is ready for
 another command. The plugin waits for the output from the back end to match one of the regular expressions.
 
