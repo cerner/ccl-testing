@@ -15,12 +15,12 @@ the [downloading maven] instructions if you do not already have it installed.
 The [ccl-maven-plugin] must be provided credentials so it can transfer files to and from the back-end node and access CCL 
 in the target environment.  
 
-The [ccl-maven-plugin] must also be provided a [reqular expression][regular-expression] describing the input prompt for the back-end 
+The [ccl-maven-plugin] must also be provided a [regular expression][regular-expression] describing the input prompt for the back-end 
 operating system if the default value does not work (`username:environment@host:[^\r\n]*(\r|\n)+#\s*` 
 since ccl-maven-plugin version 3.1 and whitenoise-maven-plugin version 2.2, `username:environment@host:[^>]*>\s*`  before that). 
 
 Credential information can be provided in several ways, but we recommend using maven <b>profiles</b> and <b>servers</b> to specify it. 
-Moreover, we recommed specifying these items in a <b>settings.xml</b> file (opposed to putting them in the pom file of every single project). 
+Moreover, we recommend specifying these items in a <b>settings.xml</b> file (opposed to putting them in the pom file of every single project). 
 A copy of settings.xml resides in the conf folder of your maven installation, however, it is better to put the information in an abbreviated copy of 
 settings.xml in your <b>${user.home}/.m2</b> folder. That way the information will persist when maven is upgraded without having to copy it 
 forward to the new maven installation. Maven will coalesce settings provided via command parameters, the projects pom, your user-level settings.xml and the global
@@ -77,8 +77,9 @@ A single settings.xml can house the configuration for multiple nodes and domains
 
 Specifically, `mvn <maven command> -Psome-profile-id` will perform `<maven command>` using the values defined for the profile with the id `some-profile-id`.
 
-Note that the specified node user must have SSH access to the specified node, write access in CCLUSERDIR, and access to perform an envset to the specified ccl-environment.
-If any program is specified to be a `:dba` program, the host user must have DBA access in CCL. Otherwise the programs will be compiled at the host user's CCL access level.
+Note that the specified node user must have SSH access to the specified node with write access in CCLUSERDIR, CER_TEMP, CCLSOURCE and possibly other locations
+as well as access to perform an envset to the specified ccl-environment. If any program is specified to be a `:dba` program, 
+the host user must have DBA access in CCL. Otherwise the programs will be compiled at the host user's CCL access level.
 
 ## Password Security
 Don't want your passwords saved in clear text? Follow the [Maven Password Encryption Instructions](http://maven.apache.org/guides/mini/guide-encryption.html) to
@@ -86,7 +87,7 @@ encrypt the password value for the server tags. Note, however, that this only pr
 Some maven commands can display the decrypted values if the settings.xml and settings-security.xml files are both accessible. The only sure means of protection is to make 
 settings-security.xml inaccessible to others.
 
-In addition, the expect4j component logs everythig that gets sent to the backend including passwords. [Look here][password-logging-prevention] to see how to prevent that.
+In addition, the expect4j component logs everything that gets sent to the backend including passwords. [Look here][password-logging-prevention] to see how to prevent that.
 
 [ccl-maven-plugin]:../ccl-maven-plugin/README.md
 [password-logging-prevention]:../ccl-maven-plugin/doc/PASSWORDLOGGING.md

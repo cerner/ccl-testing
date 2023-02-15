@@ -7,11 +7,12 @@
 [Parsing Errors](#parsing-errors)  
 [Test Failures](#test-failures)  
 [Code Coverage Problems](#code-coverage-problems)  
+[Permission Issues](#permission-issues)  
 [Legacy Upgrades](#legacy-upgrades)  
 
 Timeout Issues
 ===
-expectj4 send status TIMEOUT (-2)
+expect4j send status TIMEOUT (-2)
 
 Be sure the [prompt patterns] are correct. The plugin uses them to decide when the back end system is ready to receive commands. 
 If a pattern does not match the actual prompt, the plugin will either hang indefinitely or time out waiting for the prompt. On the other hand, 
@@ -22,7 +23,7 @@ exactly what is sent to the back, what response is expected and wht response is 
 the commands sent to the back end and the regular expressions used to decide when the back end is ready for
 another command. The plugin waits for the output from the back end to match one of the regular expressions.
 
-The sending of commands and waiting for expected output is handled by [expect4j] which ouputs `sending command` followed by the command enclosed in parentheses as 
+The sending of commands and waiting for expected output is handled by [expect4j] which outputs `sending command` followed by the command enclosed in parentheses as 
 each command is sent. That is followed by more [expect4j] output showing the receipt and processing of the back-end output. The logging for this is rather chatty. The maven logging
 configuration can be modified to suppress some of the [expect4j] output.
 
@@ -60,6 +61,11 @@ Code Coverage Problems
 ===
 To see code coverage, [specifyDebugCcl](ccl-maven-plugin/doc/CONFIGURATIONOPTIONS.md#specifyDebugCcl) must be false for CCL versions prior to 8.13.0 and must not be
 false for later versions.
+
+Permission Issues
+===
+Verify the configured host user has write access in the directories being used. 
+The plugin normally writes files in cclsource, ccluserdir and cer_temp, and it might transfer some resource files to cer_install.  
 
 Legacy Upgrades
 ===
