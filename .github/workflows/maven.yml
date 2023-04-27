@@ -28,6 +28,18 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
+    - uses: s4u/maven-settings-action@v2.8.0
+      with:
+        mirrors:
+          '[
+            {
+              "id": "spring-ebr",
+              "name": "spring-ebr",
+              "mirrorOf": "spring-ebr",
+              "url": "http://repository.springsource.com/maven/bundles/external/",
+              "blocked": "false"
+            }
+          ]'
       run: mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -Pfmt-validate -B -V
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
