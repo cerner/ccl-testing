@@ -42,6 +42,13 @@
             </roles>
         </developer>
     </developers>
+    <repositories>
+      <repository>
+        <id>spring-ebr</id>
+        <name>spring-ebr</name>
+        <url>http://repository.springsource.com/maven/bundles/external</url>
+      </repository>
+    </repositories>
     <build>
         <extensions>
             <extension>
