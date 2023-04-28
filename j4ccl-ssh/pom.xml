@@ -44,9 +44,9 @@
     </developers>
     <repositories>
       <repository>
-        <id>forgerock-third-party</id>
-        <name>forgerock-third-party</name>
-        <url>https://maven.forgerock.org/ui/native/forgerock-third-party-virtual/</url>
+        <id>spring-ebr</id>
+        <name>spring-ebr</name>
+        <url>http://repository.springsource.com/maven/bundles/external</url>
       </repository>
     </repositories>
     <build>

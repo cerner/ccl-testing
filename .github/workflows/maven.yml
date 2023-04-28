@@ -27,6 +27,19 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+    - name: Create settings.xml
+      uses: s4u/maven-settings-action@v2.8.0
+      with:
+        mirrors: |
+          [
+            {
+              "id": "spring-ebr-mirror",
+              "name": "Spring EBR Mirror",
+              "mirrorOf": "spring-ebr",
+              "url": "http://repository.springsource.com/maven/bundles/external",
+              "blocked": "false"
+            }
+          ]
     - name: Build with Maven
       run: mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -Pfmt-validate -B -V
 
