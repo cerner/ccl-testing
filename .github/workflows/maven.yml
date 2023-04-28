@@ -40,6 +40,7 @@ jobs:
               "blocked": "false"
             }
           ]
+          
       run: mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -Pfmt-validate -B -V
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
